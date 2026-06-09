@@ -1,0 +1,26 @@
+{
+  "label": "HbM Macros",
+  "entries": {
+    "Nałóż Przypadłość": {
+      "name": "Apply Condition"
+    },
+    "Test Atrybutu": {
+      "name": "Attribute Check"
+    },
+    "Pomocnik Rzucania Grupowego": {
+      "name": "Group Cast Helper"
+    },
+    "Długi Odpoczynek": {
+      "name": "Long Rest"
+    },
+    "Rzut Puli d6": {
+      "name": "Pool Roll"
+    },
+    "Doładuj Zapał": {
+      "name": "Refill Zeal"
+    },
+    "Krótki Odpoczynek": {
+      "name": "Short Rest"
+    }
+  }
+}

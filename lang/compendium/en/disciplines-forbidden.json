@@ -1,0 +1,23 @@
+{
+  "label": "Forbidden Disciplines",
+  "entries": {
+    "Magia Otchłani — Magia Aspektów": {
+      "name": "AbyssAspects"
+    },
+    "Magia Otchłani — Pierwotna Magia": {
+      "name": "AbyssPrimal"
+    },
+    "Magia Krwi": {
+      "name": "Blood Magic"
+    },
+    "Magia Szkarłatu": {
+      "name": "Crimson"
+    },
+    "Dzika Wiedźmia Magia": {
+      "name": "Wild Witch Magic"
+    },
+    "Magia Otchłani": {
+      "name": "Abyss Magic"
+    }
+  }
+}

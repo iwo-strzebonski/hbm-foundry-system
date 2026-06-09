@@ -1,0 +1,66 @@
+{
+  "label": "Magic Disciplines",
+  "entries": {
+    "Alchemia - Warzenie Eliksirów": {
+      "name": "Alchemy - Brewing of Elixirs"
+    },
+    "Alchemia - Transmutacja": {
+      "name": "Alchemy - Transmutation"
+    },
+    "Rzemiosło Artefaktów": {
+      "name": "Crafting of Artifacts",
+      "description": "[[Rzemiosło Artefaktów]]"
+    },
+    "Botanika": {
+      "name": "Botany",
+      "description": "[[Botanika]]"
+    },
+    "Magia Żywiołów (Powietrze)": {
+      "name": "Elemental Magic - Air"
+    },
+    "Magia Żywiołów (Ziemia)": {
+      "name": "Elemental Magic - Earth"
+    },
+    "Magia Żywiołów (Ogień)": {
+      "name": "Elemental Magic - Fire"
+    },
+    "Magia Żywiołów (Woda)": {
+      "name": "Elemental Magic - Water"
+    },
+    "Golemancja": {
+      "name": "Golemancy"
+    },
+    "Magia Iluzji": {
+      "name": "Magic of Illusion",
+      "description": "[[Magic Iluzji]]"
+    },
+    "Źródło Mocy": {
+      "name": "Sources of Power",
+      "description": "Nie potrafisz rzucać zaklęć, ale Twoje ciało jest w stanie przechowywać znacznie więcej many, a ponadto możesz asystować innym magom w rzucaniu zaklęć, udzielając im many. Pierwotna Energia Nie możesz rzucać ani rozplatać zaklęć. Twój Maksymalny Koszt Zaklęcia oraz Ilość Many zostają dwukrotnie zwiększone."
+    },
+    "Nekromancja": {
+      "name": "Necromancy",
+      "description": "![[spells/academic/necromancy/ether-guide]]"
+    },
+    "Magia Runiczna": {
+      "name": "Runic Magic"
+    },
+    "Magia Sakralna": {
+      "name": "Sacred Magic"
+    },
+    "Magia Sakralna — Egzorcyzmy": {
+      "name": "Sacred Magic - Exorcisms",
+      "description": "[[Magic Sakralna]]"
+    },
+    "Wiedźmia Magia": {
+      "name": "Witch Magic",
+      "description": "[[Wiedźmia Magic]]"
+    },
+    "Alchemia": {
+      "name": "Alchemy"
+    },
+    "Magia Żywiołów": {
+      "name": "Elemental Magic"
+    }
+  }
+}

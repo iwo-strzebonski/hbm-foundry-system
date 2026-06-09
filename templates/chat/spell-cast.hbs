@@ -1,0 +1,88 @@
+<div class="hbm spell-cast-card" data-spell-name="{{spell.name}}">
+    <header class="hbm-card-header">
+        <h3>{{spell.name}}</h3>
+        <div class="hbm-card-meta">
+            {{#if mode}}<span class="badge mode mode-{{mode}}">{{localize (concat 'HBM.spell.castingMode.' mode)}}</span>{{/if}}
+            {{#if school}}<span class="badge school">{{localize (concat 'HBM.spellSchool.' school)}}</span>{{/if}}
+            {{#if circle}}<span class="badge circle">{{localize 'HBM.spell.circle'}} {{circle}}</span>{{/if}}
+            {{#if outcome.success}}
+                <span class="badge result success">✓ {{localize 'HBM.spellCast.success'}}</span>
+            {{else}}
+                <span class="badge result failure">✗ {{localize 'HBM.spellCast.failure'}}</span>
+            {{/if}}
+        </div>
+    </header>
+
+    {{#if costs.length}}
+        <ul class="hbm-card-costs">
+            {{#each costs as |c|}}
+                <li>{{c.label}}: <strong>{{c.amount}}</strong></li>
+            {{/each}}
+        </ul>
+    {{/if}}
+
+    {{#if outcome.success}}
+        {{#if damage}}
+            <section class="hbm-card-damage">
+                <h4>{{localize 'HBM.spellCast.damage'}}</h4>
+                <div class="damage-line">
+                    <strong>{{damage.total}}</strong>
+                    {{#if damage.type}}<span class="badge damage-type">{{localize (concat 'HBM.damageType.' damage.type)}}</span>{{/if}}
+                    {{#if damage.ignoresArmor}}<span class="badge ignores-armor">{{localize 'HBM.spell.ignoresArmor'}}</span>{{/if}}
+                </div>
+                <div class="damage-formula"><code>{{damage.formula}}</code></div>
+                {{#if damage.targets}}
+                    <div class="hbm-card-targets">
+                        {{#each damage.targets as |t|}}
+                            <button type="button" class="hbm-action" data-action="hbm-apply-damage" data-target-uuid="{{t.uuid}}" data-amount="{{../damage.total}}" data-type="{{../damage.type}}" data-ignores-armor="{{../damage.ignoresArmor}}">
+                                ⚔ {{t.name}}
+                            </button>
+                        {{/each}}
+                    </div>
+                {{else}}
+                    <p class="hbm-card-hint">{{localize 'HBM.spellCast.targetSomeone'}}</p>
+                {{/if}}
+            </section>
+        {{/if}}
+
+        {{#if save}}
+            <section class="hbm-card-save">
+                <strong>{{localize 'HBM.spellCast.saveTarget'}}:</strong>
+                {{localize (concat 'HBM.attributes.' save.attribute)}}
+                {{#if save.skill}}+ {{localize (concat 'HBM.skills.' save.skill)}}{{/if}}
+            </section>
+        {{/if}}
+
+        {{#if statusEffects.length}}
+            <section class="hbm-card-status">
+                <h4>{{localize 'HBM.spellCast.statusEffects'}}</h4>
+                <div class="status-buttons">
+                    {{#each statusEffects as |s|}}
+                        <button type="button" class="hbm-action" data-action="hbm-apply-status" data-effect-id="{{s.id}}">
+                            {{s.label}}
+                        </button>
+                    {{/each}}
+                </div>
+                <p class="hbm-card-hint">{{localize 'HBM.spellCast.applyToTargets'}}</p>
+            </section>
+        {{/if}}
+
+        {{#if triggers.length}}
+            <section class="hbm-card-triggers">
+                <h4>{{localize 'HBM.spellCast.triggers'}}</h4>
+                <ul>
+                    {{#each triggers as |t|}}
+                        <li><span class="badge trigger-event">{{localize (concat 'HBM.triggerEvent.' t.event)}}</span> — {{t.effect}}</li>
+                    {{/each}}
+                </ul>
+            </section>
+        {{/if}}
+    {{/if}}
+
+    {{#if description}}
+        <details class="hbm-card-description">
+            <summary>{{localize 'HBM.spell.description'}}</summary>
+            <div>{{{description}}}</div>
+        </details>
+    {{/if}}
+</div>

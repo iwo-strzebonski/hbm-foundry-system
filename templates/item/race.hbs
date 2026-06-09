@@ -1,0 +1,25 @@
+<div class="hbm item-body race">
+    <div class="row">
+        <label>{{localize 'HBM.race.attributePoints'}}: <input type="number" name="system.attributePoints" value="{{system.attributePoints}}" min="0"/></label>
+        <label>{{localize 'HBM.race.skillPoints'}}: <input type="number" name="system.skillPoints" value="{{system.skillPoints}}" min="0"/></label>
+    </div>
+    <label>{{localize 'HBM.race.physicalDescription'}}<input type="text" name="system.physicalDescription" value="{{system.physicalDescription}}"/></label>
+<fieldset>
+    <legend>{{localize 'HBM.race.traits'}}
+        <button type="button" data-action="addArrayEntry" data-path="system.traits"
+            data-template='{"name":"","description":""}' title="{{localize 'HBM.ui.add'}}">＋</button>
+    </legend>
+    {{#each system.traits as |t idx|}}
+    <div class="row">
+        <input type="text" name="system.traits.{{idx}}.name" value="{{t.name}}"
+            placeholder="{{localize 'HBM.ui.name'}}" />
+        <input type="text" name="system.traits.{{idx}}.description" value="{{t.description}}"
+            placeholder="{{localize 'HBM.gear.description'}}" />
+        <button type="button" data-action="removeArrayEntry" data-path="system.traits" data-index="{{idx}}">✕</button>
+    </div>
+    {{/each}}
+</fieldset>
+
+<label>{{localize 'HBM.race.description'}}<textarea name="system.description"
+        rows="6">{{system.description}}</textarea></label>
+</div>

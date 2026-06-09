@@ -1,0 +1,197 @@
+<div class="sheet-wrapper">
+    <header class="sheet-header" style="display: flex; gap: 15px; align-items: flex-start; padding-bottom: 10px;">
+        <div class="bio-image-container" style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+            <img class="profile-img" src="{{document.img}}" data-action="editImage" title="{{document.name}}" height="80" width="80" style="border: 2px solid #555; border-radius: 4px; cursor: pointer; background: #222;" />
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+            <input type="text" name="name" value="{{document.name}}" placeholder="{{localize 'HBM.ui.name'}}" style="font-size: 1.4rem; font-weight: bold; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.25); color: #f0e6d0; width: 100%;" />
+            <div class="meta" style="margin-top: 0px; margin-bottom: 0px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+                <label>{{localize 'HBM.npc.type'}}: <input type="text" name="system.details.type" value="{{system.details.type}}" style="width: 7rem;"/></label>
+                <label>{{localize 'HBM.npc.size'}}: <input type="text" name="system.details.size" value="{{system.details.size}}" style="width: 5rem;"/></label>
+                <label>{{localize 'HBM.npc.xp'}}: <input type="number" name="system.details.xp" value="{{system.details.xp}}" min="0" style="width: 4rem;"/></label>
+                <label>{{localize 'HBM.details.startingYear'}}: <input type="number" name="system.details.startingYear" value="{{system.details.startingYear}}" min="1900" style="width: 4rem;"/></label>
+                <label>{{localize 'HBM.details.currentYear'}}: <input type="number" name="system.details.currentYear" value="{{system.details.currentYear}}" min="1900" style="width: 4rem;"/></label>
+                <button type="button" class="header-btn" data-action="rollInitiative" title="{{localize 'HBM.resources.initiative'}}" style="margin-left: auto;">⚡ {{localize 'HBM.resources.initiative'}}</button>
+                <button type="button" class="header-btn" data-action="applyDamage" title="{{localize 'HBM.damage.title'}}" style="margin-left: 10px;">⚔ {{localize
+                    'HBM.damage.apply'}}</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="sheet-body">
+        <section class="attributes-grid">
+        {{#each attributes as |attr|}}
+            <div class="attribute">
+                <label>{{attr.label}}</label>
+                {{#if (eq attr.key 'magic')}}
+                <select name="system.attributes.magic.value" style="width: 4rem; text-align: center; border: none; border-bottom: 1px solid var(--hbm-border); background: transparent; color: var(--hbm-fg);">
+                    <option value="0" {{#if (eq attr.value 0)}}selected{{/if}}>0</option>
+                    <option value="1" {{#if (eq attr.value 1)}}selected{{/if}}>I</option>
+                    <option value="2" {{#if (eq attr.value 2)}}selected{{/if}}>II</option>
+                    <option value="3" {{#if (eq attr.value 3)}}selected{{/if}}>III</option>
+                    <option value="4" {{#if (eq attr.value 4)}}selected{{/if}}>IV</option>
+                    <option value="5" {{#if (eq attr.value 5)}}selected{{/if}}>V</option>
+                    <option value="6" {{#if (eq attr.value 6)}}selected{{/if}}>VI</option>
+                    <option value="7" {{#if (eq attr.value 7)}}selected{{/if}}>VII</option>
+                    <option value="8" {{#if (eq attr.value 8)}}selected{{/if}}>VIII</option>
+                    <option value="9" {{#if (eq attr.value 9)}}selected{{/if}}>IX</option>
+                    <option value="10" {{#if (eq attr.value 10)}}selected{{/if}}>X</option>
+                </select>
+                <span class="actual-magic-badge" title="{{localize 'HBM.attributes.actualMagicHint'}}" style="font-size: 0.75rem; margin-top: 0.15rem; color: #a03030; font-weight: bold;">
+                    ({{localize 'HBM.attributes.actual'}}: {{attr.actualLabel}})
+                </span>
+                {{else}}
+                <input type="number" name="system.attributes.{{attr.key}}.value" value="{{attr.value}}" min="0" max="20"/>
+                {{/if}}
+                <button type="button" class="roll-button" data-action="rollAttribute" data-attribute="{{attr.key}}"
+                    title="{{localize 'HBM.roll.roll'}}">⚂</button>
+            </div>
+        {{/each}}
+    </section>
+
+    <section class="resources-grid">
+        <div class="resource">
+            <label>{{localize 'HBM.resources.health'}}</label>
+            <span class="resource-value">
+                <input type="number" name="system.attributes.health.value" value="{{system.attributes.health.value}}" min="0"/>
+                <span class="sep">/</span>
+                <input type="number" name="system.attributes.health.max" value="{{system.attributes.health.max}}" min="1"/>
+            </span>
+        </div>
+        <div class="resource">
+            <label>{{localize 'HBM.resources.physicalArmor'}}</label>
+            <input type="number" name="system.attributes.physicalArmor.value" value="{{system.attributes.physicalArmor.value}}"
+                min="0" />
+        </div>
+        <div class="resource">
+            <label>{{localize 'HBM.resources.magicalShield'}}</label>
+            <input type="number" name="system.attributes.magicalShield.value" value="{{system.attributes.magicalShield.value}}"
+                min="0" />
+        </div>
+        <div class="resource">
+            <label>{{localize 'HBM.resources.magicalArmor'}}</label>
+            <span class="resource-value">
+                <input type="number" name="system.attributes.magicalArmor.value" value="{{system.attributes.magicalArmor.value}}"
+                    min="0" />
+                <span class="sep">/</span>
+                <input type="number" name="system.attributes.magicalArmor.max" value="{{system.attributes.magicalArmor.max}}" min="0" />
+            </span>
+        </div>
+        <div class="resource">
+            <label>{{localize 'HBM.npc.speed'}}</label>
+            <input type="text" name="system.attributes.speed" value="{{system.attributes.speed}}"/>
+        </div>
+        <div class="resource" style="display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: center;">
+            <label style="font-size: 0.75rem; text-transform: uppercase;">{{localize 'HBM.ui.money'}}</label>
+            <input type="number" name="system.details.money" value="{{system.details.money}}" min="0" style="width: 3.5rem; text-align: center; border: none; border-bottom: 1px solid var(--hbm-border); background: transparent; color: var(--hbm-fg);"/>
+            <span>PLN</span>
+            <button type="button" data-action="recalculateMoney" style="padding: 1px 5px; font-size: 0.75rem; background: var(--hbm-accent); color: #fff; border: none; border-radius: var(--hbm-radius); cursor: pointer;" title="{{localize 'HBM.ui.recalculate'}}">🪙</button>
+        </div>
+    </section>
+
+    <section class="npc-meta-section">
+        <label>{{localize 'HBM.npc.senses'}}: <input type="text" name="system.details.senses" value="{{system.details.senses}}"/></label>
+        <label>{{localize 'HBM.npc.languages'}}: <input type="text" name="system.details.languages" value="{{system.details.languages}}"/></label>
+    </section>
+    
+    <section class="combat-lists">
+        <fieldset>
+            <legend>{{localize 'HBM.npc.attacks'}}
+                <button type="button" data-action="addArrayEntry" data-path="system.combat.attacks"
+                    data-template='{"name":"","description":"","damage":"","damageType":"physical","bonus":0}'
+                    title="{{localize 'HBM.ui.add'}}">＋</button>
+            </legend>
+            {{#each system.combat.attacks as |a idx|}}
+            <div class="row">
+                <input type="text" name="system.combat.attacks.{{idx}}.name" value="{{a.name}}"
+                    placeholder="{{localize 'HBM.ui.name'}}" />
+                <input type="number" name="system.combat.attacks.{{idx}}.bonus" value="{{a.bonus}}" min="0"
+                    title="{{localize 'HBM.roll.pool'}}" />
+                <input type="text" name="system.combat.attacks.{{idx}}.damage" value="{{a.damage}}"
+                    placeholder="{{localize 'HBM.gear.damage'}}" />
+                <input type="text" name="system.combat.attacks.{{idx}}.description" value="{{a.description}}"
+                    placeholder="{{localize 'HBM.gear.description'}}" />
+                <button type="button" data-action="rollNpcAttack" data-index="{{idx}}"
+                    title="{{localize 'HBM.roll.roll'}}">⚂</button>
+                <button type="button" data-action="removeArrayEntry" data-path="system.combat.attacks" data-index="{{idx}}"
+                    title="{{localize 'HBM.ui.delete'}}">✕</button>
+            </div>
+            {{/each}}
+        </fieldset>
+    
+        <fieldset>
+            <legend>{{localize 'HBM.npc.specialAbilities'}}
+                <button type="button" data-action="addArrayEntry" data-path="system.combat.specialAbilities"
+                    data-template='{"name":"","description":""}' title="{{localize 'HBM.ui.add'}}">＋</button>
+            </legend>
+            {{#each system.combat.specialAbilities as |a idx|}}
+            <div class="row">
+                <input type="text" name="system.combat.specialAbilities.{{idx}}.name" value="{{a.name}}" />
+                <input type="text" name="system.combat.specialAbilities.{{idx}}.description" value="{{a.description}}" />
+                <button type="button" data-action="removeArrayEntry" data-path="system.combat.specialAbilities"
+                    data-index="{{idx}}">✕</button>
+            </div>
+            {{/each}}
+        </fieldset>
+    
+        <fieldset>
+            <legend>{{localize 'HBM.npc.reactions'}}
+                <button type="button" data-action="addArrayEntry" data-path="system.combat.reactions"
+                    data-template='{"name":"","description":""}' title="{{localize 'HBM.ui.add'}}">＋</button>
+            </legend>
+            {{#each system.combat.reactions as |a idx|}}
+            <div class="row">
+                <input type="text" name="system.combat.reactions.{{idx}}.name" value="{{a.name}}" />
+                <input type="text" name="system.combat.reactions.{{idx}}.description" value="{{a.description}}" />
+                <button type="button" data-action="removeArrayEntry" data-path="system.combat.reactions"
+                    data-index="{{idx}}">✕</button>
+            </div>
+            {{/each}}
+        </fieldset>
+    
+        <fieldset>
+            <legend>{{localize 'HBM.npc.legendaryActions'}}
+                <button type="button" data-action="addArrayEntry" data-path="system.combat.legendaryActions"
+                    data-template='{"name":"","description":""}' title="{{localize 'HBM.ui.add'}}">＋</button>
+            </legend>
+            {{#each system.combat.legendaryActions as |a idx|}}
+            <div class="row">
+                <input type="text" name="system.combat.legendaryActions.{{idx}}.name" value="{{a.name}}" />
+                <input type="text" name="system.combat.legendaryActions.{{idx}}.description" value="{{a.description}}" />
+                <button type="button" data-action="removeArrayEntry" data-path="system.combat.legendaryActions"
+                    data-index="{{idx}}">✕</button>
+            </div>
+            {{/each}}
+        </fieldset>
+    </section>
+    
+    <section class="lore">
+        <label>{{localize 'HBM.gear.description'}}</label>
+        <textarea name="system.lore.description" rows="6">{{system.lore.description}}</textarea>
+    </section>
+{{#if spells.length}}
+<section class="spells-list">
+    <fieldset>
+        <legend>{{localize 'HBM.ui.tabs.spells'}}</legend>
+        {{#each spells as |sp|}}
+        <div class="row spell-row">
+            <span class="badge mode mode-{{sp.system.castingMode}}"
+                title="{{localize (concat 'HBM.spell.castingMode.' sp.system.castingMode)}}">{{sp.system.castingMode}}</span>
+            <span class="spell-name"><strong>{{sp.name}}</strong>{{#if sp.system.circle}}
+                <small>K{{sp.system.circle}}</small>{{/if}}</span>
+            <button type="button" data-action="castSpell" data-item-id="{{sp.id}}"
+                title="{{localize 'HBM.spell.cast'}}">✦ {{localize 'HBM.spell.cast'}}</button>
+            <button type="button" data-action="editItem" data-item-id="{{sp.id}}"
+                title="{{localize 'HBM.ui.edit'}}">✎</button>
+            <button type="button" data-action="deleteItem" data-item-id="{{sp.id}}"
+                title="{{localize 'HBM.ui.delete'}}">✕</button>
+        </div>
+        {{/each}}
+    </fieldset>
+</section>
+{{/if}}
+<section class="actor-effects-section">
+    {{> 'systems/hbm-rpg-v3/templates/actor/_actor-effects.hbs'}}
+</section>
+</div>
+</div>

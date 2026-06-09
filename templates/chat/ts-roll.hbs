@@ -1,0 +1,21 @@
+<div class="hbm ts-roll">
+    <div class="formula">{{formula}}</div>
+    {{#if flavor}}<div class="flavor">{{flavor}}</div>{{/if}}
+    <div class="dice">
+        {{#each dice}}
+            <span class="{{cls}}" title="{{face}}">{{face}}</span>
+        {{/each}}
+    </div>
+    <div class="summary {{#if ts.isSuccess}}success{{else}}failure{{/if}}">
+        {{localize "HBM.roll.successes"}}: <strong>{{ts.successes}}</strong>
+        / {{localize "HBM.roll.required"}}: {{ts.required}}
+        ({{localize "HBM.roll.threshold"}} {{ts.threshold}})
+        — {{#if ts.isSuccess}}{{localize "HBM.roll.success"}}{{else}}{{localize "HBM.roll.failure"}}{{/if}}
+    </div>
+    {{#if ts.criticalSuccesses}}
+        <div class="crit">{{localize "HBM.roll.criticalSuccess"}}: {{ts.criticalSuccesses}}</div>
+    {{/if}}
+    {{#if ts.criticalFailures}}
+        <div class="crit">{{localize "HBM.roll.criticalFailure"}}: {{ts.criticalFailures}}</div>
+    {{/if}}
+</div>

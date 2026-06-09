@@ -1,0 +1,252 @@
+<div class="hbm item-body spell">
+
+    {{!-- ── Identification ──────────────────────────────────────────── --}}
+    <fieldset>
+        <legend>{{localize 'HBM.spell.label'}}</legend>
+        <div class="row">
+            <label>{{localize 'HBM.spell.circle'}}:
+                <input type="number" name="system.circle" value="{{system.circle}}" min="0" max="9" />
+            </label>
+            <label>{{localize 'HBM.spell.school'}}:
+                <select name="system.school">
+                    {{#each @root.choices.schools as |label key|}}
+                    <option value="{{key}}" {{#if (eq ../system.school key)}}selected{{/if}}>{{label}}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <label>{{localize 'HBM.spell.discipline'}}:
+                <input type="text" name="system.discipline" value="{{system.discipline}}" />
+            </label>
+        </div>
+        <div class="row">
+            <label>{{localize 'HBM.spell.castingMode.label'}}:
+                <select name="system.castingMode">
+                    <option value="standard" {{#if (eq system.castingMode 'standard')}}selected{{/if}}>{{localize 'HBM.spell.castingMode.standard'}}</option>
+                    <option value="sacred"   {{#if (eq system.castingMode 'sacred')}}selected{{/if}}>{{localize 'HBM.spell.castingMode.sacred'}}</option>
+                    <option value="witch"    {{#if (eq system.castingMode 'witch')}}selected{{/if}}>{{localize 'HBM.spell.castingMode.witch'}}</option>
+                    <option value="blood"    {{#if (eq system.castingMode 'blood')}}selected{{/if}}>{{localize 'HBM.spell.castingMode.blood'}}</option>
+                </select>
+            </label>
+            {{#if (eq system.castingMode 'sacred')}}
+            <label>{{localize 'HBM.spell.deity'}}:
+                <select name="system.deity">
+                    <option value="">—</option>
+                    {{#each @root.choices.deities as |label key|}}
+                    <option value="{{key}}" {{#if (eq ../system.deity key)}}selected{{/if}}>{{label}}</option>
+                    {{/each}}
+                </select>
+            </label>
+            {{/if}}
+            <label>{{localize 'HBM.spell.sourceBook'}}:
+                <select name="system.sourceBook">
+                    <option value="">—</option>
+                    {{#each @root.choices.sourceBooks as |label key|}}
+                    <option value="{{key}}" {{#if (eq ../system.sourceBook key)}}selected{{/if}}>{{label}}</option>
+                    {{/each}}
+                </select>
+            </label>
+        </div>
+        <div class="row flags">
+            <label><input type="checkbox" name="system.isSuperspell"     {{#if system.isSuperspell}}checked{{/if}}/> {{localize 'HBM.spell.isSuperspell'}}</label>
+            <label><input type="checkbox" name="system.requiresGroupCast"{{#if system.requiresGroupCast}}checked{{/if}}/> {{localize 'HBM.spell.requiresGroupCast'}}</label>
+            <label><input type="checkbox" name="system.nonCombatOnly"    {{#if system.nonCombatOnly}}checked{{/if}}/> {{localize 'HBM.spell.nonCombatOnly'}}</label>
+            {{#if system.requiresGroupCast}}
+            <label>{{localize 'HBM.spell.minCasters'}}:
+                <input type="number" name="system.minCasters" value="{{system.minCasters}}" min="1" max="10" />
+            </label>
+            {{/if}}
+        </div>
+    </fieldset>
+
+    {{!-- ── Cost & Difficulty ───────────────────────────────────────── --}}
+    <fieldset>
+        <legend>{{localize 'HBM.spell.cost'}}</legend>
+        <div class="row">
+            <label>{{localize 'HBM.spell.difficultyThreshold'}}:
+                <input type="number" name="system.difficulty.threshold" value="{{system.difficulty.threshold}}" min="2" max="6" />
+            </label>
+            <label>{{localize 'HBM.spell.difficultySuccesses'}}:
+                <input type="number" name="system.difficulty.successes" value="{{system.difficulty.successes}}" min="1" max="10" />
+            </label>
+            <label>{{localize 'HBM.spell.manaCost'}}:
+                <input type="number" name="system.manaCost" value="{{system.manaCost}}" min="0" />
+            </label>
+            {{#if (eq system.castingMode 'blood')}}
+            <label>{{localize 'HBM.spell.bloodCost'}}:
+                <input type="number" name="system.bloodCost" value="{{system.bloodCost}}" min="0" />
+            </label>
+            {{/if}}
+        </div>
+    </fieldset>
+
+    {{!-- ── Timing & Geometry ──────────────────────────────────────── --}}
+    <fieldset>
+        <legend>{{localize 'HBM.spell.timing'}}</legend>
+        <div class="row">
+            <label>{{localize 'HBM.spell.castingTime'}}:
+                <input type="text" name="system.castingTime" value="{{system.castingTime}}" />
+            </label>
+            <label>{{localize 'HBM.spell.castingTimeRounds'}}:
+                <input type="number" name="system.castingTimeRounds" value="{{system.castingTimeRounds}}" min="0" />
+            </label>
+            <label>{{localize 'HBM.spell.castingTimeMinutes'}}:
+                <input type="number" name="system.castingTimeMinutes" value="{{system.castingTimeMinutes}}" min="0" />
+            </label>
+        </div>
+        <div class="row">
+            <label>{{localize 'HBM.spell.range'}}:
+                <input type="text" name="system.range" value="{{system.range}}" />
+            </label>
+            <label>{{localize 'HBM.spell.targets'}}:
+                <input type="text" name="system.targets" value="{{system.targets}}" />
+            </label>
+            <label>{{localize 'HBM.spell.duration'}}:
+                <input type="text" name="system.duration" value="{{system.duration}}" />
+            </label>
+        </div>
+        <div class="row">
+            <label>{{localize 'HBM.spell.aoeShape'}}:
+                <select name="system.areaOfEffect.shape">
+                    {{#each @root.choices.aoeShapes as |label key|}}
+                    <option value="{{key}}" {{#if (eq ../system.areaOfEffect.shape key)}}selected{{/if}}>{{label}}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <label>X: <input type="number" name="system.areaOfEffect.x" value="{{system.areaOfEffect.x}}" min="0" /></label>
+            <label>Y: <input type="number" name="system.areaOfEffect.y" value="{{system.areaOfEffect.y}}" min="0" /></label>
+            <label>{{localize 'HBM.spell.aoeUnit'}}:
+                <input type="text" name="system.areaOfEffect.unit" value="{{system.areaOfEffect.unit}}" />
+            </label>
+        </div>
+    </fieldset>
+
+    {{!-- ── Components ─────────────────────────────────────────────── --}}
+    <fieldset>
+        <legend>{{localize 'HBM.spell.components'}}</legend>
+        <div class="row">
+            <label><input type="checkbox" name="system.components.verbal"  {{#if system.components.verbal}}checked{{/if}}/> {{localize 'HBM.spell.verbal'}}</label>
+            <label><input type="checkbox" name="system.components.somatic" {{#if system.components.somatic}}checked{{/if}}/> {{localize 'HBM.spell.somatic'}}</label>
+            <label>{{localize 'HBM.spell.material'}}:
+                <input type="text" name="system.components.material" value="{{system.components.material}}" />
+            </label>
+        </div>
+        {{#if (or (eq system.castingMode 'witch') (eq system.castingMode 'sacred'))}}
+        <div class="array-list">
+            <strong>{{localize 'HBM.spell.symbols'}}</strong>
+            {{#each system.components.symbols as |sym i|}}
+            <div class="array-row">
+                <input type="text" name="system.components.symbols.{{i}}" value="{{sym}}" />
+                <button type="button" data-action="removeArrayEntry" data-path="system.components.symbols" data-index="{{i}}">✕</button>
+            </div>
+            {{/each}}
+            <button type="button" data-action="addArrayEntry" data-path="system.components.symbols" data-template="&quot;&quot;">+ {{localize 'HBM.ui.add'}}</button>
+        </div>
+        {{/if}}
+    </fieldset>
+
+    {{!-- ── Damage & Status ────────────────────────────────────────── --}}
+    <fieldset>
+        <legend>{{localize 'HBM.spell.damage'}}</legend>
+        <div class="row">
+            <label>{{localize 'HBM.spell.damageBase'}}:
+                <input type="text" name="system.damageBase" value="{{system.damageBase}}" placeholder="np. 1d6+magicalAbilities" />
+            </label>
+            <label>{{localize 'HBM.spell.damageType'}}:
+                <select name="system.damageType">
+                    {{#each @root.choices.damageTypes as |label key|}}
+                    <option value="{{key}}" {{#if (eq ../system.damageType key)}}selected{{/if}}>{{label}}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <label><input type="checkbox" name="system.ignoresArmor" {{#if system.ignoresArmor}}checked{{/if}}/> {{localize 'HBM.spell.ignoresArmor'}}</label>
+        </div>
+        <div class="row">
+            <label>{{localize 'HBM.spell.saveAttribute'}}:
+                <input type="text" name="system.saveAttribute" value="{{system.saveAttribute}}" />
+            </label>
+            <label>{{localize 'HBM.spell.saveSkill'}}:
+                <input type="text" name="system.saveSkill" value="{{system.saveSkill}}" />
+            </label>
+        </div>
+        <div class="array-list">
+            <strong>{{localize 'HBM.spell.statusEffects'}}</strong>
+            {{#each system.statusEffects as |eff i|}}
+            <div class="array-row">
+                <input type="text" name="system.statusEffects.{{i}}" value="{{eff}}" />
+                <button type="button" data-action="removeArrayEntry" data-path="system.statusEffects" data-index="{{i}}">✕</button>
+            </div>
+            {{/each}}
+            <button type="button" data-action="addArrayEntry" data-path="system.statusEffects" data-template="&quot;&quot;">+ {{localize 'HBM.ui.add'}}</button>
+        </div>
+    </fieldset>
+
+    {{!-- ── Requirements ───────────────────────────────────────────── --}}
+    <fieldset>
+        <legend>{{localize 'HBM.spell.requirements'}}</legend>
+        <div class="array-list">
+            <strong>{{localize 'HBM.spell.requirementRace'}}</strong>
+            {{#each system.requirements.race as |x i|}}
+            <div class="array-row">
+                <input type="text" name="system.requirements.race.{{i}}" value="{{x}}" />
+                <button type="button" data-action="removeArrayEntry" data-path="system.requirements.race" data-index="{{i}}">✕</button>
+            </div>
+            {{/each}}
+            <button type="button" data-action="addArrayEntry" data-path="system.requirements.race" data-template="&quot;&quot;">+</button>
+        </div>
+        <div class="array-list">
+            <strong>{{localize 'HBM.spell.requirementTalent'}}</strong>
+            {{#each system.requirements.talent as |x i|}}
+            <div class="array-row">
+                <input type="text" name="system.requirements.talent.{{i}}" value="{{x}}" />
+                <button type="button" data-action="removeArrayEntry" data-path="system.requirements.talent" data-index="{{i}}">✕</button>
+            </div>
+            {{/each}}
+            <button type="button" data-action="addArrayEntry" data-path="system.requirements.talent" data-template="&quot;&quot;">+</button>
+        </div>
+        <div class="array-list">
+            <strong>{{localize 'HBM.spell.requirementDiscipline'}}</strong>
+            {{#each system.requirements.discipline as |x i|}}
+            <div class="array-row">
+                <input type="text" name="system.requirements.discipline.{{i}}" value="{{x}}" />
+                <button type="button" data-action="removeArrayEntry" data-path="system.requirements.discipline" data-index="{{i}}">✕</button>
+            </div>
+            {{/each}}
+            <button type="button" data-action="addArrayEntry" data-path="system.requirements.discipline" data-template="&quot;&quot;">+</button>
+        </div>
+    </fieldset>
+
+    {{!-- ── Overcast & Triggers ────────────────────────────────────── --}}
+    <fieldset>
+        <legend>{{localize 'HBM.spell.overcastOptions'}}</legend>
+        {{#each system.overcastOptions as |opt i|}}
+        <div class="array-row overcast-row">
+            <input type="text"   name="system.overcastOptions.{{i}}.description" value="{{opt.description}}" placeholder="{{localize 'HBM.spell.overcastDesc'}}" />
+            <input type="number" name="system.overcastOptions.{{i}}.manaPerStep" value="{{opt.manaPerStep}}" min="0" />
+            <button type="button" data-action="removeArrayEntry" data-path="system.overcastOptions" data-index="{{i}}">✕</button>
+        </div>
+        {{/each}}
+        <button type="button" data-action="addArrayEntry" data-path="system.overcastOptions"
+                data-template='{"description":"","manaPerStep":1}'>+ {{localize 'HBM.ui.add'}}</button>
+    </fieldset>
+
+    <fieldset>
+        <legend>{{localize 'HBM.spell.triggers'}}</legend>
+        {{#each system.triggers as |t i|}}
+        <div class="array-row trigger-row">
+            <select name="system.triggers.{{i}}.event">
+                {{#each @root.choices.triggerEvents as |label key|}}
+                <option value="{{key}}" {{#if (eq ../t.event key)}}selected{{/if}}>{{label}}</option>
+                {{/each}}
+            </select>
+            <input type="text" name="system.triggers.{{i}}.effect" value="{{t.effect}}" placeholder="{{localize 'HBM.spell.triggerEffect'}}" />
+            <button type="button" data-action="removeArrayEntry" data-path="system.triggers" data-index="{{i}}">✕</button>
+        </div>
+        {{/each}}
+        <button type="button" data-action="addArrayEntry" data-path="system.triggers"
+                data-template='{"event":"killWithWeapon","effect":""}'>+ {{localize 'HBM.ui.add'}}</button>
+    </fieldset>
+
+    {{!-- ── Description ─────────────────────────────────────────────── --}}
+    <label>{{localize 'HBM.spell.description'}}<textarea name="system.description" rows="6">{{system.description}}</textarea></label>
+    <label>{{localize 'HBM.spell.higherCircles'}}<textarea name="system.higherCircles" rows="3">{{system.higherCircles}}</textarea></label>
+</div>

@@ -1,0 +1,61 @@
+{
+  "label": "Equipment (Other)",
+  "entries": {
+    "Przybory do tworzenia artefatów": {
+      "name": "Artifact Crafting Tools",
+      "description": "<p>Podobnie jak zestaw do golemancji, zestaw do tworzenia artefaktów składa się z przede wszystkim dłuteł, jednak zamiast szpachelek są soczewki oraz podręczne mierniki magii.</p>"
+    },
+    "Kociołek": {
+      "name": "Cauldron",
+      "description": "<p>Kociołek jest najważniejszą rzeczą dla osób ważących eliksiry. Zawsze można w nim ugotować obiad, jak się zgłodnieje w lesie podczas zbierania ziół!</p>"
+    },
+    "Przedmioty do wróżenia": {
+      "name": "Divination Tools",
+      "description": "<p>Od kiedy na Ziemi jest magia,zaczęły pojawiać się osoby naprawdę potrafiące przewidywać przyszłość, stąd też zwiększone zapotrzebowanie na przedmioty, które mogą służyć do wróżenia. Kategoria ta obejmuje kule do wróżenia, tablice astrologiczne, kamienie z runami Futharku oraz karty do tarota.</p>"
+    },
+    "Szklana fiolka": {
+      "name": "Glass Vial",
+      "description": "<p>Szklane fiolki są w magii wykorzystywane praktycznie przez wszystkich do przetrzymywania cieczy oraz magicznych składników</p>"
+    },
+    "Przybory do golemancji": {
+      "name": "Golemancy Tools",
+      "description": "<p>Zestaw dłut, szpachelek, noży oraz młoteczków, które służą do tworzenia golemów.</p>"
+    },
+    "Miecz świetlny": {
+      "name": "Lightsaber",
+      "description": "<p>Miecze świetlne są konstruowane w różny sposób (mowa tutaj o \"cywilnych\" mieczach). Część z nich nadaje się do pojedynków!</p>"
+    },
+    "Artefakt skupiający magię": {
+      "name": "Magic Focus Artifact",
+      "description": "<p>Rasy mniej utalentowane magicznie, zwłaszcza ludzie, korzystają z różnych przedmiotów, które ułatwiają skupianie magii, od różdżek, przez laski do kamieni. Otrzymujesz dodatkową kość przy rzutach na Zdolności Magiczne</p>"
+    },
+    "Artefakt przechowujący manę": {
+      "name": "Mana Storage Artifact",
+      "description": "<p>Magowie rzucając potężne zaklęcia potrafią bardzo szybko zużyć całą swoją Manę, a nie zawsze mają w pobliżu Źródło Mocy - z pomocą przychodzą artefakty potrafiące przechowywać energię magiczną. Takie artefakty dzielą się na dwie kategorie - różdżki wykonane z odmian magicznych drzew, takich jak Wspaniałodrzew bądź Srebrodrzew, oraz na takie wykonane z kamieni szlachetnych, które potrafią przechowywać znacznie więcej mocy, są jednak niesamowicie drogie.</p>"
+    },
+    "Tablica Ouija": {
+      "name": "Ouija Board",
+      "description": "<p>Tablica służąca do komunikacji ze zmarłymi. Tak jak przedmioty do wróżenia, tablica Ouija jest obecnie w cenie, zwłaszcza w rękach wprawnych nekromantów.</p>"
+    },
+    "Karty do gry": {
+      "name": "Playing Cards",
+      "description": "<p>Karty do gry są dostępne w przeróżnych kształtach, kolorach i do przeróżnych gier. Jak się okazuje, część ras, które pojawiły się na Ziemi, bardzo polubiły gry karciane, a zwłaszcza krasnoludy.</p>"
+    },
+    "Zestaw do rytuałów": {
+      "name": "Ritual Kit",
+      "description": "<p>Zestaw do rytuałów składa się z poświęconej kredy, kadzidła, świec rytualnych, sztyletu ofiarnego, różdżki oraz garści innych przydatnych rzeczy.</p>"
+    },
+    "Shinai": {
+      "name": "Shinai",
+      "description": "<p>Bambusowy miecz używany do japońskiej szermierki zwanej Kendo.</p>"
+    },
+    "Teleskop": {
+      "name": "Telescope",
+      "description": "<p>W związku z tym, że spora część magów wykorzystuje astronomię do swoich rytuałów, to teleskopy są kupowane na potęgę - w niektórych sklepach potrafią znikać kilka godzin po dostawie! Oprócz tego, że jest to teraz towar deficytowy, to oczywiście podrożał, choć trzeba przyznać, że magicznie wspomagane teleskopy są całkiem nezłym sprzętem.</p>"
+    },
+    "Miecz treningowy": {
+      "name": "Training Sword",
+      "description": "<p>Miecze treningowe są wykonane z drewna lub, co raz częściej, z tworzyw sztucznych.</p>"
+    }
+  }
+}

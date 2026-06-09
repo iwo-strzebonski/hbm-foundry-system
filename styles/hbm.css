@@ -1,0 +1,930 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Homebrew Magic: RPG v3 — Foundry VTT system styles
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── CSS custom properties ─────────────────────────────────────────────── */
+.hbm {
+  --hbm-fg:           #1a1a1a;
+  --hbm-bg:           #f4ede0;
+  --hbm-bg-header:    #2a1a0e;
+  --hbm-border:       #b29d76;
+  --hbm-accent:       #6b1414;
+  --hbm-accent-light: #a03030;
+  --hbm-success:      #1f7a1f;
+  --hbm-failure:      #8b1a1a;
+  --hbm-crit-success: #d4af37;
+  --hbm-crit-failure: #5a0a0a;
+  --hbm-card-bg:      rgba(255, 255, 255, 0.45);
+  --hbm-radius:       5px;
+
+  /* attribute colour coding */
+  --hbm-body-color:   #6b2222;
+  --hbm-mind-color:   #1f4f7a;
+  --hbm-spirit-color: #4b2277;
+  --hbm-reflex-color: #1f6b3a;
+}
+
+/* Dark theme overrides */
+.theme-dark .hbm,
+.hbm.theme-dark {
+  --hbm-fg:           #e0d8c3;
+  --hbm-bg:           #1a1712;
+  --hbm-bg-header:    #0f0b07;
+  --hbm-border:       #8a7657;
+  --hbm-accent:       #d86c6c;
+  --hbm-accent-light: #f38f8f;
+  --hbm-success:      #32b232;
+  --hbm-failure:      #b23232;
+  --hbm-card-bg:      rgba(0, 0, 0, 0.4);
+}
+
+/* ── Base sheet shell ───────────────────────────────────────────────────── */
+.hbm.sheet {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-family: 'Signika', sans-serif;
+  color: var(--hbm-fg);
+  background: var(--hbm-bg);
+  overflow: hidden;
+}
+.hbm.sheet form,
+.hbm.sheet .sheet-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── Sticky header ──────────────────────────────────────────────────────── */
+.hbm .sheet-header {
+  flex-shrink: 0;
+  background: var(--hbm-bg-header);
+  color: #f0e6d0;
+  padding: 0.5rem 0.75rem 0;
+  border-bottom: 2px solid var(--hbm-border);
+}
+
+.hbm.npc .sheet-header {
+  background: #19222a; /* Dark slate blue for NPCs to distinguish from character sheets */
+}
+
+.hbm .sheet-header .charname {
+  width: 100%;
+  font-size: 1.35rem;
+  font-weight: 700;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  color: #f0e6d0;
+  margin-bottom: 0.4rem;
+  padding: 0 0.25rem;
+}
+.hbm .sheet-header .charname:focus { outline: none; border-bottom-color: var(--hbm-crit-success); }
+
+.hbm .sheet-header .meta-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+.hbm .sheet-header .meta-row label {
+  font-size: 0.78rem;
+  color: #c8b89a;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.hbm .sheet-header .meta-row input {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  color: #f0e6d0;
+  font-size: 0.85rem;
+  padding: 0.1rem 0.25rem;
+  width: 6rem;
+}
+.hbm .sheet-header .meta-row input[type='number'] { width: 3rem; }
+
+/* ── Tab nav ────────────────────────────────────────────────────────────── */
+.hbm .tabs {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  margin: 0 -0.75rem;
+}
+
+.hbm .tabs .tab-item {
+  flex: 1 1 0;
+  background: transparent;
+  border: none;
+  color: #c8b89a;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.5rem;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.hbm .tabs .tab-item:hover    { color: #f0e6d0; }
+.hbm .tabs .tab-item.active   { color: var(--hbm-crit-success); border-bottom-color: var(--hbm-crit-success); }
+
+/* ── Scrollable body ────────────────────────────────────────────────────── */
+.hbm .sheet-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 0.75rem;
+}
+
+/* ── Tab panels ─────────────────────────────────────────────────────────── */
+.hbm .tab-panel { display: none; }
+.hbm .tab-panel.active { display: block; }
+
+/* ── Roll button (shared) ───────────────────────────────────────────────── */
+.hbm .roll-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--hbm-accent);
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0 0.15rem;
+  transition: color 0.15s;
+}
+.hbm .roll-btn:hover { color: var(--hbm-accent-light); }
+
+/* ── Attributes grid (Stats tab) ────────────────────────────────────────── */
+.hbm .attributes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+@media (max-width: 600px) { .hbm .attributes-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 380px) { .hbm .attributes-grid { grid-template-columns: 1fr; } }
+
+.hbm .attribute {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.4rem;
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  background: var(--hbm-card-bg);
+  border-top-width: 3px;
+}
+/* Colour-code by attribute */
+.hbm .attribute[data-attr='body']   { border-top-color: var(--hbm-body-color); }
+.hbm .attribute[data-attr='mind']   { border-top-color: var(--hbm-mind-color); }
+.hbm .attribute[data-attr='spirit'] { border-top-color: var(--hbm-spirit-color); }
+.hbm .attribute[data-attr='reflex'] { border-top-color: var(--hbm-reflex-color); }
+
+.hbm .attribute label {
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hbm .attribute input[type='number'] {
+  width: 3.5rem;
+  text-align: center;
+  font-size: 1.15rem;
+  border: none;
+  border-bottom: 1px solid var(--hbm-border);
+  background: transparent;
+}
+
+/* ── Resources grid ─────────────────────────────────────────────────────── */
+.hbm .resources-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+@media (max-width: 540px) { .hbm .resources-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.hbm .resource {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.4rem;
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  background: var(--hbm-card-bg);
+}
+.hbm .resource label {
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.hbm .resource-value {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.hbm .resource-value input[type='number'] {
+  width: 3rem;
+  text-align: center;
+  font-size: 1rem;
+  border: none;
+  border-bottom: 1px solid var(--hbm-border);
+  background: transparent;
+}
+.hbm .resource-value .sep { color: var(--hbm-border); }
+.hbm .resource .static-value { font-size: 1.1rem; font-weight: 700; }
+.hbm .resource small { font-size: 0.7rem; color: #666; }
+
+/* ── Skills grid ────────────────────────────────────────────────────────── */
+.hbm .skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.2rem 0.75rem;
+}
+@media (max-width: 600px) { .hbm .skills-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 380px) { .hbm .skills-grid { grid-template-columns: 1fr; } }
+
+.hbm .skill {
+  display: grid;
+  grid-template-columns: 1fr 2.5rem auto;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.25rem;
+  border-bottom: 1px dotted var(--hbm-border);
+}
+.hbm .skill .skill-name {
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hbm .skill input[type='number'] {
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  border: none;
+  border-bottom: 1px solid var(--hbm-border);
+  background: transparent;
+}
+
+/* ── Item lists (spells, inventory) ─────────────────────────────────────── */
+.hbm .item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.hbm .item-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  background: var(--hbm-card-bg);
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+}
+.hbm .item-row .item-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.hbm .item-row .item-meta {
+  grid-column: 1 / -2;
+  font-size: 0.75rem;
+  color: #666;
+  display: block;
+}
+.hbm .item-row .item-controls {
+  display: flex;
+  gap: 0.2rem;
+}
+
+/* Spell / item action buttons */
+.hbm .cast-btn,
+.hbm .delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  transition: background 0.15s;
+}
+.hbm .cast-btn   { color: var(--hbm-accent); }
+.hbm .cast-btn:hover   { background: rgba(107,20,20,0.12); }
+.hbm .delete-btn { color: #888; }
+.hbm .delete-btn:hover { background: rgba(0,0,0,0.1); color: var(--hbm-failure); }
+
+/* ── Empty drop hint ────────────────────────────────────────────────────── */
+.hbm .empty-drop {
+  text-align: center;
+  font-style: italic;
+  color: #999;
+  margin: 2rem 0;
+  font-size: 0.85rem;
+}
+
+/* ── Biography tab ──────────────────────────────────────────────────────── */
+.hbm .bio-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.hbm .bio-section label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+.hbm .bio-section textarea {
+  width: 100%;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  padding: 0.4rem;
+  background: var(--hbm-card-bg);
+}
+
+/* ── Dialog form ────────────────────────────────────────────────────────── */
+.hbm-dialog .form-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.hbm-dialog .form-group label {
+  flex: 1;
+  font-size: 0.9rem;
+}
+.hbm-dialog .form-group input[type='number'] {
+  width: 5rem;
+  text-align: center;
+}
+.hbm-dialog .hint {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+.hbm-dialog .warn { color: var(--hbm-failure); }
+
+/* ── TS roll chat card ──────────────────────────────────────────────────── */
+.hbm .ts-roll { display: flex; flex-direction: column; gap: 0.5rem; }
+.hbm .ts-roll .dice { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+
+.hbm .ts-roll .die {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 4px;
+  font-weight: bold;
+  background: #ddd;
+  color: #333;
+}
+.hbm .ts-roll .die.success      { background: var(--hbm-success);      color: #fff; }
+.hbm .ts-roll .die.failure      { background: #ddd;                     color: #555; }
+.hbm .ts-roll .die.crit-success { background: var(--hbm-crit-success);  color: #1a1a1a; }
+.hbm .ts-roll .die.crit-failure { background: var(--hbm-crit-failure);  color: #fff; }
+
+.hbm .ts-roll .summary           { font-weight: 600; }
+.hbm .ts-roll .summary.success   { color: var(--hbm-success); }
+.hbm .ts-roll .summary.failure   { color: var(--hbm-failure); }
+
+/* ── Phase 6 polish ─────────────────────────────────────────── */
+
+/* Conditional resource highlighting */
+.hbm .resource.blood-pool {
+  background: linear-gradient(180deg, rgba(140, 20, 20, 0.12), transparent);
+  border-color: #8b1a1a;
+}
+.hbm .resource.warn {
+  background: rgba(180, 110, 0, 0.15);
+  border-color: #b46e00;
+}
+
+/* Spell badges */
+.hbm .item-name .badge {
+  display: inline-block;
+  margin-left: 0.25rem;
+  padding: 0 0.3rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  background: var(--hbm-border, #888);
+  color: #fff;
+  vertical-align: middle;
+}
+.hbm .badge.super       { background: #b46e00; }
+.hbm .badge.group       { background: #4a3a8a; }
+.hbm .badge.noncombat   { background: #2c7a2c; }
+.hbm .badge.race-lock   { background: #5a5a5a; }
+.hbm .source-pip {
+  font-size: 0.7rem;
+  padding: 0.05rem 0.3rem;
+  border: 1px solid var(--hbm-border, #888);
+  border-radius: 0.25rem;
+  background: rgba(255,255,255,0.6);
+}
+
+/* Spell-school grouping */
+.hbm details.spell-school-group {
+  margin: 0.4rem 0;
+  border: 1px solid var(--hbm-border, #ccc);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255,255,255,0.4);
+}
+.hbm details.spell-school-group > summary {
+  cursor: pointer;
+  padding: 0.25rem 0;
+  font-size: 0.95rem;
+}
+.hbm details.spell-school-group > summary .count {
+  color: #777;
+  font-weight: normal;
+  margin-left: 0.4rem;
+}
+.hbm details.spell-school-group[open] > summary {
+  border-bottom: 1px dashed var(--hbm-border, #ccc);
+  margin-bottom: 0.25rem;
+}
+
+/* Spell-sheet array editors */
+.hbm.item-body .array-list {
+  margin-top: 0.5rem;
+  padding: 0.4rem;
+  background: rgba(0,0,0,0.03);
+  border-radius: 4px;
+}
+.hbm.item-body .array-row {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  margin: 0.2rem 0;
+}
+.hbm.item-body .array-row > input[type='text'] { flex: 1; }
+.hbm.item-body .array-row.overcast-row > input[type='text'] { flex: 3; }
+.hbm.item-body .array-row.overcast-row > input[type='number'] { width: 4rem; }
+.hbm.item-body fieldset {
+  margin: 0.5rem 0;
+  border: 1px solid var(--hbm-border, #ccc);
+  border-radius: 4px;
+  padding: 0.4rem 0.6rem;
+}
+.hbm.item-body fieldset > legend {
+  font-weight: bold;
+  padding: 0 0.4rem;
+}
+.hbm.item-body .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  align-items: center;
+}
+.hbm.item-body .row.flags label { font-size: 0.85rem; }
+.hbm.item-body .row label.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.hbm.item-body .row label.checkbox-label input[type='checkbox'] {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+
+/* Dialog warning styling */
+.hbm-dialog .form-group.warn {
+  background: rgba(180, 30, 30, 0.08);
+  border-left: 3px solid #b41e1e;
+  padding: 0.3rem 0.5rem;
+}
+
+/* Header rest buttons */
+.hbm .header-btn[data-action="shortRest"],
+.hbm .header-btn[data-action="longRest"] {
+  background: rgba(80, 60, 140, 0.15);
+}
+/* === Spell-cast chat card === */
+.hbm.spell-cast-card { border: 1px solid #6b3fa0; border-radius: 6px; padding: .5rem; background: linear-gradient(180deg, rgba(107,63,160,.08), rgba(107,63,160,.02)); }
+.hbm.spell-cast-card .hbm-card-header { display: flex; flex-direction: column; gap: .25rem; margin-bottom: .35rem; border-bottom: 1px dashed rgba(107,63,160,.4); padding-bottom: .25rem; }
+.hbm.spell-cast-card .hbm-card-header h3 { margin: 0; font-size: 1.1em; }
+.hbm.spell-cast-card .hbm-card-meta { display: flex; gap: .25rem; flex-wrap: wrap; }
+.hbm.spell-cast-card .badge.result.success { background: #2c7a3f; color: #fff; }
+.hbm.spell-cast-card .badge.result.failure { background: #b13a3a; color: #fff; }
+.hbm.spell-cast-card .badge.mode, .hbm.spell-cast-card .badge.school, .hbm.spell-cast-card .badge.circle, .hbm.spell-cast-card .badge.damage-type, .hbm.spell-cast-card .badge.ignores-armor, .hbm.spell-cast-card .badge.trigger-event { padding: 1px 6px; border-radius: 8px; font-size: .75em; background: rgba(107,63,160,.15); }
+.hbm.spell-cast-card .hbm-card-costs { list-style: none; padding: 0; margin: .25rem 0; display: flex; gap: .75rem; font-size: .85em; }
+.hbm.spell-cast-card section { margin: .35rem 0; }
+.hbm.spell-cast-card .damage-line { display: flex; gap: .35rem; align-items: baseline; font-size: 1.2em; }
+.hbm.spell-cast-card .damage-formula code { font-size: .8em; color: #555; }
+.hbm.spell-cast-card .hbm-card-targets, .hbm.spell-cast-card .status-buttons { display: flex; flex-wrap: wrap; gap: .25rem; margin-top: .25rem; }
+.hbm.spell-cast-card button.hbm-action { font-size: .85em; padding: 2px 8px; border-radius: 4px; cursor: pointer; }
+.hbm.spell-cast-card .hbm-card-hint { font-size: .8em; color: #777; margin: .15rem 0; font-style: italic; }
+.hbm.spell-cast-card .hbm-card-description summary { cursor: pointer; font-size: .85em; color: #555; }
+
+/* Cast dialog: caster checkboxes + variant radios */
+.hbm-dialog .caster-list, .hbm-dialog .variant-list { display: flex; flex-direction: column; gap: .15rem; max-height: 180px; overflow-y: auto; padding: .25rem; border: 1px solid #ccc; border-radius: 4px; }
+.hbm-dialog .caster-option, .hbm-dialog .variant-option { display: flex; gap: .35rem; align-items: center; font-size: .9em; cursor: pointer; }
+.hbm-dialog .variant-option small { color: #777; }
+
+/* Actions Tab */
+.hbm .actions-panel {
+  padding: 1rem;
+  background: var(--hbm-card-bg);
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+}
+.hbm .actions-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.hbm button.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.25rem 0.75rem;
+  background: rgba(107, 20, 20, 0.1);
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  color: var(--hbm-fg);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, color 0.2s;
+  min-height: 5.5rem;
+  text-align: center;
+}
+.hbm button.action-btn .label {
+  text-align: center;
+  font-size: 0.85rem;
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1.15;
+}
+.hbm button.action-btn:hover {
+  background: var(--hbm-accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.hbm button.action-btn .icon {
+  font-size: 1.5rem;
+}
+
+/* Active Effects tab */
+.hbm fieldset.hbm-effects {
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  padding: 1rem;
+  background: var(--hbm-card-bg);
+}
+.hbm fieldset.hbm-effects legend {
+  font-weight: bold;
+  padding: 0 0.5rem;
+  color: var(--hbm-fg);
+}
+.hbm button.hbm-effect-add {
+  background: var(--hbm-success);
+  color: #fff;
+  border: none;
+  border-radius: var(--hbm-radius);
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.hbm button.hbm-effect-add:hover {
+  background: #289e28;
+}
+.hbm .effect-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.hbm .effect-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+}
+.hbm .effect-row.disabled {
+  opacity: 0.5;
+}
+.hbm .effect-row .effect-name {
+  flex: 1;
+  font-weight: 600;
+}
+.hbm .effect-row .effect-meta {
+  display: flex;
+  gap: 0.5rem;
+}
+.hbm .effect-row .effect-meta .badge {
+  background: var(--hbm-border);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+.hbm .effect-row button {
+  background: none;
+  border: 1px solid var(--hbm-border);
+  border-radius: 3px;
+  color: var(--hbm-fg);
+  padding: 0.1rem 0.4rem;
+  cursor: pointer;
+}
+.hbm .effect-row button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* ── NPC Sheet styling ─────────────────────────────────────────────────── */
+.hbm.npc .meta {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+.hbm.npc .meta label {
+  font-size: 0.78rem;
+  color: #c8b89a;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.hbm.npc .meta input {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  color: #f0e6d0;
+  font-size: 0.85rem;
+  padding: 0.1rem 0.25rem;
+  width: 6rem;
+}
+
+.hbm.npc .attributes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.hbm.npc .attributes-grid .attribute {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.4rem;
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  background: var(--hbm-card-bg);
+}
+
+.hbm.npc .attributes-grid .attribute label {
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hbm.npc .attributes-grid .attribute input[type='number'] {
+  width: 3.5rem;
+  text-align: center;
+  font-size: 1.15rem;
+  border: none;
+  border-bottom: 1px solid var(--hbm-border);
+  background: transparent;
+  color: var(--hbm-fg);
+}
+
+.hbm.npc .attributes-grid .attribute .roll-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--hbm-accent);
+  font-size: 1rem;
+}
+
+.hbm.npc .npc-meta-section {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  background: var(--hbm-card-bg);
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  padding: 0.5rem 0.75rem;
+}
+
+.hbm.npc .npc-meta-section label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex: 1;
+}
+
+.hbm.npc .npc-meta-section input[type='text'] {
+  flex: 1;
+  border: none;
+  border-bottom: 1px solid var(--hbm-border);
+  background: transparent;
+  color: var(--hbm-fg);
+  padding: 0.1rem 0.25rem;
+}
+
+.hbm.npc fieldset {
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  background: var(--hbm-card-bg);
+}
+
+.hbm.npc fieldset legend {
+  font-weight: bold;
+  padding: 0 0.5rem;
+  color: var(--hbm-fg);
+}
+
+.hbm.npc fieldset button {
+  background: none;
+  border: none;
+  color: var(--hbm-success);
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.hbm.npc fieldset .row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.hbm.npc fieldset .row input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--hbm-border);
+  color: var(--hbm-fg);
+  padding: 0.1rem 0.25rem;
+}
+
+.hbm.npc fieldset .row input[type='text'] {
+  flex: 2;
+}
+
+.hbm.npc fieldset .row input[type='number'] {
+  width: 3.5rem;
+  text-align: center;
+}
+
+.hbm.npc fieldset .row button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--hbm-accent);
+}
+
+.hbm.npc fieldset .row button[data-action='removeArrayEntry'] {
+  color: var(--hbm-failure);
+}
+
+.hbm.npc textarea {
+  width: 100%;
+  resize: vertical;
+  background: var(--hbm-card-bg);
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  color: var(--hbm-fg);
+  padding: 0.5rem;
+  font-family: inherit;
+}
+
+.hbm.npc .spells-list .spell-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-bottom: 1px dotted var(--hbm-border);
+}
+
+.hbm.npc .spells-list .spell-row .spell-name {
+  flex: 1;
+}
+
+.hbm.npc .spells-list .spell-row button {
+  background: rgba(107, 20, 20, 0.1);
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  color: var(--hbm-fg);
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.hbm.npc .spells-list .spell-row button:hover {
+  background: var(--hbm-accent);
+  color: #fff;
+}
+
+/* Inventory Tab styling */
+.hbm .inventory-section h3 {
+  border-bottom: 2px solid var(--hbm-border);
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
+  font-size: 1.1rem;
+  color: var(--hbm-accent);
+}
+.hbm .inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--hbm-card-bg);
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  margin-bottom: 1rem;
+}
+.hbm .inventory-table th, 
+.hbm .inventory-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(178, 157, 118, 0.4);
+  font-size: 0.9rem;
+}
+.hbm .inventory-table th {
+  background: rgba(0, 0, 0, 0.05);
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #666;
+}
+.hbm .inventory-table tr.item-tr:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Schedule Table */
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--hbm-card-bg);
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  font-size: 0.8rem;
+  color: var(--hbm-fg);
+  margin-top: 5px;
+}
+
+.schedule-table th {
+  padding: 6px;
+  border: 1px solid var(--hbm-border);
+  text-align: center;
+  font-weight: bold;
+}
+
+.schedule-table td {
+  padding: 2px;
+  border: 1px solid var(--hbm-border);
+  text-align: center;
+}
+
+.schedule-table input[type="text"] {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  text-align: center;
+  color: var(--hbm-fg);
+  font-size: 0.8rem;
+  padding: 4px;
+}
+
+.schedule-table input[type="text"]:focus {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: none;
+  outline: none;
+}
+
+

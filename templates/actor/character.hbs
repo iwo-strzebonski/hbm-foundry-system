@@ -1,0 +1,656 @@
+<div class="sheet-wrapper">
+<!-- ═══ STICKY HEADER ═══════════════════════════════════════════════════ -->
+<header class="sheet-header">
+    <input class="charname" type="text" name="name" value="{{document.name}}" placeholder="{{localize 'HBM.ui.name'}}" />
+    <div class="meta-row">
+        <label>{{localize 'HBM.details.race'}}
+            <select name="system.details.race">
+                <option value="">--</option>
+                {{#each races as |r|}}
+                <option value="{{r.key}}" {{#if (eq ../system.details.race r.key)}}selected{{/if}}>{{r.label}}</option>
+                {{/each}}
+            </select>
+        </label>
+        <label>{{localize 'HBM.details.year'}}
+            <input type="number" name="system.details.year" value="{{system.details.year}}" min="1" max="4" />
+        </label>
+        <label>{{localize 'HBM.details.startingYear'}}
+            <input type="number" name="system.details.startingYear" value="{{system.details.startingYear}}" min="1900" />
+        </label>
+        <label>{{localize 'HBM.details.currentYear'}}
+            <input type="number" name="system.details.currentYear" value="{{system.details.currentYear}}" min="1900" />
+        </label>
+        <label>{{localize 'HBM.details.discipline'}}
+            <select name="system.details.discipline">
+                <option value="">--</option>
+                {{#each disciplines as |d|}}
+                <option value="{{d.key}}" {{#if (eq ../system.details.discipline d.key)}}selected{{/if}}>{{d.label}}</option>
+                {{/each}}
+            </select>
+        </label>
+    </div>
+<!-- Tab navigation -->
+<nav class="tabs" data-group="primary">
+    {{#each tabs as |tab|}}
+    <button type="button" class="tab-item {{tab.cssClass}}" data-tab="{{tab.id}}">
+        {{localize tab.label}}
+    </button>
+    {{/each}}
+</nav>
+</header>
+
+<!-- ═══ SCROLLABLE BODY ══════════════════════════════════════════════════ -->
+<div class="sheet-body">
+
+    <!-- ── STATS ──────────────────────────────────────────────────────────── -->
+    <section class="tab-panel {{#if (eq tabGroups.primary 'stats')}}active{{/if}}" data-tab="stats">
+
+        <div class="attributes-grid">
+        {{#each attributes as |attr|}}
+        <div class="attribute" data-attr="{{attr.key}}">
+            <label>{{attr.label}}</label>
+            {{#if (eq attr.key 'magic')}}
+            <select name="system.attributes.magic.value">
+                <option value="0" {{#if (eq attr.value 0)}}selected{{/if}}>0</option>
+                <option value="1" {{#if (eq attr.value 1)}}selected{{/if}}>I</option>
+                <option value="2" {{#if (eq attr.value 2)}}selected{{/if}}>II</option>
+                <option value="3" {{#if (eq attr.value 3)}}selected{{/if}}>III</option>
+                <option value="4" {{#if (eq attr.value 4)}}selected{{/if}}>IV</option>
+                <option value="5" {{#if (eq attr.value 5)}}selected{{/if}}>V</option>
+                <option value="6" {{#if (eq attr.value 6)}}selected{{/if}}>VI</option>
+                <option value="7" {{#if (eq attr.value 7)}}selected{{/if}}>VII</option>
+                <option value="8" {{#if (eq attr.value 8)}}selected{{/if}}>VIII</option>
+                <option value="9" {{#if (eq attr.value 9)}}selected{{/if}}>IX</option>
+                <option value="10" {{#if (eq attr.value 10)}}selected{{/if}}>X</option>
+            </select>
+            <span class="actual-magic-badge" title="{{localize 'HBM.attributes.actualMagicHint'}}" style="font-size: 0.75rem; margin-top: 0.15rem; color: #a03030; font-weight: bold;">
+                ({{localize 'HBM.attributes.actual'}}: {{attr.actualLabel}})
+            </span>
+            {{else}}
+            <input type="number" name="system.attributes.{{attr.key}}.value" value="{{attr.value}}"
+                min="1" max="8" />
+            {{/if}}
+            <button type="button" class="roll-btn" data-action="rollAttribute" data-attribute="{{attr.key}}"
+                title="{{localize 'HBM.roll.roll'}}">⚂</button>
+            </div>
+        {{/each}}
+    </div>
+
+    <div class="resources-grid">
+        <div class="resource">
+        <label>{{localize 'HBM.resources.health'}}</label>
+        <span class="resource-value">
+            <input type="number" name="system.attributes.health.value" value="{{system.attributes.health.value}}" min="0" />
+            <span class="sep">/</span>
+            <input type="number" name="system.attributes.health.max" value="{{system.attributes.health.max}}" min="0" />
+        </span>
+        </div>
+        <div class="resource">
+        <label>{{localize 'HBM.resources.physicalArmor'}}</label>
+        <span class="resource-value">
+            <span class="static-value" title="{{localize 'HBM.resources.physicalArmor'}}">{{system.attributes.physicalArmor.value}}</span>
+        </span>
+        <small>{{localize 'HBM.resources.max'}}: {{system.attributes.physicalArmor.max}}</small>
+        <div style="display:flex; align-items:center; gap:0.3rem; margin-top:0.15rem;">
+            <small style="white-space:nowrap;">{{localize 'HBM.ui.physicalArmorBonus'}}:</small>
+            <input type="number" name="system.attributes.physicalArmor.bonus"
+                value="{{system.attributes.physicalArmor.bonus}}" min="0"
+                style="width:2.5rem; text-align:center; font-size:0.8rem; border:none; border-bottom:1px solid var(--hbm-border); background:transparent;" />
+        </div>
+        </div>
+        <div class="resource">
+            <label>{{localize 'HBM.resources.magicalShield'}}</label>
+            <span class="resource-value">
+                <input type="number" name="system.attributes.magicalShield.value"
+                    value="{{system.attributes.magicalShield.value}}" min="0" />
+            </span>
+        </div>
+        <div class="resource">
+            <label>{{localize 'HBM.resources.magicalArmor'}}</label>
+            <span class="resource-value">
+                <input type="number" name="system.attributes.magicalArmor.value"
+                    value="{{system.attributes.magicalArmor.value}}" min="0" />
+                <span class="sep">/</span>
+                <input type="number" name="system.attributes.magicalArmor.max" value="{{system.attributes.magicalArmor.max}}"
+                    min="0" />
+            </span>
+            <small>{{localize 'HBM.resources.runicCounter'}}: {{system.attributes.magicalArmor.runicCounter}}/5</small>
+        </div>
+        <div class="resource">
+        <label>{{localize 'HBM.resources.mana'}}</label>
+        <span class="resource-value">
+            <input type="number" name="system.attributes.mana.value" value="{{system.attributes.mana.value}}" min="0" />
+            <span class="sep">/</span>
+            <input type="number" name="system.attributes.mana.max" value="{{system.attributes.mana.max}}" min="0" />
+        </span>
+        <small>{{localize 'HBM.resources.maxManaPerSpell'}}: {{system.attributes.mana.maxPerSpell}}</small>
+        </div>
+        <div class="resource">
+        <label>{{localize 'HBM.resources.zeal'}}</label>
+        <span class="resource-value">
+            <input type="number" name="system.attributes.zeal.value" value="{{system.attributes.zeal.value}}" min="0" />
+            <span class="sep">/</span>
+            <input type="number" name="system.attributes.zeal.max" value="{{system.attributes.zeal.max}}" min="0" />
+        </span>
+        </div>
+        {{#if hasBloodMagic}}
+        <div class="resource blood-pool">
+            <label>{{localize 'HBM.resources.blood'}}</label>
+            <span class="resource-value">
+                <input type="number" name="system.attributes.blood.value" value="{{system.attributes.blood.value}}" min="0" />
+                <span class="sep">/</span>
+                <input type="number" name="system.attributes.blood.max" value="{{system.attributes.blood.max}}" min="0" />
+            </span>
+        </div>
+        {{/if}}
+        <div class="resource">
+            <label>{{localize 'HBM.resources.elixirTolerance'}}</label>
+            <span class="resource-value">
+                <input type="number" name="system.attributes.elixirTolerance" value="{{system.attributes.elixirTolerance}}" min="0" />
+            </span>
+            <small>cap: {{elixirCap}}</small>
+        </div>
+        {{#if (gt system.attributes.insanity 0)}}
+        <div class="resource warn">
+            <label>{{localize 'HBM.resources.insanity'}}</label>
+            <span class="resource-value">
+                <input type="number" name="system.attributes.insanity" value="{{system.attributes.insanity}}" min="0" />
+            </span>
+        </div>
+        {{/if}}
+        <div class="resource">
+        <label>{{localize 'HBM.resources.initiative'}}</label>
+        <span class="static-value">{{system.attributes.initiative}}</span>
+        </div>
+        <div class="resource">
+            <label>{{localize 'HBM.resources.experience'}}</label>
+            <input type="number" name="system.details.experience" value="{{system.details.experience}}" min="0" />
+        </div>
+        <div class="resource">
+            <label>{{localize 'HBM.ui.attributePoints'}}</label>
+            <span class="resource-value">
+                <span class="static-value" title="{{localize 'HBM.ui.pointsAvailable'}}">{{system.advancement.attributePointsAvailable}}</span>
+                <span class="sep" title="Modyfikator MG">+</span>
+                <input type="number" name="system.advancement.bonusAttributePoints" value="{{system.advancement.bonusAttributePoints}}" min="0" style="width: 2.2rem; text-align: center; border: none; border-bottom: 1px solid var(--hbm-border); background: transparent;" />
+            </span>
+        </div>
+        <div class="resource">
+            <label>{{localize 'HBM.ui.skillPoints'}}</label>
+            <span class="resource-value">
+                <span class="static-value" title="{{localize 'HBM.ui.pointsAvailable'}}">{{system.advancement.skillPointsAvailable}}</span>
+                <span class="sep" title="Modyfikator MG">+</span>
+                <input type="number" name="system.advancement.bonusSkillPoints" value="{{system.advancement.bonusSkillPoints}}" min="0" style="width: 2.2rem; text-align: center; border: none; border-bottom: 1px solid var(--hbm-border); background: transparent;" />
+            </span>
+        </div>
+        <div class="resource">
+            <label>{{localize 'HBM.ui.freeTalents'}}</label>
+            <span class="resource-value">
+                <span class="static-value" title="{{localize 'HBM.ui.pointsAvailable'}}">{{system.advancement.freeTalentsAvailable}}</span>
+                <span class="sep" title="Modyfikator MG">+</span>
+                <input type="number" name="system.advancement.bonusFreeTalents" value="{{system.advancement.bonusFreeTalents}}" min="0" style="width: 2.2rem; text-align: center; border: none; border-bottom: 1px solid var(--hbm-border); background: transparent;" />
+            </span>
+        </div>
+        </div>
+    </section>
+
+    <!-- ── ACTIONS ────────────────────────────────────────────────────────── -->
+    <section class="tab-panel {{#if (eq tabGroups.primary 'actions')}}active{{/if}}" data-tab="actions">
+        <div class="actions-panel">
+            <h3>{{localize 'HBM.ui.actionsTitle'}}</h3>
+            <div class="actions-buttons-grid">
+                <button type="button" class="action-btn" data-action="rollInitiative">
+                    <span class="icon">⚡</span>
+                    <span class="label">{{localize 'HBM.resources.initiative'}}</span>
+                </button>
+                <button type="button" class="action-btn" data-action="applyDamage">
+                    <span class="icon">⚔</span>
+                    <span class="label">{{localize 'HBM.damage.apply'}}</span>
+                </button>
+                <button type="button" class="action-btn" data-action="takeBreather">
+                    <span class="icon">🌬️</span>
+                    <span class="label">{{localize 'HBM.rest.takeBreather'}}</span>
+                </button>
+                <button type="button" class="action-btn" data-action="shortRest">
+                    <span class="icon">☕</span>
+                    <span class="label">{{localize 'HBM.rest.shortRest'}}</span>
+                </button>
+                <button type="button" class="action-btn" data-action="longRest">
+                    <span class="icon">🌙</span>
+                    <span class="label">{{localize 'HBM.rest.longRest'}}</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── SKILLS ─────────────────────────────────────────────────────────── -->
+    <section class="tab-panel {{#if (eq tabGroups.primary 'skills')}}active{{/if}}" data-tab="skills">
+        <div class="skills-grid">
+        {{#each skills as |sk|}}
+        <div class="skill">
+            <span class="skill-name">{{sk.label}}</span>
+            <input type="number" name="system.skills.{{sk.key}}.value" value="{{sk.value}}" min="0" max="8" />
+            <button type="button" class="roll-btn" data-action="rollSkill" data-skill="{{sk.key}}"
+                title="{{localize 'HBM.roll.roll'}}">⚂</button>
+            </div>
+        {{/each}}
+    </div>
+    </section>
+
+    <!-- ── SPELLS ─────────────────────────────────────────────────────────── -->
+    <section class="tab-panel {{#if (eq tabGroups.primary 'spells')}}active{{/if}}" data-tab="spells">
+        {{#if spells.length}}
+        {{#each spellSchoolGroups as |group|}}
+        <details class="spell-school-group" open>
+            <summary><strong>{{group.label}}</strong> <span class="count">({{group.items.length}})</span></summary>
+            <ul class="item-list spell-list">
+                {{#each group.items as |spell|}}
+                <li class="item-row spell-row" data-school="{{spell.system.school}}">
+                    <span class="item-name">{{spell.name}}
+                        {{#if spell.system.isSuperspell}}<span class="badge super" title="Superczar">★</span>{{/if}}
+                        {{#if spell.system.requiresGroupCast}}<span class="badge group" title="Czar grupowy">⛧</span>{{/if}}
+                        {{#if spell.system.nonCombatOnly}}<span class="badge noncombat" title="Tylko poza walką">☮</span>{{/if}}
+                        {{#if spell.system.requirements.race.length}}<span class="badge race-lock" title="Wymagana rasa">🔒</span>{{/if}}
+                    </span>
+                    <span class="item-meta">
+                        K{{spell.system.circle}}
+                        · {{localize (concat 'HBM.spell.castingMode.' spell.system.castingMode)}}
+                        · {{localize 'HBM.resources.mana'}}: {{spell.system.manaCost}}
+                        {{#if (eq spell.system.castingMode 'sacred')}}{{#if spell.system.deity}} · {{spell.system.deity}}{{/if}}{{/if}}
+                        {{#if (eq spell.system.castingMode 'blood')}} · krew: {{spell.system.bloodCost}}{{/if}}
+                        {{#if spell.system.sourceBook}} · <span class="source-pip">{{spell.system.sourceBook}}</span>{{/if}}
+                    </span>
+                    <div class="item-controls">
+                        <button type="button" class="cast-btn" data-action="castSpell" data-item-id="{{spell.id}}"
+                            title="{{localize 'HBM.spell.cast'}}">✦</button>
+                        <button type="button" class="edit-btn" data-action="editItem" data-item-id="{{spell.id}}"
+                            title="{{localize 'HBM.ui.edit'}}">✎</button>
+                        <button type="button" class="delete-btn" data-action="deleteItem" data-item-id="{{spell.id}}"
+                            title="{{localize 'HBM.ui.delete'}}">✕</button>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </details>
+        {{/each}}
+        {{else}}
+        <p class="empty-drop">{{localize 'HBM.ui.dropItems'}}</p>
+        {{/if}}
+        </section>
+
+        <!-- ── TALENTS ────────────────────────────────────────────────────────── -->
+        <section class="tab-panel {{#if (eq tabGroups.primary 'talents')}}active{{/if}}" data-tab="talents">
+            <p class="empty-drop" style="font-size:0.8rem; color:#888; margin-bottom:10px;">{{localize 'HBM.ui.dropTalentsHint'}}</p>
+            {{#if talents.length}}
+            <ul class="item-list">
+                {{#each talents as |item|}}
+                <li class="item-row">
+                    <span class="item-name">{{item.name}}</span>
+                    <span class="item-meta">{{{item.system.description}}}</span>
+                    <div class="item-controls">
+                        <button type="button" class="edit-btn" data-action="editItem" data-item-id="{{item.id}}"
+                            title="{{localize 'HBM.ui.edit'}}">✎</button>
+                        <button type="button" class="delete-btn" data-action="deleteItem" data-item-id="{{item.id}}"
+                            title="{{localize 'HBM.ui.delete'}}">✕</button>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+            {{else}}
+            <p class="empty-drop">{{localize 'HBM.ui.dropItems'}}</p>
+            {{/if}}
+        </section>
+            
+            <!-- ── INVENTORY ──────────────────────────────────────────────────────── -->
+            <section class="tab-panel {{#if (eq tabGroups.primary 'inventory')}}active{{/if}}" data-tab="inventory">
+                <div class="money-panel" style="display: flex; gap: 15px; align-items: center; background: var(--hbm-card-bg); border: 1px solid var(--hbm-border); border-radius: var(--hbm-radius); padding: 0.75rem; margin-bottom: 15px;">
+                    <div style="flex: 1; display: flex; align-items: center; gap: 10px;">
+                        <span class="icon" style="font-size: 1.5rem;">🪙</span>
+                        <strong>{{localize 'HBM.ui.money'}}:</strong>
+                        <input type="number" name="system.details.money" value="{{system.details.money}}" min="0" style="width: 8rem; font-size: 1.1rem; text-align: center; border: none; border-bottom: 1px solid var(--hbm-border); background: transparent; color: var(--hbm-fg);" />
+                        <span>PLN</span>
+                    </div>
+                    <button type="button" data-action="recalculateMoney" style="padding: 4px 10px; font-weight: bold; background: var(--hbm-accent); color: #fff; border: none; border-radius: var(--hbm-radius); cursor: pointer;">
+                        {{localize 'HBM.ui.recalculate'}}
+                    </button>
+                </div>
+
+                {{#if weapons.length}}
+                <div class="inventory-section">
+                    <h3>{{localize 'HBM.gear.weapon'}}</h3>
+                    <table class="inventory-table">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">{{localize 'HBM.ui.name'}}</th>
+                                <th>{{localize 'HBM.gear.damage'}}</th>
+                                <th>{{localize 'HBM.gear.weight'}}</th>
+                                <th>{{localize 'HBM.gear.quantity'}}</th>
+                                <th>{{localize 'HBM.gear.equipped'}}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each weapons as |item|}}
+                            <tr class="item-tr" data-item-id="{{item.id}}">
+                                <td><strong>{{item.name}}</strong></td>
+                                <td style="text-align: center;">{{item.system.weapon.damage}} ({{localize (concat 'HBM.damageType.' item.system.weapon.damageType)}})</td>
+                                <td style="text-align: center;">{{item.system.weight}}</td>
+                                <td style="text-align: center;">{{item.system.quantity}}</td>
+                                <td style="text-align: center;">
+                                    <input type="checkbox" data-action="toggleEquipped" data-item-id="{{item.id}}" {{#if item.system.equipped}}checked{{/if}} style="cursor: pointer;" />
+                                </td>
+                                <td style="text-align: right; white-space: nowrap;">
+                                    <button type="button" class="edit-btn" data-action="editItem" data-item-id="{{item.id}}" title="{{localize 'HBM.ui.edit'}}">✎</button>
+                                    <button type="button" class="delete-btn" data-action="deleteItem" data-item-id="{{item.id}}" title="{{localize 'HBM.ui.delete'}}">✕</button>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                {{/if}}
+
+                {{#if armors.length}}
+                <div class="inventory-section" style="margin-top: 15px;">
+                    <h3>{{localize 'HBM.gear.armor'}}</h3>
+                    <table class="inventory-table">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">{{localize 'HBM.ui.name'}}</th>
+                                <th>{{localize 'HBM.gear.damageReduction'}}</th>
+                                <th>{{localize 'HBM.gear.condition'}}</th>
+                                <th>{{localize 'HBM.gear.weight'}}</th>
+                                <th>{{localize 'HBM.gear.quantity'}}</th>
+                                <th>{{localize 'HBM.gear.equipped'}}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each armors as |item|}}
+                            <tr class="item-tr" data-item-id="{{item.id}}">
+                                <td><strong>{{item.name}}</strong></td>
+                                <td style="text-align: center;">{{item.system.armor.damageReduction}} DR</td>
+                                <td style="text-align: center;">{{item.system.armor.condition}} / {{item.system.armor.conditionMax}}</td>
+                                <td style="text-align: center;">{{item.system.weight}}</td>
+                                <td style="text-align: center;">{{item.system.quantity}}</td>
+                                <td style="text-align: center;">
+                                    <input type="checkbox" data-action="toggleEquipped" data-item-id="{{item.id}}" {{#if item.system.equipped}}checked{{/if}} style="cursor: pointer;" />
+                                </td>
+                                <td style="text-align: right; white-space: nowrap;">
+                                    <button type="button" class="edit-btn" data-action="editItem" data-item-id="{{item.id}}" title="{{localize 'HBM.ui.edit'}}">✎</button>
+                                    <button type="button" class="delete-btn" data-action="deleteItem" data-item-id="{{item.id}}" title="{{localize 'HBM.ui.delete'}}">✕</button>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                {{/if}}
+
+                {{#if equipment.length}}
+                <div class="inventory-section" style="margin-top: 15px;">
+                    <h3>{{localize 'HBM.gear.equipment'}}</h3>
+                    <table class="inventory-table">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">{{localize 'HBM.ui.name'}}</th>
+                                <th>{{localize 'HBM.gear.weight'}}</th>
+                                <th>{{localize 'HBM.gear.quantity'}}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each equipment as |item|}}
+                            <tr class="item-tr" data-item-id="{{item.id}}">
+                                <td>{{item.name}}</td>
+                                <td style="text-align: center;">{{item.system.weight}}</td>
+                                <td style="text-align: center;">{{item.system.quantity}}</td>
+                                <td style="text-align: right; white-space: nowrap;">
+                                    <button type="button" class="edit-btn" data-action="editItem" data-item-id="{{item.id}}" title="{{localize 'HBM.ui.edit'}}">✎</button>
+                                    <button type="button" class="delete-btn" data-action="deleteItem" data-item-id="{{item.id}}" title="{{localize 'HBM.ui.delete'}}">✕</button>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                {{/if}}
+
+                {{#if (eq gear.length 0)}}
+                <p class="empty-drop">{{localize 'HBM.ui.dropItems'}}</p>
+                {{/if}}
+
+                <!-- Custom equipment rows -->
+                <div class="custom-equipment-section" style="margin-top: 20px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <strong>{{localize 'HBM.ui.customEquipment'}}</strong>
+                        <button type="button" data-action="addArrayEntry"
+                            data-path="system.details.customItems"
+                            data-template="{&quot;name&quot;:&quot;&quot;,&quot;qty&quot;:1,&quot;note&quot;:&quot;&quot;}"
+                            style="padding:2px 8px; font-size:0.8rem; background:var(--hbm-success); color:#fff; border:none; border-radius:var(--hbm-radius); cursor:pointer;">
+                            + {{localize 'HBM.ui.add'}}
+                        </button>
+                    </div>
+                    {{#if system.details.customItems.length}}
+                    <table class="inventory-table" style="font-size:0.85rem;">
+                        <thead>
+                            <tr>
+                                <th style="text-align:left;">{{localize 'HBM.ui.name'}}</th>
+                                <th style="width:3rem;">{{localize 'HBM.gear.quantity'}}</th>
+                                <th>{{localize 'HBM.ui.notes'}}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each system.details.customItems as |row i|}}
+                            <tr>
+                                <td><input type="text" name="system.details.customItems.{{i}}.name" value="{{row.name}}"
+                                    style="width:100%; border:none; border-bottom:1px solid var(--hbm-border); background:transparent; color:var(--hbm-fg); font-size:0.85rem;" /></td>
+                                <td><input type="number" name="system.details.customItems.{{i}}.qty" value="{{row.qty}}" min="0"
+                                    style="width:3rem; text-align:center; border:none; border-bottom:1px solid var(--hbm-border); background:transparent; color:var(--hbm-fg); font-size:0.85rem;" /></td>
+                                <td><input type="text" name="system.details.customItems.{{i}}.note" value="{{row.note}}"
+                                    style="width:100%; border:none; border-bottom:1px solid var(--hbm-border); background:transparent; color:var(--hbm-fg); font-size:0.8rem; color:#777;" /></td>
+                                <td style="text-align:right;">
+                                    <button type="button" class="delete-btn" data-action="removeArrayEntry"
+                                        data-path="system.details.customItems" data-index="{{i}}"
+                                        title="{{localize 'HBM.ui.delete'}}">✕</button>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p style="font-size:0.8rem; color:#888; font-style:italic;">{{localize 'HBM.ui.dropItems'}}</p>
+                    {{/if}}
+                </div>
+            </section>
+
+    <!-- ── EFFECTS ────────────────────────────────────────────────────────── -->
+    <section class="tab-panel {{#if (eq tabGroups.primary 'effects')}}active{{/if}}" data-tab="effects">
+        {{> 'systems/hbm-rpg-v3/templates/actor/_actor-effects.hbs'}}
+    </section>
+
+    <!-- ── BIOGRAPHY ──────────────────────────────────────────────────────── -->
+    <section class="tab-panel {{#if (eq tabGroups.primary 'biography')}}active{{/if}}" data-tab="biography">
+        <div class="bio-grid" style="display: flex; gap: 20px; flex-direction: column;">
+            <div style="display: flex; gap: 20px;">
+                <div class="bio-image-container" style="display: flex; flex-direction: column; align-items: center; gap: 10px; flex-shrink: 0;">
+                    <img class="profile-img" src="{{document.img}}" data-action="editImage" title="{{document.name}}" height="150" width="150" style="border: 2px solid #555; border-radius: 4px; cursor: pointer; background: #222;" />
+                    <small style="color: #777;">{{localize 'HBM.ui.changeImageHint'}}</small>
+                </div>
+                <div class="bio-section" style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+                    <div style="overflow-x: auto; margin-top: 5px;">
+                        <table class="schedule-table">
+                            <thead>
+                                <tr style="background: rgba(0, 0, 0, 0.15); border-bottom: 2px solid var(--hbm-border);">
+                                    <th style="width: 3%;">#</th>
+                                    <th style="width: 12%;">{{localize 'HBM.schedule.hours'}}</th>
+                                    <th style="width: 14%;">{{localize 'HBM.schedule.monday'}}</th>
+                                    <th style="width: 14%;">{{localize 'HBM.schedule.tuesday'}}</th>
+                                    <th style="width: 14%;">{{localize 'HBM.schedule.wednesday'}}</th>
+                                    <th style="width: 14%;">{{localize 'HBM.schedule.thursday'}}</th>
+                                    <th style="width: 14%;">{{localize 'HBM.schedule.friday'}}</th>
+                                    <th style="width: 13%;">{{localize 'HBM.schedule.saturday'}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Row 1 -->
+                                <tr>
+                                    <td style="font-weight: bold;">1</td>
+                                    <td><input type="text" name="system.details.schedule.row1.hours" value="{{system.details.schedule.row1.hours}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row1.mon" value="{{system.details.schedule.row1.mon}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row1.tue" value="{{system.details.schedule.row1.tue}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row1.wed" value="{{system.details.schedule.row1.wed}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row1.thu" value="{{system.details.schedule.row1.thu}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row1.fri" value="{{system.details.schedule.row1.fri}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row1.sat" value="{{system.details.schedule.row1.sat}}" /></td>
+                                </tr>
+                                <!-- Row 2 -->
+                                <tr>
+                                    <td style="font-weight: bold;">2</td>
+                                    <td><input type="text" name="system.details.schedule.row2.hours" value="{{system.details.schedule.row2.hours}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row2.mon" value="{{system.details.schedule.row2.mon}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row2.tue" value="{{system.details.schedule.row2.tue}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row2.wed" value="{{system.details.schedule.row2.wed}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row2.thu" value="{{system.details.schedule.row2.thu}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row2.fri" value="{{system.details.schedule.row2.fri}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row2.sat" value="{{system.details.schedule.row2.sat}}" /></td>
+                                </tr>
+                                <!-- Row 3 -->
+                                <tr>
+                                    <td style="font-weight: bold;">3</td>
+                                    <td><input type="text" name="system.details.schedule.row3.hours" value="{{system.details.schedule.row3.hours}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row3.mon" value="{{system.details.schedule.row3.mon}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row3.tue" value="{{system.details.schedule.row3.tue}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row3.wed" value="{{system.details.schedule.row3.wed}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row3.thu" value="{{system.details.schedule.row3.thu}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row3.fri" value="{{system.details.schedule.row3.fri}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row3.sat" value="{{system.details.schedule.row3.sat}}" /></td>
+                                </tr>
+                                <!-- Break -->
+                                <tr style="background: rgba(0, 0, 0, 0.08); font-weight: bold;">
+                                    <td colspan="8" style="padding: 5px; text-align: center; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.75rem;">{{localize 'HBM.schedule.lunchBreak'}}</td>
+                                </tr>
+                                <!-- Row 4 -->
+                                <tr>
+                                    <td style="font-weight: bold;">4</td>
+                                    <td><input type="text" name="system.details.schedule.row4.hours" value="{{system.details.schedule.row4.hours}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row4.mon" value="{{system.details.schedule.row4.mon}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row4.tue" value="{{system.details.schedule.row4.tue}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row4.wed" value="{{system.details.schedule.row4.wed}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row4.thu" value="{{system.details.schedule.row4.thu}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row4.fri" value="{{system.details.schedule.row4.fri}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row4.sat" value="{{system.details.schedule.row4.sat}}" /></td>
+                                </tr>
+                                <!-- Row 5 -->
+                                <tr>
+                                    <td style="font-weight: bold;">5</td>
+                                    <td><input type="text" name="system.details.schedule.row5.hours" value="{{system.details.schedule.row5.hours}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row5.mon" value="{{system.details.schedule.row5.mon}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row5.tue" value="{{system.details.schedule.row5.tue}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row5.wed" value="{{system.details.schedule.row5.wed}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row5.thu" value="{{system.details.schedule.row5.thu}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row5.fri" value="{{system.details.schedule.row5.fri}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row5.sat" value="{{system.details.schedule.row5.sat}}" /></td>
+                                </tr>
+                                <!-- Row 6 -->
+                                <tr>
+                                    <td style="font-weight: bold;">6</td>
+                                    <td><input type="text" name="system.details.schedule.row6.hours" value="{{system.details.schedule.row6.hours}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row6.mon" value="{{system.details.schedule.row6.mon}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row6.tue" value="{{system.details.schedule.row6.tue}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row6.wed" value="{{system.details.schedule.row6.wed}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row6.thu" value="{{system.details.schedule.row6.thu}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row6.fri" value="{{system.details.schedule.row6.fri}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row6.sat" value="{{system.details.schedule.row6.sat}}" /></td>
+                                </tr>
+                                <!-- Row 7 -->
+                                <tr>
+                                    <td style="font-weight: bold;">7</td>
+                                    <td><input type="text" name="system.details.schedule.row7.hours" value="{{system.details.schedule.row7.hours}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row7.mon" value="{{system.details.schedule.row7.mon}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row7.tue" value="{{system.details.schedule.row7.tue}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row7.wed" value="{{system.details.schedule.row7.wed}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row7.thu" value="{{system.details.schedule.row7.thu}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row7.fri" value="{{system.details.schedule.row7.fri}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row7.sat" value="{{system.details.schedule.row7.sat}}" /></td>
+                                </tr>
+                                <!-- Break -->
+                                <tr style="background: rgba(0, 0, 0, 0.08); font-weight: bold;">
+                                    <td colspan="8" style="padding: 5px; text-align: center; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.75rem;">{{localize 'HBM.schedule.dinnerBreak'}}</td>
+                                </tr>
+                                <!-- Row 8 -->
+                                <tr>
+                                    <td style="font-weight: bold;">8</td>
+                                    <td><input type="text" name="system.details.schedule.row8.hours" value="{{system.details.schedule.row8.hours}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row8.mon" value="{{system.details.schedule.row8.mon}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row8.tue" value="{{system.details.schedule.row8.tue}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row8.wed" value="{{system.details.schedule.row8.wed}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row8.thu" value="{{system.details.schedule.row8.thu}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row8.fri" value="{{system.details.schedule.row8.fri}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row8.sat" value="{{system.details.schedule.row8.sat}}" /></td>
+                                </tr>
+                                <!-- Row 9 -->
+                                <tr>
+                                    <td style="font-weight: bold;">9</td>
+                                    <td><input type="text" name="system.details.schedule.row9.hours" value="{{system.details.schedule.row9.hours}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row9.mon" value="{{system.details.schedule.row9.mon}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row9.tue" value="{{system.details.schedule.row9.tue}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row9.wed" value="{{system.details.schedule.row9.wed}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row9.thu" value="{{system.details.schedule.row9.thu}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row9.fri" value="{{system.details.schedule.row9.fri}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row9.sat" value="{{system.details.schedule.row9.sat}}" /></td>
+                                </tr>
+                                <!-- Break -->
+                                <tr style="background: rgba(0, 0, 0, 0.08); font-weight: bold;">
+                                    <td colspan="8" style="padding: 5px; text-align: center; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.75rem;">{{localize 'HBM.schedule.supperBreak'}}</td>
+                                </tr>
+                                <!-- Row 10 -->
+                                <tr>
+                                    <td style="font-weight: bold;">10</td>
+                                    <td><input type="text" name="system.details.schedule.row10.hours" value="{{system.details.schedule.row10.hours}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row10.mon" value="{{system.details.schedule.row10.mon}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row10.tue" value="{{system.details.schedule.row10.tue}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row10.wed" value="{{system.details.schedule.row10.wed}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row10.thu" value="{{system.details.schedule.row10.thu}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row10.fri" value="{{system.details.schedule.row10.fri}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row10.sat" value="{{system.details.schedule.row10.sat}}" /></td>
+                                </tr>
+                                <!-- Row 11 -->
+                                <tr>
+                                    <td style="font-weight: bold;">11</td>
+                                    <td><input type="text" name="system.details.schedule.row11.hours" value="{{system.details.schedule.row11.hours}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row11.mon" value="{{system.details.schedule.row11.mon}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row11.tue" value="{{system.details.schedule.row11.tue}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row11.wed" value="{{system.details.schedule.row11.wed}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row11.thu" value="{{system.details.schedule.row11.thu}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row11.fri" value="{{system.details.schedule.row11.fri}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row11.sat" value="{{system.details.schedule.row11.sat}}" /></td>
+                                </tr>
+                                <!-- Row 12 -->
+                                <tr>
+                                    <td style="font-weight: bold;">12</td>
+                                    <td><input type="text" name="system.details.schedule.row12.hours" value="{{system.details.schedule.row12.hours}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row12.mon" value="{{system.details.schedule.row12.mon}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row12.tue" value="{{system.details.schedule.row12.tue}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row12.wed" value="{{system.details.schedule.row12.wed}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row12.thu" value="{{system.details.schedule.row12.thu}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row12.fri" value="{{system.details.schedule.row12.fri}}" /></td>
+                                    <td><input type="text" name="system.details.schedule.row12.sat" value="{{system.details.schedule.row12.sat}}" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <label><strong>{{localize 'HBM.details.personalDetails'}}</strong></label>
+                        <textarea name="system.details.personalDetails" rows="4" style="width: 100%; resize: vertical; border: 1px solid var(--hbm-border); border-radius: var(--hbm-radius); padding: 5px; background: var(--hbm-card-bg); color: var(--hbm-fg);">{{system.details.personalDetails}}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="bio-section">
+                <label><strong>{{localize 'HBM.ui.biography'}}</strong></label>
+                <textarea name="system.details.biography" rows="8" style="width: 100%; resize: vertical; border: 1px solid var(--hbm-border); border-radius: var(--hbm-radius); padding: 5px; background: var(--hbm-card-bg); color: var(--hbm-fg);">{{system.details.biography}}</textarea>
+            </div>
+        </div>
+    </section>
+</div><!-- .sheet-body -->
+</div>

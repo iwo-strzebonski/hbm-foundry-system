@@ -1,0 +1,32 @@
+{
+  "label": "Weapons",
+  "entries": {
+    "Łuk Klasyczny": {
+      "name": "Classic Bow"
+    },
+    "Łuk Bloczkowy": {
+      "name": "Compound Bow"
+    },
+    "Sztylet": {
+      "name": "Dagger"
+    },
+    "Łuk Elfi": {
+      "name": "Elven Bow"
+    },
+    "Broń jednoręczna lub półtoraręczna": {
+      "name": "One Handed Or Bastard Weapon"
+    },
+    "Laska Quarterstaff": {
+      "name": "Quarterstaff"
+    },
+    "Włócznia": {
+      "name": "Spear"
+    },
+    "Broń dwuręczna": {
+      "name": "Two Handed Weapon"
+    },
+    "Bicz": {
+      "name": "Whip"
+    }
+  }
+}

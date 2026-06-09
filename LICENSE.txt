@@ -1,0 +1,13 @@
+All Rights Reserved.
+
+Copyright (c) 2026 Iwo Strzeboński.
+
+This Foundry VTT system and all accompanying source code, templates,
+stylesheets, and configuration files are the exclusive property of the
+copyright holder. No part of this work may be reproduced, distributed,
+modified, or used to create derivative works without prior written
+permission of the copyright holder.
+
+Permission is granted to the original author and authorized collaborators
+to use this software for the purposes of running and developing the
+Homebrew Magic: Role Playing Game v3 system.

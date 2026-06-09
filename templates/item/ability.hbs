@@ -1,0 +1,18 @@
+<div class="hbm item-body ability">
+    <div class="row">
+        <label>{{localize 'HBM.ability.type'}}:
+            <select name="system.type">
+                <option value="passive"     {{#if (eq system.type 'passive')}}selected{{/if}}>{{localize 'HBM.ability.passive'}}</option>
+                <option value="active"      {{#if (eq system.type 'active')}}selected{{/if}}>{{localize 'HBM.ability.active'}}</option>
+                <option value="reaction"    {{#if (eq system.type 'reaction')}}selected{{/if}}>{{localize 'HBM.ability.reaction'}}</option>
+                <option value="freeAction"  {{#if (eq system.type 'freeAction')}}selected{{/if}}>{{localize 'HBM.ability.freeAction'}}</option>
+            </select>
+        </label>
+        <label>{{localize 'HBM.ability.cost'}}: <input type="text" name="system.cost" value="{{system.cost}}"/></label>
+        <label>{{localize 'HBM.spell.manaCost'}}: <input type="number" name="system.manaCost" value="{{system.manaCost}}" min="0"/></label>
+        <label>{{localize 'HBM.resources.zeal'}}: <input type="number" name="system.zealCost" value="{{system.zealCost}}" min="0"/></label>
+    </div>
+    <label>{{localize 'HBM.ability.prerequisite'}}<input type="text" name="system.prerequisite" value="{{system.prerequisite}}"/></label>
+    <label>{{localize 'HBM.ability.description'}}<textarea name="system.description" rows="6">{{system.description}}</textarea></label>
+    <label>{{localize 'HBM.ability.mechanics'}}<textarea name="system.mechanics" rows="4">{{system.mechanics}}</textarea></label>
+</div>

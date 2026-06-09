@@ -1,0 +1,21 @@
+{
+  "label": "Armor",
+  "entries": {
+    "Pancerz Ciężki": {
+      "name": "Heavy Armor",
+      "description": "<p>* **Armor Points:** 3\n* **Requirements:** Body >= 4</p>"
+    },
+    "Pancerz Lekki": {
+      "name": "Light Armor",
+      "description": "<p>* **Armor Points:** 1</p>"
+    },
+    "Pancerz Średni": {
+      "name": "Medium Armor",
+      "description": "<p>* **Armor Points:** 2\n* **Requirements:** Body >= 2</p>"
+    },
+    "Tarcza": {
+      "name": "Shield",
+      "description": "<p>A shield, when used, increases the owner's Defense by one step.</p>"
+    }
+  }
+}

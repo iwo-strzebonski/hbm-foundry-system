@@ -1,0 +1,189 @@
+{
+  "label": "Spells - Sacred",
+  "entries": {
+    "Przyspieszone Żniwa": {
+      "name": "Accelerated Harvest",
+      "description": "Dzięki doświadczonej dłoni Demeter-Ceres wskazane uprawy błyskawicznie dojrzewają. Rośliny można zebrać od razu - zaklęcie zużywa potencjał plonu “z przyszłości”, co powoduje, że dane rośliny nie dadzą już w danym roku owoców.\n\nKażde kolejne siewy będą mniej obfite, chyba że pole zostanie ponownie poświęcone.\n\nTo zaklęcie może zostać rzucone tylko raz na dzień, raz w sezonie na konkretny obszar."
+    },
+    "Egida": {
+      "name": "Aegis",
+      "description": "Zeus-Jowisz otacza wybrany cel swoją ochroną.\n\nCel otrzymuje +1 Pancerza, a ponadto wszystkie ataki kierowanie w cel są trudniejsze o jeden stopień."
+    },
+    "Tajemne Poznanie": {
+      "name": "Arcane Cognition",
+      "description": "Hekate dzieli się fragmentem swojej wiedzy magicznej z jej wyznawcą oraz jego towarzyszami.\n\nWszystkie osoby w polu (wliczając maga) otrzymują +1 kość do testów związanych z Umiejętnościami Wiedza Magiczna i Teologia.\n\n---"
+    },
+    "Strzała Pożądania": {
+      "name": "Arrow Of Desire",
+      "description": "Mag wystrzeliwuje magiczną, niematerialną strzałę przesyconą energią Amora-Erosa, która trafia wybranego przeciwnika, zadając mu tyle punktów Obrażeń, ile wynosi wartość Zdolności Magiczne maga, a ponadto jeżeli wartość Obrażeń jest większa niż wartość Atrybutu Soul celu, to zostaje on Zauroczony na jedną rundę.\n\nPo zakończeniu zaklęcia cel dowiaduje się, że został Zauroczony."
+    },
+    "Przebudzenie": {
+      "name": "Awakening",
+      "description": "Postać zmienia się w wybrane zwierzę. Postać przemienia się z powrotem w swoją oryginalną formę, jeżeli czas zaklęcia upłynie, zdecyduje się na to z własnej woli, lub jeżeli forma, którą Postać przyjęła, straci wszystkie punkty Żywotności. Statystyki zwierząt znajdują się w Bestiariuszu."
+    },
+    "Piękno Bogini": {
+      "name": "Beauty Of The Goddess",
+      "description": "Mag otacza się aurą boskiego piękna, zyskując trzy dodatkowe kości do Testów związanych z Umiejętnością Przekonywanie, a ponadto agresywne działania wobec maga wymagają Testu na Koncentrację (patrz: Stan Koncentracja), gdzie wymagana liczba Sukcesów (S) jest równa liczbie wyrzuconych przez maga Sukcesów. W wypadku niepowodzenia istota, która próbowała podjąć to działanie, traci Akcję."
+    },
+    "Ostrze Dawida": {
+      "name": "Blade Of David",
+      "description": "Dzięki świętej inkantacji, rzucający może zamienić (oddane dobrowolnie lub własne) pióro anioła w ostrze o tej samej długości (od sztyletu po krótki miecz).\n\nOstrze jest bronią Tnącą Magiczną zadającą S+1 obrażeń i utrzymuje się przez 3 tury. Po tym czasie ostrze traci swoje właściwości i zamienia się w pozbawione magii pióro. Takiego pióra nie można użyć ponownie jako składnika tego zaklęcia."
+    },
+    "Więź Serc": {
+      "name": "Bond Of Hearts",
+      "description": "Tworzy głęboką empatyczną więź pomiędzy dwiema osobami, ułatwiając komunikację i rozwiązywanie konfliktów. Obojgu przysługuje premia +2 Sukcesów do wszystkich Testów wymagających współpracy.\n\nTego Zaklęcia nie można użyć w trakcie walki, a ponadto cele muszą wyrazić zgodę.\n\nTo zaklęcie nie może mieć w żaden sposób zwiększonej ilości Celów."
+    },
+    "Pomost": {
+      "name": "Bridge",
+      "description": "Wybrana część ciała zamienia się w zwierzęcy odpowiednik. Wraz z Mistrzem Gry należy ustalić efekt, który ta zmiana daje."
+    },
+    "Błyskawice Łańcuchowe": {
+      "name": "Chain Lightning",
+      "description": "Błyskawica wystrzeliwuje z ręki Postaci i uderza w wybranego wroga, a następnie przeskakuje na następne cele.\n\nWybrany cel, a następnie wybierz następny cel, który jest w promieniu 5 m. Od tego celu wybierz kolejny cel w promieniu 5 m, który nie był jeszcze celem tego zaklęcia. Wszystkie cele otrzymują tyle punktów Obrażeń, ile wynosi wartość Umiejętności Zdolności Magiczne lub Oddanie Postaci. Za każdy niezużyty łańcuch wybrany przez Postać cel otrzymuje 1k3 punktów Obrażeń."
+    },
+    "Urok Niewinności": {
+      "name": "Charm Of Innocence",
+      "description": "Cel wydaje się wszystkim w otoczeniu urzekający i nieszkodliwy – agresywne działania przeciwników wobec celu wymagają dwóch Sukcesów więcej, a postronne osoby przyjmują wobec niego postawę przyjazną."
+    },
+    "Strzała Kupidyna": {
+      "name": "Cupids Arrow",
+      "description": "Magiczna strzała po trafieniu w cel wzbudza w nim silne uczucie sympatii i zauroczenia wobec maga, sprawiając, że staje się Zauroczony.\n\nPo zakończeniu zaklęcia cel dowiaduje się, że został Zauroczony."
+    },
+    "Klątwa Hekate": {
+      "name": "Curse Of Hekate",
+      "description": "Wybrany obszar pokrywa się fioletowymi płomieniami, które znacznie osłabiają wszystkich niewiernych magów.\n\nOsoby w polu muszą wykonać udany Test na Magic (Determinacja) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać wykonuje wszystkie Testy związane z Umiejętnością Zdolności Magiczne z jedną kością mniej oraz jest Przerażona do końca trwania zaklęcia."
+    },
+    "Boska Celność": {
+      "name": "Divine Accuracy",
+      "description": "Bogini Łowów błogosławi wybraną osobę, ułatwiając jej celowanie. Do końca trwania zaklęcia cel otrzymuje trzy dodatkowe kości do wszystkich Testów związanych z Umiejętnością Umiejętności Strzeleckie."
+    },
+    "Boska Sprawiedliwość": {
+      "name": "Divine Justice",
+      "description": "Krótka, pełna żaru modlitwa wzywająca boską sprawiedliwość przeciwko wrogom wiary.\n\nMag kieruje boski gniew w wybrany przez siebie cel, który otrzymuje ilość obrażeń równą zaokrągloną w górę połowie wartości Zdolności Magiczne lub Oddanie maga. Jeżeli jest innowiercą, otrzymuje dodatkowe 1k6 obrażeń.\n\n---"
+    },
+    "Boska Włócznia": {
+      "name": "Divine Spear",
+      "description": "Bogini Łowów wręcza Ci włócznię, którą następnie możesz cisnąć we wroga.\n\nWybierz wroga w zasięgu 15 m. Cel otrzymuje tyle punktów Obrażeń, które ignorują Pancerz, ile wynosi wartość Umiejętności Zdolności Magiczne lub Oddanie Postaci. Każdy dodatkowy Sukces zwiększa zadawane Obrażenia o 1k3."
+    },
+    "Moc Ziemi": {
+      "name": "Earth Power",
+      "description": "Mag zaczyna czerpać siłę życiową z ziemi pod stopami. Dopóki stoi na naturalnej glebie, odzyskuje tyle punktów Żywotności, ile wynosi wartość Umiejętności Zdolności Magiczne lub Oddanie maga oraz wartość Pancerza zostaje tymczasowo zwiększona o 1.\n\nTego Pancerza nie da się zniszczyć."
+    },
+    "Wyładowanie Elektrostatyczne": {
+      "name": "Electrostatic Discharge",
+      "description": "Teren dookoła postaci zaczyna iskrzyć od wyładowań elektrostatycznych.\n\nWszystkie istoty w promieniu 2 m od Postaci tyle punktów Obrażeń ignorujących Pancerz, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne lub Oddanie maga, a następnie muszą wykonać Test 4:S na Wytrzymałość (Body), gdzie Sukcesy (S) wymagane do zdania Testu przez cel są równe ilości sukcesów wyrzuconych przez Postać. W wypadku nieudanego Testu cel zostaje Przewrócony."
+    },
+    "Fanatyczne Poświęcenie": {
+      "name": "Fanatical Sacrifice",
+      "description": "Ludzie, pomimo tego że są znani z postępowości, są mimo wszystko najbardziej fanatyczną rasą jeśli chodzi o wierzących przedstawicieli tej rasy. Szczególnie jeśli weźmiemy pod uwagę wyznawców chrześcijaństwa i islamu (w końcu to ten sam Bóg). Nieczęsto fanatyzm ludzkich wyznawców Boga-Jahwe-Jedynego wprawia w osłupienie i niedowierzanie anioły.\n\nLudzkość jest skłonna do poświęceń, które dla innych ras byłyby nie do pomyślenia.\n\nMag otrzymuje podwójne obrażenia, ale zadaje podwójne obrażenia w Walce Wręcz. Dodatkowo obrażenia zadawane przez maga w Walce Wręcz ignorują Pancerz celu i są traktowane jako obrażenia magiczne, a ponadto wszystkie trafione przez maga ataki w Walce Wręcz sprawiają, że przeciwnicy stają się Przerażeni."
+    },
+    "Płomień Namiętności": {
+      "name": "Flame Of Passion",
+      "description": "Cel doświadcza intensywnych emocji i namiętności (miłosnej, twórczej lub\ndowolnej pasji wybranej przez maga), zyskując dwie dodatkowe kości do Testów związanych z Umiejętnościami Empatia i Przekonywanie, ale dostając również karę do Testów związanych z Atrybutem Mind, które cel musi wykonywać z jedną kością mniej do końca trwania zaklęcia."
+    },
+    "Uzdrowienie Chorych": {
+      "name": "Heal Sick",
+      "description": "Mag dotyka chorego, na którego spływa łaska Boga-Jahwe-Jedynego.\n\nZ wybranej osoby usuwana jest jedna choroba lub trucizna. Jeśli choroba jest trudna do uleczenia (lub trucizna trudna do usunięcia), to choroba cofa się o jedno stadium. Mistrz Gry określa trudność danej choroby do uleczenia."
+    },
+    "Leczący Dotyk": {
+      "name": "Healing Touch",
+      "description": "Na dotkniętą osobę spływa święta moc, zasklepiająca rany. Cel odzyskuje ilość punktów Żywotności równą wartości Umiejętności Zdolności Magiczne lub Oddanie maga."
+    },
+    "Tęsknota Serca": {
+      "name": "Heart Longing",
+      "description": "Wskazany cel zaczyna obsesyjnie tęsknić za wybranym przez maga obiektem uczuć.\n\nTrudność ze skupieniem się na innych zadaniach oraz chęć odnalezienia lub zobaczenia obiektu tęsknoty sprawia, że cel otrzymuje karę -1 kości do wszystkich Testów związanych z Umiejętnością Determinacja.\n\nTego Zaklęcia nie można użyć w trakcie walki."
+    },
+    "Święta Stal": {
+      "name": "Holy Steel",
+      "description": "Wybrana broń biała po dotknięciu pokrywa się białym płomieniem.\n\nBroń zadaje 1 dodatkowy punkt obrażeń magicznych. Cel po trafieniu wykonuje wszystkie testy na Refleks z 1 kością mniej do początku następnej tury osoby rzucającej zaklęcie."
+    },
+    "Chmara Insektów": {
+      "name": "Insect Swarm",
+      "description": "Na wybranym obszarze pojawia się chmara insektów, obniżająca Pancerz o 1 oraz zmniejszając prędkość Ruchu o 50% wszystkim istotom znajdującym się w wybranym Obszarze.\n\n> Kelner, kelner! Milion os proszę!"
+    },
+    "Sąd Ostateczny": {
+      "name": "Last Judgment",
+      "description": "Mag wzywa potęgę Boga-Jahwe-Jedynego, który osobiście osądza wskazanego grzesznika lub innowiercę.\n\nWybrany cel otrzymuje tyle punktów obrażeń, ile wynosi trzykrotność wartości Umiejętności Zdolności Magiczne lub Oddanie maga.\n\nPonadto, jeśli cel jest innowiercą lub jest demonem bądź nieumarłym, a wartość Umiejętności Oddanie maga jest większa bądź równa wartości Atrybutu Soul, to cel natychmiast umiera. Jeśli cel jest ważną postacią, to traci tyle punktów Żywotności, ile wynosi zaokrąglona w górę."
+    },
+    "Wzmocnienie Magii": {
+      "name": "Magic Empowerment",
+      "description": "Hekate spogląda przychylnie na wiernego jej maga i na chwilę pozwala mu korzystać z ułamka jej mocy.\n\nMag przez następne dwie rundy otrzymuje cztery dodatkowe kości do wszystkich rzutów związanych z Umiejętnością Zdolności Magiczne."
+    },
+    "Magiczne Przyspieszenie": {
+      "name": "Magic Haste",
+      "description": "Mag poświęca część swojej mocy ku czci Hekate, która w zamian pomaga wybranej przez maga osobie, regenerując mu 1 punkt Zapału."
+    },
+    "Kradzież Many": {
+      "name": "Mana Drain",
+      "description": "Hekate spogląda krzywym wzrokiem na wskazanego przez swojego wyznawcę niewiernego, przekazując część mocy magicznej celu magowi rzucającego to zaklęcie.\n\nDo końca trwania zaklęcia, mag rzucający to zaklęcie zwiększa swoją Manę o 2 oraz Maksymalny Koszt Zaklęcia o 1, zaś cel zmniejsza swój Maksymalny Koszt Zaklęcia o 2."
+    },
+    "Modlitwa o Opiekę": {
+      "name": "Prayer For Protection",
+      "description": "Krótka modlitwa o ochronę i błogosławieństwo. Każda osoba w promieniu 2 m od maga otrzymuje bonus +1 kość do Testów na unikanie efektów uroków, zaklęć i klątw."
+    },
+    "Obecność Króla Bogów": {
+      "name": "Presence Of The King Of Gods",
+      "description": "Zeus-Jowisz obdarowuje swojego wyznawcę swoim autorytetem.\n\nPostać otrzymuje Autorytet. Sukcesy (S) wymagane do zdania Testu przez cel są równe ilości sukcesów wyrzuconych przez Postać.\n\n---"
+    },
+    "Promień Harmonii": {
+      "name": "Ray Of Harmony",
+      "description": "Mag zaczyna emanować aurą harmonii i zgody o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m), która dodatkowo rozświetla ten obszar delikatnym, różowawym światłem.\n\nKażda postać w zasięgu działania zaklęcia musi wykonać Test na Koncentrację (patrz: Stan Koncentracja), gdzie wymagana liczba Sukcesów (S) jest równa liczbie wyrzuconych przez maga Sukcesów. W wypadku niepowodzenia konflikty i spory danej postaci są automatycznie tłumione, a ponadto zyskuje ona premię dwóch dodatkowych kości do wszystkich rzutów związanych z negocjacjami i rozwiązywaniem sporów."
+    },
+    "Uświęcenie": {
+      "name": "Sanctification",
+      "description": "Broń zadaje obrażenia magiczne zamiast fizycznych."
+    },
+    "Cykl Pór Roku": {
+      "name": "Seasons Cycle",
+      "description": "Zaklęcie pozwala przejściowo zmienić „mikroklimat” na obszarze (np. przyspieszyć nadejście wiosny, wywołać letnią pogodę, zaostrzyć jesienne chłody lub pozycję słońca). Efekt dotyczy klimatu, roślin i pogody na ograniczonym terenie."
+    },
+    "Pożądanie Zmysłów": {
+      "name": "Senses Desire",
+      "description": "Zmysły i pożądanie celu zostają intensywnie pobudzone, co sprawia, że cel staje się bardziej wylewny, odważny i skłonny do romantycznych deklaracji - dostaje bonus +5 kości we wszystkich Testach związanych z relacjami romantycznymi, jednak w zamian dostaje karę -1 kości do wszystkich Testów związanych z Atrybutem Mind oraz jeżeli dany Test jest związany z opieraniem się pokusom, dodatkową karę na wszystkie Testy związane z Umiejętnością Determinacja."
+    },
+    "Błogosławieństwo Zasiewów": {
+      "name": "Sowing Blessing",
+      "description": "Mag prosi boginię o otoczenie nasion, pola lub ogrodu aurą płodności. Rośliny rosną szybciej, są odporne na większość chorób oraz mniej podatne na suszę i szkodniki.\n\nIlość plonów z tego obszaru zostaje zwiększona o 20% w danym sezonie.\n\nTo zaklęcie może zostać rzucone tylko raz na dzień, raz w sezonie na konkretny obszar."
+    },
+    "Nić Przeznaczenia": {
+      "name": "Thread Of Destiny",
+      "description": "Mag tworzy magiczną więź przeznaczenia między dwiema osobami. Obie mają wrażenie wzajemnego przyciągania, łatwiej się dogadują i silniej odczuwają obecność oraz emocje drugiej osoby.\n\nObydwa cele wykonują Test na Soul (Empatia) 4:S, gdzie wymagana liczba Sukcesów (S) jest równa liczbie wyrzuconych przez maga Sukcesów. Jeżeli przynajmniej jeden cel zda Test, zaklęcie się nie udaje.\n\nW innym wypadku obojgu przysługuje premia +3 Sukcesów do wszystkich Testów wymagających współpracy, ale jeżeli nie widzą się i są od siebie dalej niż 20 m, to obydwa cele otrzymują karę -2 Sukcesów we wszystkich Testach oraz zablokowanie premii do ponownego spotkania. Ponadto jeżeli jeden cel otrzyma obrażenia, to trzecia część tych obrażeń jest przenoszona na drugi cel.\n\nTego Zaklęcia nie można użyć w trakcie walki\n\nTo zaklęcie nie może mieć w żaden sposób zwiększonej ilości Celów."
+    },
+    "Grom z Nieba": {
+      "name": "Thunderbolt",
+      "description": "Na uniżoną prośbę swojego wyznawcy, Zeus-Jowisz ciska swoim piorunem w wybrany punkt.\n\nWszyscy przeciwnicy w wybranym obszarze muszą wykonać Test 4:S na Wytrzymałość (Body), gdzie Sukcesy (S) oznacza ilość sukcesów wyrzuconą przez Postać. Każdy przeciwnik, który nie zda Testu, otrzymuje tyle punktów Obrażeń, ile wynosi dwukrotność wartości Umiejętności Zdolności Magiczne lub Oddanie Postaci, oraz zostaje Ogłuszony."
+    },
+    "Mądrość Salomona": {
+      "name": "Wisdom Of Solomon",
+      "description": "Mag prosi o radę Boga-Jahwe-Jedynego, który dzieli się ze swoim wyznawcą fragmentem swojej mądrości.\n\nMag przez następną godzinę otrzymuje +1 kość do wszystkich testów związanych z Atrybutem Mind."
+    },
+    "Gniew Matki Ziemi": {
+      "name": "Wrath Of Mother Earth",
+      "description": "Rośliny, korzenie i ziemia aktywnie bronią obszaru przed tymi, którzy go niszczą: pędy oplatają, trawa gęstnieje, korzenie podcinają nogi, a ciernie wbijają się w intruzów.\n\nKażda istota, która wchodzi na dany obszar lub się w nim przemieszcza, otrzymuje tyle punktów Obrażeń, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne lub Oddanie maga.\n\n---"
+    },
+    "Amor (Eros)": {
+      "name": "Cupid (Eros)"
+    },
+    "Zeus (Jowisz)": {
+      "name": "Zeus (Jupiter)"
+    },
+    "Afrodyta (Wenus)": {
+      "name": "Aphrodite (Venus)"
+    },
+    "Hekate": {
+      "name": "Hecate"
+    },
+    "Demeter (Ceres)": {
+      "name": "Demeter (Ceres)"
+    },
+    "Modlitwy Ogólne": {
+      "name": "General Prayers"
+    },
+    "Bóg (Jedyny)": {
+      "name": "God (The One)"
+    },
+    "Artemida (Diana)": {
+      "name": "Artemis (Diana)"
+    }
+  }
+}

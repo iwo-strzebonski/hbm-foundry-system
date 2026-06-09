@@ -1,0 +1,26 @@
+{{!-- Active Effects partial — included by talent and gear sheets. --}}
+{{#if supportsEffects}}
+<fieldset class="hbm-effects">
+    <legend>{{localize 'HBM.activeEffect.title'}}</legend>
+    <button type="button" class="hbm-effect-add" data-action="effectCreate">+ {{localize 'HBM.activeEffect.addEffect'}}</button>
+    {{#if effects.length}}
+    <ul class="effect-list">
+        {{#each effects as |e|}}
+        <li class="effect-row {{#if e.disabled}}disabled{{/if}}">
+            <img src="{{e.icon}}" width="20" height="20"/>
+            <span class="effect-name">{{e.name}}</span>
+            <span class="effect-meta">
+                {{#if e.transfer}}<span class="badge">→ {{localize 'HBM.activeEffect.transferToActor'}}</span>{{/if}}
+                <span class="badge">{{e.changes.length}} {{localize 'HBM.activeEffect.changes'}}</span>
+            </span>
+            <button type="button" data-action="effectToggle" data-effect-id="{{e.id}}" title="{{localize 'HBM.activeEffect.toggle'}}">{{#if e.disabled}}○{{else}}●{{/if}}</button>
+            <button type="button" data-action="effectEdit" data-effect-id="{{e.id}}" title="{{localize 'HBM.activeEffect.edit'}}">✎</button>
+            <button type="button" data-action="effectDelete" data-effect-id="{{e.id}}" title="{{localize 'HBM.activeEffect.deleteEffect'}}">✕</button>
+        </li>
+        {{/each}}
+    </ul>
+    {{else}}
+    <p class="hbm-hint">{{localize 'HBM.activeEffect.empty'}}</p>
+    {{/if}}
+</fieldset>
+{{/if}}

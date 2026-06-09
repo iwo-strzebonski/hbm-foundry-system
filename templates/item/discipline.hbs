@@ -1,0 +1,29 @@
+<div class="hbm item-body discipline">
+    <div class="row">
+        <label>{{localize 'HBM.discipline.color'}}: <input type="text" name="system.color" value="{{system.color}}"/></label>
+        <label>{{localize 'HBM.discipline.suggestedAttribute'}}:
+            <select name="system.suggestedAttribute">
+                <option value="body"  {{#if (eq system.suggestedAttribute 'body')}}selected{{/if}}>{{localize 'HBM.attributes.body'}}</option>
+                <option value="mind"  {{#if (eq system.suggestedAttribute 'mind')}}selected{{/if}}>{{localize 'HBM.attributes.mind'}}</option>
+                <option value="soul"  {{#if (eq system.suggestedAttribute 'soul')}}selected{{/if}}>{{localize 'HBM.attributes.soul'}}</option>
+                <option value="magic" {{#if (eq system.suggestedAttribute 'magic')}}selected{{/if}}>{{localize 'HBM.attributes.magic'}}</option>
+            </select>
+        </label>
+    </div>
+    <label>{{localize 'HBM.discipline.passiveAbility'}}<textarea name="system.passiveAbility" rows="3">{{system.passiveAbility}}</textarea></label>
+<fieldset>
+    <legend>{{localize 'HBM.discipline.signatureSpells'}}
+        <button type="button" data-action="addArrayEntry" data-path="system.signatureSpells" data-template='""'
+            title="{{localize 'HBM.ui.add'}}">＋</button>
+    </legend>
+    {{#each system.signatureSpells as |s idx|}}
+    <div class="row">
+        <input type="text" name="system.signatureSpells.{{idx}}" value="{{s}}" />
+        <button type="button" data-action="removeArrayEntry" data-path="system.signatureSpells"
+            data-index="{{idx}}">✕</button>
+    </div>
+    {{/each}}
+</fieldset>
+
+    <label>{{localize 'HBM.discipline.description'}}<textarea name="system.description" rows="6">{{system.description}}</textarea></label>
+</div>

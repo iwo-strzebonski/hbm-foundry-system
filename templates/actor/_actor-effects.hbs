@@ -1,0 +1,24 @@
+{{!-- Actor-level Active Effects section — included by character and NPC sheets. --}}
+<fieldset class="hbm-effects actor-effects">
+    <legend>{{localize 'HBM.activeEffect.title'}}</legend>
+    <button type="button" class="hbm-effect-add" data-action="actorEffectCreate">+ {{localize 'HBM.activeEffect.addEffect'}}</button>
+    {{#if actorEffects.length}}
+    <ul class="effect-list">
+        {{#each actorEffects as |e|}}
+        <li class="effect-row {{#if e.disabled}}disabled{{/if}} {{#if e.isTransferred}}transferred{{/if}}">
+            <img src="{{e.icon}}" width="20" height="20"/>
+            <span class="effect-name">{{e.name}}</span>
+            <span class="effect-meta">
+                {{#if e.isTransferred}}<span class="badge" title="{{localize 'HBM.activeEffect.fromItem'}}">← {{e.originName}}</span>{{/if}}
+                <span class="badge">{{e.changes.length}} {{localize 'HBM.activeEffect.changes'}}</span>
+            </span>
+            <button type="button" data-action="actorEffectToggle" data-effect-id="{{e.id}}" title="{{localize 'HBM.activeEffect.toggle'}}">{{#if e.disabled}}○{{else}}●{{/if}}</button>
+            <button type="button" data-action="actorEffectEdit" data-effect-id="{{e.id}}" title="{{localize 'HBM.activeEffect.edit'}}">✎</button>
+            {{#unless e.isTransferred}}<button type="button" data-action="actorEffectDelete" data-effect-id="{{e.id}}" title="{{localize 'HBM.activeEffect.deleteEffect'}}">✕</button>{{/unless}}
+        </li>
+        {{/each}}
+    </ul>
+    {{else}}
+    <p class="hbm-hint">{{localize 'HBM.activeEffect.emptyActor'}}</p>
+    {{/if}}
+</fieldset>

@@ -1,0 +1,60 @@
+<div class="hbm item-body gear">
+    <div class="row">
+        <label>{{localize 'HBM.gear.category'}}:
+            <select name="system.category">
+                <option value="weapon"    {{#if (eq system.category 'weapon')}}selected{{/if}}>{{localize 'HBM.gear.weapon'}}</option>
+                <option value="armor"     {{#if (eq system.category 'armor')}}selected{{/if}}>{{localize 'HBM.gear.armor'}}</option>
+                <option value="equipment" {{#if (eq system.category 'equipment')}}selected{{/if}}>{{localize 'HBM.gear.equipment'}}</option>
+            </select>
+        </label>
+        <label>{{localize 'HBM.gear.rarity'}}: <input type="text" name="system.rarity" value="{{system.rarity}}"/></label>
+        <label>{{localize 'HBM.gear.quantity'}}: <input type="number" name="system.quantity" value="{{system.quantity}}" min="0"/></label>
+        <label>{{localize 'HBM.gear.weight'}}: <input type="number" name="system.weight" value="{{system.weight}}" min="0"/></label>
+        <label>{{localize 'HBM.gear.value'}}: <input type="number" name="system.value" value="{{system.value}}" min="0"/></label>
+    </div>
+
+    <div class="row">
+        <label><input type="checkbox" name="system.equipped" {{#if system.equipped}}checked{{/if}} /> {{localize
+            'HBM.gear.equipped'}}</label>
+        <label title="{{localize 'HBM.gear.damageReductionBonusHint'}}">{{localize 'HBM.gear.damageReductionBonus'}}: <input
+                type="number" name="system.damageReductionBonus" value="{{system.damageReductionBonus}}" min="0" /></label>
+    </div>
+
+    {{#if (eq system.category 'weapon')}}
+        <fieldset>
+            <legend>{{localize 'HBM.gear.weapon'}}</legend>
+            <label>{{localize 'HBM.gear.damage'}}: <input type="text" name="system.weapon.damage" value="{{system.weapon.damage}}"/></label>
+            <label>{{localize 'HBM.gear.damageType'}}:
+                <select name="system.weapon.damageType">
+                    <option value="physical"      {{#if (eq system.weapon.damageType 'physical')}}selected{{/if}}>{{localize 'HBM.gear.physical'}}</option>
+                    <option value="magical"       {{#if (eq system.weapon.damageType 'magical')}}selected{{/if}}>{{localize 'HBM.gear.magical'}}</option>
+                    <option value="environmental" {{#if (eq system.weapon.damageType 'environmental')}}selected{{/if}}>{{localize 'HBM.gear.environmental'}}</option>
+                </select>
+            </label>
+        </fieldset>
+    {{/if}}
+
+    {{#if (eq system.category 'armor')}}
+        <fieldset>
+            <legend>{{localize 'HBM.gear.armor'}}</legend>
+            <label>{{localize 'HBM.gear.damageReduction'}}: <input type="number" name="system.armor.damageReduction"
+                    value="{{system.armor.damageReduction}}" min="0" /></label>
+            <label>{{localize 'HBM.gear.condition'}}: <input type="number" name="system.armor.condition"
+                    value="{{system.armor.condition}}" min="0" /> / <input type="number" name="system.armor.conditionMax"
+                    value="{{system.armor.conditionMax}}" min="0" /></label>
+            <label>{{localize 'HBM.gear.armorType'}}:
+                <select name="system.armor.armorType">
+                    <option value="light"  {{#if (eq system.armor.armorType 'light')}}selected{{/if}}>{{localize 'HBM.gear.light'}}</option>
+                    <option value="medium" {{#if (eq system.armor.armorType 'medium')}}selected{{/if}}>{{localize 'HBM.gear.medium'}}</option>
+                    <option value="heavy"  {{#if (eq system.armor.armorType 'heavy')}}selected{{/if}}>{{localize 'HBM.gear.heavy'}}</option>
+                    <option value="shield" {{#if (eq system.armor.armorType 'shield')}}selected{{/if}}>{{localize 'HBM.gear.shield'}}</option>
+                </select>
+            </label>
+            <label>{{localize 'HBM.gear.strengthRequirement'}}: <input type="number" name="system.armor.strengthRequirement" value="{{system.armor.strengthRequirement}}" min="0"/></label>
+            <label><input type="checkbox" name="system.armor.stealthDisadvantage" {{#if system.armor.stealthDisadvantage}}checked{{/if}}/> {{localize 'HBM.gear.stealthDisadvantage'}}</label>
+        </fieldset>
+    {{/if}}
+
+    <label>{{localize 'HBM.gear.description'}}<textarea name="system.description" rows="6">{{system.description}}</textarea></label>
+    {{> 'systems/hbm-rpg-v3/templates/item/_effects.hbs'}}
+</div>

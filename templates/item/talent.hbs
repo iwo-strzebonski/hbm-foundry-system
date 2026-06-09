@@ -1,0 +1,36 @@
+<div class="hbm item-body talent">
+
+    {{!-- Top row: flags + cost + DR bonus --}}
+    <div class="row">
+        <label class="checkbox-label">
+            <input type="checkbox" name="system.multiSelect" {{#if system.multiSelect}}checked{{/if}}/>
+            {{localize 'HBM.talent.multiSelect'}}
+        </label>
+        <label>{{localize 'HBM.talent.cost'}}: <input type="text" name="system.cost" value="{{system.cost}}"/></label>
+        <label title="{{localize 'HBM.gear.damageReductionBonusHint'}}">
+            {{localize 'HBM.gear.damageReductionBonus'}}:
+            <input type="number" name="system.damageReductionBonus" value="{{system.damageReductionBonus}}" min="0" style="width:4rem;"/>
+        </label>
+    </div>
+
+    {{!-- Requirements fieldset --}}
+    <fieldset>
+        <legend>{{localize 'HBM.talent.requirements'}}</legend>
+        <div class="row">
+            <label>{{localize 'HBM.talent.requirementRace'}}: <input type="text" name="system.requirements.race" value="{{system.requirements.race}}"/></label>
+            <label>{{localize 'HBM.talent.requirementAttribute'}}: <input type="text" name="system.requirements.attribute" value="{{system.requirements.attribute}}"/></label>
+            <label>{{localize 'HBM.talent.requirementSkill'}}: <input type="text" name="system.requirements.skill" value="{{system.requirements.skill}}"/></label>
+        </div>
+        <div class="row">
+            <label>{{localize 'HBM.talent.requirementTalent'}}: <input type="text" name="system.requirements.talent" value="{{system.requirements.talent}}"/></label>
+            <label>{{localize 'HBM.talent.requirementTitle'}}: <input type="text" name="system.requirements.title" value="{{system.requirements.title}}"/></label>
+            <label>{{localize 'HBM.talent.requirementDiscipline'}}: <input type="text" name="system.requirements.discipline" value="{{system.requirements.discipline}}"/></label>
+        </div>
+    </fieldset>
+
+    {{!-- Description & effect textareas --}}
+    <label>{{localize 'HBM.talent.description'}}<textarea name="system.description" rows="5">{{system.description}}</textarea></label>
+    <label>{{localize 'HBM.talent.effect'}}<textarea name="system.effect" rows="3">{{system.effect}}</textarea></label>
+
+    {{> 'systems/hbm-rpg-v3/templates/item/_effects.hbs'}}
+</div>

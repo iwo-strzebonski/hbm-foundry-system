@@ -1,0 +1,25 @@
+{
+  "label": "Spells - Eldritch",
+  "entries": {
+    "Zakazana Osłona": {
+      "name": "Forbidden Shield",
+      "description": "Mag spowija się tarczą złożoną z tajemniczych symboli.\n\nGdy mag ma zostać trafiony zaklęciem, które zada mu obrażenia lub go osłabi, to zaklęcie zmienia natychmiast cel na postać, która rzuciła to zaklęcie. Jeżeli to zaklęcie miałoby efekt obszarowy, to wtedy jest ono centrowane na postaci, która rzuciła to zaklęcie, ale działa w sposób odwrotny - zamiast ranić lub osłabiać sojuszników maga, osłabia lub rani sojuszników postaci, która rzuciła to zaklęcie; podobnie z efektami leczącymi bądź wzmacniającymi.\n\nZaklęcie przestaje działać, gdy efekt zaklęcia zostanie aktywowany bądź gdy skończy się walka.\n\nPonadto, w trakcie działania zaklęcia, Zakazana Osłona zmniejsza wszystkie otrzymywane obrażenia o 1."
+    },
+    "Tajemniczy Strumień": {
+      "name": "Mysterious Stream",
+      "description": "Z ręki maga wystrzeliwuje błyskawica utkana z mroczno-fioletowej energii.\n\nTajemniczy Strumień zadaje celowi zadaje tyle punktów obrażeń, ile mag ma punktów w Umiejętności Zdolności Magiczne.\n\nPonadto trafiony cel musi wykonać udany Test na Determinacja (Soul) 6:S, gdzie liczba wymaganych Sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać otrzymuje 1k3 Punktów Obłędu."
+    },
+    "Neutralizacja": {
+      "name": "Neutralization",
+      "description": "Mag wybiera postać, którą przeszywa dziwna, niezrozummiała energia.\n\nCel na końcu swojej tury co turę do końca trwania zaklęcia otrzymuje tyle punktów obrażeń, ile wynosi wartość Atrybutu Mind celu.\n\nPonadto jeżeli cel jest magiem, to do końca trwania zaklęcia nie może rzucać zaklęć ani wykonywać Testów związanych z Atrybutem Magic (wszystkie takie Testy są traktowane automatycznie jako niepowodzenie)."
+    },
+    "Pierwotna Kula": {
+      "name": "Primal Orb",
+      "description": "Mag wyczarowywuje kulę pierwotnej energii, którą następnie ciska w wybranego przeciwnika.\n\nZaklęcie zadaje celowi zadaje tyle punktów obrażeń, ile mag wynosi suma wartości Umiejętności Zdolności Magiczne oraz rzutu jedną kością sześciościenną (1k6).\n\nPierwotna Kula porusza się bardzo chaotycznie. Jeżeli w promieniu 2 m od celu, ale w zasięgu zaklęcia, jest jeszcze co najmniej jedna wroga Istota, należy wykonać rzut kością sześciościenną. Jeżeli wynik będzie niższy niż 3, to kula zamiast w wybrany cel trafia w najbliższą do celu Istotę."
+    },
+    "Przywołanie Istoty z Otchłani": {
+      "name": "Summon Eldritch Entity",
+      "description": "Mag przywołuje do wybranego miejsca wybraną przez siebie Istotę z Otchłani. Liczba Sukcesów (S) zależy od wybranej Istoty, zaś Istota wykonuje polecenia maga do końca trwania zaklęcia, następnie wraca tam, skąd przybyła."
+    }
+  }
+}

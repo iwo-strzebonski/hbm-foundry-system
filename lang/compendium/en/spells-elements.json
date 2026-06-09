@@ -1,0 +1,82 @@
+{
+  "Celność": {
+    "name": "Accuracy",
+    "description": "Mag wykorzystuje swój talent magiczny, aby ułatwić sobie celowanie oraz żeby nieznacznie korygować swoje ataki dystansowe.\n\nAtaki dystansowe maga są o jeden stopień prostsze, a ponadto otrzymuje dwie dodatkowe kości do testów związanych z Umiejętnością Umiejętności Strzeleckie."
+  },
+  "Powietrzna Fala": {
+    "name": "Air Wave",
+    "description": "Mag wyrzuca z siebie potężną falę wiatru.\n\nKażda osoba w obszarze działania zaklęcia musi wykonać udany Test na Body (Siła) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia cel zostaje Powalony. Niezależnie od wyniku testu każda osoba w stożku otrzymuje tyle punktów obrażeń, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga."
+  },
+  "Gorejąca Skóra": {
+    "name": "Burning Skin",
+    "description": "Skóra i ubrania maga zaczynają się palić. Ogień ten nie niszczy ubrań maga ani nie zadaje mu obrażeń.\n\nWszyscy przeciwnicy, którzy zaatakują maga wręcz w trakcie działania tego zaklęcia otrzymują tyle punktów obrażeń, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga.\n\n---"
+  },
+  "Wyczucie Zagrożenia": {
+    "name": "Danger Sense",
+    "description": "Mag zaczyna skupiać się na delikatnych zmianach w otaczającym go powietrzu, co pomaga mu w unikaniu ataków.\n\nWszystkie ataki, których celem jest mag rzucający to zaklęcie, są trudniejsze o dwa stopnie (do maksymalnie Trudności (T) równej „6”), a ponadto mag otrzymuje dwie dodatkowe kości do rzutów związanych z Umiejętnością Refleks."
+  },
+  "Trzęsienie Ziemi": {
+    "name": "Earthquake",
+    "description": "W wybranym przez maga obszarze ziemia zaczyna się silnie trząść.\n\nWszystkie istoty w obszarze działania muszą wykonać udany Test na Body (Atletyka) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać zostaje Unieruchomiona i Powalona do początku swojej następnej tury. Efekt ten aktywuje się na końcu każdej tury maga i kończy się na początku trzeciej tury maga od rzucenia zaklęcia. Ponadto, jeśli postać nie zda tego testu trzykrotnie w trakcie działania tego zaklęcia, postać staje się Nieprzytomna do końca trwania zaklęcia."
+  },
+  "Ognista Powłoka": {
+    "name": "Fire Cloak",
+    "description": "Broń pokrywa się płomieniami, obniżając Trudność ataków wykonywanych tą bronią o 1 stopień oraz powodując, że broń dodatkowo zadaje 2 punkty obrażeń magicznych."
+  },
+  "Kula Ognia": {
+    "name": "Fireball",
+    "description": "Mag splata ogień w kulę, którą następnie ciska w wybrany cel.\n\nCel otrzymuje tyle punktów obrażeń, ile mag ma punktów w umiejętności Zdolności Magiczne, a następnie musi wykonać udany Test na Body (Refleks) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia Postać zostaje Podpalona na trzy rundy."
+  },
+  "Latanie": {
+    "name": "Flight",
+    "description": "Postać może latać przez 1 minutę."
+  },
+  "Żwirowa Zbroja": {
+    "name": "Gravel Armor",
+    "description": "Mag zamyka się w twardej, kamiennej zbroi.\n\nMag otrzymuje +1 punkt Pancerza, ale ze względu na to, że zbroja utrudnia ruchy, jego Prędkość zostaje zmniejszona o połowę."
+  },
+  "Gradobicie": {
+    "name": "Hailstorm",
+    "description": "Mag przywołuje nad dany obszar chmurę, z której zaczyna padać grad.\n\nKażda osoba w obszarze działania zaklęcia musi wykonać udany Test na Body (Refleks) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać otrzymuje tyle punktów obrażeń, ile wynosi wartość Umiejętności Zdolności Magiczne maga.\n\nDodatkowo obszar działania zaklęcia jest traktowany jak Trudny Teren (wszystkie istoty poruszają się w nim o połowę wolniej)."
+  },
+  "Lodowa Podłoga": {
+    "name": "Ice Floor",
+    "description": "Na obszarze o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m) pojawia się lód. Osoby w polu muszą wykonać udany Test na Body (Atletyka) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać zostaje Powalona."
+  },
+  "Podpalenie": {
+    "name": "Ignition",
+    "description": "Na obszarze o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m) pojawia się ogień. Każda osoba znajdująca się w tym obszarze otrzymuje 3 punkty obrażeń, a ponadto na początku swojej tury każda postać otrzymuje kolejne 3 punkty obrażeń, tak długo, jak będą się znajdować w obszarze tego zaklęcia."
+  },
+  "Wzniecanie Ognia": {
+    "name": "Kindle",
+    "description": "Postać podpala dotkniętą przez siebie rzecz dotykaną przez siebie."
+  },
+  "Mistyczna Mgła": {
+    "name": "Mystic Fog",
+    "description": "Mag przywołuje bardzo gęstą magiczną mgłę dookoła siebie.\n\nWszyscy przeciwnicy są Oślepieni, zaś wszyscy sojusznicy (w tym Mag) są traktowani jakby byli w pełni zasłonięci (przeciwnicy nie mogą atakować ich atakami dystansowymi ani wpływać na nich zaklęciami, które wymagają wybrania określonego celu, chyba że takie zaklęcie jest zaklęciem dotykowym).\n\nWszyscy sojusznicy (w tym mag) bez problemu widzą przez mgłę oraz widzą jej granicę. Mgła podąża za magiem.\n\n---"
+  },
+  "Ruchome Piaski": {
+    "name": "Quicksand",
+    "description": "Mag tymczasowo zmienia podłoże w ruchome piaski, utrudniając poruszanie się w obszarze działania zaklęcia.\n\nWszystkie istoty w tym obszarze mogą się poruszyć maksymalnie o zaokrągloną w górę połowę swojego Ruchu (czyli jeśli dana istota mogła się normalnie ruszać 10 m, tak w obszarze działania zaklęcia może się poruszyć o zaledwie 5 m)."
+  },
+  "Ukojenie": {
+    "name": "Solace",
+    "description": "Dookoła maga pojawia się kojąca rany delikatna mgiełka.\n\nWszyscy sojusznicy (w tym mag) w promieniu działania zaklęcia na początku następnej rundy maga odzyskują tyle Punktów Żywotności, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga."
+  },
+  "Skalista Tarcza": {
+    "name": "Stone Shield",
+    "description": "Postać tworzy w pobliżu siebie w wolnej przestrzeni ścianę z ziemi, piasku bądź żwiru.\n\nŚciana ta wytrzymuje ilość obrażeń równą wartości Umiejętności Zdolności Magiczne maga, a ponadto blokuje wizję oraz możliwość przejścia przez dany obszar istotom rozmiaru Średniego lub większego."
+  },
+  "Skalista Pułapka": {
+    "name": "Stone Trap",
+    "description": "Mag zaklina ziemię, piasek i żwir w danym obszarze, aby stworzyć pułapkę, która przebije kolcami pierwszą osobę, która wejdzie w dany obszar.\n\nKolce zadają tyle punktów obrażeń, ile mag ma punktów w Umiejętności Zdolności Magiczne, a następnie zaklęcie przestaje działać.\n\n---"
+  },
+  "Tworzenie i Kontrolowanie Wody": {
+    "name": "Water Create",
+    "description": "Postać tworzy i/lub zaczyna kontrolować do 1 litra wody. Gdy kontrolowana woda opuści zasięg 5 m, mag przestaje ją kontrolować. Zaklęcie to pozwala również na usunięcie lub wyparowanie do 1 litra wody."
+  },
+  "Szybki jak Wiatr": {
+    "name": "Wind Swift",
+    "description": "Mag splata wiatr, aby wspomóc się przy poruszaniu się.\n\nPrędkość maga zwiększa się dwukrotnie, a ponadto mag nie może zostać Powalony.\n\n---"
+  }
+}

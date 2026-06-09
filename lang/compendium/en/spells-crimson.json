@@ -1,0 +1,25 @@
+{
+  "label": "Crimson Cult Magic",
+  "entries": {
+    "Szkarłatny Pocisk": {
+      "name": "Crimson Bolt",
+      "description": "Mag wyczarowuje szkarłatny pocisk.\n\nSzkarłatny Pocisk zadaje tyle punktów obrażeń, ile mag ma punktów w umiejętności Zdolności Magiczne, a ponadto ignoruje Pancerz celu."
+    },
+    "Klątwa Szkarłatu": {
+      "name": "Crimson Curse",
+      "description": "Cel zostaje spowity ciemną mgłą, która, gdy cel spróbuje rzucić zaklęcie, wchłonie w siebie część użytej magii i odda ją magowi, który chce rzucić zaklęcie.\n\nGdy cel tego zaklęcia rzuci z powodzeniem zaklęcie, musi wykonać udany Test na Determinację (Soul) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać staje się Nieprzytomna. Niezależnie od wyniku testu cel otrzymuje tyle punktów obrażeń, ile wynosi suma wartości Umiejętności Zdolności Magiczne maga i celu."
+    },
+    "Szkarłatny Sztylet": {
+      "name": "Crimson Dagger",
+      "description": "W dłoni maga materializuje się zakrzywiony szkarłatny sztylet utkany z czerwonej energii, lub wybrana trzymana broń biała zostaje pokryta szkarłatną aurą. Broń zadaje dodatkowe 2 punkty obrażeń magicznych\n\nJeśli mag zabije przeciwnika bronią naznaczoną tym zaklęciem, może natychmiast wykonać Akcję Natychmiastową, aby rzucić dowolne znane zaklęcie Magii Szkarłatu bez wydawania Many. Efekt ten może być aktywowany wyłącznie raz na rundę.\n\nSzkarłatny Sztylet to jedno z pierwszych zaklęć, które poznają młodsi członkowie Kultu. Broń ta żywi się krwią wrogów, przekazując część ich siły życiowej swojemu władcy. Starożytne kroniki Kultu opisują, jak Pierwszy Patriarcha podczas Wielkiej Wojny z Otchłanią używał podobnego zaklęcia, by jego wojownicy mogli walczyć bez przerwy, czerpiąc moc z pokonanych wrogów."
+    },
+    "Szkarłatne Płomienie": {
+      "name": "Crimson Flames",
+      "description": "Wybrany cel zostaje spowity szkarłatnymi płomieniami, których się nie da ugasić.\n\nTak długo, jak to zaklęcie działa, jeżeli cel ma na sobie Magiczną Tarczę, na początku tury celu, Magiczna Tarcza zostaje natychmiast zniszczona, a dodatkowo cel otrzymuje tyle punktów obrażeń, ile wynosiła obecna wytrzymałość Magicznej Tarczy."
+    },
+    "Szkarłatna Sprawiedliwość": {
+      "name": "Crimson Justice",
+      "description": "Na wybrany cel spada z nieba (bądź sklepienia) szkarłatna błyskawica.\n\nCel otrzymuje obrażenia równe dwukrotności wartości Umiejętności Zdolności maga rzucającego to zaklęcie, a ponadto wszystkie osoby w promieniu 1 m od celu (włącznie z celem) muszą wykonać udany Test na Refleks (Body) 4:S, gdzie S to liczba wyrzuconych przez maga Sukcesów. W wypadku niepowodzenia postać zostaje Ogłuszona i Oślepiona."
+    }
+  }
+}

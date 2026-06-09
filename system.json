@@ -1,0 +1,456 @@
+{
+  "id": "hbm-rpg-v3",
+  "title": "Homebrew Magic: RPG v3",
+  "description": "System Foundry VTT dla Homebrew Magic: Role Playing Game v3 — autorska gra fabularna z mechaniką puli kości d6 (TS — Trudność:Sukcesy).",
+  "version": "1.3.12",
+  "manifest": "https://vtt-content.octoturge.com/packages/system/hbm-rpg-v3.json",
+  "download": "https://vtt-content.octoturge.com/packages/system/hbm-rpg-v3-v1.3.12.zip",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "14"
+  },
+  "documentTypes": {
+    "Actor": {
+      "character": {
+        "htmlFields": [
+          "details.biography",
+          "details.customEquipment"
+        ]
+      },
+      "npc": {
+        "htmlFields": [
+          "lore.description",
+          "details.customEquipment"
+        ]
+      }
+    },
+    "Item": {
+      "spell": {
+        "htmlFields": [
+          "description",
+          "higherCircles"
+        ]
+      },
+      "gear": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "ability": {
+        "htmlFields": [
+          "description",
+          "mechanics"
+        ]
+      },
+      "class": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "race": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "discipline": {
+        "htmlFields": [
+          "description",
+          "passiveAbility"
+        ]
+      },
+      "talent": {
+        "htmlFields": [
+          "description",
+          "effect"
+        ]
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Iwo Strzeboński"
+    }
+  ],
+  "esmodules": [
+    "hbm.mjs"
+  ],
+  "styles": [
+    "styles/hbm.css"
+  ],
+  "languages": [
+    {
+      "lang": "pl",
+      "name": "Polski",
+      "path": "lang/pl.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "packs": [
+    {
+      "name": "spells-general",
+      "label": "Magia Ogólna",
+      "system": "hbm-rpg-v3",
+      "path": "packs/spells-general",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "spells",
+          "sourceBook": "core-rules"
+        }
+      }
+    },
+    {
+      "name": "spells-sacred",
+      "label": "Magia Sakralna",
+      "system": "hbm-rpg-v3",
+      "path": "packs/spells-sacred",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "spells",
+          "sourceBook": "magic-book"
+        }
+      }
+    },
+    {
+      "name": "spells-academic",
+      "label": "Dyscypliny Akademickie",
+      "system": "hbm-rpg-v3",
+      "path": "packs/spells-academic",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "spells",
+          "sourceBook": "magic-book"
+        }
+      }
+    },
+    {
+      "name": "spells-blood",
+      "label": "Magia Krwi",
+      "system": "hbm-rpg-v3",
+      "path": "packs/spells-blood",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "spells",
+          "sourceBook": "arcanum-sanguinis"
+        }
+      }
+    },
+    {
+      "name": "spells-crimson",
+      "label": "Magia Szkarłatnego Kultu",
+      "system": "hbm-rpg-v3",
+      "path": "packs/spells-crimson",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "spells",
+          "sourceBook": "crimson-cult"
+        }
+      }
+    },
+    {
+      "name": "spells-eldritch",
+      "label": "Magia Otchłani",
+      "system": "hbm-rpg-v3",
+      "path": "packs/spells-eldritch",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "spells",
+          "sourceBook": "abyss-curse"
+        }
+      }
+    },
+    {
+      "name": "talents",
+      "label": "Talenty",
+      "system": "hbm-rpg-v3",
+      "path": "packs/talents",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "talents",
+          "sourceBook": "core-rules"
+        }
+      }
+    },
+    {
+      "name": "talents-blood",
+      "label": "Talenty — Magia Krwi",
+      "system": "hbm-rpg-v3",
+      "path": "packs/talents-blood",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "talents",
+          "sourceBook": "arcanum-sanguinis",
+          "sourceModule": "arcanum-sanguinis"
+        }
+      }
+    },
+    {
+      "name": "talents-eldritch",
+      "label": "Talents - Eldritch",
+      "system": "hbm",
+      "path": "packs/talents-eldritch",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "name": "talents-eldritch",
+      "label": "Talenty — Klątwa Otchłani",
+      "system": "hbm-rpg-v3",
+      "path": "packs/talents-eldritch",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "talents",
+          "sourceBook": "abyss-curse",
+          "sourceModule": "abyss-curse"
+        }
+      }
+    },
+    {
+      "name": "talents-npc",
+      "label": "Talenty (NPC)",
+      "system": "hbm-rpg-v3",
+      "path": "packs/talents-npc",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "talents",
+          "sourceBook": "bestiary"
+        }
+      }
+    },
+    {
+      "name": "races",
+      "label": "Rasy",
+      "system": "hbm-rpg-v3",
+      "path": "packs/races",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "races",
+          "sourceBook": "humanity-guide"
+        }
+      }
+    },
+    {
+      "name": "disciplines",
+      "label": "Dziedziny Magii",
+      "system": "hbm-rpg-v3",
+      "path": "packs/disciplines",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "disciplines",
+          "sourceBook": "magic-book"
+        }
+      }
+    },
+    {
+      "name": "disciplines-forbidden",
+      "label": "Dziedziny Zakazane",
+      "system": "hbm-rpg-v3",
+      "path": "packs/disciplines-forbidden",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "disciplines",
+          "sourceBook": "abyss-curse",
+          "forbidden": true
+        }
+      }
+    },
+    {
+      "name": "hbm-macros",
+      "label": "Makra HbM",
+      "system": "hbm-rpg-v3",
+      "path": "packs/hbm-macros",
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "macros",
+          "sourceBook": "core-rules"
+        }
+      }
+    },
+    {
+      "name": "items-weapons",
+      "label": "Bronie",
+      "system": "hbm-rpg-v3",
+      "path": "packs/items-weapons",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "gear",
+          "sourceBook": "core-rules"
+        }
+      }
+    },
+    {
+      "name": "items-armor",
+      "label": "Pancerze",
+      "system": "hbm-rpg-v3",
+      "path": "packs/items-armor",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "gear",
+          "sourceBook": "core-rules"
+        }
+      }
+    },
+    {
+      "name": "items-gear",
+      "label": "Ekwipunek (Inny)",
+      "system": "hbm-rpg-v3",
+      "path": "packs/items-gear",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {
+        "hbm-rpg-v3": {
+          "category": "gear",
+          "sourceBook": "core-rules"
+        }
+      }
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "Zaklęcia",
+      "sorting": "a",
+      "packs": [
+        "spells-general",
+        "spells-academic",
+        "spells-sacred",
+        "spells-blood",
+        "spells-eldritch",
+        "spells-crimson"
+      ]
+    },
+    {
+      "name": "Talenty",
+      "sorting": "a",
+      "packs": [
+        "talents",
+        "talents-blood",
+        "talents-eldritch",
+        "talents-npc"
+      ]
+    },
+    {
+      "name": "Rasy i Dziedziny",
+      "sorting": "a",
+      "packs": [
+        "races",
+        "disciplines",
+        "disciplines-forbidden"
+      ]
+    },
+    {
+      "name": "Ekwipunek",
+      "sorting": "a",
+      "packs": [
+        "items-weapons",
+        "items-armor",
+        "items-gear"
+      ]
+    },
+    {
+      "name": "Narzędzia",
+      "sorting": "a",
+      "packs": [
+        "hbm-macros"
+      ]
+    }
+  ],
+  "grid": {
+    "distance": 1,
+    "units": "m"
+  },
+  "primaryTokenAttribute": "attributes.health",
+  "secondaryTokenAttribute": "attributes.mana",
+  "license": "LICENSE.txt",
+  "url": "https://github.com/iwo-strzebonski/hbm-books",
+  "background": "systems/hbm-rpg-v3/assets/background.webp"
+}
