@@ -78,6 +78,19 @@
             </span>
         </div>
         <div class="resource">
+            <label>{{localize 'HBM.resources.initiative'}}</label>
+            <span class="resource-value">
+                <span class="static-value"
+                    title="{{localize 'HBM.resources.initiative'}}">{{system.attributes.initiative.value}}</span>
+            </span>
+            <div style="display:flex; align-items:center; gap:0.3rem; margin-top:0.15rem;">
+                <small style="white-space:nowrap;">{{localize 'HBM.ui.initiativeBonus'}}:</small>
+                <input type="number" name="system.attributes.initiative.bonus"
+                    value="{{system.attributes.initiative.bonus}}" min="0"
+                    style="width:2.5rem; text-align:center; font-size:0.8rem; border:none; border-bottom:1px solid var(--hbm-border); background:transparent;" />
+            </div>
+        </div>
+        <div class="resource">
             <label>{{localize 'HBM.npc.speed'}}</label>
             <input type="text" name="system.attributes.speed" value="{{system.attributes.speed}}"/>
         </div>
@@ -92,6 +105,22 @@
     <section class="npc-meta-section">
         <label>{{localize 'HBM.npc.senses'}}: <input type="text" name="system.details.senses" value="{{system.details.senses}}"/></label>
         <label>{{localize 'HBM.npc.languages'}}: <input type="text" name="system.details.languages" value="{{system.details.languages}}"/></label>
+    </section>
+
+    <section class="npc-skills-section">
+        <fieldset>
+            <legend>{{localize 'HBM.ui.tabs.skills'}}</legend>
+            <div class="skills-grid">
+                {{#each skills as |sk|}}
+                <div class="skill">
+                    <span class="skill-name">{{sk.label}}</span>
+                    <input type="number" name="system.skills.{{sk.key}}.value" value="{{sk.value}}" min="0" max="8" />
+                    <button type="button" class="roll-btn" data-action="rollSkill" data-skill="{{sk.key}}"
+                        title="{{localize 'HBM.roll.roll'}}">⚂</button>
+                </div>
+                {{/each}}
+            </div>
+        </fieldset>
     </section>
     
     <section class="combat-lists">

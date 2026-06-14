@@ -1,5 +1,5 @@
 /**
- * Damage application engine — flows through 4 layers:
+ * Damage application engine - flows through 4 layers:
  * 1. Magical Armor (DR + every 5 dmg absorbed degrades value by 1 via runicCounter)
  * 2. Magical Shield (raw temp HP; cannot be healed; vanishes at 0)
  * 3. Physical Armor (flat DR; optionally degrade `condition` by 1)
@@ -54,7 +54,7 @@ export async function applyDamage(actor: ActorLike, opts: ApplyDamageOptions): P
 
   let remaining = total;
 
-  // Layer 1: Magical Armor — DR-based; runicCounter accumulates incoming damage.
+  // Layer 1: Magical Armor - DR-based; runicCounter accumulates incoming damage.
   if (!opts.ignoreMagicalArmor && a.magicalArmor) {
     const dr = Math.max(0, Number(a.magicalArmor.value) || 0);
     const absorbed = Math.min(dr, remaining);
@@ -70,7 +70,7 @@ export async function applyDamage(actor: ActorLike, opts: ApplyDamageOptions): P
     }
   }
 
-  // Layer 2: Magical Shield — pure temp HP (raw subtraction).
+  // Layer 2: Magical Shield - pure temp HP (raw subtraction).
   if (remaining > 0 && !opts.ignoreMagicalShield && a.magicalShield) {
     const shield = Math.max(0, Number(a.magicalShield.value) || 0);
     const taken = Math.min(shield, remaining);
@@ -83,7 +83,7 @@ export async function applyDamage(actor: ActorLike, opts: ApplyDamageOptions): P
     }
   }
 
-  // Layer 3: Physical Armor — flat DR; optionally degrade condition.
+  // Layer 3: Physical Armor - flat DR; optionally degrade condition.
   if (remaining > 0 && !opts.ignorePhysicalArmor && a.physicalArmor) {
     const dr = Math.max(0, Number(a.physicalArmor.value) || 0);
     const absorbed = Math.min(dr, remaining);
@@ -118,7 +118,7 @@ export async function applyDamage(actor: ActorLike, opts: ApplyDamageOptions): P
 
   if (opts.postChat ?? true) {
     const lines: string[] = [
-      `<strong>${actor.name}</strong> — ${game.i18n.localize('HBM.damage.report.title')}: <strong>${total}</strong>`,
+      `<strong>${actor.name}</strong> - ${game.i18n.localize('HBM.damage.report.title')}: <strong>${total}</strong>`,
     ];
     if (report.absorbed.magicalArmor) lines.push(`${game.i18n.localize('HBM.resources.magicalArmor')}: −${report.absorbed.magicalArmor}`);
     if (report.absorbed.magicalShield) lines.push(`${game.i18n.localize('HBM.resources.magicalShield')}: −${report.absorbed.magicalShield}${report.shieldDropped ? ' ✦' : ''}`);

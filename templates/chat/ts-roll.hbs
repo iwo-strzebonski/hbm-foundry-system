@@ -10,7 +10,7 @@
         {{localize "HBM.roll.successes"}}: <strong>{{ts.successes}}</strong>
         / {{localize "HBM.roll.required"}}: {{ts.required}}
         ({{localize "HBM.roll.threshold"}} {{ts.threshold}})
-        — {{#if ts.isSuccess}}{{localize "HBM.roll.success"}}{{else}}{{localize "HBM.roll.failure"}}{{/if}}
+        - {{#if ts.isSuccess}}{{localize "HBM.roll.success"}}{{else}}{{localize "HBM.roll.failure"}}{{/if}}
     </div>
     {{#if ts.criticalSuccesses}}
         <div class="crit">{{localize "HBM.roll.criticalSuccess"}}: {{ts.criticalSuccesses}}</div>

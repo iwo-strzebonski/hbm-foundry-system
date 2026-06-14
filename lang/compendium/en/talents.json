@@ -9,6 +9,10 @@
       "name": "Ambidextrous",
       "description": "Sprawnie posługujesz się bronią w obydwu rękach.\n\n\nGdy wykonujesz ataki dwiema broniami, otrzymujesz dwie dodatkowe kości"
     },
+    "Pasjonat Zwierząt": {
+      "name": "Animal Enthusiast",
+      "description": "Spowija cię aura, która naturalnie uspokaja zwierzęta w twojej obecności. Potrafisz mniej więcej zrozumieć, co zwierzę chce ci \"powiedzieć\". Niesprowokowane nie zaatakują cię. Podwajasz ilość kości wynikającą z Umiejętności Opieka nad Zwierzętami, jeżeli zwierzę nie jest wobec Ciebie agresywne."
+    },
     "Arcymag (Dziedzina)": {
       "name": "Archmage",
       "description": "Wszystkie Testy związane z daną Dziedziną Magii są prostsze o jeden stopień, a ponadto wszystkie zaklęcia są traktowane, jakby były nadczarowane o jeden stopień (ale nie zużywają dodatkowej many). Dodatkowo postać zna wszystkie zaklęcia z tej Dziedziny.\n\n\nTen Talent może zostać wybrane dla maksymalnie jednej Dziedziny - tej, w której jest Mistrzem Magii."
@@ -16,6 +20,10 @@
     "Pancerz Wiary": {
       "name": "Armor Of Faith",
       "description": "Możesz rzucać zaklęcia będąc w zbroi Średniej lub Ciężkiej bez kar."
+    },
+    "Arytmetyczna Koncentracja": {
+      "name": "Arytmetyczna Koncentracja",
+      "description": "Ilość kości w Testach na utrzymanie Koncentracji jest zwiększona o połowę wartości Atrybutu Mind."
     },
     "Gadanina": {
       "name": "Babble",
@@ -33,6 +41,10 @@
       "name": "Blessed Origin",
       "description": "Anioły od Boga-Jahwe-Jedynego dostały dwa dary - naturalną zdolność do latania oraz możliwość odrodzenia się po śmierci."
     },
+    "Błogosławieni Egzorcyści": {
+      "name": "Blogoslawieni Egzorcysci",
+      "description": "Zamiast pasywnej zdolności adeptów Magii Sakralnej, egzorcyści mają dostęp do egzorcyzmów oraz mogą wykupić i korzystać z talentu Zakazana Wiedza (Demonologia) bez żadnych kar."
+    },
     "Sen na Jawie": {
       "name": "Daydream",
       "description": "Nie potrzebujesz snu.\n\n\nElfy w przeciwieństwie do innych ras nie śpią, ale nie wszystkie potrafią kontrolować swoje myśli w trakcie odpoczynku."
@@ -49,6 +61,10 @@
       "name": "Feint",
       "description": "Postać  wykonuje zwodniczy atak, którego celem jest zmylenie przeciwnika.\n\n\nNależy wykonać Test Przeciwstawny zgodnie z zasadami Akcji Atak, jednak w przypadku, gdy Postać, która zadeklarowała, że będzie wykorzystywała ten Talent wygra pojedynek, nie zadaje Obrażeń. W zamian cel Finty do końca następnej rundy atakującego bądź do następnego Ataku atakującego skierowanego w cel nie może unikać, odpierać ani parować ataku Postaci, która z powodzeniem użyła Finty.\n\n\nJeżeli atakujący atakuje oburącz, a Postać również trzyma dwie bronie, może sparować obydwa ataki, jednak musi podzielić pulę kości na obydwa parowania (podobnie jak przy walce oburącz)."
     },
+    "Medyk Polowy": {
+      "name": "Field Medic",
+      "description": "Chirurgiem może i nie jesteś, ale równie dobrze potrafisz ludzi bandażować. Twoje testy na pomoc medyczną mają podwojoną ilość kości wynikającą z umiejętności. Dodatkowo, osoby które leczysz odnawiają 1k6 więcej Punktów Życia."
+    },
     "Zakazana Wiedza (Dziedzina)": {
       "name": "Forbidden Knowledge",
       "description": "Liczba kości dla wybranej Umiejętności przy rzutach związanych z daną dziedziną jest podwajana. Jeśli pomimo tego Test się nie uda, musisz liczyć się z groźnymi konsekwencjami…"
@@ -60,6 +76,10 @@
     "Niezniszczalne Zaklęcia": {
       "name": "Indestructible Spells",
       "description": "Ilość Sukcesów wymaganych do rozplecenia zaklęcia rzuconego przez Ciebie jest zwiększona o zaokrągloną w górę połowę wartości Umiejętności Zdolności Magiczne."
+    },
+    "Jedność z Żywiołem": {
+      "name": "Jednosc Z Zywiolem",
+      "description": "Rzucasz jedną kością mniej (do minimum jednej) na kary związane z nieudolnym rzucaniem zaklęć, jeśli zaklęcie, które się nie powiodło, jest z Twojego żywiołu."
     },
     "Czuły Zmysł (Zmysł)": {
       "name": "Keen Sense",
@@ -81,9 +101,37 @@
       "name": "Magical Sense",
       "description": "Masz wrodzony dar do wykrywania i obrazowania otaczającej Cię magii, jej ukierunkowania oraz efektu. Testy na opieranie się efektowi zaklęć i na rozplatanie zaklęć wymagają jednego sukcesu mniej. Ponadto wybierasz, którym zmysłem \"widzisz\" magię (wzrok - wstęgi w powietrzu, dotyk - drżenie w palcach o różnym natężeniu i częstotliwości, słuch - różne dźwięki itd.)."
     },
+    "Magiczna Flora": {
+      "name": "Magiczna Flora",
+      "description": "PT testów związanych z rozpoznawaniem roślin jest niższy o jeden stopień, jeżeli Postać kiedykolwiek spotkała się z daną rośliną (nie musi o tym pamiętać)."
+    },
+    "Człowiek z Żelaza": {
+      "name": "Man Of Iron",
+      "description": "Twoja skóra jest niezwykle twarda i kiedy nie nosisz pancerza, daje ci 1 punkt pancerza."
+    },
     "Mistrz Magii (Dziedzina)": {
       "name": "Master Of Magic",
       "description": "Przy rzutach związanych z daną Dziedziną Magii liczba Kości otrzymywana we wszystkich Umiejętnościach zostaje podwojona. \n\n\nTen Talent może zostać wybrane dla maksymalnie jednej Dziedziny."
+    },
+    "Miłosierdzie": {
+      "name": "Milosierdzie",
+      "description": "Efekty leczące i chroniące zaklęć Magii Sakralnej są o połowę mocniejsze."
+    },
+    "Nadzwyczajna Odporność": {
+      "name": "Nadzwyczajna Odpornosc",
+      "description": "Rzucasz dodatkową kością na testy związane z odpornością na trucizny. Ponadto Tolerancja na eliksiry odnawia się po Krótkim Odpoczynku, nie po Długim, jak normalnie."
+    },
+    "Naturalny Lot": {
+      "name": "Natural Flight",
+      "description": "Anioły i demony posiadają naturalne skrzydła, które pozwalają im latać.\n\n\nAby utrzymać się w powietrzu, postać musi poruszyć się o co najmniej 5 metrów w każdej turze walki. Jeżeli postać nie ruszy się o wymaganą odległość, spada na ziemię na koniec tury.\n\n\nPostać z tym Talentem może nabyć Talenty Zawisanie w Powietrzu oraz Powietrzne Uniki."
+    },
+    "Niezwykła Intuicja": {
+      "name": "Niezwykla Intuicja",
+      "description": "PT Testów na wykrywanie kłamstw i iluzji jest niższe o jeden stopień."
+    },
+    "Olimpijczyk": {
+      "name": "Olympian",
+      "description": "Jesteś bardzo wysportowany. Testy na Siłę, Atletykę lub inne testy związane z wysportowaniem dostają 2 dodatkowe kości."
     },
     "Oportunista": {
       "name": "Opportunist",
@@ -97,6 +145,14 @@
       "name": "Personal Charm",
       "description": "Wszystkie Testy związane z zauraczaniem kogoś lub wykorzystywaniem swojego wyglądu do zmanipulowania innej osoby są prostsze o jeden stopień."
     },
+    "Pierwotna Energia": {
+      "name": "Pierwotna Energia",
+      "description": "Nie możesz rzucać ani rozplatać zaklęć. Twój Maksymalny Koszt Zaklęcia oraz Ilość Many zostają dwukrotnie zwiększone.\n\n\nW ramach Akcji możesz pomóc wybranemu magowi w zasięgu 3 m w rzucaniu zaklęć. Do początku Twojej następnej tury, jeżeli wybrany mag się od Ciebie nie odsunie, gdy ten mag rzuca jakiekolwiek zaklęcie, możesz zadeklarować, że zużywasz swoją manę, aby wzmocnić zaklęcie wybranego maga (Księga Magii). Mana wykorzystana w celu wzmocnienia zaklęcia nie liczy się do wykonywanego przez maga testu na to, czy uda mu się kontrolować dużą ilość mocy, ale wzmacniając zaklęcie, nie możesz przekroczyć swojego maksymalnego kosztu zaklęcia.\n\n\nDodatkowo w ramach Akcji Natychmiastowej możesz przekazać część swojej many. Jeżeli chcesz to zrobić, wykonaj Test na Zdolności Magiczne (Magic). Trudność zależy od odległości od maga (4:S poniżej 1 m, 5:S poniżej 2 m, 6:S poniżej 3 m), a Ilość Wymaganych Sukcesów (S) jest równa ilości przekazywanej many."
+    },
+    "Podejrzliwość Wobec Zmian": {
+      "name": "Podejrzliwosc Wobec Zmian",
+      "description": "Rzucasz dodatkową kością na testy związane z uniknięciem efektu magicznego."
+    },
     "Odporność na Trucizny": {
       "name": "Poison Resistance",
       "description": "Postać do pewnego stopnia uodporniła się na zatrucia.\n\n\nGdy postać musi wykonać test na Wytrzymałość aby uniknąć zatrucia, podwój ilość kości wynikającą z poziomu Umiejętności Wytrzymałość."
@@ -108,6 +164,10 @@
     "Rozplatanie Zaklęć": {
       "name": "Spell Shattering",
       "description": "Każdy mag posiadający ten Talent może raz na rundę za darmo dokonać próby rozplatania, jednak dane zaklęcie może być rozplatane wyłącznie raz.\n\n\nMagowie posiadający Zapał mogą próbować rozpleść więcej zaklęć - każda następna taka próba kosztuje jeden punkt Zapału. Magowie sakralni mogą potraktować rozplatanie zaklęcia jako modlitwę, zmieniając Atrybut swojego Testu na Duszę, ale jednocześnie zwiększając koszt wykorzystania tego Talentu o 1 punkt Zapału.\n\n\nJeżeli Postać widzi istotę rzucającą zaklęcie i jest od niej w zasięgu 20 m, może zadeklarować, że próbuje rozpleść rzucane zaklęcie. Postać wykonuje Test na Zdolności Magiczne (Magic lub Soul, jeśli jest magiem sakralnym), gdzie Trudność (T) jest równa trudności zaklęcia, a liczba wymaganych Sukcesów (S) jest o 1 większa od liczby sukcesów wyrzuconych przez maga rzucającego zaklęcie. Jeżeli wynik Testu Postaci będzie wyższy niż wynik Testu przeciwnika, zaklęcie zostaje rozplecione."
+    },
+    "Tajemna Technologia": {
+      "name": "Tajemna Technologia",
+      "description": "PT Testów na rozpoznawanie artefaktów i rozumienie ich działania jest niższy o jeden stopień, jeżeli Postać miała styczność z czymś podobnym (nie musi o tym pamiętać)."
     },
     "Technologia Jest Wśród Nas": {
       "name": "Technology Is Among Us",

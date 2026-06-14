@@ -1,4 +1,4 @@
-# Changelog — hbm-rpg-v3
+# Changelog - hbm-rpg-v3
 
 All notable changes to the **HbM RPG v3** Foundry VTT system.
 
@@ -11,7 +11,7 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - **Foundry v14 compatibility:** Migrated from deprecated `template.json` to `documentTypes` in `system.json`. The system now declares Actor and Item types directly in the manifest as required by Foundry v14+. `template.json` has been removed.
 - Updated `compatibility.verified` to `"14"` to support Foundry VTT v14 build 363.
 
-## [1.2.0] — 2026-04-30
+## [1.2.0] - 2026-04-30
 
 Major mechanics + infrastructure release. Adds optional-rules sub-packs,
 ActiveEffects integration, automated tests, full localization for the new
@@ -19,8 +19,8 @@ features, and a v1.2.0 world migration.
 
 ### Added
 - **Talent sub-packs** for optional rules:
-  - `talents-blood` — 5 talents from *Arcanum Sanguinis*
-  - `talents-abyss` — 4 talents from *Klątwa Otchłani*
+  - `talents-blood` - 5 talents from *Arcanum Sanguinis*
+  - `talents-abyss` - 4 talents from *Klątwa Otchłani*
   - Each parsed talent is stamped with `flags['hbm-rpg-v3'].sourceModule`
     so future module-aware UIs can filter or annotate them. *Note:* Foundry
     has no native gating of compendium content by external modules; the flag
@@ -38,7 +38,7 @@ features, and a v1.2.0 world migration.
   attribute, NPCs default to `2d6 + 0`.
 - **Per-turn Zeal regeneration is configurable.** The combat-turn handler
   now reads `flags['hbm-rpg-v3'].zealRegenBonus` (default `0`) added to the
-  base `+1` regen — talents can grant additional regen via an ActiveEffect
+  base `+1` regen - talents can grant additional regen via an ActiveEffect
   with `mode: ADD` targeting that flag.
 - **Long-rest cleanup.** `rest(actor, 'long')` now also deletes temporary
   ActiveEffects on the actor (those with finite duration or with the
@@ -51,16 +51,16 @@ features, and a v1.2.0 world migration.
   activeEffect}` namespaces to both `lang/pl.json` and `lang/en.json`.
 - **Vitest test harness** (`vitest.config.ts`, `tests/setup.ts`). 5 test
   files covering damage layers, rest mechanics, zeal-regen helper, talent
-  parser, and the v1.2.0 migration — 18 tests, all passing.
+  parser, and the v1.2.0 migration - 18 tests, all passing.
 
 ### Notes on skipped items
-- **Spell preparation** is intentionally not implemented — every spellcaster
+- **Spell preparation** is intentionally not implemented - every spellcaster
   can cast any known spell directly (per design).
 - **Module gating of sub-pack talents** is not enforced because Foundry does
   not provide a hook to hide compendium documents based on external module
   presence. The `sourceModule` flag is preserved for future opt-in filtering.
 
-## [1.1.2] — 2026-04-30
+## [1.1.2] - 2026-04-30
 
 Mechanics polish release. No content changes; focuses on the spell-cast UX, the
 NPC sheet, and the cast dialog.
@@ -87,14 +87,14 @@ NPC sheet, and the cast dialog.
   free-text actor-id field), so group casters can be picked visually.
 
 ### Changed
-- `src/logic/spell-cast.ts` no longer posts separate damage / status messages —
+- `src/logic/spell-cast.ts` no longer posts separate damage / status messages -
   everything is consolidated into the new chat card via `renderTemplate`.
-- `lang/{pl,en}.json` — added `HBM.spellCast.*` keys for the new card and
+- `lang/{pl,en}.json` - added `HBM.spellCast.*` keys for the new card and
   dialog widgets.
-- `styles/hbm.css` — styling for the spell-cast card and the new dialog
+- `styles/hbm.css` - styling for the spell-cast card and the new dialog
   widgets (caster checkbox list, variant radio list).
 
-## [1.0.0] — 2026-04-29
+## [1.0.0] - 2026-04-29
 
 First production release. Adds the full magic and resource model from books I–VIII
 plus a build pipeline that generates compendium content from the source markdown
@@ -122,7 +122,7 @@ in `_books/`.
 - **Cast dialog** with mana/zeal/blood inputs, group-caster picker, GM bypass
   checkboxes, validation feedback inline.
 - **New mechanics modules**: `blood-magic`, `abyss-magic`, `brewing`, `rest`,
-  `trade` — all exposed under `game.hbm.*`.
+  `trade` - all exposed under `game.hbm.*`.
 - **Actor schema**: `attributes.blood`, `attributes.elixirTolerance`,
   `attributes.insanity` with derived clamps and resource cards on the sheet.
 - **Mental conditions**: paranoia, fobia, depresja, mania, schizofrenia
@@ -144,19 +144,19 @@ in `_books/`.
 
 ### Deferred
 
-- `gear-*`, `actors-*`, `roll-tables-*` packs — source books lack stat-block data.
+- `gear-*`, `actors-*`, `roll-tables-*` packs - source books lack stat-block data.
 - Adventures package (`hbm-rpg-v3-adventures`).
 - Macro packs.
 - Compendium browser premium-module integration.
 
-## [0.6.1] — 2026-04-29
+## [0.6.1] - 2026-04-29
 
 - Localization parity (`en.json` mirrors all `pl.json` namespaces).
 - CSS polish: badges, source pip, blood-pool tint, school details groups,
   fieldset and array-row layouts.
 - Compendium browser metadata + `packFolders`.
 
-## [0.6.0] — 2026-04-29
+## [0.6.0] - 2026-04-29
 
 - Spell item-sheet rewrite (8 fieldsets, conditional rendering).
 - Cast dialog (`askCastOptions`) with mana/zeal/blood/Hekate/group/bypass.
@@ -164,12 +164,12 @@ in `_books/`.
 - Resources: blood pool, elixir tolerance, insanity (conditional).
 - Spells tab grouped by school with badges.
 
-## [0.5.0] — 2026-04-29
+## [0.5.0] - 2026-04-29
 
 - New mechanics modules under `game.hbm.*`: blood-magic, abyss-magic, brewing,
   rest, trade. Actor schema gains `elixirTolerance`, `insanity`.
 
-## [0.4.0] — 2026-04-29
+## [0.4.0] - 2026-04-29
 
 - Phase 0 foundation: extended `constants`, `SpellData`, `CharacterData.attributes.blood`,
   migration runner, mental conditions.

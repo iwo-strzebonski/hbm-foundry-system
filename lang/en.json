@@ -1,7 +1,12 @@
 {
   "HBM": {
-    "system": { "name": "Homebrew Magic: RPG v3" },
-    "actor": { "character": "Character", "npc": "NPC / Creature" },
+    "system": {
+      "name": "Homebrew Magic: RPG v3"
+    },
+    "actor": {
+      "character": "Character",
+      "npc": "NPC / Creature"
+    },
     "item": {
       "spell": "Spell",
       "gear": "Gear",
@@ -155,7 +160,8 @@
         "sacred": "Sacred Magic",
         "witch": "Witch Magic",
         "blood": "Blood Magic",
-        "hekate": "Hekate Hybrid"
+        "hekate": "Hekate Hybrid",
+        "prayer": "Prayer"
       }
     },
     "spellSchool": {
@@ -173,14 +179,15 @@
       "manaSourceMage": "Mana Source",
       "illusion": "Illusion",
       "sacred": "Sacred Magic",
-      "sacredExorcism": "Sacred Magic — Exorcism",
+      "sacredExorcism": "Sacred Magic - Exorcism",
       "witch": "Witch Magic",
       "necromancy": "Necromancy",
       "blood": "Blood Magic",
       "crimson": "Crimson Magic",
-      "abyssAspects": "Abyss — Aspects",
-      "abyssPrimal": "Abyss — Primal",
-      "wildWitch": "Wild Witch"
+      "abyssAspects": "Abyss - Aspects",
+      "abyssPrimal": "Abyss - Primal",
+      "wildWitch": "Wild Witch",
+      "eldritch": "Eldritch"
     },
     "deity": {
       "common": "Common Prayers",
@@ -350,6 +357,7 @@
     "spellCast": {
       "title": "Casting spell",
       "manaSpent": "Mana spent",
+      "cannotBeUnraveled": "Cannot be unraveled",
       "zealSpent": "Zeal spent",
       "bloodSpent": "Blood spent",
       "hekateMode": "Hekate mode (Sacred + Witch hybrid)",
@@ -401,12 +409,12 @@
         "physicalArmorReduced": "Physical Armor reduced: {n}",
         "healthLost": "Health lost: {n}",
         "armorBroken": "Armor broken!",
-        "runeTriggered": "Runes triggered — Magical Armor -1"
+        "runeTriggered": "Runes triggered - Magical Armor -1"
       }
     },
     "combat": {
-      "newRound": "New round — Mana reset",
-      "newTurn": "New turn — Zeal +1",
+      "newRound": "New round - Mana reset",
+      "newTurn": "New turn - Zeal +1",
       "turnSkipped": "Turn skipped (condition)",
       "deathSavePrompt": "Make a Death Saving Throw (Body, T:4, Y:1)"
     },
@@ -457,6 +465,7 @@
       "itemAlreadyOwned": "'{name}' is already on this character sheet.",
       "dropTalentsHint": "Drag talents from the compendium onto this sheet.",
       "physicalArmorBonus": "Armor bonus",
+      "initiativeBonus": "Initiative bonus",
       "selectTalentParamTitle": "Talent Specialization",
       "selectTalentParamDesc": "This talent requires a choice of specialization. Enter a value for ({param}):",
       "tabs": {
@@ -562,7 +571,8 @@
       "technologia-jest-wsrod-nas": "Technology is Among Us",
       "urok-osobisty": "Personal Charm",
       "zakazana-wiedza-dziedzina": "Forbidden Knowledge (Discipline)",
-      "zawisanie-w-powietrzu": "Hovering"
+      "zawisanie-w-powietrzu": "Hovering",
+      "naturalny-lot": "Natural Flight"
     }
   }
 }

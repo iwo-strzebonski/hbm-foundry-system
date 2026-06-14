@@ -1,5 +1,5 @@
 /**
- * Warzenie Eliksirów — Brewing logic (Podręcznik Gry, Alchemia / Aneks C).
+ * Warzenie Eliksirów - Brewing logic (Podręcznik Gry, Alchemia / Aneks C).
  *
  * Each character has `attributes.elixirTolerance` (default 0). Soft cap = body+1.
  * Drinking a potion increments the counter; exceeding the cap triggers a
@@ -12,12 +12,12 @@
  */
 
 import { HbmTSRoll } from '../dice/ts-roll';
-import { TS_DEFAULT_REQUIRED, TS_DEFAULT_THRESHOLD } from '../constants';
+import { TS_DEFAULT_REQUIRED, TS_DEFAULT_THRESHOLD, getMagicPowerEntry } from '../constants';
 import type { CastableActor } from './spell-cast';
 
 export interface ElixirRecipe {
   name: string;
-  /** TS test target — { threshold, successes }. */
+  /** TS test target - { threshold, successes }. */
   difficulty: { threshold: number; successes: number };
   /** Ingredient names (free-form). */
   ingredients: string[];
@@ -44,7 +44,11 @@ export async function consumeElixir(actor: CastableActor, recipe: Pick<ElixirRec
 export async function brewElixir(actor: CastableActor, recipe: ElixirRecipe): Promise<{ roll: HbmTSRoll; success: boolean }> {
   const skillKey = recipe.skill ?? 'alchemyBrewing';
   const skillValue = actor.system.skills?.[skillKey]?.value ?? 0;
-  const pool = actor.system.attributes.magic.actual + skillValue;
+  const magicAttr = actor.system.attributes.magic as any;
+  const magicDice = typeof magicAttr.dicePool === 'number'
+    ? magicAttr.dicePool
+    : getMagicPowerEntry(magicAttr.actual ?? magicAttr.value ?? 0).dicePool;
+  const pool = magicDice + skillValue;
   const roll = HbmTSRoll.fromParams({
     pool,
     threshold: recipe.difficulty.threshold ?? TS_DEFAULT_THRESHOLD,
@@ -53,7 +57,7 @@ export async function brewElixir(actor: CastableActor, recipe: ElixirRecipe): Pr
   });
   await roll.evaluate();
   await roll.toMessage({
-    flavor: `Warzenie ${recipe.name} (Składniki: ${recipe.ingredients.join(', ') || '—'})`,
+    flavor: `Warzenie ${recipe.name} (Składniki: ${recipe.ingredients.join(', ') || '-'})`,
   });
   return { roll, success: !!roll.ts?.isSuccess };
 }

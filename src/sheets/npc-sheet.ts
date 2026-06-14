@@ -1,11 +1,11 @@
-import { rollAttribute, rollInitiative } from '../dice/macros';
+import { rollSkill, rollAttribute, rollInitiative } from '../dice/macros';
 import { askRollParams } from '../dice/roll-dialog';
 import { askApplyDamage } from '../dice/damage-dialog';
 import { askCastOptions } from '../dice/cast-dialog';
 import { applyDamage } from '../logic/damage';
 import { castSpell } from '../logic/spell-cast';
 import { HbmTSRoll } from '../dice/ts-roll';
-import { ATTRIBUTES, AttributeKey, TS_DEFAULT_REQUIRED, TS_DEFAULT_THRESHOLD } from '../constants';
+import { ATTRIBUTES, AttributeKey, SKILL_KEYS, TS_DEFAULT_REQUIRED, TS_DEFAULT_THRESHOLD, getMagicPowerEntry } from '../constants';
 
 const { ActorSheetV2 } = foundry.applications.sheets as unknown as {
   ActorSheetV2: typeof foundry.applications.sheets.ActorSheetV2;
@@ -20,21 +20,22 @@ export class NpcSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     position: { width: 640, height: 720 },
     window: { resizable: true, title: 'HBM.actor.npc' },
     actions: {
-      rollAttribute:      NpcSheet._onRollAttribute,
-      rollInitiative:     NpcSheet._onRollInitiative,
-      rollNpcAttack:      NpcSheet._onRollNpcAttack,
-      applyDamage:        NpcSheet._onApplyDamage,
-      castSpell:          NpcSheet._onCastSpell,
-      deleteItem:         NpcSheet._onDeleteItem,
-      editItem:           NpcSheet._onEditItem,
-      actorEffectCreate:  NpcSheet._onActorEffectCreate,
-      actorEffectToggle:  NpcSheet._onActorEffectToggle,
-      actorEffectEdit:    NpcSheet._onActorEffectEdit,
-      actorEffectDelete:  NpcSheet._onActorEffectDelete,
-      addArrayEntry:      NpcSheet._onAddArrayEntry,
-      removeArrayEntry:   NpcSheet._onRemoveArrayEntry,
-      editImage:          NpcSheet._onEditImage,
-      recalculateMoney:   NpcSheet._onRecalculateMoney,
+      rollSkill: NpcSheet._onRollSkill,
+      rollAttribute: NpcSheet._onRollAttribute,
+      rollInitiative: NpcSheet._onRollInitiative,
+      rollNpcAttack: NpcSheet._onRollNpcAttack,
+      applyDamage: NpcSheet._onApplyDamage,
+      castSpell: NpcSheet._onCastSpell,
+      deleteItem: NpcSheet._onDeleteItem,
+      editItem: NpcSheet._onEditItem,
+      actorEffectCreate: NpcSheet._onActorEffectCreate,
+      actorEffectToggle: NpcSheet._onActorEffectToggle,
+      actorEffectEdit: NpcSheet._onActorEffectEdit,
+      actorEffectDelete: NpcSheet._onActorEffectDelete,
+      addArrayEntry: NpcSheet._onAddArrayEntry,
+      removeArrayEntry: NpcSheet._onRemoveArrayEntry,
+      editImage: NpcSheet._onEditImage,
+      recalculateMoney: NpcSheet._onRecalculateMoney,
     },
     form: { submitOnChange: true, closeOnSubmit: false },
   };
@@ -73,7 +74,13 @@ export class NpcSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       };
     });
 
-    return { ...ctx, system: actor.system, attributes, spells, actorEffects };
+    const skills = SKILL_KEYS.map(key => ({
+      key,
+      value: sys.skills?.[key]?.value ?? 0,
+      label: game.i18n.localize(`HBM.skills.${key}`)
+    }));
+
+    return { ...ctx, system: actor.system, attributes, skills, spells, actorEffects };
   }
 
   override _onRender(context: unknown, options: unknown) {
@@ -110,7 +117,7 @@ export class NpcSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
         const paramType = match[1];
         const title = game.i18n.localize('HBM.ui.selectTalentParamTitle') || 'Wybierz parametr talentu';
         const labelText = game.i18n.format('HBM.ui.selectTalentParamDesc', { param: paramType }) || `Wprowadź wartość dla parametru (${paramType}):`;
-        
+
         let specified: string | null = null;
         await (foundry.applications.api as any).DialogV2.wait({
           title,
@@ -124,8 +131,8 @@ export class NpcSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
               type: 'button', action: 'confirm',
               label: game.i18n.localize('HBM.ui.confirm') || 'Potwierd\u017a',
               default: true,
-              callback: (_ev: Event, _btn: any, html: HTMLElement) => {
-                const val = (html.querySelector('#hbm-talent-param-input') as HTMLInputElement)?.value?.trim();
+              callback: (_ev: Event, _btn: any, dialog: any) => {
+                const val = (dialog.element.querySelector('#hbm-talent-param-input') as HTMLInputElement)?.value?.trim();
                 specified = val || null;
               },
             },
@@ -148,17 +155,52 @@ export class NpcSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     await actor.createEmbeddedDocuments('Item', [item.toObject()]);
   }
 
+  static async _onRollSkill(this: NpcSheet, _event: PointerEvent, target: HTMLElement) {
+    const skillKey = target.dataset.skill;
+    if (!skillKey) return;
+    const actor = (this as unknown as { actor: any }).actor;
+
+    // Determine default pool so the dialog can show it
+    const skill = actor.system.skills?.[skillKey];
+    const attrKey = (skill?.defaultAttribute ?? 'body') as AttributeKey;
+    const attr = actor.system.attributes[attrKey];
+    const attrVal = (attrKey === 'magic' && attr)
+      ? ((attr as any).dicePool ?? getMagicPowerEntry((attr as any).actual ?? attr.value ?? 0).dicePool)
+      : (attr?.value ?? 0);
+    const pool = attrVal + (skill?.value ?? 0);
+
+    const params = await askRollParams({
+      pool,
+      flavor: game.i18n.format('HBM.roll.rollSkill', { skill: game.i18n.localize(`HBM.skills.${skillKey}`) })
+    });
+    if (!params) return;
+
+    await rollSkill(actor, skillKey, {
+      threshold: params.threshold,
+      required: params.required,
+      modifier: params.modifier,
+      flavor: params.flavor,
+    });
+  }
+
   static async _onRollAttribute(this: NpcSheet, _event: PointerEvent, target: HTMLElement) {
     const attr = target.dataset.attribute as AttributeKey | undefined;
     if (!attr) return;
     const actor = (this as unknown as { actor: any }).actor;
-    const pool = actor.system.attributes[attr]?.value ?? 0;
+    const a = actor.system.attributes[attr];
+    const pool = (attr === 'magic' && a)
+      ? ((a as any).dicePool ?? getMagicPowerEntry((a as any).actual ?? a.value ?? 0).dicePool)
+      : (a?.value ?? 0);
     const params = await askRollParams({
       pool,
       flavor: game.i18n.format('HBM.roll.rollAttribute', { attribute: game.i18n.localize(`HBM.attributes.${attr}`) }),
     });
     if (!params) return;
-    await rollAttribute(actor, attr, { threshold: params.threshold, required: params.required });
+    await rollAttribute(actor, attr, {
+      threshold: params.threshold,
+      required: params.required,
+      modifier: params.modifier,
+    });
   }
 
   static async _onRollInitiative(this: NpcSheet, _event: PointerEvent, _target: HTMLElement) {
@@ -177,7 +219,7 @@ export class NpcSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       flavor: attack.name,
     });
     if (!params) return;
-    const flavor = `${attack.name}${attack.damage ? ` — ${attack.damage}` : ''}`;
+    const flavor = `${attack.name}${attack.damage ? ` - ${attack.damage}` : ''}`;
     const roll = HbmTSRoll.fromParams({
       pool: params.pool,
       threshold: params.threshold ?? TS_DEFAULT_THRESHOLD,
@@ -326,7 +368,7 @@ export class NpcSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
           }
         }
       }
-      
+
       // Fallback to latest rate
       try {
         const response = await fetch(`https://api.nbp.pl/api/exchangerates/rates/a/${currency}/?format=json`);
@@ -399,8 +441,8 @@ export class NpcSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       </div>
     `;
 
-    await (foundry.applications.api as any).DialogV2.inform({
-      title: game.i18n.localize('HBM.ui.moneyConverterTitle'),
+    await (foundry.applications.api as any).DialogV2.prompt({
+      window: { title: game.i18n.localize('HBM.ui.moneyConverterTitle') },
       content: content,
       rejectClose: false,
     });

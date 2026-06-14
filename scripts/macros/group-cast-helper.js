@@ -1,4 +1,4 @@
-// HbM Group Cast Helper — sum mana of controlled token actors (potential co-casters).
+// HbM Group Cast Helper - sum mana of controlled token actors (potential co-casters).
 const tokens = canvas.tokens.controlled;
 if (tokens.length < 2) return ui.notifications.warn('Zaznacz co najmniej 2 tokeny współrzucających.');
 const lines = [];
@@ -11,7 +11,7 @@ for (const t of tokens) {
     const magic = a.system.attributes?.magic?.value ?? 0;
     totalMana += mana;
     totalPool += magic;
-    lines.push(`<li><strong>${a.name}</strong> — Mana ${mana}, Magia ${magic}</li>`);
+    lines.push(`<li><strong>${a.name}</strong> - Mana ${mana}, Magia ${magic}</li>`);
 }
 const html = `
     <div class="hbm-group-cast">

@@ -127,6 +127,7 @@ const nameTranslations: Record<string, string> = {
   "necromancy": "Necromancy",
   "blood": "Blood Magic",
   "wildwitch": "Wild Witch Magic",
+  "take-breather": "Take a Breather",
 };
 
 const folderNameTranslations: Record<string, string> = {

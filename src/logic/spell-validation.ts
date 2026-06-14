@@ -41,18 +41,42 @@ function actorHasTalent(actor: CastableActor, talentId: string): boolean {
   return false;
 }
 
-function actorHasDiscipline(actor: CastableActor, disciplineId: string): boolean {
-  const id = disciplineId.toLowerCase();
-  const items = (actor as any).items as Iterable<any> | undefined;
-  if (!items) return false;
-  for (const it of items) {
-    if (it.type !== 'discipline') continue;
-    const d = String(it.system?.disciplineId ?? it.system?.id ?? it.name ?? '').toLowerCase();
-    if (d === id) return true;
+function matchDiscipline(disciplineId: string, targetId: string): boolean {
+  const d1 = disciplineId.toLowerCase().trim();
+  const d2 = targetId.toLowerCase().trim();
+  if (d1 === d2) return true;
+
+  const mappings: Record<string, string[]> = {
+    crimson: ['crimson', 'magia szkarłatu', 'magia szkarłatnego kultu', 'crimson magic', 'crimson cult magic'],
+    abyssaspects: ['abyssaspects', 'magia aspektów', 'aspects', 'aspect magic', 'abyss - aspects', 'magia otchłani - aspekty'],
+    abyssprimal: ['abyssprimal', 'magia otchłani', 'primal', 'eldritch', 'eldritch magic', 'abyss - primal', 'magia otchłani - pierwotna magia', 'pierwotna magia'],
+    witch: ['witch', 'wiedźmia magia', 'witch magic', 'dzika wiedźmia magia', 'wildwitch'],
+    blood: ['blood', 'magia krwi', 'blood magic'],
+  };
+
+  let key1: string | null = null;
+  let key2: string | null = null;
+
+  for (const [k, aliases] of Object.entries(mappings)) {
+    if (k === d1 || aliases.includes(d1)) key1 = k;
+    if (k === d2 || aliases.includes(d2)) key2 = k;
   }
-  // Also accept characters whose details.discipline matches
-  const detail = String((actor as any).system?.details?.discipline ?? '').toLowerCase();
-  return detail === id;
+
+  if (key1 && key2 && key1 === key2) return true;
+  return false;
+}
+
+function actorHasDiscipline(actor: CastableActor, disciplineId: string): boolean {
+  const items = (actor as any).items as Iterable<any> | undefined;
+  if (items) {
+    for (const it of items) {
+      if (it.type !== 'discipline') continue;
+      const d = String(it.system?.disciplineId ?? it.system?.id ?? it.name ?? '');
+      if (matchDiscipline(d, disciplineId)) return true;
+    }
+  }
+  const detail = String((actor as any).system?.details?.discipline ?? '');
+  return matchDiscipline(detail, disciplineId);
 }
 
 function actorIsInCombat(actor: CastableActor): boolean {
@@ -79,7 +103,11 @@ export function validateCast(actor: CastableActor, spell: SpellLike, opts: CastO
       errors.push({ code: 'no-mana', message: 'Not enough mana', i18nKey: 'HBM.spellCast.notEnoughMana' });
     }
   }
-  if (mode === 'sacred' && opts.hekateMode !== 'witch') {
+  if (opts.castAsPrayer) {
+    if (1 > Number(a.zeal?.value ?? 0)) {
+      errors.push({ code: 'no-zeal', message: 'Not enough zeal', i18nKey: 'HBM.spellCast.notEnoughZeal' });
+    }
+  } else if (mode === 'sacred' && opts.hekateMode !== 'witch') {
     const zealNeeded = Math.max(1, opts.zealSpent ?? 1);
     if (zealNeeded > Number(a.zeal?.value ?? 0)) {
       errors.push({ code: 'no-zeal', message: 'Not enough zeal', i18nKey: 'HBM.spellCast.notEnoughZeal' });
@@ -122,7 +150,23 @@ export function validateCast(actor: CastableActor, spell: SpellLike, opts: CastO
   // Discipline gate (any-of)
   const discReq: string[] = Array.isArray(sys.requirements?.discipline) ? sys.requirements.discipline : [];
   if (discReq.length > 0) {
-    const ok = discReq.some((d) => actorHasDiscipline(actor, d));
+    const hasEldritchMagic = actorHasDiscipline(actor, 'abyssPrimal');
+    const hasAspectMagic = actorHasDiscipline(actor, 'abyssAspects');
+    const hasWitchMagic = actorHasDiscipline(actor, 'witch');
+
+    // Is the spell an Eldritch Spell?
+    const isEldritchSpell = discReq.some((d) => matchDiscipline(d, 'abyssPrimal')) ||
+                            matchDiscipline(sys.school ?? '', 'abyssPrimal') ||
+                            matchDiscipline(sys.discipline ?? '', 'abyssPrimal');
+
+    let bypassDisc = false;
+    if (hasEldritchMagic) {
+      bypassDisc = true; // Eldritch Magic allows casting ANY spells
+    } else if ((hasWitchMagic || hasAspectMagic) && !isEldritchSpell) {
+      bypassDisc = true; // Witch/Aspect Magic allows casting any spells EXCEPT Eldritch spells
+    }
+
+    const ok = bypassDisc || discReq.some((d) => actorHasDiscipline(actor, d));
     if (!ok) {
       const translatedDisciplines = discReq.map(d => {
         return game.i18n.has(`HBM.spellSchool.${d}`) ? game.i18n.localize(`HBM.spellSchool.${d}`) : d;

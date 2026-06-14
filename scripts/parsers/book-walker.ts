@@ -27,7 +27,7 @@
 import { readFileSync } from 'node:fs';
 
 export interface BookBlock {
-  /** The line directly preceding the bullet block — usually the item name. */
+  /** The line directly preceding the bullet block - usually the item name. */
   name: string;
   /** Bullet keys/values, preserved in order. */
   fields: Array<{ key: string; value: string }>;
@@ -45,7 +45,7 @@ const SEPARATOR = /^_{3,}$/;
 const BULLET = /^\*\s+([^:]+):\s*(.+)$/;
 // Match any markdown heading level (1-6 `#` chars).
 const HEADING = /^#{1,6}\s+(.+)$/;
-// Chapter headings are the two highest heading levels we encounter — heuristic:
+// Chapter headings are the two highest heading levels we encounter - heuristic:
 // treat ## headings as "chapter" and ### headings as "section".
 const CHAPTER_HEADING = /^#{1,2}\s+(.+)$/;
 const SECTION_HEADING = /^#{3,4}\s+(.+)$/;
@@ -65,7 +65,7 @@ function skipFrontmatter(lines: string[]): number {
   for (let i = 1; i < lines.length; i++) {
     if (FRONTMATTER_FENCE.test(lines[i].trim())) return i + 1;
   }
-  return 0; // malformed — start from 0
+  return 0; // malformed - start from 0
 }
 
 export interface WalkOptions {
@@ -92,7 +92,7 @@ export function walkBook(path: string, opts: WalkOptions = {}): BookBlock[] {
   for (let i = startIdx; i < lines.length; i++) {
     const rawLine = lines[i].trimEnd();
 
-    // Skip Obsidian TOC bullets — they look like `- [[#Section|Label]]`.
+    // Skip Obsidian TOC bullets - they look like `- [[#Section|Label]]`.
     if (OBSIDIAN_TOC_BULLET.test(rawLine.trim())) continue;
 
     // Chapter headings: ## or # level (the two highest we honour).

@@ -160,7 +160,8 @@
         "sacred": "Magia Sakralna",
         "witch": "Wiedźmia Magia",
         "blood": "Magia Krwi",
-        "hekate": "Hybryda Hekate"
+        "hekate": "Hybryda Hekate",
+        "prayer": "Modlitwa"
       }
     },
     "spellSchool": {
@@ -178,14 +179,15 @@
       "manaSourceMage": "Źródło Mocy",
       "illusion": "Magia Iluzji",
       "sacred": "Magia Sakralna",
-      "sacredExorcism": "Magia Sakralna — Egzorcyzmy",
+      "sacredExorcism": "Magia Sakralna - Egzorcyzmy",
       "witch": "Wiedźmia Magia",
       "necromancy": "Nekromancja",
       "blood": "Magia Krwi",
       "crimson": "Magia Szkarłatu",
-      "abyssAspects": "Magia Otchłani — Aspekty",
-      "abyssPrimal": "Magia Otchłani — Pierwotna Magia",
-      "wildWitch": "Dzika Wiedźmia Magia"
+      "abyssAspects": "Magia Otchłani - Aspekty",
+      "abyssPrimal": "Magia Otchłani - Pierwotna Magia",
+      "wildWitch": "Dzika Wiedźmia Magia",
+      "eldritch": "Magia Otchłani"
     },
     "deity": {
       "common": "Modlitwy Powszechne",
@@ -375,6 +377,7 @@
     "spellCast": {
       "title": "Rzucanie zaklęcia",
       "manaSpent": "Wydana mana",
+      "cannotBeUnraveled": "Nie da się rozpleść",
       "cast": "Rzuć",
       "notEnoughMana": "Niewystarczająca mana.",
       "notEnoughZeal": "Niewystarczający Zapał.",
@@ -409,12 +412,12 @@
         "physicalArmorReduced": "Pancerz Fizyczny zredukował: {n}",
         "healthLost": "Utracona Żywotność: {n}",
         "armorBroken": "Zbroja zniszczona!",
-        "runeTriggered": "Runy zadziałały — Pancerz Magiczny -1"
+        "runeTriggered": "Runy zadziałały - Pancerz Magiczny -1"
       }
     },
     "combat": {
-      "newRound": "Nowa runda — Mana zresetowana",
-      "newTurn": "Nowa tura — Zapał +1",
+      "newRound": "Nowa runda - Mana zresetowana",
+      "newTurn": "Nowa tura - Zapał +1",
       "turnSkipped": "Tura pominięta (stan)",
       "deathSavePrompt": "Wykonaj Rzut Obronny przeciw Śmierci (Ciało, T:4, Y:1)"
     },
@@ -465,6 +468,7 @@
       "itemAlreadyOwned": "'{name}' jest już na tej karcie postaci.",
       "dropTalentsHint": "Przeciągnij talenty z kompendium na tę kartę.",
       "physicalArmorBonus": "Premia do pancerza",
+      "initiativeBonus": "Premia do inicjatywy",
       "selectTalentParamTitle": "Specjalizacja Talentu",
       "selectTalentParamDesc": "Ten talent wymaga określenia specjalizacji/parametru. Wpisz wartość dla parametru ({param}):",
       "tabs": {
@@ -570,7 +574,8 @@
       "technologia-jest-wsrod-nas": "Technologia jest wśród nas",
       "urok-osobisty": "Urok osobisty",
       "zakazana-wiedza-dziedzina": "Zakazana wiedza (Dziedzina)",
-      "zawisanie-w-powietrzu": "Zawisanie w powietrzu"
+      "zawisanie-w-powietrzu": "Zawisanie w powietrzu",
+      "naturalny-lot": "Naturalny lot"
     }
   }
 }

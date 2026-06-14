@@ -10,7 +10,7 @@
  *   - Podręcznik Gry, "Rozdział IV - Talenty"
  *   - Bestiariusz, "Rozdział III - Talenty"  (NPC-only talents)
  *
- * The walker can't help us here — we segment by `________________`
+ * The walker can't help us here - we segment by `________________`
  * separators within the talent chapter and look for a "Wymagania:" line.
  */
 
@@ -73,7 +73,7 @@ const TALENT_SOURCES: TalentSource[] = [
 ];
 
 /**
- * Talent chapters are noisy — split into segments by separator lines, then
+ * Talent chapters are noisy - split into segments by separator lines, then
  * within each segment find consecutive talent blocks. A talent block is:
  *   - first non-empty line = name (short, no trailing punctuation, no colon)
  *   - optional `Wymagania: ...` line
@@ -109,7 +109,7 @@ export const parseTalents: ParserFn = async (ctx: ParserContext): Promise<Parsed
       if (i >= slice.length) break;
 
       const rawLine = slice[i].trim();
-      // Stop heuristic — bail out of obvious chapter changes.
+      // Stop heuristic - bail out of obvious chapter changes.
       if (/^Rozdział\b/.test(rawLine) || /^Aneks\b/.test(rawLine) || /^#{1,6}\s+(?:Rozdział|Aneks)\b/i.test(rawLine)) break;
 
       let isName = false;
@@ -127,7 +127,7 @@ export const parseTalents: ParserFn = async (ctx: ParserContext): Promise<Parsed
       }
 
       if (!isName) {
-        // Can't read this — skip the line and continue.
+        // Can't read this - skip the line and continue.
         i++;
         continue;
       }
@@ -205,8 +205,103 @@ export const parseTalents: ParserFn = async (ctx: ParserContext): Promise<Parsed
     }
   }
 
+  // Parse discipline-specific talents from Wybór Dziedziny Magii
+  docs.push(...(await parseDisciplineTalents(ctx)));
+
   return docs;
 };
+
+async function parseDisciplineTalents(ctx: ParserContext): Promise<ParsedDoc[]> {
+  const docs: ParsedDoc[] = [];
+  const path = resolve(ctx.repoRoot, 'ObsidianNotes/rules/00. Podr\u0119cznik Gry.md');
+  let lines: string[] = [];
+  try {
+    lines = readFileSync(path, 'utf8').split(/\r?\n/);
+  } catch {
+    return [];
+  }
+
+  const startIdx = lines.findIndex((l) => /^\s*Wyb[o\u00f3\u0143A3\ufffd]r Dziedziny Magii\s*$/i.test(l));
+  if (startIdx < 0) return [];
+  const endIdx = lines.findIndex((l, i) => i > startIdx && /^\s*Umiej[e\u0119\u0118\ufffd]tno[s\u015b\u015a\ufffd]ci i Talenty\s*$/i.test(l));
+  const slice = lines.slice(startIdx + 1, endIdx > 0 ? endIdx : lines.length);
+
+  const talentNames = [
+    'Podejrzliwo\u015b\u0107 Wobec Zmian',
+    'Nadzwyczajna Odporno\u015b\u0107',
+    'Magiczna Flora',
+    'Mi\u0142osierdzie',
+    'B\u0142ogos\u0142awieni Egzorcy\u015bci',
+    'Jedno\u015b\u0107 z \u017bywio\u0142em',
+    'Tajemna Technologia',
+    'Pierwotna Energia',
+    'Niezwyk\u0142a Intuicja',
+    'Arytmetyczna Koncentracja'
+  ];
+
+  const cleanNames = talentNames.map(n => slugify(n));
+
+  for (let i = 0; i < slice.length; i++) {
+    const rawLine = slice[i].trim();
+    if (!rawLine) continue;
+
+    const slug = slugify(rawLine);
+    const talentIndex = cleanNames.indexOf(slug);
+
+    if (talentIndex !== -1) {
+      const name = talentNames[talentIndex];
+      const descLines: string[] = [];
+      let j = i + 1;
+      while (j < slice.length) {
+        const nextLine = slice[j].trim();
+        if (SEPARATOR.test(nextLine) || /^Rozdzia/i.test(nextLine) || /^___/.test(nextLine)) {
+          break;
+        }
+        const nextSlug = slugify(nextLine);
+        if (cleanNames.includes(nextSlug)) {
+          break;
+        }
+        // Stop if we hit a main section like Alchemia, Botanika, Magia Sakralna etc.
+        const disciplineHeaders = [
+          'Alchemia', 'Transmutacja', 'Warzenie Eliksirów', 'Botanika',
+          'Magia Sakralna', 'Egzorcyzmy', 'Magia Żywiołów', 'Rzemiosło Artefaktów',
+          'Źródło Mocy', 'Magia Iluzji', 'Wiedźmia Magia'
+        ];
+        if (disciplineHeaders.some(h => slugify(h) === nextSlug)) {
+          break;
+        }
+
+        descLines.push(slice[j]);
+        j++;
+      }
+      const description = descLines.join('\n').trim();
+      const baseSlug = slugify(name);
+      const id = ctx.idOverrides[baseSlug] ?? baseSlug;
+
+      docs.push({
+        id,
+        name,
+        documentType: 'Item',
+        subType: 'talent',
+        pack: 'talents',
+        source: { book: 'podrecznik-gry', chapter: 'Wyb\u00f3r Dziedziny Magii', line: startIdx + i + 2 },
+        system: {
+          requirements: { race: '', attribute: '', skill: '', talent: '', title: '', discipline: '' },
+          multiSelect: false,
+          cost: '',
+          damageReductionBonus: 0,
+          description,
+          effect: '',
+        },
+        description,
+      });
+
+      i = j - 1;
+    }
+  }
+
+  return docs;
+}
 
 /** A talent name is short, doesn't end with `.`, no `:`, not a bullet, no digits-only. */
 function isPlausibleName(line: string): boolean {

@@ -4,7 +4,7 @@
  * with name, source book, and an empty description (filled in later).
  *
  * Many disciplines also have a "passive ability" mentioned right after the
- * discipline header in Podręcznik Gry — we capture the next non-empty line
+ * discipline header in Podręcznik Gry - we capture the next non-empty line
  * if it looks like a short ability description.
  */
 
@@ -34,13 +34,13 @@ const DISCIPLINE_SEEDS: DisciplineSeed[] = [
   { id: 'manaSourceMage', polishName: 'Źródło Mocy', pack: 'disciplines', book: 'podrecznik-gry' },
   { id: 'illusion', polishName: 'Magia Iluzji', pack: 'disciplines', book: 'ksiega-magii' },
   { id: 'sacred', polishName: 'Magia Sakralna', pack: 'disciplines', book: 'ksiega-magii' },
-  { id: 'sacredExorcism', polishName: 'Magia Sakralna — Egzorcyzmy', pack: 'disciplines', book: 'ksiega-magii' },
+  { id: 'sacredExorcism', polishName: 'Magia Sakralna - Egzorcyzmy', pack: 'disciplines', book: 'ksiega-magii' },
   { id: 'witch', polishName: 'Wiedźmia Magia', pack: 'disciplines', book: 'ksiega-magii' },
   { id: 'necromancy', polishName: 'Nekromancja', pack: 'disciplines', book: 'ksiega-magii' },
   { id: 'blood', polishName: 'Magia Krwi', pack: 'disciplines-forbidden', book: 'arcanum-sanguinis' },
   { id: 'crimson', polishName: 'Magia Szkarłatu', pack: 'disciplines-forbidden', book: 'crimson-cult' },
-  { id: 'abyssAspects', polishName: 'Magia Otchłani — Magia Aspektów', pack: 'disciplines-forbidden', book: 'klatwa-otchlani' },
-  { id: 'abyssPrimal', polishName: 'Magia Otchłani — Pierwotna Magia', pack: 'disciplines-forbidden', book: 'klatwa-otchlani' },
+  { id: 'abyssAspects', polishName: 'Magia Otchłani - Magia Aspektów', pack: 'disciplines-forbidden', book: 'klatwa-otchlani' },
+  { id: 'abyssPrimal', polishName: 'Magia Otchłani - Pierwotna Magia', pack: 'disciplines-forbidden', book: 'klatwa-otchlani' },
   { id: 'wildWitch', polishName: 'Dzika Wiedźmia Magia', pack: 'disciplines-forbidden', book: 'klatwa-otchlani' },
 ];
 
@@ -81,7 +81,7 @@ function lookupDescription(repoRoot: string, polishName: string): string {
     resolve(repoRoot, 'ObsidianNotes/rules/02. Klątwa Otchłani.md'),
     resolve(repoRoot, 'ObsidianNotes/rules/00. Podręcznik Gry.md'),
   ];
-  const target = normalizeKey(polishName.split('—')[0]);
+  const target = normalizeKey(polishName.split('-')[0]);
 
   for (const file of splitSources) {
     let text = '';

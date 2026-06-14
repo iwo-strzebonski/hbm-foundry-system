@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   Homebrew Magic: RPG v3 — Foundry VTT system styles
+   Homebrew Magic: RPG v3 - Foundry VTT system styles
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── CSS custom properties ─────────────────────────────────────────────── */
@@ -25,8 +25,8 @@
 }
 
 /* Dark theme overrides */
-.theme-dark .hbm,
-.hbm.theme-dark {
+.theme-dark .hbm:not(.theme-light),
+.hbm.theme-dark:not(.theme-light) {
   --hbm-fg:           #e0d8c3;
   --hbm-bg:           #1a1712;
   --hbm-bg-header:    #0f0b07;
@@ -45,8 +45,11 @@
   height: 100%;
   font-family: 'Signika', sans-serif;
   color: var(--hbm-fg);
-  background: var(--hbm-bg);
+  background: var(--hbm-bg) !important;
   overflow: hidden;
+}
+.hbm.sheet .window-content {
+  background: var(--hbm-bg) !important;
 }
 .hbm.sheet form,
 .hbm.sheet .sheet-wrapper {
@@ -235,7 +238,54 @@
 }
 .hbm .resource-value .sep { color: var(--hbm-border); }
 .hbm .resource .static-value { font-size: 1.1rem; font-weight: 700; }
-.hbm .resource small { font-size: 0.7rem; color: #666; }
+
+/* ── Advancement panel ─────────────────────────────────────────────────── */
+.hbm .advancement-panel {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: var(--hbm-card-bg);
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.hbm .advancement-panel .advancement-title {
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--hbm-accent);
+  border-bottom: 1px solid var(--hbm-border);
+  padding-bottom: 0.2rem;
+}
+.hbm .advancement-panel .advancement-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-around;
+}
+.hbm .advancement-panel .advancement-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.hbm .advancement-panel .advancement-field label {
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.hbm .advancement-panel .advancement-field input[type='number'] {
+  width: 4rem;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border: none;
+  border-bottom: 1px solid var(--hbm-border);
+  background: transparent;
+  color: var(--hbm-fg);
+}
 
 /* ── Skills grid ────────────────────────────────────────────────────────── */
 .hbm .skills-grid {
@@ -349,6 +399,29 @@
   border-radius: var(--hbm-radius);
   padding: 0.4rem;
   background: var(--hbm-card-bg);
+}
+
+/* ── Item Sheet Textareas ───────────────────────────────────────────────── */
+.hbm.item-body textarea {
+  width: 100%;
+  min-height: 12rem;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: 1px solid var(--hbm-border);
+  border-radius: var(--hbm-radius);
+  padding: 0.5rem;
+  background: var(--hbm-card-bg);
+  color: var(--hbm-fg);
+}
+
+/* Secondary/smaller textareas */
+.hbm.item-body textarea[name="system.physicalDescription"],
+.hbm.item-body textarea[name="system.mechanics"],
+.hbm.item-body textarea[name="system.effect"],
+.hbm.item-body textarea[name="system.higherCircles"],
+.hbm.item-body textarea[name="system.passiveAbility"] {
+  min-height: 6rem;
 }
 
 /* ── Dialog form ────────────────────────────────────────────────────────── */

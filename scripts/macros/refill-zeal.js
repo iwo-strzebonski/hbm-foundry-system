@@ -1,4 +1,4 @@
-// HbM Refill Zeal — bumps zeal by 1 on selected token's actor (debug helper).
+// HbM Refill Zeal - bumps zeal by 1 on selected token's actor (debug helper).
 const actor = canvas.tokens.controlled[0]?.actor ?? game.user.character;
 if (!actor) return ui.notifications.warn('Wybierz token postaci.');
 const cur = actor.system.attributes?.zeal?.value ?? 0;

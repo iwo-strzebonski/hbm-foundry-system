@@ -5,7 +5,7 @@ import type { ParsedDoc, ParserContext, ParserFn, SourceBookId } from './types';
 import { slugify } from './helpers';
 import yaml from 'js-yaml';
 
-/** Looser zod schema — mirrors `SpellData` defaults; build pipeline converts to system payload. */
+/** Looser zod schema - mirrors `SpellData` defaults; build pipeline converts to system payload. */
 const SpellSystemSchema = z.object({
   castingMode: z.enum(['standard', 'sacred', 'witch', 'blood']),
   school: z.string(),
@@ -101,7 +101,7 @@ export const parseSpells: ParserFn = async (ctx: ParserContext): Promise<ParsedD
     }
 
     const payload = { ...frontmatter, description: bodyRaw.trim() };
-    
+
     const nameMatch = payload.description.match(/^#\s+(.+)$/m);
     const spellName = nameMatch ? nameMatch[1].trim() : basename(file, '.md');
     payload.description = payload.description.replace(/^#\s+.+$/m, '').trim();
@@ -113,7 +113,7 @@ export const parseSpells: ParserFn = async (ctx: ParserContext): Promise<ParsedD
     }
 
     const baseId = basename(file, '.md');
-    
+
     let pack = 'spells-academic';
     const relativePath = file.substring(spellsDir.length).replace(/\\/g, '/');
     if (relativePath.includes('/general/')) pack = 'spells-general';

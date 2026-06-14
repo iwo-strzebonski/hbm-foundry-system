@@ -50,7 +50,7 @@ export async function runPendingMigrations(): Promise<void> {
         await step.run();
       } catch (err) {
         console.error(`${SYSTEM_ID} | Migration ${step.version} failed`, err);
-        ui.notifications?.error(`HbM migration ${step.version} failed — see console.`);
+        ui.notifications?.error(`HbM migration ${step.version} failed - see console.`);
         return;
       }
     }

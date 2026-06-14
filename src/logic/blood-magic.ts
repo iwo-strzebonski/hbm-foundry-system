@@ -1,5 +1,5 @@
 /**
- * Magia Krwi — Blood Magic logic (Arcanum Sanguinis Ch. III).
+ * Magia Krwi - Blood Magic logic (Arcanum Sanguinis Ch. III).
  *
  * Three primitives:
  *   - spendBlood(actor, n)       : deduct n from blood pool, fail if insufficient.

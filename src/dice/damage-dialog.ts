@@ -16,7 +16,7 @@ export async function askApplyDamage(actor: ActorLike, presetAmount = 0): Promis
 
   return new Promise((resolve) => {
     new foundry.appv1.api.Dialog({
-      title: `${game.i18n.localize('HBM.damage.title')} — ${actor.name}`,
+      title: `${game.i18n.localize('HBM.damage.title')} - ${actor.name}`,
       content: `
         <form class="hbm-dialog">
           <div class="form-group">

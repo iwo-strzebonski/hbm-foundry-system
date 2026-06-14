@@ -1,7 +1,7 @@
 /**
  * Macro parser. Reads hand-coded macro source files from `scripts/macros/*.js`
  * and emits ParsedDoc[] for the build pipeline. Macros are not parsed from
- * books — they're a curated set of GM/player utilities.
+ * books - they're a curated set of GM/player utilities.
  */
 
 import { readFileSync } from 'node:fs';
@@ -23,6 +23,7 @@ const MACROS: MacroDef[] = [
   { id: 'pool-roll', name: 'Rzut Puli d6', file: 'pool-roll.js', img: 'icons/svg/d20.svg' },
   { id: 'attribute-check', name: 'Test Atrybutu', file: 'attribute-check.js', img: 'icons/svg/dice-target.svg' },
   { id: 'apply-condition', name: 'Nałóż Przypadłość', file: 'apply-condition.js', img: 'icons/svg/aura.svg' },
+  { id: 'take-breather', name: 'Chwila Wytchnienia', file: 'take-breather.js', img: 'icons/svg/clockwork.svg' },
   { id: 'short-rest', name: 'Krótki Odpoczynek', file: 'short-rest.js', img: 'icons/svg/regen.svg' },
   { id: 'long-rest', name: 'Długi Odpoczynek', file: 'long-rest.js', img: 'icons/svg/sun.svg' },
   { id: 'group-cast-helper', name: 'Pomocnik Rzucania Grupowego', file: 'group-cast-helper.js', img: 'icons/svg/upgrade.svg' },

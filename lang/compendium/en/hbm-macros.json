@@ -21,6 +21,9 @@
     },
     "Krótki Odpoczynek": {
       "name": "Short Rest"
+    },
+    "Chwila Wytchnienia": {
+      "name": "Take a Breather"
     }
   }
 }

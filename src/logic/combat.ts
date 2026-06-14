@@ -1,5 +1,5 @@
 /**
- * Combat hooks — handle per-round Mana reset, per-turn Zeal regen,
+ * Combat hooks - handle per-round Mana reset, per-turn Zeal regen,
  * and condition-driven turn behavior (skip / damage tick / death save).
  */
 
@@ -50,14 +50,14 @@ export function registerCombatHooks(): void {
       await applyDamage(actor, { amount: 1, type: 'environmental', ignoreMagicalArmor: true, ignoreMagicalShield: true, ignorePhysicalArmor: true });
     }
 
-    // Dying: prompt death save (simplified — posts a chat reminder)
+    // Dying: prompt death save (simplified - posts a chat reminder)
     if (hasStatus(actor, 'umierajacy')) {
       ChatMessage.create({
         content: `<strong>${actor.name}</strong>: ${game.i18n.localize('HBM.combat.deathSavePrompt')}`,
       });
     }
 
-    // Per-turn Zeal regen (characters) — base 1 + talent bonus from flag.
+    // Per-turn Zeal regen (characters) - base 1 + talent bonus from flag.
     if (actor.type === 'character') {
       const sys = actor.system as { attributes: { zeal: { value: number; max: number } } };
       const regen = getZealRegen(actor);

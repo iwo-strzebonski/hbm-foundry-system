@@ -15,7 +15,7 @@ import { ATTRIBUTES, SKILL_KEYS, SKILLS, AttributeKey, getMagicPowerEntry } from
  *  - attributes.health.max = 3 * (body + mind + soul)
  *  - attributes.zeal.max   = ceil(soul / 2)
  *  - attributes.initiative = mind + skills.reflex.value + skills.perception.value
- *  - attributes.mana.max / .maxPerSpell / magic.dicePool — from MAGIC_POWER_TABLE
+ *  - attributes.mana.max / .maxPerSpell / magic.dicePool - from MAGIC_POWER_TABLE
  */
 export class CharacterData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
@@ -66,10 +66,10 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
           maxPerSpell: makeIntField(0, { min: 0 }),
         }),
         zeal: makeValueMaxField(0, 0),
-        // Blood Pool (Arcanum Sanguinis Ch. III) — experimental until full spell list ships.
+        // Blood Pool (Arcanum Sanguinis Ch. III) - experimental until full spell list ships.
         // Placeholder formula: max = body + soul.
         blood: makeValueMaxField(0, 0),
-        // Elixir tolerance (Podręcznik Gry — brewing). Each potion consumed adds 1;
+        // Elixir tolerance (Podręcznik Gry - brewing). Each potion consumed adds 1;
         // recovers 1 per long rest. Soft cap = body + 1; over cap → poisoning.
         elixirTolerance: makeIntField(0, { min: 0 }),
         // Insanity points (Klątwa Otchłani VIII). Each Abyss exposure may add 1; rolls
@@ -90,7 +90,10 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
           condition: makeIntField(0, { min: 0 }),     // derived: sum of armor conditions
           conditionMax: makeIntField(0, { min: 0 }), // derived: sum of armor conditionMax
         }),
-        initiative: makeIntField(0, { min: 0 }),
+        initiative: new f.SchemaField({
+          value: makeIntField(0, { min: 0 }),
+          bonus: makeIntField(0, { min: 0 }),
+        }),
       }),
       skills: new f.SchemaField(skillEntries),
       details: new f.SchemaField({
@@ -101,7 +104,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         discipline: makeStringField('', { blank: true }),
         title: makeStringField('', { blank: true }),
         biography: makeHtmlField(''),
-        customEquipment: makeHtmlField(''), // legacy textarea — kept for migration
+        customEquipment: makeHtmlField(''), // legacy textarea - kept for migration
         customItems: makeArrayField(new f.SchemaField({
           name: makeStringField('', { blank: true }),
           qty: makeIntField(1, { min: 0 }),
@@ -144,7 +147,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         magicalArmor: { value: number; max: number; runicCounter: number };
         magicalShield: { value: number };
         physicalArmor: { value: number; max: number; condition: number; conditionMax: number };
-        initiative: number;
+        initiative: { value: number; bonus: number };
       };
       skills: Record<string, { value: number; defaultAttribute: AttributeKey }>;
       details: { raceId?: string; classIds?: string[] };
@@ -214,11 +217,12 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
       }
     }
 
-    a.initiative =
+    a.initiative.value =
       a.mind.value +
       (sys.skills.reflex?.value ?? 0) +
       (sys.skills.perception?.value ?? 0) +
-      initiativeBonus;
+      initiativeBonus +
+      (a.initiative.bonus ?? 0);
 
     // Clamp magical armor / shield
     if (a.magicalArmor.value > a.magicalArmor.max) a.magicalArmor.value = a.magicalArmor.max;
@@ -261,28 +265,13 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
 
     // Man of Iron: +1 passive armor per stack, only when wearing no physical armor
     if (manOfIronStacks > 0 && armorPieces === 0) {
-      a.physicalArmor.max   = Math.max(a.physicalArmor.max,   manOfIronStacks);
+      a.physicalArmor.max = Math.max(a.physicalArmor.max, manOfIronStacks);
       a.physicalArmor.value = Math.max(a.physicalArmor.value, manOfIronStacks);
     }
 
     // Blood Pool (placeholder formula): max = body + soul.
     a.blood.max = a.body.value + a.soul.value;
     if (a.blood.value > a.blood.max) a.blood.value = a.blood.max;
-
-    // Advancement points (UUID-based race/class lookup; falls back to 0 if not set)
-    const raceItem = items.find((i) => i.type === 'race');
-    const classItems = items.filter((i) => i.type === 'class');
-    const startingAttr = Number(raceItem?.system?.attributePoints ?? 0);
-    const startingSkill = Number(raceItem?.system?.skillPoints ?? 0);
-    const startingFreeTalents = raceItem?.system?.freeTalents?.length ?? 0;
-    const classAttr = classItems.reduce((sum, c) => sum + Number(c.system?.attributePoints ?? 0), 0);
-    const classSkill = classItems.reduce((sum, c) => sum + Number(c.system?.skillPoints ?? 0), 0);
-    const spentAttr = (a.body.value - 1) + (a.mind.value - 1) + (a.soul.value - 1) + a.magic.value;
-    const spentSkill = Object.values(sys.skills).reduce((sum, s) => sum + (s.value ?? 0), 0);
-    const spentFreeTalents = items.filter((i) => i.type === 'talent').length;
-    sys.advancement.attributePointsAvailable = Math.max(0, startingAttr + classAttr + (sys.advancement.bonusAttributePoints ?? 0) - spentAttr);
-    sys.advancement.skillPointsAvailable = Math.max(0, startingSkill + classSkill + (sys.advancement.bonusSkillPoints ?? 0) - spentSkill);
-    sys.advancement.freeTalentsAvailable = Math.max(0, startingFreeTalents + (sys.advancement.bonusFreeTalents ?? 0) - spentFreeTalents);
   }
 
   /**
@@ -297,6 +286,10 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         initialized.attributes.physicalArmor = { value: legacy, condition: 1, conditionMax: 1 };
       }
       delete initialized.attributes.armor;
+    }
+    if (initialized?.attributes && typeof initialized.attributes.initiative === 'number') {
+      const legacy = initialized.attributes.initiative;
+      initialized.attributes.initiative = { value: legacy, bonus: 0 };
     }
     return initialized;
   }

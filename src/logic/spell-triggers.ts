@@ -7,8 +7,8 @@
  * Hooks check the matching event and prompt/resolve the trigger.
  *
  * Supported events:
- *   - killWithWeapon       (e.g. Szkarłatny Sztylet — free spell after kill)
- *   - targetCastsSpell     (e.g. Klątwa Szkarłatu — opposed save → unconscious)
+ *   - killWithWeapon       (e.g. Szkarłatny Sztylet - free spell after kill)
+ *   - targetCastsSpell     (e.g. Klątwa Szkarłatu - opposed save → unconscious)
  *   - damageTaken          (reactive shields)
  *   - turnStart            (per-turn drains)
  *
@@ -86,7 +86,7 @@ export async function fireTriggers(
       fired.push(t);
       // Post chat card so GM can resolve the effect manually if no auto-handler.
       await ChatMessage.create({
-        content: `<strong>${actor.name ?? ''}</strong> — Wyzwalacz: <em>${t.spellName}</em><br/>Efekt: ${t.effect}`,
+        content: `<strong>${actor.name ?? ''}</strong> - Wyzwalacz: <em>${t.spellName}</em><br/>Efekt: ${t.effect}`,
         whisper: ChatMessage.getWhisperRecipients?.('GM') ?? [],
       });
       if (!t.oneShot) remaining.push(t);

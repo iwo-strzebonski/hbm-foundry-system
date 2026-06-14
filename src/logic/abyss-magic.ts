@@ -1,18 +1,18 @@
 /**
- * Magia Otchłani — Abyss Magic logic (Klątwa Otchłani Ch. III–VIII).
+ * Magia Otchłani - Abyss Magic logic (Klątwa Otchłani Ch. III–VIII).
  *
  * The Abyss splits into two disciplines:
- *   - Magia Aspektów  ("aspects")  — controlled, low-risk, predictable
- *   - Pierwotna Magia ("primal")   — chaotic, high-power, requires `Dary Otchłani` rolls
+ *   - Magia Aspektów  ("aspects")  - controlled, low-risk, predictable
+ *   - Pierwotna Magia ("primal")   - chaotic, high-power, requires `Dary Otchłani` rolls
  *
  * This module exposes:
- *   - dispatchAbyssCast(spell)      — returns 'aspects' | 'primal' from spell.discipline.
- *   - rollAbyssGift(actor)          — d100 against a roll table (resolved at runtime
+ *   - dispatchAbyssCast(spell)      - returns 'aspects' | 'primal' from spell.discipline.
+ *   - rollAbyssGift(actor)          - d100 against a roll table (resolved at runtime
  *                                     from the `roll-tables-abyss.dary-otchlani` pack
  *                                     when present; otherwise falls back to a chat
  *                                     prompt for the GM).
- *   - rollMistrzLosuPenalty(actor)  — d100 penalty roll (Klątwa Otchłani VII).
- *   - addInsanity(actor, n)         — increments actor.system.attributes.insanity;
+ *   - rollMistrzLosuPenalty(actor)  - d100 penalty roll (Klątwa Otchłani VII).
+ *   - addInsanity(actor, n)         - increments actor.system.attributes.insanity;
  *                                     when crossing a threshold, fires a hook for
  *                                     the GM to apply a mental condition.
  */
@@ -69,7 +69,7 @@ async function rollAgainstAbyssTable(actor: CastableActor, slug: string, flavor:
   await roll.evaluate();
   const speaker = ChatMessage.getSpeaker({ actor: actor as unknown as Actor });
   await roll.toMessage({
-    flavor: `${flavor} — ${actor.name} (${slug})`,
+    flavor: `${flavor} - ${actor.name} (${slug})`,
     speaker,
   });
   Hooks.callAll('hbm.abyssTableRoll', actor, slug, roll.total);

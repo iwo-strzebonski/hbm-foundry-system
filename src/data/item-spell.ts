@@ -85,7 +85,7 @@ export class SpellData extends foundry.abstract.TypeDataModel {
       minCasters: makeIntField(1, { min: 1 }),
       nonCombatOnly: makeBoolField(false),
 
-      // Overcast — structured
+      // Overcast - structured
       overcastOptions: makeArrayField(new f.SchemaField({
         description: makeStringField(''),
         manaPerStep: makeIntField(1, { min: 0 }),
@@ -105,7 +105,7 @@ export class SpellData extends foundry.abstract.TypeDataModel {
 
       // Description
       description: makeHtmlField(''),
-      higherCircles: makeHtmlField(''), // legacy — superseded by overcastOptions
+      higherCircles: makeHtmlField(''), // legacy - superseded by overcastOptions
 
       // Legacy fields (kept for migration; will be removed in a later release)
       overcasting: makeStringField(''),

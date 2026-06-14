@@ -1,5 +1,5 @@
 /**
- * Homebrew Magic: RPG v3 — Foundry VTT system entry point.
+ * Homebrew Magic: RPG v3 - Foundry VTT system entry point.
  *
  * All internal identifiers are English. Polish is reserved for user-facing
  * labels supplied via `lang/pl.json` (the canonical localisation).
@@ -111,16 +111,16 @@ Hooks.once('init', () => {
 
   // Override default initiative formula to HbM's 2d6 + initiative attribute.
   CONFIG.Combat.initiative = {
-    formula: '2d6 + @attributes.initiative',
+    formula: '2d6 + @attributes.initiative.value',
     decimals: 2,
   };
 
   // Handlebars helpers used in templates
-  Handlebars.registerHelper('eq',     (a: unknown, b: unknown) => a === b);
-  Handlebars.registerHelper('gt',     (a: number, b: number) => a > b);
-  Handlebars.registerHelper('lt',     (a: number, b: number) => a < b);
-  Handlebars.registerHelper('or',     (...args: unknown[]) => (args.slice(0, -1) as unknown[]).some(Boolean));
-  Handlebars.registerHelper('and',    (...args: unknown[]) => (args.slice(0, -1) as unknown[]).every(Boolean));
+  Handlebars.registerHelper('eq', (a: unknown, b: unknown) => a === b);
+  Handlebars.registerHelper('gt', (a: number, b: number) => a > b);
+  Handlebars.registerHelper('lt', (a: number, b: number) => a < b);
+  Handlebars.registerHelper('or', (...args: unknown[]) => (args.slice(0, -1) as unknown[]).some(Boolean));
+  Handlebars.registerHelper('and', (...args: unknown[]) => (args.slice(0, -1) as unknown[]).every(Boolean));
   Handlebars.registerHelper('concat', (...args: unknown[]) => (args.slice(0, -1) as string[]).join(''));
 });
 

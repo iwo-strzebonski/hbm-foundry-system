@@ -2,10 +2,12 @@
   "label": "Magic Disciplines",
   "entries": {
     "Alchemia - Warzenie Eliksirów": {
-      "name": "Alchemy - Brewing of Elixirs"
+      "name": "Alchemy - Brewing of Elixirs",
+      "description": "[[Alchemia]]"
     },
     "Alchemia - Transmutacja": {
-      "name": "Alchemy - Transmutation"
+      "name": "Alchemy - Transmutation",
+      "description": "[[Alchemia]]"
     },
     "Rzemiosło Artefaktów": {
       "name": "Crafting of Artifacts",
@@ -48,7 +50,7 @@
     "Magia Sakralna": {
       "name": "Sacred Magic"
     },
-    "Magia Sakralna — Egzorcyzmy": {
+    "Magia Sakralna - Egzorcyzmy": {
       "name": "Sacred Magic - Exorcisms",
       "description": "[[Magic Sakralna]]"
     },

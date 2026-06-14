@@ -1,4 +1,4 @@
-// HbM Apply Condition — pick a status effect and toggle it on targeted/selected tokens.
+// HbM Apply Condition - pick a status effect and toggle it on targeted/selected tokens.
 const targets = game.user.targets.size > 0 ? Array.from(game.user.targets) : canvas.tokens.controlled;
 if (targets.length === 0) return ui.notifications.warn('Zaznacz lub naceluj token(y).');
 const effects = CONFIG.statusEffects.filter((e) => e.id?.startsWith('hbm.'));

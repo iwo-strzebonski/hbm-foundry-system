@@ -3,14 +3,14 @@
  *
  *   Short Rest (Krótki Odpoczynek):
  *     - Restore HP equal to actor.body.value (capped at max).
- *     - Restore mana to max-per-spell? — no: short rest does NOT restore mana.
+ *     - Restore mana to max-per-spell? - no: short rest does NOT restore mana.
  *     - Holders of `Nadzwyczajna Odporność` (alchemy passive) restore 1 elixir tolerance.
  *
  *   Long Rest (Długi Odpoczynek):
  *     - Restore HP, mana, zeal to max.
- *     - Restore 1 elixir tolerance (or all, if `Nadzwyczajna Odporność`? — book says
+ *     - Restore 1 elixir tolerance (or all, if `Nadzwyczajna Odporność`? - book says
  *       elixir tolerance recovers per long rest by default; tracked here as -1).
- *     - Reset blood pool to max (assumption — refine when AS spell list lands).
+ *     - Reset blood pool to max (assumption - refine when AS spell list lands).
  *     - Clear runic counter on magical armor.
  *
  * Hooks `hbm.beforeRest` and `hbm.afterRest` fire for module integration.
@@ -134,9 +134,9 @@ export async function rest(actor: CastableActor, kind: RestKind): Promise<RestRe
     const conditionIds = new Set(CONDITIONS.map(c => c.id));
     for (const ef of actorAny.effects ?? []) {
       const isState = conditionIds.has(ef.id) ||
-                      (ef.statuses && [...ef.statuses].some(s => conditionIds.has(s))) ||
-                      conditionIds.has(ef.flags?.core?.statusId);
-      
+        (ef.statuses && [...ef.statuses].some(s => conditionIds.has(s))) ||
+        conditionIds.has(ef.flags?.core?.statusId);
+
       if (isState) {
         ids.push(ef.id);
         continue;

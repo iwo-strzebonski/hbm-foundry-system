@@ -223,7 +223,7 @@ for (const pack of byPack.keys()) {
   console.log(`  ✓ compiled ${pack}`);
 }
 
-console.log(`[build-packs] done — ${byPack.size} packs in packs/`);
+console.log(`[build-packs] done - ${byPack.size} packs in packs/`);
 
 /** Convert a ParsedDoc into a Foundry document JSON object suitable for compilePack. */
 function toFoundryDoc(doc: ParsedDoc, folderId: string | null = null): Record<string, unknown> {

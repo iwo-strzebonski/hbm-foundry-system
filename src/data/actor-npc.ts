@@ -6,11 +6,11 @@ import {
   makeArrayField,
   fields,
 } from './fields';
-import { getMagicPowerEntry } from '../constants';
+import { ATTRIBUTES, SKILL_KEYS, SKILLS, AttributeKey, getMagicPowerEntry } from '../constants';
 
 /**
  * NPC / Creature data model.
- * Looser than character (no derived health formula — set directly).
+ * Looser than character (no derived health formula - set directly).
  */
 export class NpcData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
@@ -28,6 +28,17 @@ export class NpcData extends foundry.abstract.TypeDataModel {
       name: makeStringField(''),
       description: makeStringField(''),
     });
+
+    const skillEntries: Record<string, foundry.data.fields.DataField.Any> = {};
+    for (const key of SKILL_KEYS) {
+      skillEntries[key] = new f.SchemaField({
+        value: makeIntField(0, { min: 0, max: 8 }),
+        defaultAttribute: makeStringField(SKILLS[key] as AttributeKey, {
+          blank: false,
+          choices: ATTRIBUTES as unknown as readonly string[],
+        }),
+      });
+    }
 
     return {
       attributes: new f.SchemaField({
@@ -49,8 +60,13 @@ export class NpcData extends foundry.abstract.TypeDataModel {
         magicalArmor: makeValueMaxField(0, 0),
         magicalShield: makeValueMaxField(0, 0),
         physicalArmor: new f.SchemaField({ value: makeIntField(0, { min: 0 }) }),
+        initiative: new f.SchemaField({
+          value: makeIntField(0, { min: 0 }),
+          bonus: makeIntField(0, { min: 0 }),
+        }),
         speed: makeStringField('5m'),
       }),
+      skills: new f.SchemaField(skillEntries),
       details: new f.SchemaField({
         type: makeStringField(''),
         size: makeStringField('medium'),
@@ -88,11 +104,13 @@ export class NpcData extends foundry.abstract.TypeDataModel {
     const self = this as unknown as { parent?: { items?: Iterable<any> } } & Record<string, any>;
     const sys = this as unknown as {
       attributes: {
+        mind: { value: number };
         magic: { value: number; actual: number };
         mana: { value: number; max: number; maxPerSpell: number };
         health: { value: number; max: number };
         magicalArmor: { value: number; max: number };
         magicalShield: { value: number; max: number };
+        initiative: { value: number; bonus: number };
       };
     };
     const a = sys.attributes;
@@ -120,6 +138,25 @@ export class NpcData extends foundry.abstract.TypeDataModel {
     a.mana.maxPerSpell = mp.maxPerSpell;
     if (a.mana.value > a.mana.max) a.mana.value = a.mana.max;
 
+    let initiativeBonus = 0;
+    for (const it of items) {
+      if (it.type === 'talent') {
+        const slug = it.flags?.['hbm-rpg-v3']?.slug || '';
+        const name = it.name?.toLowerCase() || '';
+        if (
+          slug === 'battle-readiness' || slug === 'gotowosc-do-walki' ||
+          name === 'gotowo\u015b\u0107 do walki' || name === 'battle readiness'
+        ) {
+          initiativeBonus += 2;
+        }
+      }
+    }
+
+    a.initiative.value =
+      a.mind.value +
+      initiativeBonus +
+      (a.initiative.bonus ?? 0);
+
     if (a.health.value > a.health.max) a.health.value = a.health.max;
     if (a.magicalArmor.value > a.magicalArmor.max) a.magicalArmor.value = a.magicalArmor.max;
     if (a.magicalShield.value > a.magicalShield.max) a.magicalShield.value = a.magicalShield.max;
@@ -134,6 +171,10 @@ export class NpcData extends foundry.abstract.TypeDataModel {
         initialized.attributes.physicalArmor = { value: legacy };
       }
       delete initialized.attributes.armor;
+    }
+    if (initialized?.attributes && typeof initialized.attributes.initiative === 'number') {
+      const legacy = initialized.attributes.initiative;
+      initialized.attributes.initiative = { value: legacy, bonus: 0 };
     }
     return initialized;
   }

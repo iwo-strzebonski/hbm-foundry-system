@@ -1,5 +1,5 @@
 /**
- * Vitest setup — stubs out Foundry globals that our modules touch on import.
+ * Vitest setup - stubs out Foundry globals that our modules touch on import.
  * Each test can override these by reaching into globalThis directly.
  */
 
@@ -54,15 +54,15 @@ import { vi } from 'vitest';
     mergeObject: (a: any, b: any) => Object.assign(a, b),
   },
   abstract: {
-    TypeDataModel: class {},
+    TypeDataModel: class { },
   },
   applications: {
     api: {
       HandlebarsApplicationMixin: <T extends abstract new (...args: any[]) => any>(base: T) => base,
     },
     sheets: {
-      ActorSheetV2: class {},
-      ItemSheetV2: class {},
+      ActorSheetV2: class { },
+      ItemSheetV2: class { },
     },
     handlebars: {
       loadTemplates: vi.fn(async () => []),
@@ -89,7 +89,7 @@ import { vi } from 'vitest';
   },
 };
 
-// Roll stub — pool roll counting successes >= threshold
+// Roll stub - pool roll counting successes >= threshold
 class StubRoll {
   formula: string;
   data: any;

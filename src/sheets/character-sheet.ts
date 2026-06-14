@@ -1,5 +1,5 @@
 /**
- * Character sheet — Foundry v13 ApplicationV2 + Handlebars.
+ * Character sheet - Foundry v13 ApplicationV2 + Handlebars.
  * Features: tabs, roll-dialogs, drag-and-drop item creation.
  */
 
@@ -10,7 +10,7 @@ import { askCastOptions } from '../dice/cast-dialog';
 import { askApplyDamage } from '../dice/damage-dialog';
 import { applyDamage } from '../logic/damage';
 import { rest } from '../logic/rest';
-import { ATTRIBUTES, AttributeKey, SKILL_KEYS } from '../constants';
+import { ATTRIBUTES, AttributeKey, SKILL_KEYS, getMagicPowerEntry } from '../constants';
 
 const { ActorSheetV2 } = foundry.applications.sheets as unknown as {
   ActorSheetV2: typeof foundry.applications.sheets.ActorSheetV2;
@@ -25,29 +25,29 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     position: { width: 760, height: 720 },
     window: { resizable: true, title: 'HBM.actor.character' },
     actions: {
-      rollSkill:       CharacterSheet._onRollSkill,
-      rollAttribute:   CharacterSheet._onRollAttribute,
-      rollInitiative:  CharacterSheet._onRollInitiative,
-      castSpell:       CharacterSheet._onCastSpell,
-      deleteItem:      CharacterSheet._onDeleteItem,
-      editItem:        CharacterSheet._onEditItem,
-      applyDamage:     CharacterSheet._onApplyDamage,
-      takeBreather:    CharacterSheet._onTakeBreather,
-      shortRest:          CharacterSheet._onShortRest,
-      longRest:           CharacterSheet._onLongRest,
-      actorEffectCreate:  CharacterSheet._onActorEffectCreate,
-      actorEffectToggle:  CharacterSheet._onActorEffectToggle,
-      actorEffectEdit:    CharacterSheet._onActorEffectEdit,
-      actorEffectDelete:  CharacterSheet._onActorEffectDelete,
-      addArrayEntry:      CharacterSheet._onAddArrayEntry,
-      removeArrayEntry:   CharacterSheet._onRemoveArrayEntry,
-      editImage:          CharacterSheet._onEditImage,
-      toggleEquipped:     CharacterSheet._onToggleEquipped,
-      recalculateMoney:   CharacterSheet._onRecalculateMoney,
+      rollSkill: CharacterSheet._onRollSkill,
+      rollAttribute: CharacterSheet._onRollAttribute,
+      rollInitiative: CharacterSheet._onRollInitiative,
+      castSpell: CharacterSheet._onCastSpell,
+      deleteItem: CharacterSheet._onDeleteItem,
+      editItem: CharacterSheet._onEditItem,
+      applyDamage: CharacterSheet._onApplyDamage,
+      takeBreather: CharacterSheet._onTakeBreather,
+      shortRest: CharacterSheet._onShortRest,
+      longRest: CharacterSheet._onLongRest,
+      actorEffectCreate: CharacterSheet._onActorEffectCreate,
+      actorEffectToggle: CharacterSheet._onActorEffectToggle,
+      actorEffectEdit: CharacterSheet._onActorEffectEdit,
+      actorEffectDelete: CharacterSheet._onActorEffectDelete,
+      addArrayEntry: CharacterSheet._onAddArrayEntry,
+      removeArrayEntry: CharacterSheet._onRemoveArrayEntry,
+      editImage: CharacterSheet._onEditImage,
+      toggleEquipped: CharacterSheet._onToggleEquipped,
+      recalculateMoney: CharacterSheet._onRecalculateMoney,
     },
     form: {
       submitOnChange: true,
-      closeOnSubmit:  false,
+      closeOnSubmit: false,
     },
   };
 
@@ -55,16 +55,16 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     main: { template: 'systems/hbm-rpg-v3/templates/actor/character.hbs' },
   };
 
-  /** Active tab per group — persists across re-renders. */
+  /** Active tab per group - persists across re-renders. */
   tabGroups: Record<string, string> = { primary: 'stats' };
 
   override async _prepareContext(options: unknown) {
     const ctx = (await super._prepareContext(options)) as Record<string, unknown>;
     const actor = (this as unknown as { actor: { system: unknown; items: any[] } }).actor;
-    const spells    = actor.items.filter((it: any) => it.type === 'spell');
-    const gear      = actor.items.filter((it: any) => it.type === 'gear');
+    const spells = actor.items.filter((it: any) => it.type === 'spell');
+    const gear = actor.items.filter((it: any) => it.type === 'gear');
     const abilities = actor.items.filter((it: any) => it.type === 'ability');
-    const talents   = actor.items.filter((it: any) => it.type === 'talent');
+    const talents = actor.items.filter((it: any) => it.type === 'talent');
 
     // Group spells by school for sheet display
     const spellsBySchool = new Map<string, any[]>();
@@ -125,7 +125,8 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       'alchemyTransmutation', 'alchemyBrewing', 'botany',
       'elementsAir', 'elementsWater', 'elementsFire', 'elementsEarth',
       'artifice', 'golemancy', 'runes', 'manaSourceMage',
-      'illusion', 'sacred', 'sacredExorcism', 'witch', 'necromancy', 'blood'
+      'illusion', 'sacred', 'sacredExorcism', 'witch', 'necromancy', 'blood',
+      'crimson', 'abyssAspects', 'abyssPrimal', 'eldritch'
     ].map(key => ({
       key,
       label: game.i18n.localize(`HBM.spellSchool.${key}`)
@@ -136,18 +137,18 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const armors = gear.filter((it: any) => it.system?.category === 'armor');
     const equipment = gear.filter((it: any) => it.system?.category === 'equipment');
 
-    // Localized talents list no longer needed (dropdown removed — drag from compendium)
+    // Localized talents list no longer needed (dropdown removed - drag from compendium)
 
     return {
       ...ctx,
-      system:         actor.system,
+      system: actor.system,
       attributes,
       skills,
       races,
       disciplines,
-      tabGroups:      this.tabGroups,
-      attributeKeys:  ATTRIBUTES,
-      skillKeys:      SKILL_KEYS,
+      tabGroups: this.tabGroups,
+      attributeKeys: ATTRIBUTES,
+      skillKeys: SKILL_KEYS,
       spells,
       spellSchoolGroups,
       hasBloodMagic,
@@ -159,7 +160,7 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       abilities,
       talents,
       actorEffects,
-      tabs:           this._prepareTabs(),
+      tabs: this._prepareTabs(),
     };
   }
 
@@ -168,8 +169,8 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const active = this.tabGroups['primary'] ?? 'stats';
     return ['stats', 'actions', 'skills', 'spells', 'talents', 'inventory', 'effects', 'biography'].map((id) => ({
       id,
-      label:    `HBM.ui.tabs.${id}`,
-      active:   active === id,
+      label: `HBM.ui.tabs.${id}`,
+      active: active === id,
       cssClass: active === id ? 'active' : '',
     }));
   }
@@ -211,7 +212,7 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const actor = (this as unknown as { actor: any }).actor;
     const uuid = data['uuid'] as string;
 
-    // Auto-link Race / Class items by UUID — do NOT create embedded copies.
+    // Auto-link Race / Class items by UUID - do NOT create embedded copies.
     if (item.type === 'race') {
       await actor.update({ 'system.details.raceId': uuid });
       return;
@@ -258,8 +259,8 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
               type: 'button', action: 'confirm',
               label: game.i18n.localize('HBM.ui.confirm') || 'Potwierd\u017a',
               default: true,
-              callback: (_ev: Event, _btn: any, html: HTMLElement) => {
-                const val = (html.querySelector('#hbm-talent-param-input') as HTMLInputElement)?.value?.trim();
+              callback: (_ev: Event, _btn: any, dialog: any) => {
+                const val = (dialog.element.querySelector('#hbm-talent-param-input') as HTMLInputElement)?.value?.trim();
                 specified = val || null;
               },
             },
@@ -290,17 +291,22 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const actor = (this as unknown as { actor: any }).actor;
 
     // Determine default pool so the dialog can show it
-    const skill   = actor.system.skills?.[skillKey];
+    const skill = actor.system.skills?.[skillKey];
     const attrKey = (skill?.defaultAttribute ?? 'body') as AttributeKey;
-    const pool    = (actor.system.attributes[attrKey]?.value ?? 0) + (skill?.value ?? 0);
+    const attr = actor.system.attributes[attrKey];
+    const attrVal = (attrKey === 'magic' && attr)
+      ? (attr.dicePool ?? getMagicPowerEntry(attr.actual ?? attr.value ?? 0).dicePool)
+      : (attr?.value ?? 0);
+    const pool = attrVal + (skill?.value ?? 0);
 
     const params = await askRollParams({ pool, flavor: game.i18n.format('HBM.roll.rollSkill', { skill: game.i18n.localize(`HBM.skills.${skillKey}`) }) });
     if (!params) return;
 
     await rollSkill(actor, skillKey, {
       threshold: params.threshold,
-      required:  params.required,
-      flavor:    params.flavor,
+      required: params.required,
+      modifier: params.modifier,
+      flavor: params.flavor,
     });
   }
 
@@ -309,13 +315,17 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     if (!attr) return;
     const actor = (this as unknown as { actor: any }).actor;
 
-    const pool   = actor.system.attributes[attr]?.value ?? 0;
+    const a = actor.system.attributes[attr];
+    const pool = (attr === 'magic' && a)
+      ? (a.dicePool ?? getMagicPowerEntry(a.actual ?? a.value ?? 0).dicePool)
+      : (a?.value ?? 0);
     const params = await askRollParams({ pool, flavor: game.i18n.format('HBM.roll.rollAttribute', { attribute: game.i18n.localize(`HBM.attributes.${attr}`) }) });
     if (!params) return;
 
     await rollAttribute(actor, attr, {
       threshold: params.threshold,
-      required:  params.required,
+      required: params.required,
+      modifier: params.modifier,
     });
   }
 
@@ -323,7 +333,7 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const itemId = target.dataset.itemId;
     if (!itemId) return;
     const actor = (this as unknown as { actor: any }).actor;
-    const spell  = actor.items.get(itemId);
+    const spell = actor.items.get(itemId);
     if (!spell || spell.type !== 'spell') return;
 
     const opts = await askCastOptions(spell, actor);
@@ -337,7 +347,7 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const itemId = target.dataset.itemId;
     if (!itemId) return;
     const actor = (this as unknown as { actor: any }).actor;
-    const item  = actor.items.get(itemId);
+    const item = actor.items.get(itemId);
     if (!item) return;
     await item.delete();
   }
@@ -367,7 +377,7 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const actor = (this as unknown as { actor: any }).actor;
     const r = await rest(actor, 'breather');
     await ChatMessage.create({
-      content: `<strong>${actor.name}</strong> — Chwila Wytchnienia: +${r.hpRestored} ŻYW · +${r.manaRestored} MN`,
+      content: `<strong>${actor.name}</strong> - Chwila Wytchnienia: +${r.hpRestored} ŻYW · +${r.manaRestored} MN`,
       speaker: ChatMessage.getSpeaker({ actor }),
     });
   }
@@ -376,7 +386,7 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const actor = (this as unknown as { actor: any }).actor;
     const r = await rest(actor, 'short');
     await ChatMessage.create({
-      content: `<strong>${actor.name}</strong> — Krótki Odpoczynek: +${r.hpRestored} ŻYW · +${r.manaRestored} MN${r.toleranceRecovered ? `, −${r.toleranceRecovered} tolerancja` : ''}`,
+      content: `<strong>${actor.name}</strong> - Krótki Odpoczynek: +${r.hpRestored} ŻYW · +${r.manaRestored} MN${r.toleranceRecovered ? `, −${r.toleranceRecovered} tolerancja` : ''}`,
       speaker: ChatMessage.getSpeaker({ actor }),
     });
   }
@@ -385,7 +395,7 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const actor = (this as unknown as { actor: any }).actor;
     const r = await rest(actor, 'long');
     await ChatMessage.create({
-      content: `<strong>${actor.name}</strong> — Długi Odpoczynek: +${r.hpRestored} ŻYW · +${r.manaRestored} MN · +${r.zealRestored} ZP · +${r.bloodRestored} krew · −${r.toleranceRecovered} tolerancja`,
+      content: `<strong>${actor.name}</strong> - Długi Odpoczynek: +${r.hpRestored} ŻYW · +${r.manaRestored} MN · +${r.zealRestored} ZP · +${r.bloodRestored} krew · −${r.toleranceRecovered} tolerancja`,
       speaker: ChatMessage.getSpeaker({ actor }),
     });
   }
@@ -500,14 +510,14 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const isLive = !!(eurData || usdData);
 
     const CURRENCIES: Record<string, { label: string; toPln: number; note: string }> = {
-      PLN: { label: 'PLN (Złoty)',                  toPln: 1,        note: '' },
-      EUR: { label: 'EUR (Euro)',                    toPln: eurRate,  note: `NBP ${rateDate}` },
-      USD: { label: 'USD (Dolar)',                   toPln: usdRate,  note: `NBP ${rateDate}` },
-      TH:  { label: 'TH (Thrakka)',                 toPln: eurRate,  note: '1:1 z EUR' },
-      FC:  { label: 'FC (Kredyt Federacji Sol-3)',   toPln: 2.0,      note: 'stały kurs 2 PLN = 1 FC' },
-      ST:  { label: 'ST (Srebrny Talent)',           toPln: 240,      note: '1 ST = 240 PLN' },
-      ZK:  { label: 'ZK (Złota Korona)',             toPln: 2880,     note: '1 ZK = 12 ST' },
-      PL:  { label: 'PL (Platynowy Lingot)',         toPln: 34560,    note: '1 PL = 12 ZK' },
+      PLN: { label: 'PLN (Złoty)', toPln: 1, note: '' },
+      EUR: { label: 'EUR (Euro)', toPln: eurRate, note: `NBP ${rateDate}` },
+      USD: { label: 'USD (Dolar)', toPln: usdRate, note: `NBP ${rateDate}` },
+      TH: { label: 'TH (Thrakka)', toPln: eurRate, note: '1:1 z EUR' },
+      FC: { label: 'FC (Kredyt Federacji Sol-3)', toPln: 2.0, note: 'stały kurs 2 PLN = 1 FC' },
+      ST: { label: 'ST (Srebrny Talent)', toPln: 240, note: '1 ST = 240 PLN' },
+      ZK: { label: 'ZK (Złota Korona)', toPln: 2880, note: '1 ZK = 12 ST' },
+      PL: { label: 'PL (Platynowy Lingot)', toPln: 34560, note: '1 PL = 12 ZK' },
     };
     const currKeys = Object.keys(CURRENCIES);
     const optHtml = (sel: string) => currKeys.map(k =>
@@ -562,8 +572,8 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       </div>
       <script>window._hbmRates=${ratesJson};</script>`;
 
-    await (foundry.applications.api as any).DialogV2.inform({
-      title: game.i18n.localize('HBM.ui.moneyConverterTitle'),
+    await (foundry.applications.api as any).DialogV2.prompt({
+      window: { title: game.i18n.localize('HBM.ui.moneyConverterTitle') },
       content,
       rejectClose: false,
     });

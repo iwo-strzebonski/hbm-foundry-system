@@ -9,6 +9,7 @@ export interface RollDialogResult {
   pool: number;
   threshold: number;
   required: number;
+  modifier: number;
   flavor?: string;
 }
 
@@ -36,6 +37,10 @@ export async function askRollParams(initial: {
             <label>${game.i18n.localize('HBM.roll.required')} (1–10)</label>
             <input type="number" name="required" value="${y}" min="1" max="10"/>
           </div>
+          <div class="form-group">
+            <label>${game.i18n.localize('HBM.roll.modifier')}</label>
+            <input type="number" name="modifier" value="0"/>
+          </div>
         </form>`,
       buttons: {
         roll: {
@@ -48,6 +53,7 @@ export async function askRollParams(initial: {
               pool:      initial.pool,
               threshold: Math.min(6, Math.max(2, Number(fd['threshold']) || t)),
               required:  Math.min(10, Math.max(1, Number(fd['required'])  || y)),
+              modifier:  Number(fd['modifier']) || 0,
               flavor:    initial.flavor,
             });
           },

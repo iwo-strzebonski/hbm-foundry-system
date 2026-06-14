@@ -1,5 +1,5 @@
 /**
- * Shared parser types — what each parser emits before being handed off
+ * Shared parser types - what each parser emits before being handed off
  * to the pack builder.
  *
  * Every parsed document has a stable id (slug) and a sourceBook ref so
@@ -21,7 +21,7 @@ export interface ParsedDoc {
   id: string;
   /** Display name (Polish, as in book). */
   name: string;
-  /** Foundry document type — `Item` or `Actor`. */
+  /** Foundry document type - `Item` or `Actor`. */
   documentType: 'Item' | 'Actor';
   /** Foundry sub-type for the data model (e.g. `spell`, `talent`). */
   subType: string;

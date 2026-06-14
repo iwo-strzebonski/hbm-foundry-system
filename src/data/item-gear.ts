@@ -9,7 +9,7 @@ import {
 import { GEAR_CATEGORIES, DAMAGE_TYPES, ARMOR_TYPES, RARITIES } from '../constants';
 
 /**
- * Unified Gear item — discriminated by `category`.
+ * Unified Gear item - discriminated by `category`.
  * Weapon/armor/equipment all share base fields; specialised fields
  * are scoped under `weapon` and `armor` sub-schemas.
  */

@@ -9,7 +9,7 @@
  *      otherwise face >= T   → success
  *  - Roll succeeds when total successes ≥ requiredSuccesses (Y).
  *
- * Formula syntax: `ts(N, T, Y)` — e.g. `/r ts(5, 4, 2)`.
+ * Formula syntax: `ts(N, T, Y)` - e.g. `/r ts(5, 4, 2)`.
  * The N/T/Y parameters are also accepted via constructor data.
  */
 
@@ -121,7 +121,7 @@ function computeTsResult(roll: Roll): HbmTsRollResult {
   // Collect raw die faces from all DiceTerm results in the roll.
   const faces: number[] = [];
   for (const term of roll.terms) {
-    // foundry.dice.terms.DiceTerm — has .results array with { result } entries.
+    // foundry.dice.terms.DiceTerm - has .results array with { result } entries.
     const anyTerm = term as unknown as { results?: Array<{ result: number; active?: boolean; discarded?: boolean }> };
     if (Array.isArray(anyTerm.results)) {
       for (const r of anyTerm.results) {

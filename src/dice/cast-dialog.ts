@@ -76,6 +76,12 @@ export async function askCastOptions(spell: SpellForDialog, actor: ActorForDialo
         <input type="number" name="bloodSpent" value="${baseBlood}" min="${baseBlood}" max="${max}"/>
       </div>`);
   }
+  if (mode !== 'sacred') {
+    fields.push(`
+      <div class="form-group">
+        <label><input type="checkbox" name="castAsPrayer"/> ${game.i18n.localize('HBM.spell.castingMode.prayer')} (+1 ${game.i18n.localize('HBM.resources.zealAbbr')}, ${game.i18n.localize('HBM.attributes.soul')} + ${game.i18n.localize('HBM.skills.devotion')})</label>
+      </div>`);
+  }
   if (showHekate) {
     fields.push(`
       <div class="form-group">
@@ -157,6 +163,7 @@ export async function askCastOptions(spell: SpellForDialog, actor: ActorForDialo
             if (fd.zealSpent != null) opts.zealSpent = Math.max(1, Number(fd.zealSpent) || 1);
             if (fd.bloodSpent != null) opts.bloodSpent = Math.max(baseBlood, Number(fd.bloodSpent) || baseBlood);
             if (fd.hekateMode) opts.hekateMode = 'witch';
+            if (fd.castAsPrayer) opts.castAsPrayer = true;
             if (fd.bypassSuperspellWarning) opts.bypassSuperspellWarning = true;
             if (fd.bypassNonCombatBlock) opts.bypassNonCombatBlock = true;
             const groupRaw = String(fd.groupCasters ?? '').trim();

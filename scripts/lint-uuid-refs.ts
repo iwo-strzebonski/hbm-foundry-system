@@ -1,5 +1,5 @@
 /**
- * UUID reference linter — scans parsed docs (packs-src/*) for any
+ * UUID reference linter - scans parsed docs (packs-src/*) for any
  * `@UUID[...]` references that don't resolve within the generated set.
  *
  * Run after build-packs.ts: `bun scripts/lint-uuid-refs.ts`
@@ -37,14 +37,14 @@ function walk(dir: string): void {
 walk(packsSrcDir);
 
 const broken = refs.filter((r) => {
-  // UUID format: Compendium.system.pack.Item.<id> — only validate Item refs.
+  // UUID format: Compendium.system.pack.Item.<id> - only validate Item refs.
   const m = r.uuid.match(/^Compendium\.[^.]+\.[^.]+\.Item\.(.+)$/);
   if (!m) return false;
   return !allIds.has(m[1]);
 });
 
 if (broken.length === 0) {
-  console.log(`[lint-uuid-refs] OK — ${refs.length} refs scanned, none broken`);
+  console.log(`[lint-uuid-refs] OK - ${refs.length} refs scanned, none broken`);
   process.exit(0);
 }
 

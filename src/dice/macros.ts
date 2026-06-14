@@ -1,10 +1,10 @@
 /**
- * Roll helpers — convenience wrappers around HbmTSRoll bound to actor data.
+ * Roll helpers - convenience wrappers around HbmTSRoll bound to actor data.
  */
 
 import { HbmTSRoll } from './ts-roll';
 import { collectRollModifiers, RollBlockedError } from './effect-mods';
-import { ATTRIBUTES, AttributeKey, SKILLS, SKILL_TAGS, TS_DEFAULT_REQUIRED, TS_DEFAULT_THRESHOLD } from '../constants';
+import { ATTRIBUTES, AttributeKey, SKILLS, SKILL_TAGS, TS_DEFAULT_REQUIRED, TS_DEFAULT_THRESHOLD, getMagicPowerEntry } from '../constants';
 
 export interface SkillRollOptions {
   /** Override the skill's default attribute (GM allows another for a specific roll). */
@@ -26,6 +26,13 @@ export interface ActorLike {
 
 function getAttributeValue(actor: ActorLike, key: AttributeKey): number {
   const a = actor.system.attributes[key];
+  if (key === 'magic' && a) {
+    if ('dicePool' in a && typeof a.dicePool === 'number') {
+      return a.dicePool;
+    }
+    const actual = (a as any).actual ?? a.value ?? 0;
+    return getMagicPowerEntry(actual).dicePool;
+  }
   return a?.value ?? 0;
 }
 
@@ -91,12 +98,18 @@ export async function rollAttribute(
 }
 
 export async function rollInitiative(actor: ActorLike): Promise<any> {
-  const mind = getAttributeValue(actor, 'mind');
-  const reflex = actor.system.skills?.reflex?.value ?? 0;
-  const perception = actor.system.skills?.perception?.value ?? 0;
-  const mod = mind + reflex + perception;
+  const sysAttr = actor.system.attributes as any;
+  let mod = 0;
+  if (sysAttr.initiative && typeof sysAttr.initiative.value === 'number') {
+    mod = sysAttr.initiative.value;
+  } else {
+    const mind = getAttributeValue(actor, 'mind');
+    const reflex = actor.system.skills?.reflex?.value ?? 0;
+    const perception = actor.system.skills?.perception?.value ?? 0;
+    mod = mind + reflex + perception;
+  }
   const flavor = game.i18n.localize('HBM.resources.initiative');
-  
+
   const roll = new Roll('2d6 + @mod', { mod });
   await roll.evaluate();
   await roll.toMessage({

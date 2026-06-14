@@ -25,13 +25,13 @@ function resolveToken(token: string, ctx: DamageContext): number {
   const a = (ctx.actor as any).system?.attributes ?? {};
   const s = (ctx.actor as any).system?.skills ?? {};
   switch (token) {
-    case 'body':             return Number(a.body?.value ?? 0);
-    case 'mind':             return Number(a.mind?.value ?? 0);
-    case 'soul':             return Number(a.soul?.value ?? 0);
-    case 'magic':            return Number(a.magic?.value ?? 0);
+    case 'body': return Number(a.body?.value ?? 0);
+    case 'mind': return Number(a.mind?.value ?? 0);
+    case 'soul': return Number(a.soul?.value ?? 0);
+    case 'magic': return Number(a.magic?.value ?? 0);
     case 'magicalAbilities': return Number(s.magicalAbilities?.value ?? 0);
-    case 'devotion':         return Number(s.devotion?.value ?? 0);
-    default:                 return 0;
+    case 'devotion': return Number(s.devotion?.value ?? 0);
+    default: return 0;
   }
 }
 
@@ -49,7 +49,7 @@ export function buildDamageFormula(spellDamageBase: string, ctx: DamageContext):
   const tokenRe = /([a-zA-Z]+)(?:\s*([\/*])\s*(\d+))?/g;
   formula = formula.replace(tokenRe, (match, name: string, op: string | undefined, num: string | undefined) => {
     if (!ATTR_TOKENS.has(name)) {
-      // Leave alone (likely dice notation like 1d6 — no, dice has digits before)
+      // Leave alone (likely dice notation like 1d6 - no, dice has digits before)
       return match;
     }
     let v = resolveToken(name, ctx);

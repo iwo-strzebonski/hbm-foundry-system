@@ -30,7 +30,7 @@
             {{#if (eq system.castingMode 'sacred')}}
             <label>{{localize 'HBM.spell.deity'}}:
                 <select name="system.deity">
-                    <option value="">—</option>
+                    <option value="">-</option>
                     {{#each @root.choices.deities as |label key|}}
                     <option value="{{key}}" {{#if (eq ../system.deity key)}}selected{{/if}}>{{label}}</option>
                     {{/each}}
@@ -39,7 +39,7 @@
             {{/if}}
             <label>{{localize 'HBM.spell.sourceBook'}}:
                 <select name="system.sourceBook">
-                    <option value="">—</option>
+                    <option value="">-</option>
                     {{#each @root.choices.sourceBooks as |label key|}}
                     <option value="{{key}}" {{#if (eq ../system.sourceBook key)}}selected{{/if}}>{{label}}</option>
                     {{/each}}

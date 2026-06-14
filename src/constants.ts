@@ -49,29 +49,29 @@ export const SKILLS: Readonly<Record<string, AttributeKey>> = Object.freeze({
  * `blocksTags` on a condition prevents rolls of any skill containing that tag.
  */
 export const SKILL_TAGS: Readonly<Record<string, readonly SkillTag[]>> = Object.freeze({
-  athletics:        ['movement'],
-  agility:          ['movement'],
-  strength:         [],
-  melee:            ['attack'],
-  ranged:           ['attack', 'sight'],
-  stealth:          ['movement', 'sight'],
-  endurance:        [],
-  reflex:           [],
-  perception:       ['sight', 'hearing'],
-  intuition:        ['social'],
-  craft:            [],
-  medicine:         [],
-  generalLore:      [],
-  natureLore:       [],
-  magicLore:        [],
-  theology:         [],
-  empathy:          ['social', 'hearing'],
-  persuasion:       ['social', 'hearing'],
-  intimidation:     ['social'],
-  determination:    [],
-  devotion:         [],
-  disguise:         ['social'],
-  animalHandling:   ['social'],
+  athletics: ['movement'],
+  agility: ['movement'],
+  strength: [],
+  melee: ['attack'],
+  ranged: ['attack', 'sight'],
+  stealth: ['movement', 'sight'],
+  endurance: [],
+  reflex: [],
+  perception: ['sight', 'hearing'],
+  intuition: ['social'],
+  craft: [],
+  medicine: [],
+  generalLore: [],
+  natureLore: [],
+  magicLore: [],
+  theology: [],
+  empathy: ['social', 'hearing'],
+  persuasion: ['social', 'hearing'],
+  intimidation: ['social'],
+  determination: [],
+  devotion: [],
+  disguise: ['social'],
+  animalHandling: ['social'],
   magicalAbilities: ['magic'],
 });
 
@@ -90,17 +90,17 @@ export interface MagicPowerEntry {
 }
 
 export const MAGIC_POWER_TABLE: readonly MagicPowerEntry[] = Object.freeze([
-  { level: 0,  label: '0',    dicePool: 6, maxPerSpell: 10, manaPerRound: 20 },
-  { level: 1,  label: 'I',    dicePool: 4, maxPerSpell: 6,  manaPerRound: 12 },
-  { level: 2,  label: 'II',   dicePool: 4, maxPerSpell: 5,  manaPerRound: 10 },
-  { level: 3,  label: 'III',  dicePool: 3, maxPerSpell: 5,  manaPerRound: 7 },
-  { level: 4,  label: 'IV',   dicePool: 3, maxPerSpell: 4,  manaPerRound: 8 },
-  { level: 5,  label: 'V',    dicePool: 3, maxPerSpell: 4,  manaPerRound: 6 },
-  { level: 6,  label: 'VI',   dicePool: 2, maxPerSpell: 3,  manaPerRound: 6 },
-  { level: 7,  label: 'VII',  dicePool: 2, maxPerSpell: 3,  manaPerRound: 4 },
-  { level: 8,  label: 'VIII', dicePool: 1, maxPerSpell: 2,  manaPerRound: 3 },
-  { level: 9,  label: 'IX',   dicePool: 1, maxPerSpell: 1,  manaPerRound: 2 },
-  { level: 10, label: 'X',    dicePool: 0, maxPerSpell: 1,  manaPerRound: 1 },
+  { level: 0, label: '0', dicePool: 6, maxPerSpell: 10, manaPerRound: 20 },
+  { level: 1, label: 'I', dicePool: 4, maxPerSpell: 6, manaPerRound: 12 },
+  { level: 2, label: 'II', dicePool: 4, maxPerSpell: 5, manaPerRound: 10 },
+  { level: 3, label: 'III', dicePool: 3, maxPerSpell: 5, manaPerRound: 7 },
+  { level: 4, label: 'IV', dicePool: 3, maxPerSpell: 4, manaPerRound: 8 },
+  { level: 5, label: 'V', dicePool: 3, maxPerSpell: 4, manaPerRound: 6 },
+  { level: 6, label: 'VI', dicePool: 2, maxPerSpell: 3, manaPerRound: 6 },
+  { level: 7, label: 'VII', dicePool: 2, maxPerSpell: 3, manaPerRound: 4 },
+  { level: 8, label: 'VIII', dicePool: 1, maxPerSpell: 2, manaPerRound: 3 },
+  { level: 9, label: 'IX', dicePool: 1, maxPerSpell: 1, manaPerRound: 2 },
+  { level: 10, label: 'X', dicePool: 0, maxPerSpell: 1, manaPerRound: 1 },
 ]);
 
 export function getMagicPowerEntry(level: number): MagicPowerEntry {
@@ -133,6 +133,7 @@ export const SPELL_SCHOOLS = [
   'illusion', 'sacred', 'sacredExorcism', 'witch', 'necromancy',
   // Forbidden / extra-academic
   'blood', 'crimson', 'abyssAspects', 'abyssPrimal', 'wildWitch',
+  'eldritch',
 ] as const;
 export type SpellSchool = (typeof SPELL_SCHOOLS)[number];
 
@@ -144,7 +145,7 @@ export const SACRED_DEITIES = [
 export type SacredDeity = (typeof SACRED_DEITIES)[number];
 
 /**
- * Witch magic symbols. EXTENSIBLE — additional content may add more.
+ * Witch magic symbols. EXTENSIBLE - additional content may add more.
  * Used for autocomplete only; spell.components.symbols accepts arbitrary strings.
  */
 export const WITCH_SYMBOLS: readonly string[] = Object.freeze([

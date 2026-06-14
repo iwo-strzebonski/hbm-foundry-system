@@ -3,7 +3,7 @@
         <label>{{localize 'HBM.race.attributePoints'}}: <input type="number" name="system.attributePoints" value="{{system.attributePoints}}" min="0"/></label>
         <label>{{localize 'HBM.race.skillPoints'}}: <input type="number" name="system.skillPoints" value="{{system.skillPoints}}" min="0"/></label>
     </div>
-    <label>{{localize 'HBM.race.physicalDescription'}}<input type="text" name="system.physicalDescription" value="{{system.physicalDescription}}"/></label>
+    <label>{{localize 'HBM.race.physicalDescription'}}<textarea name="system.physicalDescription" rows="3">{{system.physicalDescription}}</textarea></label>
 <fieldset>
     <legend>{{localize 'HBM.race.traits'}}
         <button type="button" data-action="addArrayEntry" data-path="system.traits"

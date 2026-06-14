@@ -1,5 +1,5 @@
 /**
- * Trade logic — founding companies, transactions, smuggling.
+ * Trade logic - founding companies, transactions, smuggling.
  * Source: Złoto Stal i Magia, Rozdział IX.
  *
  * The book's exact difficulty formulas depend on commodity, route, and party
@@ -45,7 +45,7 @@ function rollTrade(actor: CastableActor, label: string, params: TradeTestParams)
   });
 }
 
-/** Founding a trading company — usually a single TS test plus capital. */
+/** Founding a trading company - usually a single TS test plus capital. */
 export function foundCompany(actor: CastableActor, params: TradeTestParams = {}): Promise<HbmTSRoll> {
   return rollTrade(actor, 'Założenie Firmy Handlowej', params);
 }
@@ -55,7 +55,7 @@ export function transaction(actor: CastableActor, params: TradeTestParams = {}):
   return rollTrade(actor, 'Transakcja', params);
 }
 
-/** Smuggling — illegal transaction; failure should fire `hbm.smugglingFailed`. */
+/** Smuggling - illegal transaction; failure should fire `hbm.smugglingFailed`. */
 export async function smuggling(actor: CastableActor, params: TradeTestParams = {}): Promise<HbmTSRoll> {
   const roll = await rollTrade(actor, 'Przemyt', params);
   if (!roll.ts?.isSuccess) {

@@ -5,6 +5,9 @@
             {{#if mode}}<span class="badge mode mode-{{mode}}">{{localize (concat 'HBM.spell.castingMode.' mode)}}</span>{{/if}}
             {{#if school}}<span class="badge school">{{localize (concat 'HBM.spellSchool.' school)}}</span>{{/if}}
             {{#if circle}}<span class="badge circle">{{localize 'HBM.spell.circle'}} {{circle}}</span>{{/if}}
+            {{#if (or (eq mode "sacred") (eq mode "prayer"))}}
+                <span class="badge warning">{{localize 'HBM.spellCast.cannotBeUnraveled'}}</span>
+            {{/if}}
             {{#if outcome.success}}
                 <span class="badge result success">✓ {{localize 'HBM.spellCast.success'}}</span>
             {{else}}
@@ -72,7 +75,7 @@
                 <h4>{{localize 'HBM.spellCast.triggers'}}</h4>
                 <ul>
                     {{#each triggers as |t|}}
-                        <li><span class="badge trigger-event">{{localize (concat 'HBM.triggerEvent.' t.event)}}</span> — {{t.effect}}</li>
+                        <li><span class="badge trigger-event">{{localize (concat 'HBM.triggerEvent.' t.event)}}</span> - {{t.effect}}</li>
                     {{/each}}
                 </ul>
             </section>

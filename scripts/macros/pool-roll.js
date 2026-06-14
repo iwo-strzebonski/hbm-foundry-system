@@ -1,4 +1,4 @@
-// HbM Pool Roll — prompts for pool size and threshold, then rolls a d6 pool.
+// HbM Pool Roll - prompts for pool size and threshold, then rolls a d6 pool.
 const result = await Dialog.prompt({
     title: 'Rzut puli d6',
     content: `

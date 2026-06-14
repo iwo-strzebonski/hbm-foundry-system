@@ -1,10 +1,10 @@
 {
   "id": "hbm-rpg-v3",
   "title": "Homebrew Magic: RPG v3",
-  "description": "System Foundry VTT dla Homebrew Magic: Role Playing Game v3 — autorska gra fabularna z mechaniką puli kości d6 (TS — Trudność:Sukcesy).",
-  "version": "1.3.12",
+  "description": "System Foundry VTT dla Homebrew Magic: Role Playing Game v3 - autorska gra fabularna z mechaniką puli kości d6 (TS - Trudność:Sukcesy).",
+  "version": "1.3.30",
   "manifest": "https://vtt-content.octoturge.com/packages/system/hbm-rpg-v3.json",
-  "download": "https://vtt-content.octoturge.com/packages/system/hbm-rpg-v3-v1.3.12.zip",
+  "download": "https://vtt-content.octoturge.com/packages/system/hbm-rpg-v3-v1.3.30.zip",
   "compatibility": {
     "minimum": "13",
     "verified": "14"
@@ -211,7 +211,7 @@
     },
     {
       "name": "talents-blood",
-      "label": "Talenty — Magia Krwi",
+      "label": "Talenty - Magia Krwi",
       "system": "hbm-rpg-v3",
       "path": "packs/talents-blood",
       "type": "Item",
@@ -229,19 +229,7 @@
     },
     {
       "name": "talents-eldritch",
-      "label": "Talents - Eldritch",
-      "system": "hbm",
-      "path": "packs/talents-eldritch",
-      "type": "Item",
-      "ownership": {
-        "PLAYER": "OBSERVER",
-        "ASSISTANT": "OWNER"
-      },
-      "flags": {}
-    },
-    {
-      "name": "talents-eldritch",
-      "label": "Talenty — Klątwa Otchłani",
+      "label": "Talenty - Klątwa Otchłani",
       "system": "hbm-rpg-v3",
       "path": "packs/talents-eldritch",
       "type": "Item",

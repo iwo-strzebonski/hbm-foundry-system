@@ -21,7 +21,7 @@ export function collectRollModifiers(actor: any, tags: readonly SkillTag[]): Rol
     const hbm = ef?.flags?.hbm;
     if (!hbm) continue;
 
-    // Threshold step modifiers — keys may be tag names or 'all'
+    // Threshold step modifiers - keys may be tag names or 'all'
     const ts = hbm.thresholdSteps as Record<string, number> | undefined;
     if (ts && typeof ts === 'object') {
       if (typeof ts['all'] === 'number') result.thresholdSteps += ts['all'];
