@@ -576,6 +576,37 @@
       "zakazana-wiedza-dziedzina": "Zakazana wiedza (Dziedzina)",
       "zawisanie-w-powietrzu": "Zawisanie w powietrzu",
       "naturalny-lot": "Naturalny lot"
+    },
+    "moneyConverter": {
+      "liveRates": "📡 Kursy z NBP ({date})",
+      "defaultRates": "📡 Domyślne kursy (brak połączenia z NBP)",
+      "actorCash": "Gotówka aktora:",
+      "campaignYear": "Rok kampanii: {year}",
+      "calculator": "Kalkulator",
+      "resetToCash": "Przywróć gotówkę",
+      "exchangeRatesTable": "Tabela kursów wymiany",
+      "currency": "Waluta",
+      "ratePln": "Kurs (PLN)",
+      "onePlnEquals": "1 PLN =",
+      "note": "Uwaga",
+      "currencies": {
+        "PLN": "PLN (Złoty)",
+        "EUR": "EUR (Euro)",
+        "USD": "USD (Dolar)",
+        "TH": "TH (Thrakka)",
+        "FC": "FC (Kredyt Federacji Sol-3)",
+        "ST": "ST (Srebrny Talent)",
+        "ZK": "ZK (Złota Korona)",
+        "PL": "PL (Platynowy Lingot)"
+      },
+      "notes": {
+        "nbp": "NBP {date}",
+        "th": "1:1 z EUR",
+        "fc": "stały kurs 2 PLN = 1 FC",
+        "st": "1 ST = 240 PLN",
+        "zk": "1 ZK = 12 ST",
+        "pl": "1 PL = 12 ZK"
+      }
     }
   }
 }

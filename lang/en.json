@@ -573,6 +573,37 @@
       "zakazana-wiedza-dziedzina": "Forbidden Knowledge (Discipline)",
       "zawisanie-w-powietrzu": "Hovering",
       "naturalny-lot": "Natural Flight"
+    },
+    "moneyConverter": {
+      "liveRates": "📡 Rates from NBP ({date})",
+      "defaultRates": "📡 Default rates (no connection to NBP)",
+      "actorCash": "Actor cash:",
+      "campaignYear": "Campaign year: {year}",
+      "calculator": "Calculator",
+      "resetToCash": "Reset to cash",
+      "exchangeRatesTable": "Exchange rates table",
+      "currency": "Currency",
+      "ratePln": "Rate (PLN)",
+      "onePlnEquals": "1 PLN =",
+      "note": "Note",
+      "currencies": {
+        "PLN": "PLN (Zloty)",
+        "EUR": "EUR (Euro)",
+        "USD": "USD (US Dollar)",
+        "TH": "TH (Thrakka)",
+        "FC": "FC (Sol-3 Federation Credit)",
+        "ST": "ST (Silver Talent)",
+        "ZK": "ZK (Gold Crown)",
+        "PL": "PL (Platinum Lingot)"
+      },
+      "notes": {
+        "nbp": "NBP {date}",
+        "th": "1:1 with EUR",
+        "fc": "fixed rate 2 PLN = 1 FC",
+        "st": "1 ST = 240 PLN",
+        "zk": "1 ZK = 12 ST",
+        "pl": "1 PL = 12 ZK"
+      }
     }
   }
 }

@@ -11,6 +11,7 @@ import { askApplyDamage } from '../dice/damage-dialog';
 import { applyDamage } from '../logic/damage';
 import { rest } from '../logic/rest';
 import { ATTRIBUTES, AttributeKey, SKILL_KEYS, getMagicPowerEntry } from '../constants';
+import { showMoneyConverter } from './money-converter-dialog';
 
 const { ActorSheetV2 } = foundry.applications.sheets as unknown as {
   ActorSheetV2: typeof foundry.applications.sheets.ActorSheetV2;
@@ -482,101 +483,7 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
   static async _onRecalculateMoney(this: CharacterSheet, _event: PointerEvent, _target: HTMLElement) {
     const actor = (this as unknown as { actor: any }).actor;
-    const pln = actor.system.details?.money ?? 0;
-    const currentYear = actor.system.details?.currentYear ?? 2026;
-    const currentRealYear = new Date().getFullYear();
-
-    const fetchNBP = async (currency: string, year: number): Promise<{ rate: number; date: string } | null> => {
-      if (year >= 2002 && year <= currentRealYear) {
-        for (let day = 1; day <= 7; day++) {
-          const d = `${year}-06-${String(day).padStart(2, '0')}`;
-          try {
-            const res = await fetch(`https://api.nbp.pl/api/exchangerates/rates/a/${currency}/${d}/?format=json`);
-            if (res.ok) { const data = await res.json(); const r = data?.rates?.[0]?.mid; if (typeof r === 'number') return { rate: r, date: d }; }
-          } catch (_) { /* ignore */ }
-        }
-      }
-      try {
-        const res = await fetch(`https://api.nbp.pl/api/exchangerates/rates/a/${currency}/?format=json`);
-        if (res.ok) { const data = await res.json(); const r = data?.rates?.[0]?.mid; const dt = data?.rates?.[0]?.effectiveDate || ''; if (typeof r === 'number') return { rate: r, date: dt }; }
-      } catch (_) { /* ignore */ }
-      return null;
-    };
-
-    const [eurData, usdData] = await Promise.all([fetchNBP('eur', currentYear), fetchNBP('usd', currentYear)]);
-    const eurRate = eurData?.rate ?? 4.35;
-    const usdRate = usdData?.rate ?? 4.00;
-    const rateDate = eurData?.date ?? usdData?.date ?? 'default';
-    const isLive = !!(eurData || usdData);
-
-    const CURRENCIES: Record<string, { label: string; toPln: number; note: string }> = {
-      PLN: { label: 'PLN (Złoty)', toPln: 1, note: '' },
-      EUR: { label: 'EUR (Euro)', toPln: eurRate, note: `NBP ${rateDate}` },
-      USD: { label: 'USD (Dolar)', toPln: usdRate, note: `NBP ${rateDate}` },
-      TH: { label: 'TH (Thrakka)', toPln: eurRate, note: '1:1 z EUR' },
-      FC: { label: 'FC (Kredyt Federacji Sol-3)', toPln: 2.0, note: 'stały kurs 2 PLN = 1 FC' },
-      ST: { label: 'ST (Srebrny Talent)', toPln: 240, note: '1 ST = 240 PLN' },
-      ZK: { label: 'ZK (Złota Korona)', toPln: 2880, note: '1 ZK = 12 ST' },
-      PL: { label: 'PL (Platynowy Lingot)', toPln: 34560, note: '1 PL = 12 ZK' },
-    };
-    const currKeys = Object.keys(CURRENCIES);
-    const optHtml = (sel: string) => currKeys.map(k =>
-      `<option value="${k}"${k === sel ? ' selected' : ''}>${CURRENCIES[k].label}</option>`
-    ).join('');
-    const ratesRows = currKeys.map(k => {
-      const c = CURRENCIES[k];
-      const fromPln = k === 'PLN' ? '1.0000' : (1 / c.toPln).toPrecision(4);
-      return `<tr><td>${c.label}</td><td style="text-align:right;font-family:monospace;">${c.toPln === 1 ? '1.0000' : c.toPln.toFixed(4)}</td><td style="text-align:right;font-family:monospace;">${fromPln}</td><td style="color:#777;font-size:0.75rem;">${c.note}</td></tr>`;
-    }).join('');
-    const ratesJson = JSON.stringify(Object.fromEntries(currKeys.map(k => [k, CURRENCIES[k].toPln])));
-
-    const content = `
-      <div class="hbm money-converter" style="padding:10px;font-family:'Signika',sans-serif;display:flex;flex-direction:column;gap:12px;">
-        <p style="margin:0;font-size:0.78rem;color:${isLive ? '#2a7a3e' : '#888'};">
-          <em>📡 ${isLive ? `Kursy z NBP (${rateDate})` : 'Domyślne kursy (brak połączenia z NBP)'}</em>
-        </p>
-        <div style="background:var(--hbm-card-bg,#1a1a2e);border:1px solid var(--hbm-border,#333);border-radius:6px;padding:8px 12px;">
-          <span style="font-weight:bold;">Gotówka aktora:</span>
-          <span style="font-family:monospace;font-size:1.1rem;margin-left:6px;">${pln} PLN</span>
-          <small style="color:#888;margin-left:6px;">(Rok kampanii: ${currentYear})</small>
-        </div>
-        <div style="background:var(--hbm-card-bg,#1a1a2e);border:1px solid var(--hbm-accent,#6060c0);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;">
-          <strong style="font-size:0.9rem;">Kalkulator</strong>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-            <input id="hbm-conv-left" type="number" value="1" min="0" step="any"
-              style="width:6.5rem;font-size:1rem;text-align:right;padding:3px 6px;background:transparent;color:var(--hbm-fg,#eee);border:1px solid var(--hbm-border,#555);border-radius:4px;"
-              oninput="(function(v){var r=window._hbmRates;var lk=document.getElementById('hbm-sf').value;var rk=document.getElementById('hbm-st').value;var res=v*r[lk]/r[rk];document.getElementById('hbm-conv-right').value=isFinite(res)?res.toFixed(4):'';})(this.value)" />
-            <select id="hbm-sf" style="flex:1;min-width:8rem;"
-              onchange="(function(){var v=parseFloat(document.getElementById('hbm-conv-left').value)||0;var r=window._hbmRates;var lk=this.value;var rk=document.getElementById('hbm-st').value;var res=v*r[lk]/r[rk];document.getElementById('hbm-conv-right').value=isFinite(res)?res.toFixed(4):'';}).call(this)">
-              ${optHtml('PLN')}
-            </select>
-            <span style="font-size:1.2rem;color:var(--hbm-accent,#8080ff);">⇄</span>
-            <input id="hbm-conv-right" type="number" value="" min="0" step="any"
-              style="width:6.5rem;font-size:1rem;text-align:right;padding:3px 6px;background:transparent;color:var(--hbm-fg,#eee);border:1px solid var(--hbm-border,#555);border-radius:4px;"
-              oninput="(function(v){var r=window._hbmRates;var lk=document.getElementById('hbm-sf').value;var rk=document.getElementById('hbm-st').value;var res=v*r[rk]/r[lk];document.getElementById('hbm-conv-left').value=isFinite(res)?res.toFixed(4):'';}).call(this)" />
-            <select id="hbm-st" style="flex:1;min-width:8rem;"
-              onchange="(function(){var v=parseFloat(document.getElementById('hbm-conv-right').value)||0;var r=window._hbmRates;var lk=document.getElementById('hbm-sf').value;var rk=this.value;var res=v*r[rk]/r[lk];document.getElementById('hbm-conv-left').value=isFinite(res)?res.toFixed(4):'';}).call(this)">
-              ${optHtml('EUR')}
-            </select>
-          </div>
-        </div>
-        <details>
-          <summary style="cursor:pointer;font-size:0.85rem;color:var(--hbm-accent-dim,#999);">▸ Tabela kursów wymiany</summary>
-          <table style="width:100%;border-collapse:collapse;font-size:0.8rem;margin-top:8px;">
-            <thead><tr style="border-bottom:1px solid var(--hbm-border,#555);">
-              <th style="text-align:left;">Waluta</th><th style="text-align:right;">Kurs (PLN)</th><th style="text-align:right;">1 PLN =</th><th>Uwaga</th>
-            </tr></thead>
-            <tbody>${ratesRows}</tbody>
-          </table>
-        </details>
-      </div>
-      <script>window._hbmRates=${ratesJson};</script>`;
-
-    await (foundry.applications.api as any).DialogV2.prompt({
-      window: { title: game.i18n.localize('HBM.ui.moneyConverterTitle') },
-      content,
-      rejectClose: false,
-    });
+    return showMoneyConverter(actor);
   }
 }
 

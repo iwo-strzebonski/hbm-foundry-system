@@ -6,6 +6,7 @@ import { applyDamage } from '../logic/damage';
 import { castSpell } from '../logic/spell-cast';
 import { HbmTSRoll } from '../dice/ts-roll';
 import { ATTRIBUTES, AttributeKey, SKILL_KEYS, TS_DEFAULT_REQUIRED, TS_DEFAULT_THRESHOLD, getMagicPowerEntry } from '../constants';
+import { showMoneyConverter } from './money-converter-dialog';
 
 const { ActorSheetV2 } = foundry.applications.sheets as unknown as {
   ActorSheetV2: typeof foundry.applications.sheets.ActorSheetV2;
@@ -338,113 +339,6 @@ export class NpcSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
   static async _onRecalculateMoney(this: NpcSheet, event: PointerEvent, target: HTMLElement) {
     const actor = (this as unknown as { actor: any }).actor;
-    const pln = actor.system.details?.money ?? 0;
-    const currentYear = actor.system.details?.currentYear ?? 2026;
-
-    let eurRate = 4.35;
-    let usdRate = 4.00;
-    let rateSource = "Domyślne przeliczniki (brak połączenia lub rok poza zakresem API NBP)";
-    let isLive = false;
-
-    const currentRealYear = new Date().getFullYear();
-
-    // Helper function to fetch rate from NBP
-    const fetchNBP = async (currency: string, year: number): Promise<{ rate: number; date: string } | null> => {
-      if (year >= 2002 && year <= currentRealYear) {
-        // Try first 7 days of June to find a working business day (NBP doesn't publish on weekends)
-        for (let day = 1; day <= 7; day++) {
-          const dateString = `${year}-06-${String(day).padStart(2, '0')}`;
-          try {
-            const response = await fetch(`https://api.nbp.pl/api/exchangerates/rates/a/${currency}/${dateString}/?format=json`);
-            if (response.ok) {
-              const data = await response.json();
-              const rate = data?.rates?.[0]?.mid;
-              if (typeof rate === 'number') {
-                return { rate, date: dateString };
-              }
-            }
-          } catch (e) {
-            // Ignore and try next
-          }
-        }
-      }
-
-      // Fallback to latest rate
-      try {
-        const response = await fetch(`https://api.nbp.pl/api/exchangerates/rates/a/${currency}/?format=json`);
-        if (response.ok) {
-          const data = await response.json();
-          const rate = data?.rates?.[0]?.mid;
-          const date = data?.rates?.[0]?.effectiveDate || "";
-          if (typeof rate === 'number') {
-            return { rate, date };
-          }
-        }
-      } catch (e) {
-        // Ignore
-      }
-      return null;
-    };
-
-    // Fetch rates in parallel
-    const [eurData, usdData] = await Promise.all([
-      fetchNBP("eur", currentYear),
-      fetchNBP("usd", currentYear)
-    ]);
-
-    if (eurData && usdData) {
-      eurRate = eurData.rate;
-      usdRate = usdData.rate;
-      rateSource = `Pobrane z NBP (EUR z ${eurData.date}, USD z ${usdData.date})`;
-      isLive = true;
-    } else if (eurData) {
-      eurRate = eurData.rate;
-      rateSource = `Częściowo pobrane z NBP (EUR z ${eurData.date})`;
-      isLive = true;
-    } else if (usdData) {
-      usdRate = usdData.rate;
-      rateSource = `Częściowo pobrane z NBP (USD z ${usdData.date})`;
-      isLive = true;
-    }
-
-    // Conversion rates
-    const eur = (pln / eurRate).toFixed(2);
-    const th = (pln / eurRate).toFixed(2); // 1:1 with EUR
-    const usd = (pln / usdRate).toFixed(2);
-    const fc = (pln / 2.0).toFixed(2); // 2 PLN = 1 Credit
-    const st = (pln / 240).toFixed(2);
-    const zk = (pln / 2880).toFixed(2);
-    const pl = (pln / 34560).toFixed(2);
-
-    const content = `
-      <div class="hbm money-converter" style="padding: 10px; font-family: 'Signika', sans-serif;">
-        <p><strong>Bieżąca gotówka:</strong> ${pln} PLN (Rok kampanii: ${currentYear})</p>
-        <p style="font-size: 0.8rem; color: ${isLive ? '#2a7a3e' : '#888'}; margin-top: -5px;">
-          <em>Kursy: ${rateSource}</em><br/>
-          (1 EUR = ${eurRate.toFixed(4)} PLN, 1 USD = ${usdRate.toFixed(4)} PLN)
-        </p>
-        <hr style="border-top: 1px dashed var(--hbm-border, #ccc); margin: 10px 0;" />
-        <h4 style="margin: 5px 0;">Waluty Ziemskie i Międzyświatowe</h4>
-        <ul style="list-style: none; padding: 0; margin: 5px 0; display: flex; flex-direction: column; gap: 4px;">
-          <li><strong>FC (Kredyt Federacji Sol-3):</strong> ${fc} Credits <small style="color: #666;">(Waluta Federacji Sol-3, stały kurs 2 PLN = 1 Credit)</small></li>
-          <li><strong>EUR (Euro):</strong> ${eur} €</li>
-          <li><strong>USD (Dolar):</strong> ${usd} $</li>
-          <li><strong>Thrakka (TH):</strong> ${th} TH <small style="color: #666;">(krasnoludzka waluta rozliczeniowa, 1:1 z EUR)</small></li>
-        </ul>
-        <hr style="border-top: 1px dashed var(--hbm-border, #ccc); margin: 10px 0;" />
-        <h4 style="margin: 5px 0;">Krasnoludzkie Monety Klanowe (System Dwunastkowy)</h4>
-        <ul style="list-style: none; padding: 0; margin: 5px 0; display: flex; flex-direction: column; gap: 4px;">
-          <li><strong>ST (Srebrny Talent):</strong> ${st} ST <small style="color: #666;">(1 ST = 240 PLN / 55 TH)</small></li>
-          <li><strong>ZK (Złota Korona):</strong> ${zk} ZK <small style="color: #666;">(1 ZK = 2880 PLN / 660 TH)</small></li>
-          <li><strong>PL (Platynowy Lingot):</strong> ${pl} PL <small style="color: #666;">(1 PL = 34560 PLN / 7920 TH)</small></li>
-        </ul>
-      </div>
-    `;
-
-    await (foundry.applications.api as any).DialogV2.prompt({
-      window: { title: game.i18n.localize('HBM.ui.moneyConverterTitle') },
-      content: content,
-      rejectClose: false,
-    });
+    return showMoneyConverter(actor);
   }
 }
