@@ -1,9 +1,13 @@
 /**
  * Rest logic.
  *
- *   Short Rest (Krótki Odpoczynek):
- *     - Restore HP equal to actor.body.value (capped at max).
- *     - Restore mana to max-per-spell? - no: short rest does NOT restore mana.
+ *   Breather (Odetchnięcie, 10 min):
+ *     - Restore 1d6 + Wytrzymałość skill value HP (capped at max).
+ *     - Restore 1d6 mana (capped at daily pool max).
+ *
+ *   Short Rest (Krótki Odpoczynek, 1h+):
+ *     - Restore half of max HP.
+ *     - Restore one third of the daily mana pool.
  *     - Holders of `Nadzwyczajna Odporność` (alchemy passive) restore 1 elixir tolerance.
  *
  *   Long Rest (Długi Odpoczynek):
@@ -66,8 +70,13 @@ export async function rest(actor: CastableActor, kind: RestKind): Promise<RestRe
 
   if (kind === 'breather') {
     if (a.mana?.max != null && manaBefore < a.mana.max) {
-      update['system.attributes.mana.value'] = a.mana.max;
-      manaRestored = a.mana.max - manaBefore;
+      const manaRoll = new Roll('1d6');
+      await manaRoll.evaluate();
+      const manaGain = Math.min(manaRoll.total, a.mana.max - manaBefore);
+      if (manaGain > 0) {
+        update['system.attributes.mana.value'] = manaBefore + manaGain;
+        manaRestored = manaGain;
+      }
     }
     const endurance = actor.system.skills?.endurance?.value ?? 0;
     const roll = new Roll('1d6 + @endurance', { endurance });
@@ -80,10 +89,13 @@ export async function rest(actor: CastableActor, kind: RestKind): Promise<RestRe
     }
   } else if (kind === 'short') {
     if (a.mana?.max != null && manaBefore < a.mana.max) {
-      update['system.attributes.mana.value'] = a.mana.max;
-      manaRestored = a.mana.max - manaBefore;
+      const manaGain = Math.min(Math.ceil(a.mana.max / 3), a.mana.max - manaBefore);
+      if (manaGain > 0) {
+        update['system.attributes.mana.value'] = manaBefore + manaGain;
+        manaRestored = manaGain;
+      }
     }
-    const healAmount = Math.ceil((a.health?.max ?? 0) / 3);
+    const healAmount = Math.ceil((a.health?.max ?? 0) / 2);
     const heal = Math.min(healAmount, (a.health?.max ?? 0) - hpBefore);
     if (heal > 0) {
       update['system.attributes.health.value'] = hpBefore + heal;

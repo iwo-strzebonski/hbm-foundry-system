@@ -7,7 +7,7 @@
 // Foundry exposes fields globally; declared via fvtt-types.
 export const fields = (): typeof foundry.data.fields => foundry.data.fields;
 
-export function makeIntField(initial = 0, options: Partial<{ min: number; max: number; nullable: boolean }> = {}) {
+export function makeIntField(initial = 0, options: Partial<{ min: number; max: number; nullable: boolean; choices: readonly number[] }> = {}) {
   const f = fields();
   return new f.NumberField({
     required: true,
@@ -16,6 +16,7 @@ export function makeIntField(initial = 0, options: Partial<{ min: number; max: n
     initial,
     min: options.min,
     max: options.max,
+    choices: options.choices as number[] | undefined,
   });
 }
 

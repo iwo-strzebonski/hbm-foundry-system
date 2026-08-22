@@ -250,11 +250,13 @@ async function castStandard(actor: CastableActor, spell: SpellLike, opts: CastOp
   await baseRoll.evaluate();
   await baseRoll.toMessage({ flavor, speaker: opts.speaker });
 
-  // Overcast - extra TS test if manaSpent exceeds maxPerSpell.
+  // Overcast beyond Maksymalny Koszt Zaklęcia - extra TS test.
+  // T depends on the spell's BASE cost; S grows triangularly with the excess
+  // (E) over maxPerSpell: S = E * (E + 1) / 2 (Zasada Nadczarowywania Zaklęć).
   if (manaSpent > a.mana.maxPerSpell && a.mana.maxPerSpell > 0) {
     const excess = manaSpent - a.mana.maxPerSpell;
-    const tThreshold = Math.min(6, Math.max(2, baseCost));
-    const ySuccesses = Math.min(10, Math.max(1, excess));
+    const tThreshold = baseCost <= 2 ? 4 : baseCost <= 4 ? 5 : 6;
+    const ySuccesses = (excess * (excess + 1)) / 2;
     const overcastFlavor = `${game.i18n.localize('HBM.spellCast.overcastTest')}: ${spell.name}`;
     const overcastRoll = HbmTSRoll.fromParams({
       pool,
