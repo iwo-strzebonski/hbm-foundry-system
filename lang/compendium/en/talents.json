@@ -7,7 +7,7 @@
     },
     "Oburęczny": {
       "name": "Ambidextrous",
-      "description": "Sprawnie posługujesz się bronią w obydwu rękach.\n\n\nGdy wykonujesz ataki dwiema broniami, otrzymujesz dwie dodatkowe kości"
+      "description": "Sprawnie posługujesz się bronią w obydwu rękach.\n\nGdy wykonujesz ataki dwiema broniami, otrzymujesz dwie dodatkowe kości"
     },
     "Pasjonat Zwierząt": {
       "name": "Animal Enthusiast",
@@ -15,7 +15,7 @@
     },
     "Arcymag (Dziedzina)": {
       "name": "Archmage",
-      "description": "Wszystkie Testy związane z daną Dziedziną Magii są prostsze o jeden stopień, a ponadto wszystkie zaklęcia są traktowane, jakby były nadczarowane o jeden stopień (ale nie zużywają dodatkowej many). Dodatkowo postać zna wszystkie zaklęcia z tej Dziedziny.\n\n\nTen Talent może zostać wybrane dla maksymalnie jednej Dziedziny - tej, w której jest Mistrzem Magii."
+      "description": "Wszystkie Testy związane z daną Dziedziną Magii są prostsze o jeden stopień, a ponadto wszystkie zaklęcia są traktowane, jakby były nadczarowane o jeden stopień (ale nie zużywają dodatkowej many). Dodatkowo postać zna wszystkie zaklęcia z tej Dziedziny.\n\nTen Talent może zostać wybrane dla maksymalnie jednej Dziedziny - tej, w której jest Mistrzem Magii."
     },
     "Pancerz Wiary": {
       "name": "Armor Of Faith",
@@ -31,7 +31,7 @@
     },
     "Cios w Plecy": {
       "name": "Backstab",
-      "description": "Jeśli cel nie wie o Twojej obecności, to obrażenia, które zadajesz, są podwajane.\n\n\nTen Talent działa wyłącznie wtedy, gdy atakujesz metodami konwencjonalnymi."
+      "description": "Jeśli cel nie wie o Twojej obecności, to obrażenia, które zadajesz, są podwajane.\n\nTen Talent działa wyłącznie wtedy, gdy atakujesz metodami konwencjonalnymi."
     },
     "Gotowość do Walki": {
       "name": "Battle Readiness",
@@ -47,11 +47,11 @@
     },
     "Sen na Jawie": {
       "name": "Daydream",
-      "description": "Nie potrzebujesz snu.\n\n\nElfy w przeciwieństwie do innych ras nie śpią, ale nie wszystkie potrafią kontrolować swoje myśli w trakcie odpoczynku."
+      "description": "Nie potrzebujesz snu.\n\nElfy w przeciwieństwie do innych ras nie śpią, ale nie wszystkie potrafią kontrolować swoje myśli w trakcie odpoczynku."
     },
     "Błogosławieństwo (Bóstwo)": {
       "name": "Deity Blessing",
-      "description": "Wymagane do Magii Sakralnej oraz modlitw.\nZostałeś/aś pobłogosławiony/a przez wybrane bóstwo i możesz wykorzystywać zaklęcia z dziedziny Magii Sakralnej. Do wyboru masz modlitwy powszechne i własnego bóstwa.\n\n\nJednocześnie można być pobłogosławionym wyłącznie przez jedno bóstwo.\n\n\nDodatkowo każde znane Ci zaklęcie możesz rzucić jako modlitwę.\n\n\nRzucanie zaklęć jako modlitw polega na wykorzystaniu sumy wartości Atrybutu Soul oraz wartości Umiejętności Oddanie do rzucenia zaklęcia. Każda modlitwa kosztuje, oprócz many, jeden punkt Zapału, natomiast nie da się jej rozpleść."
+      "description": "Wymagane do Magii Sakralnej oraz modlitw.\nZostałeś/aś pobłogosławiony/a przez wybrane bóstwo i możesz wykorzystywać zaklęcia z dziedziny Magii Sakralnej. Do wyboru masz modlitwy powszechne i własnego bóstwa.\n\nJednocześnie można być pobłogosławionym wyłącznie przez jedno bóstwo.\n\nDodatkowo każde znane Ci zaklęcie możesz rzucić jako modlitwę.\n\nRzucanie zaklęć jako modlitw polega na wykorzystaniu sumy wartości Atrybutu Soul oraz wartości Umiejętności Oddanie do rzucenia zaklęcia. Każda modlitwa kosztuje, oprócz many, jeden punkt Zapału, natomiast nie da się jej rozpleść."
     },
     "Dyplomata": {
       "name": "Diplomat",
@@ -59,7 +59,7 @@
     },
     "Finta": {
       "name": "Feint",
-      "description": "Postać  wykonuje zwodniczy atak, którego celem jest zmylenie przeciwnika.\n\n\nNależy wykonać Test Przeciwstawny zgodnie z zasadami Akcji Atak, jednak w przypadku, gdy Postać, która zadeklarowała, że będzie wykorzystywała ten Talent wygra pojedynek, nie zadaje Obrażeń. W zamian cel Finty do końca następnej rundy atakującego bądź do następnego Ataku atakującego skierowanego w cel nie może unikać, odpierać ani parować ataku Postaci, która z powodzeniem użyła Finty.\n\n\nJeżeli atakujący atakuje oburącz, a Postać również trzyma dwie bronie, może sparować obydwa ataki, jednak musi podzielić pulę kości na obydwa parowania (podobnie jak przy walce oburącz)."
+      "description": "Postać  wykonuje zwodniczy atak, którego celem jest zmylenie przeciwnika.\n\nNależy wykonać Test Przeciwstawny zgodnie z zasadami Akcji Atak, jednak w przypadku, gdy Postać, która zadeklarowała, że będzie wykorzystywała ten Talent wygra pojedynek, nie zadaje Obrażeń. W zamian cel Finty do końca następnej rundy atakującego bądź do następnego Ataku atakującego skierowanego w cel nie może unikać, odpierać ani parować ataku Postaci, która z powodzeniem użyła Finty.\n\nJeżeli atakujący atakuje oburącz, a Postać również trzyma dwie bronie, może sparować obydwa ataki, jednak musi podzielić pulę kości na obydwa parowania (podobnie jak przy walce oburącz)."
     },
     "Medyk Polowy": {
       "name": "Field Medic",
@@ -71,7 +71,7 @@
     },
     "Darmowy Talent": {
       "name": "Free Talent",
-      "description": "Czasem Mistrz Gry zdecyduje nagrodzić Gracza nowym talentem, a czasem Postać po prostu zaczyna z możliwością wybrania dowolnego Talentu.\n\n\nTen Talent może być przyznany wyłącznie przez Mistrza Gry. Niektóre postaci przy tworzeniu zaczynają z tym Talentem."
+      "description": "Czasem Mistrz Gry zdecyduje nagrodzić Gracza nowym talentem, a czasem Postać po prostu zaczyna z możliwością wybrania dowolnego Talentu.\n\nTen Talent może być przyznany wyłącznie przez Mistrza Gry. Niektóre postaci przy tworzeniu zaczynają z tym Talentem."
     },
     "Niezniszczalne Zaklęcia": {
       "name": "Indestructible Spells",
@@ -95,7 +95,7 @@
     },
     "Odporność na Magię": {
       "name": "Magic Resistance",
-      "description": "Ten Talent można wykupić wyłącznie podczas tworzenia postaci.\nTen Talent można wykupić wielokrotnie, jeżeli zaczynało się z tym Talentem.\n\n\nPodczas tworzenia postaci po wykonaniu rzutu na Magię do wyniku na rzucie kością, jeżeli wynik jest mniejszy niż 10, dodaj 1.\n\n\nPostać raz na rundę może za darmo przerzucić wynik testu na przeciwstawianie się efektom zaklęć.\n\n\nTego Talentu nie można wziąć jeżeli Postać ma już Talent Jedność z Magią."
+      "description": "Ten Talent można wykupić wyłącznie podczas tworzenia postaci.\nTen Talent można wykupić wielokrotnie, jeżeli zaczynało się z tym Talentem.\n\nPodczas tworzenia postaci po wykonaniu rzutu na Magię do wyniku na rzucie kością, jeżeli wynik jest mniejszy niż 10, dodaj 1.\n\nPostać raz na rundę może za darmo przerzucić wynik testu na przeciwstawianie się efektom zaklęć.\n\nTego Talentu nie można wziąć jeżeli Postać ma już Talent Jedność z Magią."
     },
     "Magiczny Zmysł (Zmysł)": {
       "name": "Magical Sense",
@@ -111,7 +111,7 @@
     },
     "Mistrz Magii (Dziedzina)": {
       "name": "Master Of Magic",
-      "description": "Przy rzutach związanych z daną Dziedziną Magii liczba Kości otrzymywana we wszystkich Umiejętnościach zostaje podwojona. \n\n\nTen Talent może zostać wybrane dla maksymalnie jednej Dziedziny."
+      "description": "Przy rzutach związanych z daną Dziedziną Magii liczba Kości otrzymywana we wszystkich Umiejętnościach zostaje podwojona. \n\nTen Talent może zostać wybrane dla maksymalnie jednej Dziedziny."
     },
     "Miłosierdzie": {
       "name": "Milosierdzie",
@@ -123,7 +123,7 @@
     },
     "Naturalny Lot": {
       "name": "Natural Flight",
-      "description": "Anioły i demony posiadają naturalne skrzydła, które pozwalają im latać.\n\n\nAby utrzymać się w powietrzu, postać musi poruszyć się o co najmniej 5 metrów w każdej turze walki. Jeżeli postać nie ruszy się o wymaganą odległość, spada na ziemię na koniec tury.\n\n\nPostać z tym Talentem może nabyć Talenty Zawisanie w Powietrzu oraz Powietrzne Uniki."
+      "description": "Anioły i demony posiadają naturalne skrzydła, które pozwalają im latać.\n\nAby utrzymać się w powietrzu, postać musi poruszyć się o co najmniej 5 metrów w każdej turze walki. Jeżeli postać nie ruszy się o wymaganą odległość, spada na ziemię na koniec tury.\n\nPostać z tym Talentem może nabyć Talenty Zawisanie w Powietrzu oraz Powietrzne Uniki."
     },
     "Niezwykła Intuicja": {
       "name": "Niezwykla Intuicja",
@@ -135,11 +135,11 @@
     },
     "Oportunista": {
       "name": "Opportunist",
-      "description": "Twoja zdolność do reagowania na wydarzenia w trakcie walki jest zadziwiająca.\n\n\nRaz na rundę gdy przeciwnik odchodzi od Ciebie i masz możliwość zaatakowania go, możesz podjąć próbę ataku."
+      "description": "Twoja zdolność do reagowania na wydarzenia w trakcie walki jest zadziwiająca.\n\nRaz na rundę gdy przeciwnik odchodzi od Ciebie i masz możliwość zaatakowania go, możesz podjąć próbę ataku."
     },
     "Parowanie": {
       "name": "Parry",
-      "description": "Zamiast unikać bądź kontrować ataków, raz na rundę Postać może sparować jeden atak wręcz. \n\n\nJeżeli atakujący atakuje oburącz, a Postać również trzyma dwie bronie, może sparować obydwa ataki, jednak musi podzielić pulę kości na obydwa parowania (podobnie jak przy walce oburącz).\n\n\nPostać wykonuje Test Przeciwstawny (jak w przypadku Odpierania Ataku), jednak Test jest prostszy o jeden stopień, a ponadto ilość wymaganych Sukcesów należy zmniejszyć o zaokrągloną w górę połowę wartości Umiejętności Walka Wręcz atakowanego."
+      "description": "Zamiast unikać bądź kontrować ataków, raz na rundę Postać może sparować jeden atak wręcz. \n\nJeżeli atakujący atakuje oburącz, a Postać również trzyma dwie bronie, może sparować obydwa ataki, jednak musi podzielić pulę kości na obydwa parowania (podobnie jak przy walce oburącz).\n\nPostać wykonuje Test Przeciwstawny (jak w przypadku Odpierania Ataku), jednak Test jest prostszy o jeden stopień, a ponadto ilość wymaganych Sukcesów należy zmniejszyć o zaokrągloną w górę połowę wartości Umiejętności Walka Wręcz atakowanego."
     },
     "Urok Osobisty": {
       "name": "Personal Charm",
@@ -147,7 +147,7 @@
     },
     "Pierwotna Energia": {
       "name": "Pierwotna Energia",
-      "description": "Nie możesz rzucać ani rozplatać zaklęć. Twój Maksymalny Koszt Zaklęcia oraz Ilość Many zostają dwukrotnie zwiększone.\n\n\nW ramach Akcji możesz pomóc wybranemu magowi w zasięgu 3 m w rzucaniu zaklęć. Do początku Twojej następnej tury, jeżeli wybrany mag się od Ciebie nie odsunie, gdy ten mag rzuca jakiekolwiek zaklęcie, możesz zadeklarować, że zużywasz swoją manę, aby wzmocnić zaklęcie wybranego maga (Księga Magii). Mana wykorzystana w celu wzmocnienia zaklęcia nie liczy się do wykonywanego przez maga testu na to, czy uda mu się kontrolować dużą ilość mocy, ale wzmacniając zaklęcie, nie możesz przekroczyć swojego maksymalnego kosztu zaklęcia.\n\n\nDodatkowo w ramach Akcji Natychmiastowej możesz przekazać część swojej many. Jeżeli chcesz to zrobić, wykonaj Test na Zdolności Magiczne (Magic). Trudność zależy od odległości od maga (4:S poniżej 1 m, 5:S poniżej 2 m, 6:S poniżej 3 m), a Ilość Wymaganych Sukcesów (S) jest równa ilości przekazywanej many."
+      "description": "Nie możesz rzucać ani rozplatać zaklęć. Twój Maksymalny Koszt Zaklęcia oraz Ilość Many zostają dwukrotnie zwiększone.\n\nW ramach Akcji możesz pomóc wybranemu magowi w zasięgu 3 m w rzucaniu zaklęć. Do początku Twojej następnej tury, jeżeli wybrany mag się od Ciebie nie odsunie, gdy ten mag rzuca jakiekolwiek zaklęcie, możesz zadeklarować, że zużywasz swoją manę, aby wzmocnić zaklęcie wybranego maga (Księga Magii). Mana wykorzystana w celu wzmocnienia zaklęcia nie liczy się do wykonywanego przez maga testu na to, czy uda mu się kontrolować dużą ilość mocy, ale wzmacniając zaklęcie, nie możesz przekroczyć swojego maksymalnego kosztu zaklęcia.\n\nDodatkowo w ramach Akcji Natychmiastowej możesz przekazać część swojej many. Jeżeli chcesz to zrobić, wykonaj Test na Zdolności Magiczne (Magic). Trudność zależy od odległości od maga (4:S poniżej 1 m, 5:S poniżej 2 m, 6:S poniżej 3 m), a Ilość Wymaganych Sukcesów (S) jest równa ilości przekazywanej many."
     },
     "Podejrzliwość Wobec Zmian": {
       "name": "Podejrzliwosc Wobec Zmian",
@@ -155,15 +155,15 @@
     },
     "Odporność na Trucizny": {
       "name": "Poison Resistance",
-      "description": "Postać do pewnego stopnia uodporniła się na zatrucia.\n\n\nGdy postać musi wykonać test na Wytrzymałość aby uniknąć zatrucia, podwój ilość kości wynikającą z poziomu Umiejętności Wytrzymałość."
+      "description": "Postać do pewnego stopnia uodporniła się na zatrucia.\n\nGdy postać musi wykonać test na Wytrzymałość aby uniknąć zatrucia, podwój ilość kości wynikającą z poziomu Umiejętności Wytrzymałość."
     },
     "Riposta": {
       "name": "Riposte",
-      "description": "Postać potrafi wykorzystywać swoje niesamowite umiejętności w fechtunku nie tylko aby unikać ataków bądź się przed nimi bronić, ale także aby wyprowadzać dewastujące kontrataki.\n\n\nRaz na rundę Postać po udanym Parowaniu może wykonać Ripostę. Riposta może być atakiem wręcz bądź dystansowym, ale musi być skierowana w przeciwnika, którego atak został Sparowany. Cel Riposty nie może odpierać tego ataku (jednak może go unikać za punkt Zapału), a ponadto sam atak jest prostszy o jeden Stopień."
+      "description": "Postać potrafi wykorzystywać swoje niesamowite umiejętności w fechtunku nie tylko aby unikać ataków bądź się przed nimi bronić, ale także aby wyprowadzać dewastujące kontrataki.\n\nRaz na rundę Postać po udanym Parowaniu może wykonać Ripostę. Riposta może być atakiem wręcz bądź dystansowym, ale musi być skierowana w przeciwnika, którego atak został Sparowany. Cel Riposty nie może odpierać tego ataku (jednak może go unikać za punkt Zapału), a ponadto sam atak jest prostszy o jeden Stopień."
     },
     "Rozplatanie Zaklęć": {
       "name": "Spell Shattering",
-      "description": "Każdy mag posiadający ten Talent może raz na rundę za darmo dokonać próby rozplatania, jednak dane zaklęcie może być rozplatane wyłącznie raz.\n\n\nMagowie posiadający Zapał mogą próbować rozpleść więcej zaklęć - każda następna taka próba kosztuje jeden punkt Zapału. Magowie sakralni mogą potraktować rozplatanie zaklęcia jako modlitwę, zmieniając Atrybut swojego Testu na Duszę, ale jednocześnie zwiększając koszt wykorzystania tego Talentu o 1 punkt Zapału.\n\n\nJeżeli Postać widzi istotę rzucającą zaklęcie i jest od niej w zasięgu 20 m, może zadeklarować, że próbuje rozpleść rzucane zaklęcie. Postać wykonuje Test na Zdolności Magiczne (Magic lub Soul, jeśli jest magiem sakralnym), gdzie Trudność (T) jest równa trudności zaklęcia, a liczba wymaganych Sukcesów (S) jest o 1 większa od liczby sukcesów wyrzuconych przez maga rzucającego zaklęcie. Jeżeli wynik Testu Postaci będzie wyższy niż wynik Testu przeciwnika, zaklęcie zostaje rozplecione."
+      "description": "Każdy mag posiadający ten Talent może raz na rundę za darmo dokonać próby rozplatania, jednak dane zaklęcie może być rozplatane wyłącznie raz.\n\nMagowie posiadający Zapał mogą próbować rozpleść więcej zaklęć - każda następna taka próba kosztuje jeden punkt Zapału. Magowie sakralni mogą potraktować rozplatanie zaklęcia jako modlitwę, zmieniając Atrybut swojego Testu na Duszę, ale jednocześnie zwiększając koszt wykorzystania tego Talentu o 1 punkt Zapału.\n\nJeżeli Postać widzi istotę rzucającą zaklęcie i jest od niej w zasięgu 20 m, może zadeklarować, że próbuje rozpleść rzucane zaklęcie. Postać wykonuje Test na Zdolności Magiczne (Magic lub Soul, jeśli jest magiem sakralnym), gdzie Trudność (T) jest równa trudności zaklęcia, a liczba wymaganych Sukcesów (S) jest o 1 większa od liczby sukcesów wyrzuconych przez maga rzucającego zaklęcie. Jeżeli wynik Testu Postaci będzie wyższy niż wynik Testu przeciwnika, zaklęcie zostaje rozplecione."
     },
     "Tajemna Technologia": {
       "name": "Tajemna Technologia",
@@ -171,15 +171,15 @@
     },
     "Technologia Jest Wśród Nas": {
       "name": "Technology Is Among Us",
-      "description": "Jak inne rasy na co dzień mają styczność z magią, tak ludzie posługują się znacznie bardziej zaawansowaną technologią niż inne rasy - telefony, komputery, samochody… Długo by tu wymieniać. Dla innych ras ludzka technologia jest niezrozumiała, ale ludzie potrafią się nią bez problemu posługiwać.\n\n\nPodstawowa obsługa ludzkich urządzeń nie sprawia Ci kłopotu, a dodatkowo jeżeli masz instrukcję do danego urządzenia w języku zrozumiałym dla ciebie, to bez problemu możesz skorzystać z technologii Obcej cywilizacji, której poziom technologiczny jest porównywalny bądź niższy do poziomu cywilizacji ziemskiej."
+      "description": "Jak inne rasy na co dzień mają styczność z magią, tak ludzie posługują się znacznie bardziej zaawansowaną technologią niż inne rasy - telefony, komputery, samochody… Długo by tu wymieniać. Dla innych ras ludzka technologia jest niezrozumiała, ale ludzie potrafią się nią bez problemu posługiwać.\n\nPodstawowa obsługa ludzkich urządzeń nie sprawia Ci kłopotu, a dodatkowo jeżeli masz instrukcję do danego urządzenia w języku zrozumiałym dla ciebie, to bez problemu możesz skorzystać z technologii Obcej cywilizacji, której poziom technologiczny jest porównywalny bądź niższy do poziomu cywilizacji ziemskiej."
     },
     "Jedność z Magią": {
       "name": "Unity With Magic",
-      "description": "Ten Talent można wykupić wyłącznie podczas tworzenia postaci.\n\n\nPodczas tworzenia postaci po wykonaniu rzutu na Magię od wyniku na rzucie kością odejmij 1, a ponadto jeżeli wynik po odjęciu będzie nie mniejszy niż 7, wykonaj ponownie rzut.\n\n\nTego Talentu nie można wziąć jeżeli Postać ma już Talent Odporność na Magię."
+      "description": "Ten Talent można wykupić wyłącznie podczas tworzenia postaci.\n\nPodczas tworzenia postaci po wykonaniu rzutu na Magię od wyniku na rzucie kością odejmij 1, a ponadto jeżeli wynik po odjęciu będzie nie mniejszy niż 7, wykonaj ponownie rzut.\n\nTego Talentu nie można wziąć jeżeli Postać ma już Talent Odporność na Magię."
     },
     "Jedność z Naturą": {
       "name": "Unity With Nature",
-      "description": "Jesteś bardzo blisko związany(a) z Naturą. \n\n\nPodwajasz liczbę kości wynikających z ilości Punktów Umiejętności w Umiejętnościach Skradanie się oraz Zdolności Magiczne, jeżeli jesteś w miejscu niezmienionym przez jakąkolwiek inteligentną rasę."
+      "description": "Jesteś bardzo blisko związany(a) z Naturą. \n\nPodwajasz liczbę kości wynikających z ilości Punktów Umiejętności w Umiejętnościach Skradanie się oraz Zdolności Magiczne, jeżeli jesteś w miejscu niezmienionym przez jakąkolwiek inteligentną rasę."
     }
   }
 }

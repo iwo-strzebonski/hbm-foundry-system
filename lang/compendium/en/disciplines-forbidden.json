@@ -2,19 +2,23 @@
   "label": "Forbidden Disciplines",
   "entries": {
     "Magia Otchłani - Magia Aspektów": {
-      "name": "AbyssAspects"
+      "name": "AbyssAspects",
+      "description": "Magic Otchłani to zakazana i niezwykle niebezpieczna dyscyplina magii czerpiąca moc bezpośrednio z Otchłani - pramaterii chaosu i nicości. Pozwala na łamanie praw rzeczywistości, manipulację czasem, przestrzenią i istnieniem, ale zawsze niesie ryzyko skażenia i szaleństwa."
     },
     "Magia Otchłani - Pierwotna Magia": {
-      "name": "AbyssPrimal"
+      "name": "AbyssPrimal",
+      "description": "Magic Otchłani to zakazana i niezwykle niebezpieczna dyscyplina magii czerpiąca moc bezpośrednio z Otchłani - pramaterii chaosu i nicości. Pozwala na łamanie praw rzeczywistości, manipulację czasem, przestrzenią i istnieniem, ale zawsze niesie ryzyko skażenia i szaleństwa."
     },
     "Magia Krwi": {
-      "name": "Blood Magic"
+      "name": "Blood Magic",
+      "description": "Zasady Magii Krwi można znaleźć w dokumencie [04. Arcanum Sanguinis](../rules/04.%20Arcanum%20Sanguinis.md)."
     },
     "Magia Szkarłatu": {
       "name": "Crimson"
     },
     "Dzika Wiedźmia Magia": {
-      "name": "Wild Witch Magic"
+      "name": "Wild Witch Magic",
+      "description": "Dzika magia wiedźm jest antytezą uporządkowanej, akademickiej dziedziny wiedźm-czarownic. Podczas gdy czarownice działają w ramach rygorystycznych, wręcz matematycznych, procesów, rytuałów i kodeksów, dzikie wiedźmy czerpią moc z pierwotnych źródeł, opierając swoje działania na intuicji, instynkcie i bezpośredniej więzi z naturą oraz pradawnymi siłami. Magic ta jest surowa, często niestabilna i nieprzewidywalna; jej opanowanie wymaga zarówno talentu, jak i odwagi."
     },
     "Magia Otchłani": {
       "name": "Abyss Magic"

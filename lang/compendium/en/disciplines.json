@@ -3,60 +3,66 @@
   "entries": {
     "Alchemia - Warzenie Eliksirów": {
       "name": "Alchemy - Brewing of Elixirs",
-      "description": "[[Alchemia]]"
+      "description": "Warzenie Eliksirów to dziedzina [Alchemii](../Alchemia.md) dotycząca tworzenia wywarów o określonych właściwościach z magicznych składników. Eliksiry mogą mieć mieć właściwości podobne do zwykłych wywarów leczniczych, jednak mają o wiele mocniejsze działanie. Potrafisz warzyć wybrane eliksiry a także je rozpoznawać."
     },
     "Alchemia - Transmutacja": {
       "name": "Alchemy - Transmutation",
-      "description": "[[Alchemia]]"
+      "description": "Transmutacja to dziedzina [Alchemii](../Alchemia.md) zajmująca się przemianą jednych materiałów w drugie za pomocą przeróżnych instrumentów, wśród których najpopularniejszym jest Alchematorium. Dzięki Transmutacji można przekształcić żelazo w każdy dowolny metal (nawet złoto!), jednak proces ten nie jest pozbawiony wad - po pierwsze, w trakcie procesu ubywa materii, która zamieniana jest w odpady alchemiczne, których nie da się nijak przywrócić do stanu poprzedniego. Po drugie w uzyskanym materiale pozostają smugi magii. Potrafisz wykorzystywać sprzęt alchemiczny do przeprowadzania transmutacji."
     },
     "Rzemiosło Artefaktów": {
       "name": "Crafting of Artifacts",
-      "description": "[[Rzemiosło Artefaktów]]"
+      "description": "Rzemieślnicy Artefaktów są najmniej docenianymi magami, pomimo tego, że na próżno szukać maga, który nie korzysta z magicznych przedmiotów. Twórcy artefaktów są także uczeni wyszukiwania magicznych przedmiotów. Rzemieślnicy Artefaktów posługują się kolorem fioletowym. Potrafisz tworzyć potężne magiczne artefakty, które wzmacniają Twoją moc magiczną, oraz nasycać różne przedmioty magią."
     },
     "Botanika": {
       "name": "Botany",
-      "description": "[[Botanika]]"
+      "description": "Botanika to dyscyplina magii zajmująca się badaniem, hodowlą i tworzeniem magicznych roślin oraz ich zastosowaniem w magii i alchemii. Łączy wiedzę przyrodniczą z praktyką magiczną, pozwalając na tworzenie nowych gatunków i magicznych substancji."
     },
     "Magia Żywiołów (Powietrze)": {
-      "name": "Elemental Magic - Air"
+      "name": "Elemental Magic - Air",
+      "description": "Magic Żywiołów to dyscyplina magii oparta na kontroli i manipulacji czterema podstawowymi żywiołami: powietrzem, wodą, ogniem i ziemią. Pozwala na tworzenie potężnych efektów związanych z naturą i energią."
     },
     "Magia Żywiołów (Ziemia)": {
-      "name": "Elemental Magic - Earth"
+      "name": "Elemental Magic - Earth",
+      "description": "Magic Żywiołów to dyscyplina magii oparta na kontroli i manipulacji czterema podstawowymi żywiołami: powietrzem, wodą, ogniem i ziemią. Pozwala na tworzenie potężnych efektów związanych z naturą i energią."
     },
     "Magia Żywiołów (Ogień)": {
-      "name": "Elemental Magic - Fire"
+      "name": "Elemental Magic - Fire",
+      "description": "Magic Żywiołów to dyscyplina magii oparta na kontroli i manipulacji czterema podstawowymi żywiołami: powietrzem, wodą, ogniem i ziemią. Pozwala na tworzenie potężnych efektów związanych z naturą i energią."
     },
     "Magia Żywiołów (Woda)": {
-      "name": "Elemental Magic - Water"
+      "name": "Elemental Magic - Water",
+      "description": "Magic Żywiołów to dyscyplina magii oparta na kontroli i manipulacji czterema podstawowymi żywiołami: powietrzem, wodą, ogniem i ziemią. Pozwala na tworzenie potężnych efektów związanych z naturą i energią."
     },
     "Golemancja": {
-      "name": "Golemancy"
+      "name": "Golemancy",
+      "description": "Golemancja to dyscyplina magii zajmująca się tworzeniem, animacją i kontrolą magicznych konstrukcji, zwanych golemami. Łączy elementy magii runicznej, alchemii i taumaturgii, pozwalając na ożywianie materii nieożywionej."
     },
     "Magia Iluzji": {
       "name": "Magic of Illusion",
-      "description": "[[Magic Iluzji]]"
+      "description": "Magic Iluzji to dyscyplina magii specjalizująca się w manipulacji zmysłami, tworzeniu złudzeń i oszustw. Pozwala na kreowanie fałszywych obrazów, dźwięków i emocji, a także wpływanie na percepcję rzeczywistości."
     },
     "Źródło Mocy": {
       "name": "Sources of Power",
-      "description": "Nie potrafisz rzucać zaklęć, ale Twoje ciało jest w stanie przechowywać znacznie więcej many, a ponadto możesz asystować innym magom w rzucaniu zaklęć, udzielając im many. Pierwotna Energia Nie możesz rzucać ani rozplatać zaklęć. Twój Maksymalny Koszt Zaklęcia oraz Ilość Many zostają dwukrotnie zwiększone."
+      "description": "Źródła Mocy są źródłami many dla magów. Nie potrafią rzucać zaklęć, mogą jedynie przekazywać swoją moc innym bądź wzmacniać rzucone już zaklęcia. Podstawową różnicą między Źródłami Mocy a magami jest pojemność - Źródła mają o wiele więcej many. Źródła Mocy same z siebie nie potrafią skupiać mocy - dlatego właśnie nie mogą rzucać zaklęć - ale za to mają dwa razy więcej Many w stosunku do magów o tym samym Poziomie Magicznym. Źródła Mocy posługują się tęczą jako swoim kolorem, jako że żadne Źródło Mocy nie ma stałej barwy śladu magicznego. Nie potrafisz rzucać zaklęć, ale Twoje ciało jest w stanie przechowywać znacznie więcej many, a ponadto możesz asystować innym magom w rzucaniu zaklęć, udzielając im many."
     },
     "Nekromancja": {
       "name": "Necromancy",
-      "description": "![[spells/academic/necromancy/ether-guide]]"
+      "description": "Nekromancja to dyscyplina magii skupiona na śmierci, duszach, nieumarłych i komunikacji z zaświatami. Pozwala na przywoływanie, kontrolę i tworzenie istot nieumarłych, manipulację energią śmierci oraz badanie granic życia i śmierci."
     },
     "Magia Runiczna": {
-      "name": "Runic Magic"
+      "name": "Runic Magic",
+      "description": "Magic Runiczna to dyscyplina oparta na tworzeniu, aktywacji i łamaniu run - magicznych symboli, pieczęci i inskrypcji. Pozwala na trwałe zaklinanie przedmiotów, ochronę miejsc, wzmacnianie zaklęć oraz tworzenie pułapek i barier."
     },
     "Magia Sakralna": {
       "name": "Sacred Magic"
     },
     "Magia Sakralna - Egzorcyzmy": {
       "name": "Sacred Magic - Exorcisms",
-      "description": "[[Magic Sakralna]]"
+      "description": "Część magów posługujących się Magią Sakralną nie ma talentu do pomagania innym, czy to lecząc, czy ochraniając w trakcie walki, czyli do tego, do czego głównie się ich szkoli. Okazuje się jednak, że wybrane osoby z tej grupy potrafią korzystać ze swojej magii w kompletnie innych celach. Egzorcyści, bo tym są magowie korzystający w niecodzienny sposób ze swoich zdolności, walczą z demonami za pomocą słów… I okazjonalnie za pomocą broni konwencjonalnej. Jako że ich zaklęcia wymagają od nich bardzo dużego skupienia, są pozbawieni możliwości bronienia się magią, dlatego też szkoleni są do walki bronią białą i dystansową i, jako jedni z naprawdę niewielkiej grupy, Wschodnioeuropejska Szkoła Magii szkoli egzorcystów w korzystaniu z broni palnej."
     },
     "Wiedźmia Magia": {
       "name": "Witch Magic",
-      "description": "[[Wiedźmia Magic]]"
+      "description": "Wiedźma Magic znacznie różni się od akademickich Dziedzin Magii. I jak jest szkoła ucząca tego rodzaju magii - czyli Brytyjska Akademia Wiedźm - tak normalnie wiedźmy uczą po kilka uczennic we własnym zakresie. Różnice w nauczaniu oraz konceptach w zastosowaniach tej dziedziny magii wyjaśnianie są na sabatach odbywających się raz w miesiącu bądź raz na kwartał. Jako że jest to znacznie starszy rodzaj magii, ma znacznie więcej wspólnego z Pierwotną Magią niż dziedziny akademickie. W ostatnich latach, w związku z prośbami Brytyjskiej Akademii Wiedźm, w Polsce rozważane jest wprowadzenie rozróżnienia terminologicznego dla praktykujących magię wiedźm. Zgodnie z tymi planami, określenie „czarownica” miałoby być stosowane jako tłumaczenie angielskiego *witch*, odnoszące się do formalnej, akademickiej dziedziny magii, podczas gdy tradycyjne słowo „wiedźma” pozostawałoby tłumaczeniem *hag*, odnoszącym się do dzikiej, pierwotnej magii. Rozróżnienie to ma na celu ułatwienie klasyfikacji i zrozumienia obu dziedzin, zwłaszcza w kontekście edukacji magicznej i publikacji naukowych."
     },
     "Alchemia": {
       "name": "Alchemy"

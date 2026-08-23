@@ -3,7 +3,7 @@
   "entries": {
     "Pancerz Ciężki": {
       "name": "Heavy Armor",
-      "description": "<p>* **Armor Points:** 3\n* **Requirements:** Body >= 4</p>"
+      "description": "<p>* **Armor Points:** 3\r\n* **Requirements:** Body >= 4</p>"
     },
     "Pancerz Lekki": {
       "name": "Light Armor",
@@ -11,7 +11,7 @@
     },
     "Pancerz Średni": {
       "name": "Medium Armor",
-      "description": "<p>* **Armor Points:** 2\n* **Requirements:** Body >= 2</p>"
+      "description": "<p>* **Armor Points:** 2\r\n* **Requirements:** Body >= 2</p>"
     },
     "Tarcza": {
       "name": "Shield",
