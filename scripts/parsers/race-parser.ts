@@ -1,128 +1,137 @@
 /**
- * Race parser. Races in HbM live in Podręcznik Gry, Rozdział II.
+ * Race parser. Since the `bab5a62` vault split, the playable races' Cechy
+ * Rasowe (mechanical stats: attribute points, available disciplines, free
+ * talents) each live in their own character-creation file:
  *
- * Format:
- *   Race Name (optional /Variant)
+ *   rules/00. Podręcznik Gry/Rozdział II - Tworzenie Postaci/Wybór Rasy - <Name>.md
+ *
+ * Only 5 races are player-selectable at character creation (Człowiek, Elf,
+ * Feles, Lamia, Anioł/Anielica) - Krasnolud, Demon and Malferianin have no
+ * such file and are NPC/plot-only races with no point-buy stats to parse.
+ *
+ * Flavor description comes from the vault's canonical `races/<Name>.md`
+ * write-up's "Krótki opis" section (their canonical home per the changelog's
+ * "disciplines vs disciplines/" pattern - character-creation files only
+ * carry a short player-facing blurb, not the full lore).
+ *
+ * Format of each Wybór Rasy file (unchanged from the pre-split monolith,
+ * just relocated to one file per race):
  *   <flavor paragraphs>
  *
  *   Cechy Rasowe:
  *   * Dostępne Dziedziny Magii:
  *      * <discipline 1>
- *      * <discipline 2>
  *   * N Punktów Atrybutów
  *   * Darmowe Talenty:
  *      * <talent 1>
- *      * <talent 2>
  *   * 1 Punkt Umiejętności w <skill>
  *   * N Punktów Umiejętności
- *   ________________
  */
 
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { ParsedDoc, ParserContext, ParserFn } from './types';
-import { normalizeKey, slugify } from './helpers';
+import { slugify } from './helpers';
 
-const SEPARATOR = /^_{3,}$/;
 const RACE_FEATURES_HEADER = /^Cechy Rasowe:\s*$/;
+const FRONTMATTER_FENCE = /^---\s*$/;
 
-const SOURCE_FILE = '_books/HbM RPG v3 - Podręcznik Gry.md';
-const KNOWN_RACES = new Set([
-  'człowiek',
-  'elf',
-  'feles (kotowate)',
-  'feles',
-  'lamia (naga)',
-  'lamia',
-  'anioł/anielica',
-  'anioł',
-  'krasnolud',
-  'demon',
-  'malferianin',
-]);
+interface RaceSource {
+  name: string;
+  /** Relative to `rules/00. Podręcznik Gry/Rozdział II - Tworzenie Postaci/`. */
+  mechanicalFile: string;
+  /** Relative to `ObsidianNotes/races/`. */
+  descriptionFile: string;
+}
+
+const CHARACTER_CREATION_DIR = 'ObsidianNotes/rules/00. Podręcznik Gry/Rozdział II - Tworzenie Postaci';
+
+const RACE_SOURCES: RaceSource[] = [
+  { name: 'Człowiek', mechanicalFile: 'Wybór Rasy - Człowiek.md', descriptionFile: 'Człowiek.md' },
+  { name: 'Elf', mechanicalFile: 'Wybór Rasy - Elf.md', descriptionFile: 'Elf.md' },
+  { name: 'Feles', mechanicalFile: 'Wybór Rasy - Feles.md', descriptionFile: 'Feles.md' },
+  { name: 'Lamia', mechanicalFile: 'Wybór Rasy - Lamia.md', descriptionFile: 'Lamia.md' },
+  { name: 'Anioł/Anielica', mechanicalFile: 'Wybór Rasy - Anioł-Anielica.md', descriptionFile: 'Anioł.md' },
+];
+
+function skipFrontmatter(lines: string[]): number {
+  if (lines.length === 0 || !FRONTMATTER_FENCE.test(lines[0].trim())) return 0;
+  for (let i = 1; i < lines.length; i++) {
+    if (FRONTMATTER_FENCE.test(lines[i].trim())) return i + 1;
+  }
+  return 0;
+}
+
+/** Pulls the "## Krótki opis" section out of a canonical `races/` write-up. */
+function readShortDescription(repoRoot: string, descriptionFile: string): string {
+  let lines: string[];
+  try {
+    lines = readFileSync(resolve(repoRoot, 'ObsidianNotes/races', descriptionFile), 'utf8').split(/\r?\n/);
+  } catch {
+    return '';
+  }
+  const body = lines.slice(skipFrontmatter(lines));
+  const startIdx = body.findIndex((l) => /^#{1,6}\s*Krótki opis\s*$/i.test(l.trim()));
+  if (startIdx < 0) return '';
+  const buf: string[] = [];
+  for (let i = startIdx + 1; i < body.length; i++) {
+    const cur = body[i].trim();
+    if (/^#{1,6}\s+/.test(cur)) break;
+    if (cur === '') continue;
+    buf.push(cur);
+  }
+  return buf.join(' ');
+}
 
 export const parseRaces: ParserFn = async (ctx: ParserContext): Promise<ParsedDoc[]> => {
   const docs: ParsedDoc[] = [];
-  const path = resolve(ctx.repoRoot, SOURCE_FILE);
-  let lines: string[] = [];
-  try {
-    lines = readFileSync(path, 'utf8').split(/\r?\n/);
-  } catch {
-    return docs;
-  }
 
-  // Find each `Cechy Rasowe:` block; the race name is the most recent
-  // non-empty, non-separator line above the block that matches a known race.
-  for (let i = 0; i < lines.length; i++) {
-    if (!RACE_FEATURES_HEADER.test(lines[i].trim())) continue;
-
-    // Walk up looking for the race name + flavor paragraphs.
-    let nameLine = '';
-    let nameIdx = i - 1;
-    while (nameIdx >= 0) {
-      const cur = lines[nameIdx].trim();
-      if (cur && !SEPARATOR.test(cur)) {
-        // The name is the FIRST line above that matches KNOWN_RACES; flavor lines come between.
-        if (KNOWN_RACES.has(normalizeKey(cur))) {
-          nameLine = cur;
-          break;
-        }
-      }
-      nameIdx--;
+  for (const source of RACE_SOURCES) {
+    const path = resolve(ctx.repoRoot, CHARACTER_CREATION_DIR, source.mechanicalFile);
+    let lines: string[];
+    try {
+      lines = readFileSync(path, 'utf8').split(/\r?\n/);
+    } catch {
+      console.warn(`[race-parser] file not found: ${source.mechanicalFile}`);
+      continue;
     }
-    if (!nameLine) continue;
+    const body = lines.slice(skipFrontmatter(lines));
 
-    // Flavor description = lines between race name and `Cechy Rasowe:`.
-    const flavorLines: string[] = [];
-    for (let j = nameIdx + 1; j < i; j++) {
-      const cur = lines[j].trimEnd();
-      if (cur === '' || SEPARATOR.test(cur.trim())) continue;
-      flavorLines.push(cur);
-    }
-    const physicalDescription = flavorLines.join('\n').trim();
-
-    // Walk down through the bullet block until next separator/blank-paragraph.
-    const bulletLines: string[] = [];
-    let k = i + 1;
-    while (k < lines.length) {
-      const cur = lines[k].trimEnd();
-      if (SEPARATOR.test(cur.trim())) break;
-      bulletLines.push(cur);
-      k++;
+    const headerIdx = body.findIndex((l) => RACE_FEATURES_HEADER.test(l.trim()));
+    if (headerIdx < 0) {
+      console.warn(`[race-parser] no "Cechy Rasowe:" block in ${source.mechanicalFile}`);
+      continue;
     }
 
+    const bulletLines = body.slice(headerIdx + 1).map((l) => l.trimEnd());
     const parsed = parseRaceFeatures(bulletLines);
 
-    const baseSlug = slugify(stripVariant(nameLine));
+    const description = readShortDescription(ctx.repoRoot, source.descriptionFile);
+    const baseSlug = slugify(source.name);
     const id = ctx.idOverrides[baseSlug] ?? baseSlug;
 
     docs.push({
       id,
-      name: stripVariant(nameLine),
+      name: source.name,
       documentType: 'Item',
       subType: 'race',
       pack: 'races',
-      source: { book: 'podrecznik-gry', chapter: 'Tworzenie Postaci', line: nameIdx + 1 },
+      source: { book: 'podrecznik-gry', chapter: 'Tworzenie Postaci' },
       system: {
         availableDisciplines: parsed.disciplines,
         attributePoints: parsed.attributePoints,
         skillPoints: parsed.skillPoints,
         freeTalents: parsed.freeTalents,
         racialAbilities: [],
-        physicalDescription,
-        description: physicalDescription,
+        physicalDescription: description,
+        description,
       },
-      description: physicalDescription,
+      description,
     });
   }
 
   return docs;
 };
-
-function stripVariant(name: string): string {
-  // "Anioł/Anielica" → "Anioł"; "Feles (Kotowate)" → "Feles"
-  return name.split('/')[0].split('(')[0].trim();
-}
 
 interface ParsedRaceFeatures {
   disciplines: string[];
@@ -167,7 +176,7 @@ function parseRaceFeatures(lines: string[]): ParsedRaceFeatures {
       continue;
     }
 
-    // Indented child bullet `   * xxx` (Google Docs export uses tabs/spaces).
+    // Indented child bullet `   * xxx` (leading tabs/spaces).
     const child = line.match(/^\s+\*\s+(.+)$/);
     if (!child) continue;
     const text = child[1].trim();

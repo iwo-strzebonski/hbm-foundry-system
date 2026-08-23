@@ -1,6 +1,9 @@
 /**
- * Combat hooks - handle per-round Mana reset, per-turn Zeal regen,
- * and condition-driven turn behavior (skip / damage tick / death save).
+ * Combat hooks - handle per-turn Zeal regen and condition-driven turn
+ * behavior (skip / damage tick / death save).
+ *
+ * Mana is a daily pool (see `constants.ts` MAGIC_POWER_TABLE), not a
+ * per-round budget, so it is intentionally NOT reset on `combatRound`.
  */
 
 import { applyDamage } from './damage';
@@ -18,13 +21,7 @@ function hasStatus(actor: any, id: string): boolean {
 }
 
 export function registerCombatHooks(): void {
-  Hooks.on('combatRound', async (combat: Combat, _updateData: unknown, _options: { advanceTime?: number; direction?: number }) => {
-    for (const combatant of combat.combatants) {
-      const actor = combatant.actor;
-      if (!actor || actor.type !== 'character') continue;
-      const sys = actor.system as { attributes: { mana: { max: number; value: number } } };
-      await actor.update({ 'system.attributes.mana.value': sys.attributes.mana.max });
-    }
+  Hooks.on('combatRound', async (_combat: Combat, _updateData: unknown, _options: { advanceTime?: number; direction?: number }) => {
     ChatMessage.create({
       content: `<em>${game.i18n.localize('HBM.combat.newRound')}</em>`,
       whisper: ChatMessage.getWhisperRecipients('GM'),

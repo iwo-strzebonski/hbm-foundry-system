@@ -12,10 +12,10 @@ import { ATTRIBUTES, SKILL_KEYS, SKILLS, AttributeKey, getMagicPowerEntry } from
  * Player Character data model.
  *
  * Derived stats (computed in prepareDerivedData):
- *  - attributes.health.max = 3 * (body + mind + soul)
+ *  - attributes.health.max = 2 * (body + mind + soul)
  *  - attributes.zeal.max   = ceil(soul / 2)
  *  - attributes.initiative = mind + skills.reflex.value + skills.perception.value
- *  - attributes.mana.max / .maxPerSpell / magic.dicePool - from MAGIC_POWER_TABLE
+ *  - attributes.mana.max (daily pool) / .maxPerSpell / magic.dicePool - from MAGIC_POWER_TABLE
  */
 export class CharacterData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
@@ -163,7 +163,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
 
     const a = sys.attributes;
 
-    a.health.max = 3 * (a.body.value + a.mind.value + a.soul.value);
+    a.health.max = 2 * (a.body.value + a.mind.value + a.soul.value);
     if (a.health.value > a.health.max) a.health.value = a.health.max;
 
     a.zeal.max = Math.ceil(a.soul.value / 2);
@@ -190,7 +190,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
 
     const mp = getMagicPowerEntry(a.magic.actual);
     a.magic.dicePool = mp.dicePool;
-    a.mana.max = mp.manaPerRound;
+    a.mana.max = mp.manaPerDay;
     a.mana.maxPerSpell = mp.maxPerSpell;
     if (a.mana.value > a.mana.max) a.mana.value = a.mana.max;
 

@@ -46,7 +46,8 @@ export class NpcData extends foundry.abstract.TypeDataModel {
         mind: new f.SchemaField({ value: makeIntField(1, { min: 1, max: 12 }) }),
         soul: new f.SchemaField({ value: makeIntField(1, { min: 1, max: 12 }) }),
         magic: new f.SchemaField({
-          value: makeIntField(0, { min: 0, max: 10 }),
+          // Valid 1k10 character-creation values only (Atrybuty.md).
+          value: makeIntField(0, { choices: [0, 1, 2, 3, 4, 6] }),
           actual: makeIntField(0, { min: 0, max: 10 }), // derived
         }),
         mana: new f.SchemaField({
@@ -112,6 +113,7 @@ export class NpcData extends foundry.abstract.TypeDataModel {
         magicalShield: { value: number; max: number };
         initiative: { value: number; bonus: number };
       };
+      skills: Record<string, { value: number }>;
     };
     const a = sys.attributes;
 
@@ -134,7 +136,7 @@ export class NpcData extends foundry.abstract.TypeDataModel {
 
     // Derive NPC mana from MAGIC_POWER_TABLE
     const mp = getMagicPowerEntry(a.magic.actual);
-    a.mana.max = mp.manaPerRound;
+    a.mana.max = mp.manaPerDay;
     a.mana.maxPerSpell = mp.maxPerSpell;
     if (a.mana.value > a.mana.max) a.mana.value = a.mana.max;
 
@@ -154,6 +156,8 @@ export class NpcData extends foundry.abstract.TypeDataModel {
 
     a.initiative.value =
       a.mind.value +
+      (sys.skills.reflex?.value ?? 0) +
+      (sys.skills.perception?.value ?? 0) +
       initiativeBonus +
       (a.initiative.bonus ?? 0);
 

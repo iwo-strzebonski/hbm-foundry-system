@@ -1,185 +1,110 @@
 /**
- * Talent parser. Talents in HbM are formatted as plain-text headers:
+ * Talent parser. Since the `bab5a62` vault split, every talent lives in its
+ * own file (one per talent) under a book's "Talenty" chapter folder:
  *
- *   Talent Name
- *   Wymagania: req1, req2 …       (optional; single line)
- *   <description paragraphs>
- *   ________________
+ *   rules/00. Podręcznik Gry/Rozdział IV - Talenty/<Name>.md
+ *   rules/06. Bestiariusz/Rozdział III - Talenty/<Name>.md
+ *   rules/04. Arcanum Sanguinis/Rozdział IV - Talenty/<Name>.md
+ *   rules/02. Klątwa Otchłani/Rozdział II - Talenty/<Name>.md
  *
- * They live in:
- *   - Podręcznik Gry, "Rozdział IV - Talenty"
- *   - Bestiariusz, "Rozdział III - Talenty"  (NPC-only talents)
- *
- * The walker can't help us here - we segment by `________________`
- * separators within the talent chapter and look for a "Wymagania:" line.
+ * Each file is: YAML frontmatter, an optional `Wymagania: ...` /
+ * `**Wymagania**: ...` line anywhere in the body, and the rest is
+ * description prose. The file's own name is the talent name.
  */
 
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { resolve, extname, basename } from 'node:path';
 import type { ParsedDoc, ParserContext, ParserFn, SourceBookId } from './types';
 import { slugify } from './helpers';
 
-const SEPARATOR = /^_{3,}$/;
-const REQUIREMENTS_PREFIX = /^(?:\*\*|\*)?Wymagania:(?:\*\*|\*)?\s*(.+)$/i;
+const REQUIREMENTS_LINE = /^(?:\*\*|\*)?Wymagania(?:\*\*|\*)?\s*:\s*(.+)$/i;
+const FRONTMATTER_FENCE = /^---\s*$/;
 
-interface TalentSource {
+interface TalentFolderSource {
   book: SourceBookId;
-  file: string;
-  /** Inclusive line range (1-based) of the talent chapter. */
-  startMarker: RegExp;
-  endMarker: RegExp;
+  /** Folder path relative to repoRoot, one talent per .md file. */
+  folder: string;
   /** Pack id to write into. */
   pack: string;
   /** Optional source-module flag stamped onto each talent. */
   sourceModule?: 'arcanum-sanguinis' | 'abyss-curse' | 'crimson-cult' | null;
 }
 
-const TALENT_SOURCES: TalentSource[] = [
+const TALENT_FOLDER_SOURCES: TalentFolderSource[] = [
   {
     book: 'podrecznik-gry',
-    file: 'ObsidianNotes/rules/00. Podręcznik Gry.md',
-    startMarker: /^Rozdział IV - Talenty\s*$/,
-    endMarker: /^Rozdział V\b/,
+    folder: 'ObsidianNotes/rules/00. Podręcznik Gry/Rozdział IV - Talenty',
     pack: 'talents',
     sourceModule: null,
   },
   {
     book: 'bestiariusz',
-    file: 'ObsidianNotes/rules/06. Bestiariusz.md',
-    startMarker: /^Rozdział III - Talenty\s*$/,
-    endMarker: /^Rozdział IV\b/,
+    folder: 'ObsidianNotes/rules/06. Bestiariusz/Rozdział III - Talenty',
     pack: 'talents-npc',
     sourceModule: null,
   },
   {
-    // Arcanum Sanguinis: now lives in ObsidianNotes/rules/04. Arcanum Sanguinis.md.
-    // Headings may be prefixed with `## ` or `### `.
     book: 'arcanum-sanguinis',
-    file: 'ObsidianNotes/rules/04. Arcanum Sanguinis.md',
-    startMarker: /^#{0,4}\s*Rozdział IV - Talenty\s*$/,
-    endMarker: /^#{0,4}\s*(Rozdział V\b|Aneks\b)/,
+    folder: 'ObsidianNotes/rules/04. Arcanum Sanguinis/Rozdział IV - Talenty',
     pack: 'talents-blood',
     sourceModule: 'arcanum-sanguinis',
   },
   {
-    // Klątwa Otchłani: now lives in ObsidianNotes/rules/02. Klątwa Otchłani.md.
     book: 'klatwa-otchlani',
-    file: 'ObsidianNotes/rules/02. Klątwa Otchłani.md',
-    startMarker: /^#{0,4}\s*Rozdział II - Talenty\s*$/,
-    endMarker: /^#{0,4}\s*Rozdział III\b/,
+    folder: 'ObsidianNotes/rules/02. Klątwa Otchłani/Rozdział II - Talenty',
     pack: 'talents-eldritch',
     sourceModule: 'abyss-curse',
   },
 ];
 
-/**
- * Talent chapters are noisy - split into segments by separator lines, then
- * within each segment find consecutive talent blocks. A talent block is:
- *   - first non-empty line = name (short, no trailing punctuation, no colon)
- *   - optional `Wymagania: ...` line
- *   - subsequent lines until next name candidate or end of segment = description
- *
- * Heuristic for name detection: line is short (< 60 chars), no trailing `.`,
- * not a bullet, not a header (`Rozdział`, `Aneks`).
- */
+/** Skip YAML frontmatter (--- ... ---) at file start. Returns start line index. */
+function skipFrontmatter(lines: string[]): number {
+  if (lines.length === 0 || !FRONTMATTER_FENCE.test(lines[0].trim())) return 0;
+  for (let i = 1; i < lines.length; i++) {
+    if (FRONTMATTER_FENCE.test(lines[i].trim())) return i + 1;
+  }
+  return 0;
+}
+
+/** Pull the (first) `Wymagania:` line out of a talent file body; everything else is description. */
+function parseTalentBody(path: string): { requirements: string; description: string } {
+  const lines = readFileSync(path, 'utf8').split(/\r?\n/);
+  const body = lines.slice(skipFrontmatter(lines));
+
+  let requirements = '';
+  const descLines: string[] = [];
+  for (const raw of body) {
+    const m = requirements === '' ? raw.trim().match(REQUIREMENTS_LINE) : null;
+    if (m) {
+      requirements = m[1].trim();
+      continue;
+    }
+    descLines.push(raw);
+  }
+
+  return { requirements, description: descLines.join('\n').replace(/\n{3,}/g, '\n\n').trim() };
+}
+
 export const parseTalents: ParserFn = async (ctx: ParserContext): Promise<ParsedDoc[]> => {
   const docs: ParsedDoc[] = [];
 
-  for (const source of TALENT_SOURCES) {
-    const path = resolve(ctx.repoRoot, source.file);
-    let lines: string[] = [];
-    try {
-      lines = readFileSync(path, 'utf8').split(/\r?\n/);
-    } catch {
+  for (const source of TALENT_FOLDER_SOURCES) {
+    const dirPath = resolve(ctx.repoRoot, source.folder);
+    if (!existsSync(dirPath)) {
+      console.warn(`[talent-parser] folder not found: ${source.folder}`);
       continue;
     }
 
-    const startIdx = lines.findIndex((l) => source.startMarker.test(l.trim()));
-    if (startIdx < 0) continue;
-    const endIdx = lines.findIndex((l, i) => i > startIdx && source.endMarker.test(l.trim()));
-    const slice = lines.slice(startIdx + 1, endIdx > 0 ? endIdx : lines.length);
-
-    const hasMarkdownHeaders = slice.some((l) => l.trim().startsWith('### '));
-
-    // Walk the slice looking for talent blocks.
-    let i = 0;
-    while (i < slice.length) {
-      // Skip blanks and separators.
-      while (i < slice.length && (slice[i].trim() === '' || SEPARATOR.test(slice[i].trim()))) i++;
-      if (i >= slice.length) break;
-
-      const rawLine = slice[i].trim();
-      // Stop heuristic - bail out of obvious chapter changes.
-      if (/^Rozdział\b/.test(rawLine) || /^Aneks\b/.test(rawLine) || /^#{1,6}\s+(?:Rozdział|Aneks)\b/i.test(rawLine)) break;
-
-      let isName = false;
-      let nameLine = '';
-      if (hasMarkdownHeaders) {
-        if (rawLine.startsWith('### ')) {
-          isName = true;
-          nameLine = rawLine.replace(/^###\s+/, '').trim();
-        }
-      } else {
-        nameLine = rawLine.replace(/^#{1,6}\s+/, '').trim();
-        if (isPlausibleName(nameLine)) {
-          isName = true;
-        }
-      }
-
-      if (!isName) {
-        // Can't read this - skip the line and continue.
-        i++;
-        continue;
-      }
-
-      i++;
-      // Optional requirements line.
-      let requirements = '';
-      if (i < slice.length) {
-        const m = slice[i].trim().match(REQUIREMENTS_PREFIX);
-        if (m) {
-          requirements = m[1].trim();
-          i++;
-        }
-      }
-
-      // Description until next plausible name OR separator OR chapter.
-      const descLines: string[] = [];
-      while (i < slice.length) {
-        const cur = slice[i].trim();
-        if (SEPARATOR.test(cur)) {
-          i++; // consume separator and end this talent
-          break;
-        }
-        if (/^Rozdział\b/.test(cur) || /^Aneks\b/.test(cur) || /^#{1,6}\s+(?:Rozdział|Aneks)\b/i.test(cur)) break;
-
-        if (hasMarkdownHeaders) {
-          if (cur.startsWith('### ')) {
-            break;
-          }
-        } else {
-          // If we've already captured at least one description line and the
-          // current line looks like a talent header (plausible name; next line
-          // is Wymagania, blank, or another short line), treat as next talent.
-          const cleanCur = cur.replace(/^#{1,6}\s+/, '').trim();
-          if (descLines.length > 0 && cur && isPlausibleName(cleanCur)) {
-            const next = i + 1 < slice.length ? slice[i + 1].trim() : '';
-            if (REQUIREMENTS_PREFIX.test(next) || next === '' || isProseOrReq(next)) {
-              break;
-            }
-          }
-        }
-        descLines.push(slice[i]);
-        i++;
-      }
-
-      let finalName = nameLine;
-      if (nameLine === 'Czuły Zmysł') {
+    const files = readdirSync(dirPath).filter((f) => extname(f) === '.md');
+    for (const file of files) {
+      let finalName = basename(file, '.md');
+      if (finalName === 'Czuły Zmysł') {
         finalName = 'Czuły Zmysł (Zmysł)';
       }
+
+      const { requirements, description } = parseTalentBody(resolve(dirPath, file));
       const baseSlug = slugify(finalName);
       const id = ctx.idOverrides[baseSlug] ?? baseSlug;
-      const description = descLines.join('\n').trim();
 
       // Detect "(Dziedzina)" / "(Bóstwo)" / similar parameterised talents.
       const multiSelect = /\((Dziedzina|Bóstwo|Zmysł|Atrybut|Umiejętność)\)$/i.test(finalName);
@@ -190,7 +115,7 @@ export const parseTalents: ParserFn = async (ctx: ParserContext): Promise<Parsed
         documentType: 'Item',
         subType: 'talent',
         pack: source.pack,
-        source: { book: source.book, chapter: 'Talenty', line: startIdx + 1 },
+        source: { book: source.book, chapter: 'Talenty' },
         system: {
           requirements: parseRequirements(requirements, ctx),
           multiSelect,
@@ -211,70 +136,67 @@ export const parseTalents: ParserFn = async (ctx: ParserContext): Promise<Parsed
   return docs;
 };
 
+/**
+ * The 10 "discipline choice" talents live inline as headings inside the
+ * character-creation "Wybór Dziedziny Magii - <Discipline>.md" files.
+ * Heading level is inconsistent across files (#### to ######), so match
+ * against a name whitelist rather than a fixed heading depth.
+ */
+const DISCIPLINE_TALENT_FOLDER = 'ObsidianNotes/rules/00. Podręcznik Gry/Rozdział II - Tworzenie Postaci';
+const DISCIPLINE_CHOICE_FILES = [
+  'Wybór Dziedziny Magii - Alchemia.md',
+  'Wybór Dziedziny Magii - Botanika.md',
+  'Wybór Dziedziny Magii - Magia Iluzji.md',
+  'Wybór Dziedziny Magii - Magia Sakralna.md',
+  'Wybór Dziedziny Magii - Magia Żywiołów.md',
+  'Wybór Dziedziny Magii - Rzemiosło Artefaktów.md',
+  'Wybór Dziedziny Magii - Wiedźmia Magia.md',
+  'Wybór Dziedziny Magii - Źródło Mocy.md',
+];
+
+const DISCIPLINE_TALENT_NAMES = [
+  'Podejrzliwość Wobec Zmian',
+  'Nadzwyczajna Odporność',
+  'Magiczna Flora',
+  'Miłosierdzie',
+  'Błogosławieni Egzorcyści',
+  'Jedność z Żywiołem',
+  'Tajemna Technologia',
+  'Pierwotna Energia',
+  'Niezwykła Intuicja',
+  'Arytmetyczna Koncentracja',
+];
+
+const HEADING_LINE = /^#{1,6}\s+(.+)$/;
+
 async function parseDisciplineTalents(ctx: ParserContext): Promise<ParsedDoc[]> {
   const docs: ParsedDoc[] = [];
-  const path = resolve(ctx.repoRoot, 'ObsidianNotes/rules/00. Podr\u0119cznik Gry.md');
-  let lines: string[] = [];
-  try {
-    lines = readFileSync(path, 'utf8').split(/\r?\n/);
-  } catch {
-    return [];
-  }
+  const cleanNames = DISCIPLINE_TALENT_NAMES.map((n) => slugify(n));
 
-  const startIdx = lines.findIndex((l) => /^\s*Wyb[o\u00f3\u0143A3\ufffd]r Dziedziny Magii\s*$/i.test(l));
-  if (startIdx < 0) return [];
-  const endIdx = lines.findIndex((l, i) => i > startIdx && /^\s*Umiej[e\u0119\u0118\ufffd]tno[s\u015b\u015a\ufffd]ci i Talenty\s*$/i.test(l));
-  const slice = lines.slice(startIdx + 1, endIdx > 0 ? endIdx : lines.length);
+  for (const file of DISCIPLINE_CHOICE_FILES) {
+    const path = resolve(ctx.repoRoot, DISCIPLINE_TALENT_FOLDER, file);
+    let lines: string[] = [];
+    try {
+      lines = readFileSync(path, 'utf8').split(/\r?\n/);
+    } catch {
+      continue;
+    }
+    const body = lines.slice(skipFrontmatter(lines));
 
-  const talentNames = [
-    'Podejrzliwo\u015b\u0107 Wobec Zmian',
-    'Nadzwyczajna Odporno\u015b\u0107',
-    'Magiczna Flora',
-    'Mi\u0142osierdzie',
-    'B\u0142ogos\u0142awieni Egzorcy\u015bci',
-    'Jedno\u015b\u0107 z \u017bywio\u0142em',
-    'Tajemna Technologia',
-    'Pierwotna Energia',
-    'Niezwyk\u0142a Intuicja',
-    'Arytmetyczna Koncentracja'
-  ];
+    for (let i = 0; i < body.length; i++) {
+      const headingMatch = body[i].trim().match(HEADING_LINE);
+      if (!headingMatch) continue;
+      const talentIndex = cleanNames.indexOf(slugify(headingMatch[1].trim()));
+      if (talentIndex < 0) continue;
 
-  const cleanNames = talentNames.map(n => slugify(n));
-
-  for (let i = 0; i < slice.length; i++) {
-    const rawLine = slice[i].trim();
-    if (!rawLine) continue;
-
-    const slug = slugify(rawLine);
-    const talentIndex = cleanNames.indexOf(slug);
-
-    if (talentIndex !== -1) {
-      const name = talentNames[talentIndex];
+      const name = DISCIPLINE_TALENT_NAMES[talentIndex];
       const descLines: string[] = [];
       let j = i + 1;
-      while (j < slice.length) {
-        const nextLine = slice[j].trim();
-        if (SEPARATOR.test(nextLine) || /^Rozdzia/i.test(nextLine) || /^___/.test(nextLine)) {
-          break;
-        }
-        const nextSlug = slugify(nextLine);
-        if (cleanNames.includes(nextSlug)) {
-          break;
-        }
-        // Stop if we hit a main section like Alchemia, Botanika, Magia Sakralna etc.
-        const disciplineHeaders = [
-          'Alchemia', 'Transmutacja', 'Warzenie Eliksirów', 'Botanika',
-          'Magia Sakralna', 'Egzorcyzmy', 'Magia Żywiołów', 'Rzemiosło Artefaktów',
-          'Źródło Mocy', 'Magia Iluzji', 'Wiedźmia Magia'
-        ];
-        if (disciplineHeaders.some(h => slugify(h) === nextSlug)) {
-          break;
-        }
-
-        descLines.push(slice[j]);
+      while (j < body.length && !HEADING_LINE.test(body[j].trim())) {
+        descLines.push(body[j]);
         j++;
       }
-      const description = descLines.join('\n').trim();
+      const description = descLines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
       const baseSlug = slugify(name);
       const id = ctx.idOverrides[baseSlug] ?? baseSlug;
 
@@ -284,7 +206,7 @@ async function parseDisciplineTalents(ctx: ParserContext): Promise<ParsedDoc[]> 
         documentType: 'Item',
         subType: 'talent',
         pack: 'talents',
-        source: { book: 'podrecznik-gry', chapter: 'Wyb\u00f3r Dziedziny Magii', line: startIdx + i + 2 },
+        source: { book: 'podrecznik-gry', chapter: 'Wybór Dziedziny Magii' },
         system: {
           requirements: { race: '', attribute: '', skill: '', talent: '', title: '', discipline: '' },
           multiSelect: false,
@@ -301,26 +223,6 @@ async function parseDisciplineTalents(ctx: ParserContext): Promise<ParsedDoc[]> 
   }
 
   return docs;
-}
-
-/** A talent name is short, doesn't end with `.`, no `:`, not a bullet, no digits-only. */
-function isPlausibleName(line: string): boolean {
-  if (!line || line.length > 80) return false;
-  if (line.endsWith('.') || line.endsWith(',')) return false;
-  if (line.includes(':')) return false;
-  if (/^[*\-•]/.test(line)) return false;
-  if (/^\d+$/.test(line)) return false;
-  if (/^Wymagania\b/i.test(line)) return false;
-  // Must have at least one capital letter (talent names are Title Case).
-  if (!/[A-ZŻŹĆĄŚĘŁÓŃ]/.test(line)) return false;
-  return true;
-}
-
-function isProseOrReq(line: string): boolean {
-  if (!line) return false;
-  if (/^Wymagania\b/i.test(line)) return true;
-  // Proseish: long, ends with punctuation, contains lowercase mid-sentence words.
-  return line.length > 60 || /[.!?]$/.test(line);
 }
 
 function parseRequirements(text: string, _ctx: ParserContext): Record<string, unknown> {

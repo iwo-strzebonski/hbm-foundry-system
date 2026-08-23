@@ -79,28 +79,30 @@ export const SKILL_KEYS = Object.freeze(Object.keys(SKILLS)) as readonly string[
 
 /**
  * Magic Power Level lookup table (level 0..10 → I..X).
- * Drives dice pool size, max mana per single spell, and total mana per round.
+ * Drives dice pool size, max mana per single spell, and the daily mana pool
+ * ("Ilość Many" - there is no more per-round mana limit, see `rules/00.
+ * Podręcznik Gry/Rozdział II - Tworzenie Postaci/Atrybuty.md`).
  */
 export interface MagicPowerEntry {
   level: number;       // 0..10
   label: string;       // '0' | 'I' | 'II' | ... | 'X'
   dicePool: number;    // dice added when casting
   maxPerSpell: number; // max mana spent on one spell
-  manaPerRound: number; // mana budget per combat round
+  manaPerDay: number;  // daily mana pool ("Ilość Many")
 }
 
 export const MAGIC_POWER_TABLE: readonly MagicPowerEntry[] = Object.freeze([
-  { level: 0, label: '0', dicePool: 6, maxPerSpell: 10, manaPerRound: 20 },
-  { level: 1, label: 'I', dicePool: 4, maxPerSpell: 6, manaPerRound: 12 },
-  { level: 2, label: 'II', dicePool: 4, maxPerSpell: 5, manaPerRound: 10 },
-  { level: 3, label: 'III', dicePool: 3, maxPerSpell: 5, manaPerRound: 7 },
-  { level: 4, label: 'IV', dicePool: 3, maxPerSpell: 4, manaPerRound: 8 },
-  { level: 5, label: 'V', dicePool: 3, maxPerSpell: 4, manaPerRound: 6 },
-  { level: 6, label: 'VI', dicePool: 2, maxPerSpell: 3, manaPerRound: 6 },
-  { level: 7, label: 'VII', dicePool: 2, maxPerSpell: 3, manaPerRound: 4 },
-  { level: 8, label: 'VIII', dicePool: 1, maxPerSpell: 2, manaPerRound: 3 },
-  { level: 9, label: 'IX', dicePool: 1, maxPerSpell: 1, manaPerRound: 2 },
-  { level: 10, label: 'X', dicePool: 0, maxPerSpell: 1, manaPerRound: 1 },
+  { level: 0, label: '0', dicePool: 6, maxPerSpell: 10, manaPerDay: 60 },
+  { level: 1, label: 'I', dicePool: 4, maxPerSpell: 6, manaPerDay: 36 },
+  { level: 2, label: 'II', dicePool: 4, maxPerSpell: 5, manaPerDay: 30 },
+  { level: 3, label: 'III', dicePool: 3, maxPerSpell: 5, manaPerDay: 21 },
+  { level: 4, label: 'IV', dicePool: 3, maxPerSpell: 4, manaPerDay: 24 },
+  { level: 5, label: 'V', dicePool: 3, maxPerSpell: 4, manaPerDay: 18 },
+  { level: 6, label: 'VI', dicePool: 2, maxPerSpell: 3, manaPerDay: 18 },
+  { level: 7, label: 'VII', dicePool: 2, maxPerSpell: 3, manaPerDay: 12 },
+  { level: 8, label: 'VIII', dicePool: 1, maxPerSpell: 2, manaPerDay: 9 },
+  { level: 9, label: 'IX', dicePool: 1, maxPerSpell: 1, manaPerDay: 6 },
+  { level: 10, label: 'X', dicePool: 0, maxPerSpell: 1, manaPerDay: 3 },
 ]);
 
 export function getMagicPowerEntry(level: number): MagicPowerEntry {
