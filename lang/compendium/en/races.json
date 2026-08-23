@@ -1,25 +1,25 @@
 {
   "label": "Races",
   "entries": {
-    "Anioł": {
-      "name": "Angel",
-      "description": "Anioły są dosyć rzadko spotykaną na Ziemi rasą - przez większość ludzi wciąż są uznawane za istoty bliskie bóstwom, co jest poniekąd prawdą.\nWszystkie anioły są dziećmi (tworami?) Boga, bóstwa, które jest czymś najbliżej przypominającym Jahwe. Jako że jest to jedyne bóstwo, które uznają za faktyczne bóstwo, nazywają go także Jedynym.\nAnioły specjalizują się w Magii Sakralnej.\nSą ciche oraz zdystansowane."
+    "Anioł/Anielica": {
+      "name": "Aniol Anielica",
+      "description": "Anioły to istoty pochodzące z wyższych wymiarów lub powołane przez bóstwa. Są symbolem czystości, ładu i opieki, choć nie wszystkie anioły są „dobre” - ich lojalność zależy od patrona."
     },
     "Elf": {
       "name": "Elf",
-      "description": "Elfy nie są szczególnie liczną grupą, jednak wciąż są częściej spotykane na Ziemi niż anioły.\nTajemnicza i uwielbiająca intrygi, ta rasa przysporzyła już olbrzymich problemów Ziemianom poprzez wykorzystywanie wszelkich luk prawnych.\nSą wyższe od ludzi - przeciętny elf ma koło 2 metrów wysokości - a do tego mają długie, spiczaste uszy.\nElfy są bardzo potężną magicznie rasą, choć nie wszystkie potrafią korzystać z magii. Duża część elfów to Źródła Mocy."
+      "description": "Elfy to długowieczna, magicznie utalentowana rasa, znana z elegancji, harmonii z naturą i zaawansowanej kultury. Występują w dwóch głównych odmianach: Elfy Wysokie i Elfy Leśne."
     },
     "Feles": {
       "name": "Feles",
-      "description": "Feles, inaczej znane jako kotowate, to delikatna rasa humanoidalnych istot, które są bardzo związane z naturą. Są dosyć ciche i nieśmiałe, choć to też zależy od danego przedstawiciela tej rasy.\nWszystkie w jakiś sposób czczą Artemidę-Dianę, boginię lasów i łowów."
+      "description": "Feles to rasa antropomorficznych kotów, znana z gracji, zwinności i niezależności. Ich społeczeństwa są luźno zorganizowane, a jednostki cenią wolność i indywidualizm."
     },
     "Człowiek": {
       "name": "Human",
-      "description": "Ludzie są najliczniejszą rasą zamieszkującą Ziemię (kto by się spodziewał...), przez co są równocześnie najliczniejszą rasą w ziemskich szkołach magii.\nLudzie są znani ze swoich zdolności do adaptowania się do otoczenia oraz do zajmowania się czymkolwiek, co akurat jest potrzebne.\nMoże i nie są potężni magicznie, jednak przez ich wszechstronność nie powinni być lekceważeni.\nPomimo olbrzymiego zróżnicowania, jeśli chodzi o dziedziny magii, nie ma ludzkich Źródeł Mocy."
+      "description": "Człowiek to najbardziej rozpowszechniona rasa świata HbM, znana z elastyczności, ambicji i zdolności adaptacyjnych. Ludzie szybko przystosowują się do zmian, są pionierami technologii i magii, a ich społeczeństwa cechuje ogromna różnorodność."
     },
     "Lamia": {
       "name": "Lamia",
-      "description": "Lamie (bądź nagi) to rasa wyróżniająca się tym, że od pasa w dół mają tułów/ogon przypominający węże (czy też inne pełzające zwierzęta pokryte łuskami).\nNagi są wyśmienitymi wojownikami, bardzo często widuje się przedstawicieli tej rasy z włócznią i tarczą, lecz dzierżą także inne rodzaje broni. Preferują tradycyjną broń białą.\nPomimo tego, że niewiele lamii ma talent magiczny, wśród nich raz na jakiś czas zdarza się dziecko ze zdolnościami do panowania nad którymś z żywiołów."
+      "description": "Lamie to rasa półwężowych istot, znana z tajemniczości, uroku i potężnych zdolności magicznych. Ich społeczeństwa są matriarchalne, a tradycja przekazywana jest przez rody kapłanek."
     }
   }
 }

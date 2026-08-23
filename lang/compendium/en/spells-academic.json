@@ -3,39 +3,39 @@
   "entries": {
     "Celność": {
       "name": "Accuracy",
-      "description": "Mag wykorzystuje swój talent magiczny, aby ułatwić sobie celowanie oraz żeby nieznacznie korygować swoje ataki dystansowe.\n\nAtaki dystansowe maga są o jeden stopień prostsze, a ponadto otrzymuje dwie dodatkowe kości do testów związanych z Umiejętnością Umiejętności Strzeleckie."
+      "description": "Mag wykorzystuje swój talent magiczny, aby ułatwić sobie celowanie oraz żeby nieznacznie korygować swoje ataki dystansowe.\r\n\r\nAtaki dystansowe maga są o jeden stopień prostsze, a ponadto otrzymuje dwie dodatkowe kości do testów związanych z Umiejętnością Umiejętności Strzeleckie."
     },
     "Powietrzna Fala": {
       "name": "Air Wave",
-      "description": "Mag wyrzuca z siebie potężną falę wiatru.\n\nKażda osoba w obszarze działania zaklęcia musi wykonać udany Test na Body (Siła) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia cel zostaje Powalony. Niezależnie od wyniku testu każda osoba w stożku otrzymuje tyle punktów obrażeń, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga."
+      "description": "Mag wyrzuca z siebie potężną falę wiatru.\r\n\r\nKażda osoba w obszarze działania zaklęcia musi wykonać udany Test na Body (Siła) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia cel zostaje Powalony. Niezależnie od wyniku testu każda osoba w stożku otrzymuje tyle punktów obrażeń, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga."
     },
     "Ożywienie Szkieletu": {
       "name": "Animate Skeleton",
-      "description": "Mag używa magii aby sprawić, że kupka kości w jego pobliżu zaczyna się układać w kształt istoty, do której kiedyś należały.\n\nTak powstały szkielet nie ma własnej woli. Wszystkie szkielety utworzone tym zaklęciem mogą być kontrolowane przez maga w ramach Akcji. Szkielety, które nie otrzymają nowego rozkazu, będą próbowały wykonać ostatni otrzymany rozkaz. Jeżeli nie będzie to możliwe, to będą stały nieruchomo, czekając na nowy rozkaz. Rozkaz może się składać z maksymalnie 10 słów. Po zakończeniu działania zaklęcia lub w wypadku utraty przytomności przez maga, szkielet zamienia się w pył, uniemożliwiając ponowne ożywienie."
+      "description": "Mag używa magii aby sprawić, że kupka kości w jego pobliżu zaczyna się układać w kształt istoty, do której kiedyś należały.\r\n\r\nTak powstały szkielet nie ma własnej woli. Wszystkie szkielety utworzone tym zaklęciem mogą być kontrolowane przez maga w ramach Akcji. Szkielety, które nie otrzymają nowego rozkazu, będą próbowały wykonać ostatni otrzymany rozkaz. Jeżeli nie będzie to możliwe, to będą stały nieruchomo, czekając na nowy rozkaz. Rozkaz może się składać z maksymalnie 10 słów. Po zakończeniu działania zaklęcia lub w wypadku utraty przytomności przez maga, szkielet zamienia się w pył, uniemożliwiając ponowne ożywienie."
     },
     "Gorejąca Skóra": {
       "name": "Burning Skin",
-      "description": "Skóra i ubrania maga zaczynają się palić. Ogień ten nie niszczy ubrań maga ani nie zadaje mu obrażeń.\n\nWszyscy przeciwnicy, którzy zaatakują maga wręcz w trakcie działania tego zaklęcia otrzymują tyle punktów obrażeń, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga.\n\n---"
+      "description": "Skóra i ubrania maga zaczynają się palić. Ogień ten nie niszczy ubrań maga ani nie zadaje mu obrażeń.\r\n\r\nWszyscy przeciwnicy, którzy zaatakują maga wręcz w trakcie działania tego zaklęcia otrzymują tyle punktów obrażeń, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga.\r\n\r\n---"
     },
     "Wyczucie Zagrożenia": {
       "name": "Danger Sense",
-      "description": "Mag zaczyna skupiać się na delikatnych zmianach w otaczającym go powietrzu, co pomaga mu w unikaniu ataków.\n\nWszystkie ataki, których celem jest mag rzucający to zaklęcie, są trudniejsze o dwa stopnie (do maksymalnie Trudności (T) równej „6”), a ponadto mag otrzymuje dwie dodatkowe kości do rzutów związanych z Umiejętnością Refleks."
+      "description": "Mag zaczyna skupiać się na delikatnych zmianach w otaczającym go powietrzu, co pomaga mu w unikaniu ataków.\r\n\r\nWszystkie ataki, których celem jest mag rzucający to zaklęcie, są trudniejsze o dwa stopnie (do maksymalnie Trudności (T) równej „6”), a ponadto mag otrzymuje dwie dodatkowe kości do rzutów związanych z Umiejętnością Refleks."
     },
     "Wykrycie Zmian": {
       "name": "Detect Changes",
-      "description": "Mag wykorzystuje swoją wiedzę i swój dar związany z Dziedziną Magii, aby sprawdzić, czy dany przedmiot był modyfikowany w magiczny sposób.\n\nMistrz Gry określa wymaganą liczbę Sukcesów (S).\n\nPonadto, jeżeli Mag posiada Talent Zmysł Magiczny, Trudność (T) tego zaklęcia jest obniżona o 1 stopień."
+      "description": "Mag wykorzystuje swoją wiedzę i swój dar związany z Dziedziną Magii, aby sprawdzić, czy dany przedmiot był modyfikowany w magiczny sposób.\r\n\r\nMistrz Gry określa wymaganą liczbę Sukcesów (S).\r\n\r\nPonadto, jeżeli Mag posiada Talent Zmysł Magiczny, Trudność (T) tego zaklęcia jest obniżona o 1 stopień."
     },
     "Woal Snów": {
       "name": "Dream Veil",
-      "description": "Woal Snów przekształca obszar o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m) w fantasmagoryczny świat snów i koszmarów.\n\nWszyscy przeciwnicy w obszarze działania zaklęcia muszą wykonać Test na Soul (Determinacja) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów na początku swojej tury lub po wejściu do obszaru.\n\nNiepowodzenie skutkuje otrzymaniem tylu obrażeń ignorujących Pancerz, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga rzucającego to zaklęcie, a ponadto Postać staje się Przerażona i wszystkie Testy związane z Umiejętnością Spostrzegawczość wymagają dwóch Sukcesów więcej.\n\nW przypadku zdania Testu Postać tak czy inaczej ma karę do Testów związanych z Umiejętnością Spostrzegawczość."
+      "description": "Woal Snów przekształca obszar o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m) w fantasmagoryczny świat snów i koszmarów.\r\n\r\nWszyscy przeciwnicy w obszarze działania zaklęcia muszą wykonać Test na Soul (Determinacja) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów na początku swojej tury lub po wejściu do obszaru.\r\n\r\nNiepowodzenie skutkuje otrzymaniem tylu obrażeń ignorujących Pancerz, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga rzucającego to zaklęcie, a ponadto Postać staje się Przerażona i wszystkie Testy związane z Umiejętnością Spostrzegawczość wymagają dwóch Sukcesów więcej.\r\n\r\nW przypadku zdania Testu Postać tak czy inaczej ma karę do Testów związanych z Umiejętnością Spostrzegawczość."
     },
     "Trzęsienie Ziemi": {
       "name": "Earthquake",
-      "description": "W wybranym przez maga obszarze ziemia zaczyna się silnie trząść.\n\nWszystkie istoty w obszarze działania muszą wykonać udany Test na Body (Atletyka) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać zostaje Unieruchomiona i Powalona do początku swojej następnej tury. Efekt ten aktywuje się na końcu każdej tury maga i kończy się na początku trzeciej tury maga od rzucenia zaklęcia. Ponadto, jeśli postać nie zda tego testu trzykrotnie w trakcie działania tego zaklęcia, postać staje się Nieprzytomna do końca trwania zaklęcia."
+      "description": "W wybranym przez maga obszarze ziemia zaczyna się silnie trząść.\r\n\r\nWszystkie istoty w obszarze działania muszą wykonać udany Test na Body (Atletyka) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać zostaje Unieruchomiona i Powalona do początku swojej następnej tury. Efekt ten aktywuje się na końcu każdej tury maga i kończy się na początku trzeciej tury maga od rzucenia zaklęcia. Ponadto, jeśli postać nie zda tego testu trzykrotnie w trakcie działania tego zaklęcia, postać staje się Nieprzytomna do końca trwania zaklęcia."
     },
     "Eteryczny Przewodnik": {
       "name": "Ether Guide",
-      "description": "Postać przywołuje ducha, któremu może wydawać polecenia.\n\nDuch nie może wpływać na rzeczy materialne, nie ma żadnej wiedzy o tym świecie oraz nie potrafi myśleć i będzie starał się wykonać rozkaz najlepiej jak potrafi, co oznacza, że im dokładniejsze polecenie, tym większe prawdopodobieństwo na to, że polecenie zostanie wykonane."
+      "description": "Postać przywołuje ducha, któremu może wydawać polecenia.\r\n\r\nDuch nie może wpływać na rzeczy materialne, nie ma żadnej wiedzy o tym świecie oraz nie potrafi myśleć i będzie starał się wykonać rozkaz najlepiej jak potrafi, co oznacza, że im dokładniejsze polecenie, tym większe prawdopodobieństwo na to, że polecenie zostanie wykonane."
     },
     "Ognista Powłoka": {
       "name": "Fire Cloak",
@@ -43,7 +43,7 @@
     },
     "Kula Ognia": {
       "name": "Fireball",
-      "description": "Mag splata ogień w kulę, którą następnie ciska w wybrany cel.\n\nCel otrzymuje tyle punktów obrażeń, ile mag ma punktów w umiejętności Zdolności Magiczne, a następnie musi wykonać udany Test na Body (Refleks) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia Postać zostaje Podpalona na trzy rundy."
+      "description": "Mag splata ogień w kulę, którą następnie ciska w wybrany cel.\r\n\r\nCel otrzymuje tyle punktów obrażeń, ile mag ma punktów w umiejętności Zdolności Magiczne, a następnie musi wykonać udany Test na Body (Refleks) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia Postać zostaje Podpalona na trzy rundy."
     },
     "Latanie": {
       "name": "Flight",
@@ -55,11 +55,15 @@
     },
     "Żwirowa Zbroja": {
       "name": "Gravel Armor",
-      "description": "Mag zamyka się w twardej, kamiennej zbroi.\n\nMag otrzymuje +1 punkt Pancerza, ale ze względu na to, że zbroja utrudnia ruchy, jego Prędkość zostaje zmniejszona o połowę."
+      "description": "Mag zamyka się w twardej, kamiennej zbroi.\r\n\r\nMag otrzymuje +1 punkt Pancerza, ale ze względu na to, że zbroja utrudnia ruchy, jego Prędkość zostaje zmniejszona o połowę."
     },
     "Gradobicie": {
       "name": "Hailstorm",
-      "description": "Mag przywołuje nad dany obszar chmurę, z której zaczyna padać grad.\n\nKażda osoba w obszarze działania zaklęcia musi wykonać udany Test na Body (Refleks) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać otrzymuje tyle punktów obrażeń, ile wynosi wartość Umiejętności Zdolności Magiczne maga.\n\nDodatkowo obszar działania zaklęcia jest traktowany jak Trudny Teren (wszystkie istoty poruszają się w nim o połowę wolniej)."
+      "description": "Mag przywołuje nad dany obszar chmurę, z której zaczyna padać grad.\r\n\r\nKażda osoba w obszarze działania zaklęcia musi wykonać udany Test na Body (Refleks) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać otrzymuje tyle punktów obrażeń, ile wynosi wartość Umiejętności Zdolności Magiczne maga.\r\n\r\nDodatkowo obszar działania zaklęcia jest traktowany jak Trudny Teren (wszystkie istoty poruszają się w nim o połowę wolniej)."
+    },
+    "Tarcza Domu": {
+      "name": "House Shield",
+      "description": "Mag otacza wybrany cel gęstą, wielowarstwową osłoną, znacznie mocniejszą niż standardowa Magiczna Tarcza.\r\n\r\nTarcza ma wytrzymałość równą wartości Umiejętności Zdolności Magiczne maga + 3. Gdy cel ma otrzymać obrażenia, są one zmniejszane maksymalnie o obecną wytrzymałość Tarczy, która spada o tyle, ile obrażeń pochłonęła. Gdy wytrzymałość spadnie do 0, zaklęcie przestaje działać.\r\n\r\nDopóki cel jest chroniony tą Tarczą, następne zaklęcie, które rzuci do końca swojej najbliższej Tury, otrzymuje dodatkową kość do puli Testu.\r\n\r\nZa dodatkowe 2 punkty Many, mag może rzucić to zaklęcie na samego siebie zamiast na inny cel."
     },
     "Lodowa Podłoga": {
       "name": "Ice Floor",
@@ -71,7 +75,7 @@
     },
     "Niewidzialność": {
       "name": "Invisibility",
-      "description": "Mag rzucający to zaklęcie bądź wskazana istota staje się całkowicie niewidzialna do końca trwania zaklęcia lub gdy zaatakuje lub rzuci kolejne zaklęcie. Dla obserwatorów postać zdaje się znikać z rzeczywistości, nie pozostawiając po sobie śladów.\n\nPoruszanie się nie przerywa efektu, ale każda interakcja z otoczeniem wymaga udanego Testu Magic (Zręczność) 5:1, aby utrzymać niewidzialność."
+      "description": "Mag rzucający to zaklęcie bądź wskazana istota staje się całkowicie niewidzialna do końca trwania zaklęcia lub gdy zaatakuje lub rzuci kolejne zaklęcie. Dla obserwatorów postać zdaje się znikać z rzeczywistości, nie pozostawiając po sobie śladów.\r\n\r\nPoruszanie się nie przerywa efektu, ale każda interakcja z otoczeniem wymaga udanego Testu Magic (Zręczność) 5:1, aby utrzymać niewidzialność."
     },
     "Wzniecanie Ognia": {
       "name": "Kindle",
@@ -79,7 +83,7 @@
     },
     "Przemiana w Ołów": {
       "name": "Lead Transmutation",
-      "description": "Mag zbiera swoją moc magiczną i przenosi ją do obszaru o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m) , sprawiając, że broń przeciwników w wybranym przez maga obszarze przemienia się w ołów.\n\nPrzeciwnicy w wybranym przez maga obszarze otrzymują -2 kości do rzutów na Walkę Wręcz oraz Umiejętności Strzeleckie."
+      "description": "Mag zbiera swoją moc magiczną i przenosi ją do obszaru o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m) , sprawiając, że broń przeciwników w wybranym przez maga obszarze przemienia się w ołów.\r\n\r\nPrzeciwnicy w wybranym przez maga obszarze otrzymują -2 kości do rzutów na Walkę Wręcz oraz Umiejętności Strzeleckie."
     },
     "Magiczna Odporność": {
       "name": "Magic Resistance",
@@ -87,51 +91,59 @@
     },
     "Magiczne Kajdany": {
       "name": "Magic Shackles",
-      "description": "Cel zaklęcia czuje, jakby spętały go widmowe, niezniszczalne łańcuchy. Efekt działa wyłącznie na umysł celu - Postać nie jest w rzeczywistości związana.\n\nPostać musi wykonać Test na Soul (Determinacja) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów.\n\nW przypadku niepowodzenia Postać jest traktowana tak, jakby była Unieruchomiona, a ponadto nie może rzucać zaklęć."
+      "description": "Cel zaklęcia czuje, jakby spętały go widmowe, niezniszczalne łańcuchy. Efekt działa wyłącznie na umysł celu - Postać nie jest w rzeczywistości związana.\r\n\r\nPostać musi wykonać Test na Soul (Determinacja) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów.\r\n\r\nW przypadku niepowodzenia Postać jest traktowana tak, jakby była Unieruchomiona, a ponadto nie może rzucać zaklęć."
     },
     "Magnetyzm": {
       "name": "Magnetism",
-      "description": "Wykorzystujesz swoje zdolności i wiedzę dotyczącą przemian metali w celu wytworzenia pola magnetycznego o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m)  centrowanego na Tobie.\n\nGdy rzucisz to zaklęcie, wszystkie istoty trzymające metalową broń lub noszący metalowy ekwipunek muszą wykonać udany Test na Body (Siła) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia wszelkie metalowe przedmioty są wyrywane z rąk tej istoty i upadają 1 m od Ciebie.\n\nPonadto, jeśli dana istota nosi metalową zbroję i nie zda tego Testu, zostaje Powalona oraz przesunięta w Twoją stronę o 2 m (do 1 m od Ciebie).\n\nPonadto wszystkie istoty w Twoim pobliżu otrzymują -1 kość do rzutów na Walkę Wręcz oraz Umiejętności Strzeleckie.\n\n---"
+      "description": "Wykorzystujesz swoje zdolności i wiedzę dotyczącą przemian metali w celu wytworzenia pola magnetycznego o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m)  centrowanego na Tobie.\r\n\r\nGdy rzucisz to zaklęcie, wszystkie istoty trzymające metalową broń lub noszący metalowy ekwipunek muszą wykonać udany Test na Body (Siła) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia wszelkie metalowe przedmioty są wyrywane z rąk tej istoty i upadają 1 m od Ciebie.\r\n\r\nPonadto, jeśli dana istota nosi metalową zbroję i nie zda tego Testu, zostaje Powalona oraz przesunięta w Twoją stronę o 2 m (do 1 m od Ciebie).\r\n\r\nPonadto wszystkie istoty w Twoim pobliżu otrzymują -1 kość do rzutów na Walkę Wręcz oraz Umiejętności Strzeleckie.\r\n\r\n---"
     },
     "Labirynt Umysłu": {
       "name": "Mind Labyrinth",
-      "description": "Mind ofiary zostaje wciągnięty w iluzoryczny labirynt pełen sprzecznych myśli i rozkojarzeń.\n\nGdy cel chce wykonać jakąkolwiek Akcję, musi wykonać Test na Koncentrację (patrz: Stan Koncentracja), gdzie wymagana liczba Sukcesów (S) jest równa liczbie wyrzuconych przez maga Sukcesów. W wypadku niepowodzenia istota traci Akcję. Postać nie może z własnej woli zakończyć Koncentracji.\n\nW wypadku niepowodzenia otrzymuje tyle obrażeń ignorujących Pancerz, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga rzucającego to zaklęcie, a ponadto Postać natychmiast kończy swoją turę."
+      "description": "Mind ofiary zostaje wciągnięty w iluzoryczny labirynt pełen sprzecznych myśli i rozkojarzeń.\r\n\r\nGdy cel chce wykonać jakąkolwiek Akcję, musi wykonać Test na Koncentrację (patrz: Stan Koncentracja), gdzie wymagana liczba Sukcesów (S) jest równa liczbie wyrzuconych przez maga Sukcesów. W wypadku niepowodzenia istota traci Akcję. Postać nie może z własnej woli zakończyć Koncentracji.\r\n\r\nW wypadku niepowodzenia otrzymuje tyle obrażeń ignorujących Pancerz, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga rzucającego to zaklęcie, a ponadto Postać natychmiast kończy swoją turę."
     },
     "Zwierciadlany Wizerunek": {
       "name": "Mirror Image",
-      "description": "W wybranym przez maga miejscu pojawia się iluzoryczny sobowtór, który powtarza jego ruchy i głos.\n\nMag może w ramach swojej Akcji kontrolować ruchy iluzji, jednak nie może ona się znaleźć dalej niż 20 m od maga.\n\nIluzja może zostać dostrzeżona za pomocą Testu 5:S Mind (Spostrzegawczość) lub, jeśli Postać posiada Talent Magiczny Zmysł, 3:S Magic (Spostrzegawczość), gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów.\n\nPo wykonaniu Ataku w iluzję Postać dowiaduje się, że atakowała iluzję."
+      "description": "W wybranym przez maga miejscu pojawia się iluzoryczny sobowtór, który powtarza jego ruchy i głos.\r\n\r\nMag może w ramach swojej Akcji kontrolować ruchy iluzji, jednak nie może ona się znaleźć dalej niż 20 m od maga.\r\n\r\nIluzja może zostać dostrzeżona za pomocą Testu 5:S Mind (Spostrzegawczość) lub, jeśli Postać posiada Talent Magiczny Zmysł, 3:S Magic (Spostrzegawczość), gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów.\r\n\r\nPo wykonaniu Ataku w iluzję Postać dowiaduje się, że atakowała iluzję."
     },
     "Mistyczna Mgła": {
       "name": "Mystic Fog",
-      "description": "Mag przywołuje bardzo gęstą magiczną mgłę dookoła siebie.\n\nWszyscy przeciwnicy są Oślepieni, zaś wszyscy sojusznicy (w tym Mag) są traktowani jakby byli w pełni zasłonięci (przeciwnicy nie mogą atakować ich atakami dystansowymi ani wpływać na nich zaklęciami, które wymagają wybrania określonego celu, chyba że takie zaklęcie jest zaklęciem dotykowym).\n\nWszyscy sojusznicy (w tym mag) bez problemu widzą przez mgłę oraz widzą jej granicę. Mgła podąża za magiem.\n\n---"
+      "description": "Mag przywołuje bardzo gęstą magiczną mgłę dookoła siebie.\r\n\r\nWszyscy przeciwnicy są Oślepieni, zaś wszyscy sojusznicy (w tym Mag) są traktowani jakby byli w pełni zasłonięci (przeciwnicy nie mogą atakować ich atakami dystansowymi ani wpływać na nich zaklęciami, które wymagają wybrania określonego celu, chyba że takie zaklęcie jest zaklęciem dotykowym).\r\n\r\nWszyscy sojusznicy (w tym mag) bez problemu widzą przez mgłę oraz widzą jej granicę. Mgła podąża za magiem.\r\n\r\n---"
     },
     "Negacja": {
       "name": "Negation",
-      "description": "Na obszarze o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m)  pojawia się bardzo gęsta, wchłaniającą magię mgła.\n\nIstoty znajdujące się w tym obszarze nie mogą rzucać zaklęć oraz wszystko, co znajduje się w tym obszarze, traci tymczasowo właściwości magiczne."
+      "description": "Na obszarze o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m)  pojawia się bardzo gęsta, wchłaniającą magię mgła.\r\n\r\nIstoty znajdujące się w tym obszarze nie mogą rzucać zaklęć oraz wszystko, co znajduje się w tym obszarze, traci tymczasowo właściwości magiczne."
     },
     "Ruchome Piaski": {
       "name": "Quicksand",
-      "description": "Mag tymczasowo zmienia podłoże w ruchome piaski, utrudniając poruszanie się w obszarze działania zaklęcia.\n\nWszystkie istoty w tym obszarze mogą się poruszyć maksymalnie o zaokrągloną w górę połowę swojego Ruchu (czyli jeśli dana istota mogła się normalnie ruszać 10 m, tak w obszarze działania zaklęcia może się poruszyć o zaledwie 5 m)."
+      "description": "Mag tymczasowo zmienia podłoże w ruchome piaski, utrudniając poruszanie się w obszarze działania zaklęcia.\r\n\r\nWszystkie istoty w tym obszarze mogą się poruszyć maksymalnie o zaokrągloną w górę połowę swojego Ruchu (czyli jeśli dana istota mogła się normalnie ruszać 10 m, tak w obszarze działania zaklęcia może się poruszyć o zaledwie 5 m)."
+    },
+    "Osłona Świty": {
+      "name": "Retinue Guard",
+      "description": "Mag rozdziela swoją moc pomiędzy do czterech celów w zasięgu, otaczając każdego z nich osobną, słabszą Tarczą.\r\n\r\nKażda z Tarcz ma niezależną wytrzymałość równą połowie wartości Umiejętności Zdolności Magiczne maga (zaokrąglonej w górę) + 1. Gdy dany cel ma otrzymać obrażenia, są one zmniejszane maksymalnie o wytrzymałość jego własnej Tarczy, która spada o tyle, ile obrażeń pochłonęła. Gdy wytrzymałość danej Tarczy spadnie do 0, znika tylko ta jedna Tarcza - pozostałe działają nadal.\r\n\r\nMag może objąć tym zaklęciem samego siebie jako jeden z celów bez dodatkowego kosztu."
     },
     "Rozsypanie": {
       "name": "Shatter",
-      "description": "Mag wysysa energię życiową i magiczną z celu.\n\nRozsypanie zadaje tyle punktów obrażeń, ile wynosi dwukrotność wartości Umiejętności Zdolności Magiczne maga. Ponadto, jeśli cel jest Nieumarłym i ma mniej punktów Żywotności niż dwukrotność wartości Atrybutu Soul maga, natychmiast się rozsypuje.\n\nNieumarłego zniszczonego tym zaklęciem nie da się wskrzesić, choć istnieją wyjątki od tej reguły, jak chociażby lisze i potężniejsze wampiry."
+      "description": "Mag wysysa energię życiową i magiczną z celu.\r\n\r\nRozsypanie zadaje tyle punktów obrażeń, ile wynosi dwukrotność wartości Umiejętności Zdolności Magiczne maga. Ponadto, jeśli cel jest Nieumarłym i ma mniej punktów Żywotności niż dwukrotność wartości Atrybutu Soul maga, natychmiast się rozsypuje.\r\n\r\nNieumarłego zniszczonego tym zaklęciem nie da się wskrzesić, choć istnieją wyjątki od tej reguły, jak chociażby lisze i potężniejsze wampiry."
+    },
+    "Bańka Ochronna": {
+      "name": "Shield Bubble",
+      "description": "Mag wyczarowuje kopulastą osłonę o promieniu 4 m (mechanicznie kwadrat o boku 10 m), obejmującą wszystkich sojuszników wewnątrz.\r\n\r\nBańka ma jedną, wspólną wytrzymałość równą wartości Umiejętności Zdolności Magiczne maga + 5. Każdy atak wymierzony w istotę osłoniętą Bańką, który przychodzi z zewnątrz, jest zmniejszany o aktualną wytrzymałość Bańki, która spada o tyle, ile obrażeń pochłonęła - dopóki nie spadnie do 0, po czym zaklęcie przestaje działać. Istoty wewnątrz Bańki mogą swobodnie ją opuszczać i wracać.\r\n\r\nDopóki Bańka trwa, każdy sojusznik wewnątrz niej, który rzuci zaklęcie, otrzymuje dodatkową kość do puli tego Testu.\r\n\r\nZa dodatkowe 3 punkty Many, mag może umieścić środek Bańki na sobie zamiast w innym punkcie w zasięgu."
     },
     "Ukojenie": {
       "name": "Solace",
-      "description": "Dookoła maga pojawia się kojąca rany delikatna mgiełka.\n\nWszyscy sojusznicy (w tym mag) w promieniu działania zaklęcia na początku następnej rundy maga odzyskują tyle Punktów Żywotności, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga."
+      "description": "Dookoła maga pojawia się kojąca rany delikatna mgiełka.\r\n\r\nWszyscy sojusznicy (w tym mag) w promieniu działania zaklęcia na początku następnej rundy maga odzyskują tyle Punktów Żywotności, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga."
     },
     "Rozmawianie ze Zmarłymi": {
       "name": "Speak With Dead",
-      "description": "Mag przywołuje duszę zmarłego i może zadać jej pytanie.\n\nSoul odpowiada na jedno pytanie zgodnie z prawdą i swoją wiedzą - martwi nie mają powodu by kłamać - ale jeżeli dusza ma błędne informacje, które uważa za prawdziwe, to je przekaże (zmarli nie są wszystkowiedzący), a następnie wraca do krainy zmarłych. Tej duszy już nie będzie można ponownie przywołać.\n\n---"
+      "description": "Mag przywołuje duszę zmarłego i może zadać jej pytanie.\r\n\r\nSoul odpowiada na jedno pytanie zgodnie z prawdą i swoją wiedzą - martwi nie mają powodu by kłamać - ale jeżeli dusza ma błędne informacje, które uważa za prawdziwe, to je przekaże (zmarli nie są wszystkowiedzący), a następnie wraca do krainy zmarłych. Tej duszy już nie będzie można ponownie przywołać.\r\n\r\n---"
     },
     "Skalista Tarcza": {
       "name": "Stone Shield",
-      "description": "Postać tworzy w pobliżu siebie w wolnej przestrzeni ścianę z ziemi, piasku bądź żwiru.\n\nŚciana ta wytrzymuje ilość obrażeń równą wartości Umiejętności Zdolności Magiczne maga, a ponadto blokuje wizję oraz możliwość przejścia przez dany obszar istotom rozmiaru Średniego lub większego."
+      "description": "Postać tworzy w pobliżu siebie w wolnej przestrzeni ścianę z ziemi, piasku bądź żwiru.\r\n\r\nŚciana ta wytrzymuje ilość obrażeń równą wartości Umiejętności Zdolności Magiczne maga, a ponadto blokuje wizję oraz możliwość przejścia przez dany obszar istotom rozmiaru Średniego lub większego."
     },
     "Skalista Pułapka": {
       "name": "Stone Trap",
-      "description": "Mag zaklina ziemię, piasek i żwir w danym obszarze, aby stworzyć pułapkę, która przebije kolcami pierwszą osobę, która wejdzie w dany obszar.\n\nKolce zadają tyle punktów obrażeń, ile mag ma punktów w Umiejętności Zdolności Magiczne, a następnie zaklęcie przestaje działać.\n\n---"
+      "description": "Mag zaklina ziemię, piasek i żwir w danym obszarze, aby stworzyć pułapkę, która przebije kolcami pierwszą osobę, która wejdzie w dany obszar.\r\n\r\nKolce zadają tyle punktów obrażeń, ile mag ma punktów w Umiejętności Zdolności Magiczne, a następnie zaklęcie przestaje działać.\r\n\r\n---"
     },
     "Tworzenie i Kontrolowanie Wody": {
       "name": "Water Create",
@@ -139,7 +151,7 @@
     },
     "Szybki jak Wiatr": {
       "name": "Wind Swift",
-      "description": "Mag splata wiatr, aby wspomóc się przy poruszaniu się.\n\nPrędkość maga zwiększa się dwukrotnie, a ponadto mag nie może zostać Powalony.\n\n---"
+      "description": "Mag splata wiatr, aby wspomóc się przy poruszaniu się.\r\n\r\nPrędkość maga zwiększa się dwukrotnie, a ponadto mag nie może zostać Powalony.\r\n\r\n---"
     },
     "Alchemia": {
       "name": "Alchemy"
