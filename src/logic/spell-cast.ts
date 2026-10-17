@@ -80,6 +80,12 @@ export interface CastOptions {
   speaker?: ChatMessage.SpeakerData;
 }
 
+/** A roll made during a cast; rendered inline in the cast card. */
+interface CastRollEntry {
+  label: string;
+  roll: HbmTSRoll;
+}
+
 export interface CastResult {
   validation: ValidationResult;
   baseRoll: HbmTSRoll | null;
@@ -90,6 +96,16 @@ export interface CastResult {
 function notify(text: string, severity: 'warn' | 'error' | 'info' = 'info'): void {
   const u = ui as unknown as { notifications?: { warn: (s: string) => void; error: (s: string) => void; info: (s: string) => void } };
   u.notifications?.[severity](text);
+}
+
+/** Queue a roll for the cast card and play the 3D dice animation if available. */
+async function recordRoll(rolls: CastRollEntry[], roll: HbmTSRoll, label: string): Promise<void> {
+  rolls.push({ label, roll });
+  try {
+    await (game as any).dice3d?.showForRoll?.(roll, game.user, true);
+  } catch {
+    // Dice So Nice is optional; the card still shows the faces.
+  }
 }
 
 export async function castSpell(actor: CastableActor, spell: SpellLike, opts: CastOptions = {}): Promise<CastResult> {
@@ -108,16 +124,17 @@ export async function castSpell(actor: CastableActor, spell: SpellLike, opts: Ca
   // 2-3. Mode dispatch
   const mode = spell.system.castingMode ?? 'standard';
   let baseRoll: HbmTSRoll | null = null;
+  const rolls: CastRollEntry[] = [];
   if (mode === 'sacred') {
     baseRoll = opts.hekateMode === 'witch'
-      ? await castWitch(actor, spell, opts)
-      : await castSacred(actor, spell, opts);
+      ? await castWitch(actor, spell, opts, rolls)
+      : await castSacred(actor, spell, opts, rolls);
   } else if (mode === 'witch') {
-    baseRoll = await castWitch(actor, spell, opts);
+    baseRoll = await castWitch(actor, spell, opts, rolls);
   } else if (mode === 'blood') {
-    baseRoll = await castBlood(actor, spell, opts);
+    baseRoll = await castBlood(actor, spell, opts, rolls);
   } else {
-    baseRoll = await castStandard(actor, spell, opts);
+    baseRoll = await castStandard(actor, spell, opts, rolls);
   }
 
   let damageRoll: Roll | null = null;
@@ -134,7 +151,7 @@ export async function castSpell(actor: CastableActor, spell: SpellLike, opts: Ca
   }
 
   // Render unified rich chat card (Phase 1.6)
-  await renderCastCard(actor, spell, opts, baseRoll, damageRoll, triggersRegistered);
+  await renderCastCard(actor, spell, opts, baseRoll, damageRoll, triggersRegistered, rolls);
 
   return { validation, baseRoll, damageRoll, triggersRegistered };
 }
@@ -146,6 +163,7 @@ async function renderCastCard(
   baseRoll: HbmTSRoll | null,
   damageRoll: Roll | null,
   triggersRegistered: number,
+  rolls: CastRollEntry[],
 ): Promise<void> {
   const success = baseRoll?.ts?.isSuccess ?? false;
   const mode = opts.castAsPrayer ? 'prayer' : (spell.system.castingMode ?? 'standard');
@@ -173,6 +191,10 @@ async function renderCastCard(
     damage = {
       total: damageRoll.total,
       formula: damageRoll.formula,
+      dice: ((damageRoll as any).dice ?? []).map((d: any) => ({
+        expression: d.expression,
+        results: (d.results ?? []).filter((r: any) => !r.discarded).map((r: any) => r.result),
+      })),
       type: spell.system.damageType ?? 'magical',
       ignoresArmor: !!spell.system.ignoresArmor,
       targets: targets.length > 0 ? targets : null,
@@ -198,8 +220,14 @@ async function renderCastCard(
     ? spell.system.triggers
     : [];
 
+  const rollsHtml = await Promise.all(rolls.map(async (r) => ({
+    label: r.label,
+    html: await r.roll.render(),
+  })));
+
   const data = {
     spell: { name: spell.name },
+    rolls: rollsHtml,
     mode,
     school: spell.system.school ?? '',
     circle: (spell.system as any).circle ?? 0,
@@ -216,11 +244,12 @@ async function renderCastCard(
   await ChatMessage.create({
     content: html,
     speaker: opts.speaker ?? ChatMessage.getSpeaker({ actor: actor as any }),
+    rolls: [...rolls.map((r) => r.roll), ...(damageRoll ? [damageRoll] : [])].map((r) => r.toJSON()),
     flags: { 'hbm-rpg-v3': { spellCast: { spellName: spell.name, success } } },
   });
 }
 
-async function castStandard(actor: CastableActor, spell: SpellLike, opts: CastOptions): Promise<HbmTSRoll | null> {
+async function castStandard(actor: CastableActor, spell: SpellLike, opts: CastOptions, rolls: CastRollEntry[]): Promise<HbmTSRoll | null> {
   const baseCost = Math.max(0, spell.system.manaCost ?? 0);
   const manaSpent = Math.max(baseCost, Math.floor(opts.manaSpent ?? baseCost));
   const a = actor.system.attributes;
@@ -248,7 +277,7 @@ async function castStandard(actor: CastableActor, spell: SpellLike, opts: CastOp
     flavor,
   });
   await baseRoll.evaluate();
-  await baseRoll.toMessage({ flavor, speaker: opts.speaker });
+  await recordRoll(rolls, baseRoll, flavor);
 
   // Overcast beyond Maksymalny Koszt Zaklęcia - extra TS test.
   // T depends on the spell's BASE cost; S grows triangularly with the excess
@@ -265,13 +294,13 @@ async function castStandard(actor: CastableActor, spell: SpellLike, opts: CastOp
       flavor: overcastFlavor,
     });
     await overcastRoll.evaluate();
-    await overcastRoll.toMessage({ flavor: overcastFlavor, speaker: opts.speaker });
+    await recordRoll(rolls, overcastRoll, overcastFlavor);
   }
 
   return baseRoll;
 }
 
-async function castSacred(actor: CastableActor, spell: SpellLike, opts: CastOptions): Promise<HbmTSRoll | null> {
+async function castSacred(actor: CastableActor, spell: SpellLike, opts: CastOptions, rolls: CastRollEntry[]): Promise<HbmTSRoll | null> {
   const a = actor.system.attributes;
   const zealCost = Math.max(1, opts.zealSpent ?? 1);
   await actor.update({ 'system.attributes.zeal.value': a.zeal.value - zealCost });
@@ -286,11 +315,11 @@ async function castSacred(actor: CastableActor, spell: SpellLike, opts: CastOpti
     flavor,
   });
   await roll.evaluate();
-  await roll.toMessage({ flavor, speaker: opts.speaker });
+  await recordRoll(rolls, roll, flavor);
   return roll;
 }
 
-async function castWitch(actor: CastableActor, spell: SpellLike, opts: CastOptions): Promise<HbmTSRoll | null> {
+async function castWitch(actor: CastableActor, spell: SpellLike, opts: CastOptions, rolls: CastRollEntry[]): Promise<HbmTSRoll | null> {
   const a = actor.system.attributes;
   const required = Math.max(0, spell.system.complexityLevel ?? spell.system.components?.symbols?.length ?? 0);
   const maxSymbols = Math.ceil(a.magic.actual / 2);
@@ -320,11 +349,11 @@ async function castWitch(actor: CastableActor, spell: SpellLike, opts: CastOptio
     flavor,
   });
   await roll.evaluate();
-  await roll.toMessage({ flavor, speaker: opts.speaker });
+  await recordRoll(rolls, roll, flavor);
   return roll;
 }
 
-async function castBlood(actor: CastableActor, spell: SpellLike, opts: CastOptions): Promise<HbmTSRoll | null> {
+async function castBlood(actor: CastableActor, spell: SpellLike, opts: CastOptions, rolls: CastRollEntry[]): Promise<HbmTSRoll | null> {
   const a = actor.system.attributes;
   const baseCost = Math.max(0, spell.system.bloodCost ?? 0);
   const bloodSpent = Math.max(baseCost, Math.floor(opts.bloodSpent ?? baseCost));
@@ -362,6 +391,6 @@ async function castBlood(actor: CastableActor, spell: SpellLike, opts: CastOptio
     flavor,
   });
   await roll.evaluate();
-  await roll.toMessage({ flavor, speaker: opts.speaker });
+  await recordRoll(rolls, roll, flavor);
   return roll;
 }

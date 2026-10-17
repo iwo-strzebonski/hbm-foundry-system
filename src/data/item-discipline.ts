@@ -12,6 +12,7 @@ export class DisciplineData extends foundry.abstract.TypeDataModel {
       }),
       suggestedSkills: makeArrayField(new f.StringField({ blank: false })),
       passiveAbility: makeHtmlField(''),
+      signatureSpells: makeArrayField(new f.StringField({ blank: false })),
       availableSpells: makeArrayField(new f.StringField({ blank: false })),
       description: makeHtmlField(''),
     };

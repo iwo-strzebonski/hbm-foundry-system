@@ -146,6 +146,8 @@ const folderNameTranslations: Record<string, string> = {
   "Magia Ziemi": "Earth Magic",
   "Alchemia": "Alchemy",
   "Alchemia - Transmutacja": "Alchemy - Transmutation",
+  "Transmutacja": "Transmutation",
+  "Warzenie Eliksirów": "Brewing of Elixirs",
   "Alchemia - Warzenie Eliksirów": "Alchemy - Brewing of Elixirs",
   "Rzemiosło Artefaktów": "Crafting of Artifacts",
   "Golemancja": "Golemancy",

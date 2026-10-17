@@ -54,6 +54,20 @@ allDocs.push(...(await parseGear(ctx)));
 
 console.log(`[build-packs] parsed ${allDocs.length} documents total`);
 
+// 2b. Assign signature spells: every discipline lists the spells of its own school.
+// Sacred Magic lists only the common prayers (the rest are deity-specific).
+for (const disc of allDocs) {
+  if (disc.subType !== 'discipline') continue;
+  const sys = disc.system as Record<string, any>;
+  const spells = allDocs.filter((d) => {
+    if (d.subType !== 'spell') return false;
+    const sp = d.system as Record<string, any>;
+    if (sp.school !== disc.id || sp.isSuperspell) return false;
+    return disc.id !== 'sacred' || sp.deity === 'common';
+  });
+  sys.signatureSpells = spells.map((d) => d.name);
+}
+
 // 3. Group by pack and emit one JSON per doc into packs-src/<pack>/.
 if (existsSync(packsSrcDir)) rmSync(packsSrcDir, { recursive: true });
 const byPack = new Map<string, ParsedDoc[]>();
@@ -87,10 +101,10 @@ function getFolderHierarchy(doc: ParsedDoc): { name: string; parentName?: string
         return [{ name: 'Magia Żywiołów' }, { name: 'Magia Ziemi', parentName: 'Magia Żywiołów' }];
       }
       if (school === 'alchemyTransmutation') {
-        return [{ name: 'Alchemia' }, { name: 'Alchemia - Transmutacja', parentName: 'Alchemia' }];
+        return [{ name: 'Alchemia' }, { name: 'Transmutacja', parentName: 'Alchemia' }];
       }
       if (school === 'alchemyBrewing') {
-        return [{ name: 'Alchemia' }, { name: 'Alchemia - Warzenie Eliksirów', parentName: 'Alchemia' }];
+        return [{ name: 'Alchemia' }, { name: 'Warzenie Eliksirów', parentName: 'Alchemia' }];
       }
       if (school === 'artifice') {
         return [{ name: 'Rzemiosło Artefaktów' }];

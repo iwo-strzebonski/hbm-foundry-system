@@ -24,6 +24,12 @@
         </ul>
     {{/if}}
 
+    {{#each rolls as |r|}}
+        <section class="hbm-card-roll">
+            {{{r.html}}}
+        </section>
+    {{/each}}
+
     {{#if outcome.success}}
         {{#if damage}}
             <section class="hbm-card-damage">
@@ -34,6 +40,15 @@
                     {{#if damage.ignoresArmor}}<span class="badge ignores-armor">{{localize 'HBM.spell.ignoresArmor'}}</span>{{/if}}
                 </div>
                 <div class="damage-formula"><code>{{damage.formula}}</code></div>
+                {{#if damage.dice.length}}
+                    <div class="damage-dice">
+                        {{#each damage.dice as |d|}}
+                            <span class="damage-die-group"><small>{{d.expression}}:</small>
+                                {{#each d.results as |face|}}<span class="die">{{face}}</span>{{/each}}
+                            </span>
+                        {{/each}}
+                    </div>
+                {{/if}}
                 {{#if damage.targets}}
                     <div class="hbm-card-targets">
                         {{#each damage.targets as |t|}}
