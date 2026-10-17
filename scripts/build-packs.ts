@@ -54,18 +54,18 @@ allDocs.push(...(await parseGear(ctx)));
 
 console.log(`[build-packs] parsed ${allDocs.length} documents total`);
 
-// 2b. Assign signature spells: every discipline lists the spells of its own school.
-// Sacred Magic lists only the common prayers (the rest are deity-specific).
+// 2b. signatureSpells = every spell belonging to the discipline (own school or
+// listed in the spell's requirements.discipline).
 for (const disc of allDocs) {
   if (disc.subType !== 'discipline') continue;
   const sys = disc.system as Record<string, any>;
-  const spells = allDocs.filter((d) => {
-    if (d.subType !== 'spell') return false;
-    const sp = d.system as Record<string, any>;
-    if (sp.school !== disc.id || sp.isSuperspell) return false;
-    return disc.id !== 'sacred' || sp.deity === 'common';
-  });
-  sys.signatureSpells = spells.map((d) => d.name);
+  sys.signatureSpells = allDocs
+    .filter((d) => {
+      if (d.subType !== 'spell') return false;
+      const sp = d.system as Record<string, any>;
+      return sp.school === disc.id || (sp.requirements?.discipline ?? []).includes(disc.id);
+    })
+    .map((d) => d.name);
 }
 
 // 3. Group by pack and emit one JSON per doc into packs-src/<pack>/.
