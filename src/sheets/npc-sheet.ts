@@ -49,7 +49,7 @@ export class NpcSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const ctx = (await super._prepareContext(options)) as Record<string, unknown>;
     const actor = (this as unknown as { actor: { system: any; items: any[] } }).actor;
     const spells = actor.items.filter((it: any) => it.type === 'spell')
-      .sort((a: any, b: any) => (a.system?.circle ?? 0) - (b.system?.circle ?? 0) || a.name.localeCompare(b.name, 'pl'));
+      .sort((a: any, b: any) => a.name.localeCompare(b.name, 'pl'));
     const actorEffects = [...((actor as any).effects ?? [])].map((ef: any) => ({
       id: ef.id,
       name: ef.name,

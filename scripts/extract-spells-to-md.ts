@@ -1,3 +1,4 @@
+// DEPRECATED: one-off extractor that writes the old nested spell frontmatter. The vault now uses the flat format read by scripts/parsers/spell-parser.ts - do not run this over ObsidianNotes/spells.
 import { resolve, dirname } from 'node:path';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';

@@ -160,9 +160,9 @@ export const WITCH_SYMBOLS: readonly string[] = Object.freeze([
 
 /** Source-book provenance for compendium content. */
 export const SOURCE_BOOKS = [
-  'core-rules', 'magic-book', 'arcanum-sanguinis',
-  'crimson-cult', 'abyss-curse', 'humanity-guide',
-  'bestiary', 'gold-steel-magic',
+  'podrecznik-gry', 'ksiega-magii', 'arcanum-sanguinis',
+  'crimson-cult', 'klatwa-otchlani', 'przewodnik',
+  'bestiariusz', 'zlote-stal-magia',
 ] as const;
 export type SourceBook = (typeof SOURCE_BOOKS)[number];
 

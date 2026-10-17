@@ -23,7 +23,6 @@ export class SpellData extends foundry.abstract.TypeDataModel {
     const f = fields();
     return {
       // Identification
-      circle: makeIntField(1, { min: 0, max: 9 }),
       school: makeStringField('', { blank: true, choices: SPELL_SCHOOLS as unknown as readonly string[] }),
       discipline: makeStringField(''),
       deity: makeStringField('', { blank: true, choices: SACRED_DEITIES as unknown as readonly string[] }),

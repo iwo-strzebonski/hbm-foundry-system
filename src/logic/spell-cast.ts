@@ -230,7 +230,6 @@ async function renderCastCard(
     rolls: rollsHtml,
     mode,
     school: spell.system.school ?? '',
-    circle: (spell.system as any).circle ?? 0,
     outcome: { success },
     costs,
     damage,

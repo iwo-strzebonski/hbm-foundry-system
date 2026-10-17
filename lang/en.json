@@ -105,7 +105,6 @@
     "spell": {
       "label": "Spell",
       "cast": "Cast spell",
-      "circle": "Circle",
       "school": "School",
       "discipline": "Discipline",
       "difficulty": "Spell Threshold",
@@ -200,14 +199,14 @@
       "eros": "Eros"
     },
     "sourceBook": {
-      "core-rules": "PG",
-      "magic-book": "KM",
-      "arcanum-sanguinis": "AS",
-      "crimson-cult": "CS",
-      "abyss-curse": "KO",
-      "humanity-guide": "PLM",
-      "bestiary": "B",
-      "gold-steel-magic": "ZSM"
+      "podrecznik-gry": "Podręcznik Gry",
+      "ksiega-magii": "Księga Magii",
+      "arcanum-sanguinis": "Arcanum Sanguinis",
+      "crimson-cult": "Szkarłatny Kult",
+      "klatwa-otchlani": "Klątwa Otchłani",
+      "przewodnik": "Przewodnik",
+      "bestiariusz": "Bestiariusz",
+      "zlote-stal-magia": "Złoto i Stal: Magia"
     },
     "aoeShape": {
       "point": "Point",
