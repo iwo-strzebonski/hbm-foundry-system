@@ -56,6 +56,8 @@ console.log(`[build-packs] parsed ${allDocs.length} documents total`);
 
 // 2b. signatureSpells = every spell belonging to the discipline (own school or
 // listed in the spell's requirements.discipline).
+// Spells with school `eldritch` belong to Abyss - Primal Magic.
+const SCHOOL_TO_DISCIPLINE: Record<string, string> = { eldritch: 'abyssPrimal' };
 for (const disc of allDocs) {
   if (disc.subType !== 'discipline') continue;
   const sys = disc.system as Record<string, any>;
@@ -63,7 +65,7 @@ for (const disc of allDocs) {
     .filter((d) => {
       if (d.subType !== 'spell') return false;
       const sp = d.system as Record<string, any>;
-      return sp.school === disc.id || (sp.requirements?.discipline ?? []).includes(disc.id);
+      return (SCHOOL_TO_DISCIPLINE[sp.school] ?? sp.school) === disc.id || (sp.requirements?.discipline ?? []).includes(disc.id);
     })
     .map((d) => d.name);
 }
