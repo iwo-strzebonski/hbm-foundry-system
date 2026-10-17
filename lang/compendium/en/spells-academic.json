@@ -63,7 +63,7 @@
     },
     "Tarcza Domu": {
       "name": "House Shield",
-      "description": "Mag otacza wybrany cel gęstą, wielowarstwową osłoną, znacznie mocniejszą niż standardowa Magiczna Tarcza.\r\n\r\nTarcza ma wytrzymałość równą wartości Umiejętności Zdolności Magiczne maga + 3. Gdy cel ma otrzymać obrażenia, są one zmniejszane maksymalnie o obecną wytrzymałość Tarczy, która spada o tyle, ile obrażeń pochłonęła. Gdy wytrzymałość spadnie do 0, zaklęcie przestaje działać.\r\n\r\nDopóki cel jest chroniony tą Tarczą, następne zaklęcie, które rzuci do końca swojej najbliższej Tury, otrzymuje dodatkową kość do puli Testu.\r\n\r\nZa dodatkowe 2 punkty Many, mag może rzucić to zaklęcie na samego siebie zamiast na inny cel."
+      "description": "Mag otacza wybrany cel gęstą, wielowarstwową osłoną, znacznie mocniejszą niż standardowa Magiczna Tarcza.\n\nTarcza ma wytrzymałość równą wartości Umiejętności Zdolności Magiczne maga + 3. Gdy cel ma otrzymać obrażenia, są one zmniejszane maksymalnie o obecną wytrzymałość Tarczy, która spada o tyle, ile obrażeń pochłonęła. Gdy wytrzymałość spadnie do 0, zaklęcie przestaje działać.\n\nDopóki cel jest chroniony tą Tarczą, następne zaklęcie, które rzuci do końca swojej najbliższej Tury, otrzymuje dodatkową kość do puli Testu.\n\nZa dodatkowe 2 punkty Many, mag może rzucić to zaklęcie na samego siebie zamiast na inny cel."
     },
     "Lodowa Podłoga": {
       "name": "Ice Floor",
@@ -91,7 +91,7 @@
     },
     "Magiczne Kajdany": {
       "name": "Magic Shackles",
-      "description": "Cel zaklęcia czuje, jakby spętały go widmowe, niezniszczalne łańcuchy. Efekt działa wyłącznie na umysł celu - Postać nie jest w rzeczywistości związana.\r\n\r\nPostać musi wykonać Test na Soul (Determinacja) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów.\r\n\r\nW przypadku niepowodzenia Postać jest traktowana tak, jakby była Unieruchomiona, a ponadto nie może rzucać zaklęć."
+      "description": "Cel zaklęcia czuje, jakby spętały go widmowe, niezniszczalne łańcuchy. Efekt działa wyłącznie na umysł celu - Postać nie jest w rzeczywistości związana.\n\nPostać musi wykonać Test na Soul (Determinacja) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów.\n\nW przypadku niepowodzenia Postać jest traktowana tak, jakby była Unieruchomiona, a ponadto nie może rzucać zaklęć."
     },
     "Magnetyzm": {
       "name": "Magnetism",
@@ -119,7 +119,7 @@
     },
     "Osłona Świty": {
       "name": "Retinue Guard",
-      "description": "Mag rozdziela swoją moc pomiędzy do czterech celów w zasięgu, otaczając każdego z nich osobną, słabszą Tarczą.\r\n\r\nKażda z Tarcz ma niezależną wytrzymałość równą połowie wartości Umiejętności Zdolności Magiczne maga (zaokrąglonej w górę) + 1. Gdy dany cel ma otrzymać obrażenia, są one zmniejszane maksymalnie o wytrzymałość jego własnej Tarczy, która spada o tyle, ile obrażeń pochłonęła. Gdy wytrzymałość danej Tarczy spadnie do 0, znika tylko ta jedna Tarcza - pozostałe działają nadal.\r\n\r\nMag może objąć tym zaklęciem samego siebie jako jeden z celów bez dodatkowego kosztu."
+      "description": "Mag rozdziela swoją moc pomiędzy do czterech celów w zasięgu, otaczając każdego z nich osobną, słabszą Tarczą.\n\nKażda z Tarcz ma niezależną wytrzymałość równą połowie wartości Umiejętności Zdolności Magiczne maga (zaokrąglonej w górę) + 1. Gdy dany cel ma otrzymać obrażenia, są one zmniejszane maksymalnie o wytrzymałość jego własnej Tarczy, która spada o tyle, ile obrażeń pochłonęła. Gdy wytrzymałość danej Tarczy spadnie do 0, znika tylko ta jedna Tarcza - pozostałe działają nadal.\n\nMag może objąć tym zaklęciem samego siebie jako jeden z celów bez dodatkowego kosztu."
     },
     "Rozsypanie": {
       "name": "Shatter",
@@ -127,7 +127,7 @@
     },
     "Bańka Ochronna": {
       "name": "Shield Bubble",
-      "description": "Mag wyczarowuje kopulastą osłonę o promieniu 4 m (mechanicznie kwadrat o boku 10 m), obejmującą wszystkich sojuszników wewnątrz.\r\n\r\nBańka ma jedną, wspólną wytrzymałość równą wartości Umiejętności Zdolności Magiczne maga + 5. Każdy atak wymierzony w istotę osłoniętą Bańką, który przychodzi z zewnątrz, jest zmniejszany o aktualną wytrzymałość Bańki, która spada o tyle, ile obrażeń pochłonęła - dopóki nie spadnie do 0, po czym zaklęcie przestaje działać. Istoty wewnątrz Bańki mogą swobodnie ją opuszczać i wracać.\r\n\r\nDopóki Bańka trwa, każdy sojusznik wewnątrz niej, który rzuci zaklęcie, otrzymuje dodatkową kość do puli tego Testu.\r\n\r\nZa dodatkowe 3 punkty Many, mag może umieścić środek Bańki na sobie zamiast w innym punkcie w zasięgu."
+      "description": "Mag wyczarowuje kopulastą osłonę o promieniu 4 m (mechanicznie kwadrat o boku 10 m), obejmującą wszystkich sojuszników wewnątrz.\n\nBańka ma jedną, wspólną wytrzymałość równą wartości Umiejętności Zdolności Magiczne maga + 5. Każdy atak wymierzony w istotę osłoniętą Bańką, który przychodzi z zewnątrz, jest zmniejszany o aktualną wytrzymałość Bańki, która spada o tyle, ile obrażeń pochłonęła - dopóki nie spadnie do 0, po czym zaklęcie przestaje działać. Istoty wewnątrz Bańki mogą swobodnie ją opuszczać i wracać.\n\nDopóki Bańka trwa, każdy sojusznik wewnątrz niej, który rzuci zaklęcie, otrzymuje dodatkową kość do puli tego Testu.\n\nZa dodatkowe 3 punkty Many, mag może umieścić środek Bańki na sobie zamiast w innym punkcie w zasięgu."
     },
     "Ukojenie": {
       "name": "Solace",
@@ -162,11 +162,11 @@
     "Magia Ognia": {
       "name": "Fire Magic"
     },
-    "Transmutacja": {
-      "name": "Transmutation"
-    },
     "Magia Żywiołów": {
       "name": "Elemental Magic"
+    },
+    "Transmutacja": {
+      "name": "Transmutation"
     },
     "Magia Powietrza": {
       "name": "Air Magic"

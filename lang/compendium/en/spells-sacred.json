@@ -43,7 +43,7 @@
     },
     "Urok Niewinności": {
       "name": "Charm Of Innocence",
-      "description": "Cel wydaje się wszystkim w otoczeniu urzekający i nieszkodliwy – agresywne działania przeciwników wobec celu wymagają dwóch Sukcesów więcej, a postronne osoby przyjmują wobec niego postawę przyjazną."
+      "description": "Cel wydaje się wszystkim w otoczeniu urzekający i nieszkodliwy - agresywne działania przeciwników wobec celu wymagają dwóch Sukcesów więcej, a postronne osoby przyjmują wobec niego postawę przyjazną."
     },
     "Strzała Kupidyna": {
       "name": "Cupids Arrow",
@@ -71,7 +71,7 @@
     },
     "Wyładowanie Elektrostatyczne": {
       "name": "Electrostatic Discharge",
-      "description": "Teren dookoła postaci zaczyna iskrzyć od wyładowań elektrostatycznych.\r\n\r\nWszystkie istoty w promieniu 2 m od Postaci tyle punktów Obrażeń ignorujących Pancerz, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne lub Oddanie maga, a następnie muszą wykonać Test 4:S na Wytrzymałość (Body), gdzie Sukcesy (S) wymagane do zdania Testu przez cel są równe ilości sukcesów wyrzuconych przez Postać. W wypadku nieudanego Testu cel zostaje Przewrócony."
+      "description": "Teren dookoła postaci zaczyna iskrzyć od wyładowań elektrostatycznych.\n\nWszystkie istoty w promieniu 2 m od Postaci tyle punktów Obrażeń ignorujących Pancerz, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne lub Oddanie maga, a następnie muszą wykonać Test 4:S na Wytrzymałość (Body), gdzie Sukcesy (S) wymagane do zdania Testu przez cel są równe ilości sukcesów wyrzuconych przez Postać. W wypadku nieudanego Testu cel zostaje Przewrócony."
     },
     "Fanatyczne Poświęcenie": {
       "name": "Fanatical Sacrifice",
@@ -151,7 +151,7 @@
     },
     "Grom z Nieba": {
       "name": "Thunderbolt",
-      "description": "Na uniżoną prośbę swojego wyznawcy, Zeus-Jowisz ciska swoim piorunem w wybrany punkt.\r\n\r\nWszyscy przeciwnicy w wybranym obszarze muszą wykonać Test 4:S na Wytrzymałość (Body), gdzie Sukcesy (S) oznacza ilość sukcesów wyrzuconą przez Postać. Każdy przeciwnik, który nie zda Testu, otrzymuje tyle punktów Obrażeń, ile wynosi dwukrotność wartości Umiejętności Zdolności Magiczne lub Oddanie Postaci, oraz zostaje Ogłuszony."
+      "description": "Na uniżoną prośbę swojego wyznawcy, Zeus-Jowisz ciska swoim piorunem w wybrany punkt.\n\nWszyscy przeciwnicy w wybranym obszarze muszą wykonać Test 4:S na Wytrzymałość (Body), gdzie Sukcesy (S) oznacza ilość sukcesów wyrzuconą przez Postać. Każdy przeciwnik, który nie zda Testu, otrzymuje tyle punktów Obrażeń, ile wynosi dwukrotność wartości Umiejętności Zdolności Magiczne lub Oddanie Postaci, oraz zostaje Ogłuszony."
     },
     "Mądrość Salomona": {
       "name": "Wisdom Of Solomon",

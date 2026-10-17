@@ -165,6 +165,10 @@
       "name": "Spell Shattering",
       "description": "Każdy mag posiadający ten Talent może raz na rundę za darmo dokonać próby rozplatania, jednak dane zaklęcie może być rozplatane wyłącznie raz.\n\nMagowie posiadający Zapał mogą próbować rozpleść więcej zaklęć - każda następna taka próba kosztuje jeden punkt Zapału. Magowie sakralni mogą potraktować rozplatanie zaklęcia jako modlitwę, zmieniając Atrybut swojego Testu na Duszę, ale jednocześnie zwiększając koszt wykorzystania tego Talentu o 1 punkt Zapału.\n\nJeżeli Postać widzi istotę rzucającą zaklęcie i jest od niej w zasięgu 20 m, może zadeklarować, że próbuje rozpleść rzucane zaklęcie. Postać wykonuje Test na Zdolności Magiczne (Magic lub Soul, jeśli jest magiem sakralnym), gdzie Trudność (T) jest równa trudności zaklęcia, a liczba wymaganych Sukcesów (S) jest o 1 większa od liczby sukcesów wyrzuconych przez maga rzucającego zaklęcie. Jeżeli wynik Testu Postaci będzie wyższy niż wynik Testu przeciwnika, zaklęcie zostaje rozplecione."
     },
+    "Sztuki Walki": {
+      "name": "Sztuki Walki",
+      "description": "Wieloletni trening sprawił, że Twoje ciało samo w sobie jest bronią.\n\nNie stosujesz kar do Ataków bez Broni (patrz: [Atak bez Broni](../Rozdział%20V%20-%20Walka%20i%20Magic/Atak%20bronią.md)). Twoje pięści, kopnięcia, uderzenia głowicą i ogonem liczą się jako broń biała o Obrażeniach równych 1: możesz nimi Odpierać ataki wręcz, a także korzystać z Talentów wymagających broni białej (np. Parowanie, Finta, Riposta).\n\nTen Talent obejmuje również walkę przedmiotami, które nie są bronią (taborety, narzędzia itp.; tarcza nadal nie jest bronią) - nie stosujesz wtedy kar do Ataków Improwizowanych.\n\nWykonując Powalenie lub Rozbrojenie otrzymujesz dwie dodatkowe kości do Testu Przeciwstawnego."
+    },
     "Tajemna Technologia": {
       "name": "Tajemna Technologia",
       "description": "PT Testów na rozpoznawanie artefaktów i rozumienie ich działania jest niższy o jeden stopień, jeżeli Postać miała styczność z czymś podobnym (nie musi o tym pamiętać)."
