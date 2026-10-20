@@ -20,8 +20,42 @@ function hasStatus(actor: any, id: string): boolean {
   return false;
 }
 
+/** Statuses lasting "until the end of this character's next turn" (see conditions.ts `expires`). */
+export const END_OF_NEXT_TURN_STATUSES = ['oszolomiony', 'przerazony'] as const;
+
+const FLAG_SCOPE = 'hbm-rpg-v3';
+
+function expiringEffects(actor: any): any[] {
+  const out: any[] = [];
+  for (const ef of actor?.effects ?? []) {
+    const ids: string[] = ef?.statuses ? [...ef.statuses] : [];
+    if (ids.some((s) => (END_OF_NEXT_TURN_STATUSES as readonly string[]).includes(s))) out.push(ef);
+  }
+  return out;
+}
+
+/** Start of the actor's turn: arm effects so they end with this turn. */
+async function armExpiring(actor: any): Promise<void> {
+  for (const ef of expiringEffects(actor)) {
+    if (!ef.getFlag?.(FLAG_SCOPE, 'turnStarted')) await ef.setFlag?.(FLAG_SCOPE, 'turnStarted', true);
+  }
+}
+
+/** End of the actor's turn: drop armed effects. */
+async function expireArmed(actor: any): Promise<void> {
+  const ids = expiringEffects(actor).filter((ef) => ef.getFlag?.(FLAG_SCOPE, 'turnStarted')).map((ef) => ef.id);
+  if (ids.length) await actor.deleteEmbeddedDocuments?.('ActiveEffect', ids);
+}
+
 export function registerCombatHooks(): void {
-  Hooks.on('combatRound', async (_combat: Combat, _updateData: unknown, _options: { advanceTime?: number; direction?: number }) => {
+  Hooks.on('combatRound', async (combat: Combat, _updateData: unknown, _options: { advanceTime?: number; direction?: number }) => {
+    // One free Akcja Natychmiastowa per round – reset the per-round counter.
+    for (const c of (combat as any)?.combatants ?? []) {
+      const actor = c.actor;
+      if (actor?.system?.attributes?.immediateActionsUsed) {
+        await actor.update({ 'system.attributes.immediateActionsUsed': 0 });
+      }
+    }
     ChatMessage.create({
       content: `<em>${game.i18n.localize('HBM.combat.newRound')}</em>`,
       whisper: ChatMessage.getWhisperRecipients('GM'),
@@ -29,9 +63,15 @@ export function registerCombatHooks(): void {
   });
 
   Hooks.on('combatTurn', async (combat: Combat) => {
+    // The previous combatant's turn just ended: expire their timed Stany.
+    const prevId = (combat as any).previous?.combatantId;
+    const prevActor = prevId ? (combat as any).combatants?.get?.(prevId)?.actor : null;
+    if (prevActor) await expireArmed(prevActor);
+
     const combatant = combat.combatant;
     const actor = combatant?.actor;
     if (!actor) return;
+    await armExpiring(actor);
 
     // Skip turn for unconscious / restrained-to-incapacitation
     if (hasStatus(actor, 'nieprzytomny') || hasStatus(actor, 'obezwladniony')) {

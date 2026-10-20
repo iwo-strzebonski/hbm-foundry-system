@@ -19,7 +19,7 @@ describe('spell-parser', () => {
     expect(s.damageBase).toBe('magicalAbilities/2');
     expect(s.damageType).toBe('magical');
     expect(s.difficulty).toEqual({ threshold: 4, successes: 1 });
-    expect(s.overcastOptions).toEqual([{ description: '+1 punkt Obrażeń', manaPerStep: 1 }]);
+    expect(s.overcastOptions).toEqual([{ description: '+1 punkt Obrażeń (najwyżej dwa Poziomy Nadczarowania)', manaPerStep: 1 }]);
     expect(s).not.toHaveProperty('circle');
 
     for (const d of docs) {

@@ -14,6 +14,7 @@
  */
 
 import type { CastableActor } from './spell-cast';
+import { bloodAbsorbHp, bloodToZeal } from './rules';
 
 const SELF_HARM_RATIO = 2;          // HP per 1 Blood
 const RESPECT_FOR_LIFE_PENALTY = 3;  // multiplier when talent present
@@ -74,6 +75,32 @@ export async function selfHarm(actor: CastableActor, hpSpent: number): Promise<{
     'system.attributes.blood.value': newBlood,
   });
   return { ok: true, bloodGained: newBlood - blood.value };
+}
+
+/**
+ * Wchłanianie Krwi: spend Krew to heal Żywotność – 2 HP per Krew (Akcja, once per round);
+ * Większe Wchłanianie Krwi: 3 HP per Krew (Akcja Natychmiastowa), or 1 Zapał per 5 Krew.
+ */
+export async function absorbBlood(
+  actor: CastableActor,
+  bloodSpent: number,
+  opts: { greater?: boolean; asZeal?: boolean } = {},
+): Promise<{ ok: boolean; hpGained: number; zealGained: number; reason?: string }> {
+  const a = actor.system.attributes as any;
+  if (bloodSpent <= 0) return { ok: true, hpGained: 0, zealGained: 0 };
+  if (!a.blood || a.blood.value < bloodSpent) return { ok: false, hpGained: 0, zealGained: 0, reason: 'insufficient-blood' };
+  const update: Record<string, number> = { 'system.attributes.blood.value': a.blood.value - bloodSpent };
+  let hpGained = 0;
+  let zealGained = 0;
+  if (opts.greater && opts.asZeal) {
+    zealGained = Math.min(bloodToZeal(bloodSpent), Math.max(0, (a.zeal?.max ?? 0) - (a.zeal?.value ?? 0)));
+    update['system.attributes.zeal.value'] = (a.zeal?.value ?? 0) + zealGained;
+  } else {
+    hpGained = Math.min(bloodAbsorbHp(bloodSpent, !!opts.greater), Math.max(0, (a.health?.max ?? 0) - (a.health?.value ?? 0)));
+    update['system.attributes.health.value'] = (a.health?.value ?? 0) + hpGained;
+  }
+  await actor.update(update);
+  return { ok: true, hpGained, zealGained };
 }
 
 /** Life Steal: invoked from the damage-application hook when the source is a blood spell. */

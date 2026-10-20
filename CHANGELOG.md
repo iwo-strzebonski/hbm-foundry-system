@@ -5,6 +5,25 @@ All notable changes to the **HbM RPG v3** Foundry VTT system.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-10-20
+
+Vault sync ("Foundry Sync Brief 2026-10-20").
+
+### Changed
+- Magic power levels III/IV: daily mana swapped to 24 / 21.
+- Wyczerpanie Many: casting beyond the daily pool is allowed; the shortfall is borrowed (cumulative counter `manaBorrowed`, reset by Długi Odpoczynek) and a N d6 tier roll is posted.
+- Over-limit overcast failure now rolls Kara za Nieudolność (N d6, tier 5-8 drains the pool by the base cost).
+- Odetchnięcie limited to twice between Długie Odpoczynki (`breathersTaken`); Długi Odpoczynek resets counters.
+- Oszołomiony applied automatically when one hit costs ≥ ½ max Żywotność; Koncentracja test 4:⌈⅓ lost⌉ reported; Oszołomiony/Przerażony expire at the end of the character's next turn.
+- Przewrócony and Przerażony condition definitions rewritten; Magiczny Pocisk deals at least 1 after Pancerz.
+- Armor-condition damage reduction rounds up.
+- "Reakcja" relabelled "Akcja Natychmiastowa" (per-round counter `immediateActionsUsed` reset each round).
+- Spell data recompiled from the vault (new costs, Aegis of Zeus slug `aegis-zeus`); spell `difficulty.successes` max raised to 30 (superspells); new `thaumaturgy` school.
+
+### Added
+- `src/logic/rules.ts`: pure helpers for the new rules (+ tests), `absorbBlood`, `drinkManaElixir`, trade constants.
+- Migration 1.4.0.
+
 ## [Unreleased]
 
 ### Changed

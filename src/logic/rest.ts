@@ -4,6 +4,7 @@
  *   Breather (Odetchnięcie, 10 min):
  *     - Restore 1d6 + Wytrzymałość skill value HP (capped at max).
  *     - Restore 1d6 mana (capped at daily pool max).
+ *     - At most twice between two Długie Odpoczynki (counter attributes.breathersTaken).
  *
  *   Short Rest (Krótki Odpoczynek, 1h+):
  *     - Restore half of max HP.
@@ -22,6 +23,7 @@
 
 import type { CastableActor } from './spell-cast';
 import { CONDITIONS } from './conditions';
+import { MAX_BREATHERS_BETWEEN_LONG_RESTS } from './rules';
 
 export type RestKind = 'breather' | 'short' | 'long';
 
@@ -49,11 +51,19 @@ export interface RestResult {
   bloodRestored: number;
   toleranceRecovered: number;
   effectsCleared: number;
+  /** True when an Odetchnięcie was refused (already 2 since the last Długi Odpoczynek). */
+  blocked?: boolean;
 }
 
 export async function rest(actor: CastableActor, kind: RestKind): Promise<RestResult> {
-  Hooks.callAll('hbm.beforeRest', actor, kind);
   const a = actor.system.attributes as any;
+  if (kind === 'breather' && (a.breathersTaken ?? 0) >= MAX_BREATHERS_BETWEEN_LONG_RESTS) {
+    return {
+      kind, hpRestored: 0, manaRestored: 0, zealRestored: 0, bloodRestored: 0,
+      toleranceRecovered: 0, effectsCleared: 0, blocked: true,
+    };
+  }
+  Hooks.callAll('hbm.beforeRest', actor, kind);
   const update: Record<string, unknown> = {};
 
   const hpBefore = a.health?.value ?? 0;
@@ -69,6 +79,7 @@ export async function rest(actor: CastableActor, kind: RestKind): Promise<RestRe
   let toleranceRecovered = 0;
 
   if (kind === 'breather') {
+    update['system.attributes.breathersTaken'] = (a.breathersTaken ?? 0) + 1;
     if (a.mana?.max != null && manaBefore < a.mana.max) {
       const manaRoll = new Roll('1d6');
       await manaRoll.evaluate();
@@ -106,6 +117,10 @@ export async function rest(actor: CastableActor, kind: RestKind): Promise<RestRe
       toleranceRecovered = 1;
     }
   } else {
+    // Długi Odpoczynek resets the per-rest counters.
+    update['system.attributes.breathersTaken'] = 0;
+    update['system.attributes.manaBorrowed'] = 0;
+    update['system.attributes.immediateActionsUsed'] = 0;
     if (a.health?.max != null && hpBefore < a.health.max) {
       update['system.attributes.health.value'] = a.health.max;
       hpRestored = a.health.max - hpBefore;

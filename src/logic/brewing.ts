@@ -14,6 +14,7 @@
 import { HbmTSRoll } from '../dice/ts-roll';
 import { TS_DEFAULT_REQUIRED, TS_DEFAULT_THRESHOLD, getMagicPowerEntry } from '../constants';
 import type { CastableActor } from './spell-cast';
+import { MANA_ELIXIR_NORMAL, MANA_ELIXIR_QUICK_DIE, manaElixirGain } from './rules';
 
 export interface ElixirRecipe {
   name: string;
@@ -60,4 +61,22 @@ export async function brewElixir(actor: CastableActor, recipe: ElixirRecipe): Pr
     flavor: `Warzenie ${recipe.name} (Składniki: ${recipe.ingredients.join(', ') || '-'})`,
   });
   return { roll, success: !!roll.ts?.isSuccess };
+}
+
+/**
+ * Eliksir Odnowienia Many: normal use restores 3 mana (capped at the daily pool) and
+ * raises Maksymalny Koszt Zaklęcia by 1 until the end of the drinker's next turn;
+ * quick use (Akcja Natychmiastowa) restores 1d3 mana only.
+ */
+export async function drinkManaElixir(actor: CastableActor, quick = false): Promise<{ gained: number }> {
+  const a = actor.system.attributes as any;
+  let amount = MANA_ELIXIR_NORMAL;
+  if (quick) {
+    const roll = new Roll(`1d${MANA_ELIXIR_QUICK_DIE}`);
+    await roll.evaluate();
+    amount = roll.total ?? 1;
+  }
+  const gained = manaElixirGain(a.mana.value, a.mana.max, amount);
+  await actor.update({ 'system.attributes.mana.value': a.mana.value + gained });
+  return { gained };
 }

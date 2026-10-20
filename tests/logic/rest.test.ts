@@ -30,7 +30,7 @@ function makeActor(overrides: Partial<any> = {}) {
 }
 
 describe('rest', () => {
-  it('take a breather restores all mana and 1d6 + endurance HP, leaves zeal/blood alone', async () => {
+  it('take a breather restores 1d6 mana and 1d6 + endurance HP, leaves zeal/blood alone', async () => {
     const { actor, updates } = makeActor({
       attributes: {
         health: { value: 10, max: 30 },
@@ -43,13 +43,21 @@ describe('rest', () => {
     const r = await rest(actor, 'breather');
     expect(r.kind).toBe('breather');
     expect(r.hpRestored).toBe(6); // 4 (stub roll default) + 2 (endurance) = 6
-    expect(r.manaRestored).toBe(19);
+    expect(r.manaRestored).toBe(4); // stub 1d6 = 4
     expect(updates['system.attributes.health.value']).toBe(16);
-    expect(updates['system.attributes.mana.value']).toBe(20);
+    expect(updates['system.attributes.mana.value']).toBe(5);
     expect(updates['system.attributes.zeal.value']).toBeUndefined();
+    expect(updates['system.attributes.breathersTaken']).toBe(1);
   });
 
-  it('short rest restores all mana, 1/3 HP, and removes unconscious state', async () => {
+  it('refuses a third breather between two long rests', async () => {
+    const { actor, updates } = makeActor({ attributes: { breathersTaken: 2 } });
+    const r = await rest(actor, 'breather');
+    expect(r.blocked).toBe(true);
+    expect(updates['system.attributes.health.value']).toBeUndefined();
+  });
+
+  it('short rest restores ⌈⅓⌉ of the mana pool, ⌈½⌉ HP, and removes unconscious state', async () => {
     const effects = [
       { id: 'nieprzytomny', statuses: new Set(['nieprzytomny']) },
       { id: 'przewrocony', statuses: new Set(['przewrocony']) },
@@ -63,10 +71,10 @@ describe('rest', () => {
     });
     const r = await rest(actor, 'short');
     expect(r.kind).toBe('short');
-    expect(r.hpRestored).toBe(10); // 30 / 3 = 10
-    expect(r.manaRestored).toBe(19);
-    expect(updates['system.attributes.health.value']).toBe(20);
-    expect(updates['system.attributes.mana.value']).toBe(20);
+    expect(r.hpRestored).toBe(15); // ⌈30 / 2⌉
+    expect(r.manaRestored).toBe(7); // ⌈20 / 3⌉
+    expect(updates['system.attributes.health.value']).toBe(25);
+    expect(updates['system.attributes.mana.value']).toBe(8);
     expect(deletedEffects).toContain('nieprzytomny');
     expect(deletedEffects).not.toContain('przewrocony');
     expect(r.effectsCleared).toBe(1);
@@ -97,7 +105,9 @@ describe('rest', () => {
     expect(updates['system.attributes.blood.value']).toBe(6);
     expect(updates['system.attributes.magicalArmor.runicCounter']).toBe(0);
     expect(r.toleranceRecovered).toBe(1);
-    
+    expect(updates['system.attributes.breathersTaken']).toBe(0);
+    expect(updates['system.attributes.manaBorrowed']).toBe(0);
+
     expect(deletedEffects).toContain('nieprzytomny');
     expect(deletedEffects).toContain('przewrocony');
     expect(deletedEffects).toContain('eff-1');

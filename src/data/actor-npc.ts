@@ -66,6 +66,8 @@ export class NpcData extends foundry.abstract.TypeDataModel {
           bonus: makeIntField(0, { min: 0 }),
         }),
         speed: makeStringField('5m'),
+        manaBorrowed: makeIntField(0, { min: 0 }),
+        immediateActionsUsed: makeIntField(0, { min: 0 }),
       }),
       skills: new f.SchemaField(skillEntries),
       details: new f.SchemaField({

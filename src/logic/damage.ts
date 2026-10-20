@@ -7,11 +7,14 @@
  *
  * Bypass flags allow effects to skip individual layers.
  *
- * After resolving, if HP loss meets the Oszołomiony threshold ⌈(C+U+D)/3⌉
- * the effect is auto-applied to character actors.
+ * After resolving, if HP loss (after reductions) is at least half of max
+ * Żywotność (= C+U+D) the Oszołomiony status is applied (lasts until the end
+ * of that character's next turn). Żywotność lost also yields a Koncentracja
+ * test 4:⌈⅓ lost⌉ (min 1).
  */
 
 import { DamageType } from '../constants';
+import { triggersStun, concentrationTest } from './rules';
 
 export interface ApplyDamageOptions {
   amount: number;
@@ -20,6 +23,8 @@ export interface ApplyDamageOptions {
   ignoreMagicalShield?: boolean;
   ignorePhysicalArmor?: boolean;
   damageArmor?: boolean;
+  /** Magiczny Pocisk: at least 1 damage gets through Pancerz to Żywotność. */
+  minDamageAfterArmor?: boolean;
   postChat?: boolean;
 }
 
@@ -29,6 +34,8 @@ export interface DamageReport {
   hpDamage: number;
   shieldDropped: boolean;
   oszolomionyApplied: boolean;
+  /** Dusza (Determinacja) 4:S for a concentrating target; absent when no Żywotność was lost. */
+  concentrationTest?: { threshold: number; successes: number };
 }
 
 interface ActorLike {
@@ -90,6 +97,10 @@ export async function applyDamage(actor: ActorLike, opts: ApplyDamageOptions): P
     if (absorbed > 0) {
       report.absorbed.physicalArmor = absorbed;
       remaining -= absorbed;
+      if (opts.minDamageAfterArmor && remaining === 0 && absorbed > 0) {
+        remaining = 1;
+        report.absorbed.physicalArmor = absorbed - 1;
+      }
     }
     if (opts.damageArmor && actor.type === 'character' && a.physicalArmor.condition != null) {
       // Decrement durability of the first equipped armor piece (character only)
@@ -115,6 +126,15 @@ export async function applyDamage(actor: ActorLike, opts: ApplyDamageOptions): P
   }
 
   if (Object.keys(updates).length > 0) await actor.update(updates);
+
+  // Oszołomiony: a single hit that costs ≥ half max Żywotność after all reductions.
+  if (triggersStun(report.hpDamage, Number(a.health?.max) || 0) && actor.toggleStatusEffect) {
+    const already = actor.effects?.find((e: any) => e.statuses?.has?.('oszolomiony'));
+    if (!already) await actor.toggleStatusEffect('oszolomiony', { active: true });
+    report.oszolomionyApplied = true;
+  }
+  const concentration = concentrationTest(report.hpDamage);
+  if (concentration) report.concentrationTest = concentration;
 
   if (opts.postChat ?? true) {
     const lines: string[] = [

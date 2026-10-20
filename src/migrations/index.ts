@@ -6,9 +6,10 @@
  * (semver-style string). Migrations are idempotent.
  */
 
-import { SYSTEM_ID } from '../hbm';
+import { SYSTEM_ID } from '../constants';
 import { migration_0_2_0 } from './0.2.0';
 import { migration_1_2_0 } from './1.2.0';
+import { migration_1_4_0 } from './1.4.0';
 
 export interface MigrationStep {
   version: string;       // version this migration brings the world TO
@@ -19,6 +20,7 @@ export interface MigrationStep {
 const MIGRATIONS: MigrationStep[] = [
   migration_0_2_0,
   migration_1_2_0,
+  migration_1_4_0,
 ];
 
 function compareSemver(a: string, b: string): number {

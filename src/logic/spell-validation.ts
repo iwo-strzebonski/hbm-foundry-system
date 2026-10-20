@@ -100,7 +100,8 @@ export function validateCast(actor: CastableActor, spell: SpellLike, opts: CastO
 
   if (mode === 'standard' || mode === 'witch' || (mode === 'sacred' && opts.hekateMode === 'witch')) {
     if (manaSpent > Number(a.mana?.value ?? 0)) {
-      errors.push({ code: 'no-mana', message: 'Not enough mana', i18nKey: 'HBM.spellCast.notEnoughMana' });
+      // Allowed since the 2026-10-20 sync: the shortfall is borrowed (Wyczerpanie Many).
+      warnings.push({ code: 'borrow-mana', message: 'Not enough mana - the shortfall will be borrowed (Wyczerpanie Many)', i18nKey: 'HBM.spellCast.borrowMana' });
     }
   }
   if (opts.castAsPrayer) {

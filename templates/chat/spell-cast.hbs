@@ -51,7 +51,7 @@
                 {{#if damage.targets}}
                     <div class="hbm-card-targets">
                         {{#each damage.targets as |t|}}
-                            <button type="button" class="hbm-action" data-action="hbm-apply-damage" data-target-uuid="{{t.uuid}}" data-amount="{{../damage.total}}" data-type="{{../damage.type}}" data-ignores-armor="{{../damage.ignoresArmor}}">
+                            <button type="button" class="hbm-action" data-action="hbm-apply-damage" data-target-uuid="{{t.uuid}}" data-amount="{{../damage.total}}" data-type="{{../damage.type}}" data-ignores-armor="{{../damage.ignoresArmor}}" data-min-after-armor="{{../damage.minAfterArmor}}">
                                 ⚔ {{t.name}}
                             </button>
                         {{/each}}

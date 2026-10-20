@@ -16,6 +16,7 @@
 
 import { HbmTSRoll } from '../dice/ts-roll';
 import { TS_DEFAULT_REQUIRED, TS_DEFAULT_THRESHOLD, getMagicPowerEntry } from '../constants';
+import { manaToBorrow, exhaustionDice, manaExhaustionTier, overLimitTest } from './rules';
 import { validateCast } from './spell-validation';
 import type { ValidationResult } from './spell-validation';
 import { rollSpellDamage } from './spell-damage';
@@ -197,6 +198,8 @@ async function renderCastCard(
       })),
       type: spell.system.damageType ?? 'magical',
       ignoresArmor: !!spell.system.ignoresArmor,
+      // Magiczny Pocisk: at least 1 damage reaches Żywotność after Pancerz.
+      minAfterArmor: ((spell as any).flags?.['hbm-rpg-v3']?.slug ?? (spell.system as any).slug) === 'magic-missile',
       targets: targets.length > 0 ? targets : null,
     };
   }
@@ -253,11 +256,17 @@ async function castStandard(actor: CastableActor, spell: SpellLike, opts: CastOp
   const manaSpent = Math.max(baseCost, Math.floor(opts.manaSpent ?? baseCost));
   const a = actor.system.attributes;
 
-  const updates: Record<string, any> = { 'system.attributes.mana.value': a.mana.value - manaSpent };
+  // Casting beyond the remaining daily pool is allowed: the missing mana is
+  // "borrowed" and triggers a Wyczerpanie Many roll (N d6, N = cumulative
+  // borrowed mana since the last Długi Odpoczynek, incl. this cast).
+  const borrowed = manaToBorrow(manaSpent, a.mana.value);
+  const updates: Record<string, any> = { 'system.attributes.mana.value': Math.max(0, a.mana.value - manaSpent) };
+  if (borrowed > 0) updates['system.attributes.manaBorrowed'] = (a.manaBorrowed ?? 0) + borrowed;
   if (opts.castAsPrayer) {
     updates['system.attributes.zeal.value'] = a.zeal.value - 1;
   }
   await actor.update(updates);
+  if (borrowed > 0) await rollManaExhaustion(actor, exhaustionDice(a.manaBorrowed ?? 0, borrowed));
 
   const magicDice = typeof a.magic.dicePool === 'number'
     ? a.magic.dicePool
@@ -283,8 +292,7 @@ async function castStandard(actor: CastableActor, spell: SpellLike, opts: CastOp
   // (E) over maxPerSpell: S = E * (E + 1) / 2 (Zasada Nadczarowywania Zaklęć).
   if (manaSpent > a.mana.maxPerSpell && a.mana.maxPerSpell > 0) {
     const excess = manaSpent - a.mana.maxPerSpell;
-    const tThreshold = baseCost <= 2 ? 4 : baseCost <= 4 ? 5 : 6;
-    const ySuccesses = (excess * (excess + 1)) / 2;
+    const { threshold: tThreshold, successes: ySuccesses } = overLimitTest(baseCost, excess);
     const overcastFlavor = `${game.i18n.localize('HBM.spellCast.overcastTest')}: ${spell.name}`;
     const overcastRoll = HbmTSRoll.fromParams({
       pool,
@@ -294,9 +302,41 @@ async function castStandard(actor: CastableActor, spell: SpellLike, opts: CastOp
     });
     await overcastRoll.evaluate();
     await recordRoll(rolls, overcastRoll, overcastFlavor);
+    // Failure → Kara za Nieudolność: N d6, N = missing Sukcesy.
+    const got = Number((overcastRoll as any).ts?.successes ?? 0);
+    if (got < ySuccesses) await rollIncompetencePenalty(actor, ySuccesses - got, baseCost);
   }
 
   return baseRoll;
+}
+
+/** Wyczerpanie Many: roll N d6 and post the tier (tiers in Wyczerpanie Many.md). */
+async function rollManaExhaustion(actor: CastableActor, dice: number): Promise<void> {
+  if (dice <= 0) return;
+  const roll = new Roll(`${dice}d6`);
+  await roll.evaluate();
+  const tier = manaExhaustionTier(roll.total ?? 0);
+  await ChatMessage.create({
+    content: `<strong>${(actor as any).name}</strong>: ${game.i18n.localize('HBM.spellCast.manaExhaustion')} (${dice}k6 = ${roll.total}) → <strong>${tier.label}</strong>`,
+    rolls: [roll.toJSON()],
+    speaker: ChatMessage.getSpeaker({ actor: actor as any }),
+  });
+}
+
+/** Kara za Nieudolność: N d6 where N = missing Sukcesy; tier 5–8 also drains the daily pool by the base cost. */
+async function rollIncompetencePenalty(actor: CastableActor, missing: number, baseCost: number): Promise<void> {
+  const roll = new Roll(`${missing}d6`);
+  await roll.evaluate();
+  const total = roll.total ?? 0;
+  if (total >= 5 && total <= 8) {
+    const a = actor.system.attributes;
+    await actor.update({ 'system.attributes.mana.value': Math.max(0, a.mana.value - baseCost) });
+  }
+  await ChatMessage.create({
+    content: `<strong>${(actor as any).name}</strong>: ${game.i18n.localize('HBM.spellCast.incompetencePenalty')} (${missing}k6 = ${total})`,
+    rolls: [roll.toJSON()],
+    speaker: ChatMessage.getSpeaker({ actor: actor as any }),
+  });
 }
 
 async function castSacred(actor: CastableActor, spell: SpellLike, opts: CastOptions, rolls: CastRollEntry[]): Promise<HbmTSRoll | null> {

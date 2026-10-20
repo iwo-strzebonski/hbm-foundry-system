@@ -33,7 +33,8 @@ import * as brewing from './logic/brewing';
 import { rest } from './logic/rest';
 import * as trade from './logic/trade';
 
-export const SYSTEM_ID = __SYSTEM_ID__;
+import { SYSTEM_ID } from './constants';
+export { SYSTEM_ID };
 
 Hooks.once('init', () => {
   console.log(`${SYSTEM_ID} | Initialising Homebrew Magic: RPG v3 system`);

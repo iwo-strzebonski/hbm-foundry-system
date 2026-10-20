@@ -17,7 +17,7 @@
  * unless they map to a known machine effect ID.
  */
 
-import { SYSTEM_ID } from '../hbm';
+import { SYSTEM_ID } from '../constants';
 
 export interface SpellTrigger {
   event: string;

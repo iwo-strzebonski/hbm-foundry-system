@@ -77,6 +77,7 @@ async function onApplyDamage(btn: HTMLElement): Promise<void> {
     ignoreMagicalArmor: ignoresArmor,
     ignoreMagicalShield: ignoresArmor,
     ignorePhysicalArmor: ignoresArmor,
+    minDamageAfterArmor: btn.dataset.minAfterArmor === 'true',
   } as any);
 }
 

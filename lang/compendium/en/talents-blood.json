@@ -27,7 +27,7 @@
     },
     "Większe Wchłanianie Krwi": {
       "name": "Wieksze Wchlanianie Krwi",
-      "description": "Ta Akcja zastępuje Akcję \"Wchłanianie Krwi\"\nKoszt: Akcja Natychmiastowa, min. 1 punkt Krwi\n\nMag wchłania w siebie zebraną energię życiową wrogów. Za każdy poświęcany 1 punkt Krwi, mag odzyskuje 5 punktów Żywotności.\n\nZamiast leczenia, mag za każde pięć punktów Krwi może odzyskać 1 punkt Zapału."
+      "description": "Ta Akcja zastępuje Akcję \"Wchłanianie Krwi\"\nKoszt: Akcja Natychmiastowa, min. 1 punkt Krwi\n\nMag wchłania w siebie zebraną energię życiową wrogów. Za każdy poświęcany 1 punkt Krwi, mag odzyskuje 3 punkty Żywotności.\n\nZamiast leczenia, mag za każde pięć punktów Krwi może odzyskać 1 punkt Zapału."
     },
     "Wielka Ofiara": {
       "name": "Wielka Ofiara",

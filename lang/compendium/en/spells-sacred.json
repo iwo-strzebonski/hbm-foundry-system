@@ -6,7 +6,7 @@
       "description": "Dzięki doświadczonej dłoni Demeter-Ceres wskazane uprawy błyskawicznie dojrzewają. Rośliny można zebrać od razu - zaklęcie zużywa potencjał plonu “z przyszłości”, co powoduje, że dane rośliny nie dadzą już w danym roku owoców.\r\n\r\nKażde kolejne siewy będą mniej obfite, chyba że pole zostanie ponownie poświęcone.\r\n\r\nTo zaklęcie może zostać rzucone tylko raz na dzień, raz w sezonie na konkretny obszar."
     },
     "Egida": {
-      "name": "Aegis",
+      "name": "Aegis Zeus",
       "description": "Zeus-Jowisz otacza wybrany cel swoją ochroną.\r\n\r\nCel otrzymuje +1 Pancerza, a ponadto wszystkie ataki kierowanie w cel są trudniejsze o jeden stopień."
     },
     "Tajemne Poznanie": {
@@ -27,7 +27,7 @@
     },
     "Ostrze Dawida": {
       "name": "Blade Of David",
-      "description": "Dzięki świętej inkantacji, rzucający może zamienić (oddane dobrowolnie lub własne) pióro anioła w ostrze o tej samej długości (od sztyletu po krótki miecz).\r\n\r\nOstrze jest bronią Tnącą Magiczną zadającą S+1 obrażeń i utrzymuje się przez 3 tury. Po tym czasie ostrze traci swoje właściwości i zamienia się w pozbawione magii pióro. Takiego pióra nie można użyć ponownie jako składnika tego zaklęcia."
+      "description": "Dzięki świętej inkantacji, rzucający może zamienić (oddane dobrowolnie lub własne) pióro anioła w ostrze o tej samej długości (od sztyletu po krótki miecz).\r\n\r\nOstrze jest bronią Tnącą Magiczną zadającą S+1 obrażeń i utrzymuje się przez 3 rundy. Po tym czasie ostrze traci swoje właściwości i zamienia się w pozbawione magii pióro. Takiego pióra nie można użyć ponownie jako składnika tego zaklęcia."
     },
     "Więź Serc": {
       "name": "Bond Of Hearts",
@@ -71,7 +71,7 @@
     },
     "Wyładowanie Elektrostatyczne": {
       "name": "Electrostatic Discharge",
-      "description": "Teren dookoła postaci zaczyna iskrzyć od wyładowań elektrostatycznych.\n\nWszystkie istoty w promieniu 2 m od Postaci tyle punktów Obrażeń ignorujących Pancerz, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne lub Oddanie maga, a następnie muszą wykonać Test 4:S na Wytrzymałość (Body), gdzie Sukcesy (S) wymagane do zdania Testu przez cel są równe ilości sukcesów wyrzuconych przez Postać. W wypadku nieudanego Testu cel zostaje Przewrócony."
+      "description": "Teren dookoła postaci zaczyna iskrzyć od wyładowań elektrostatycznych.\r\n\r\nWszystkie istoty w promieniu 2 m od Postaci tyle punktów Obrażeń ignorujących Pancerz, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne lub Oddanie maga, a następnie muszą wykonać Test 4:S na Wytrzymałość (Body), gdzie Sukcesy (S) wymagane do zdania Testu przez cel są równe ilości sukcesów wyrzuconych przez Postać. W wypadku nieudanego Testu cel zostaje Przewrócony."
     },
     "Fanatyczne Poświęcenie": {
       "name": "Fanatical Sacrifice",
@@ -115,7 +115,7 @@
     },
     "Kradzież Many": {
       "name": "Mana Drain",
-      "description": "Hekate spogląda krzywym wzrokiem na wskazanego przez swojego wyznawcę niewiernego, przekazując część mocy magicznej celu magowi rzucającego to zaklęcie.\r\n\r\nDo końca trwania zaklęcia, mag rzucający to zaklęcie zwiększa swoją Manę o 2 oraz Maksymalny Koszt Zaklęcia o 1, zaś cel zmniejsza swój Maksymalny Koszt Zaklęcia o 2."
+      "description": "Hekate spogląda krzywym wzrokiem na wskazanego przez swojego wyznawcę niewiernego, przekazując część mocy magicznej celu magowi rzucającego to zaklęcie.\r\n\r\nMag rzucający to zaklęcie natychmiast odzyskuje 1k6 punktów Many - jego Mana nie może jednak przekroczyć dziennej puli. Ponadto do końca trwania zaklęcia Maksymalny Koszt Zaklęcia maga zwiększa się o 1, zaś Maksymalny Koszt Zaklęcia celu zmniejsza się o 2."
     },
     "Modlitwa o Opiekę": {
       "name": "Prayer For Protection",
@@ -151,7 +151,7 @@
     },
     "Grom z Nieba": {
       "name": "Thunderbolt",
-      "description": "Na uniżoną prośbę swojego wyznawcy, Zeus-Jowisz ciska swoim piorunem w wybrany punkt.\n\nWszyscy przeciwnicy w wybranym obszarze muszą wykonać Test 4:S na Wytrzymałość (Body), gdzie Sukcesy (S) oznacza ilość sukcesów wyrzuconą przez Postać. Każdy przeciwnik, który nie zda Testu, otrzymuje tyle punktów Obrażeń, ile wynosi dwukrotność wartości Umiejętności Zdolności Magiczne lub Oddanie Postaci, oraz zostaje Ogłuszony."
+      "description": "Na uniżoną prośbę swojego wyznawcy, Zeus-Jowisz ciska swoim piorunem w wybrany punkt.\r\n\r\nWszyscy przeciwnicy w wybranym obszarze muszą wykonać Test 4:S na Wytrzymałość (Body), gdzie Sukcesy (S) oznacza ilość sukcesów wyrzuconą przez Postać. Każdy przeciwnik, który nie zda Testu, otrzymuje tyle punktów Obrażeń, ile wynosi dwukrotność wartości Umiejętności Zdolności Magiczne lub Oddanie Postaci, oraz zostaje Ogłuszony."
     },
     "Mądrość Salomona": {
       "name": "Wisdom Of Solomon",
