@@ -5,6 +5,14 @@ All notable changes to the **HbM RPG v3** Foundry VTT system.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.1] - 2026-10-20
+
+### Added
+- Runiczny Pancerz can be restored with Mana: `game.hbm.runicArmor.rechargeRunicArmor(actor, points, { partial })` – 2 Many per point, capped at the armor's maximum (Amulet Osłony, Akcja). Degradation (every 5 absorbed damage) is unchanged.
+
+### Changed
+- Money converter: NBP rates come from `src/logic/nbp.ts` – one range request per currency (first table from 1 June of the campaign year), latest published rate for future years or when no table is found, 4 s timeout, offline fallback EUR = `TRADE.eurRate` (4.36), USD = 4.00.
+
 ## [1.4.0] - 2026-10-20
 
 Vault sync ("Foundry Sync Brief 2026-10-20").

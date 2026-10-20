@@ -133,6 +133,19 @@ export function bloodToZeal(blood: number): number {
   return Math.floor(Math.max(0, blood) / 5);
 }
 
+/** Runiczny Pancerz (Amulet Osłony): recharging costs 2 Mana per point, as an Akcja. */
+export const RUNIC_ARMOR_MANA_PER_POINT = 2;
+
+/** Points of Runiczny Pancerz that can actually be restored (never above max, never negative). */
+export function runicArmorRestorable(value: number, max: number, requested: number): number {
+  return Math.max(0, Math.min(Math.floor(requested), max - value));
+}
+
+/** Mana needed to restore `points` points of Runiczny Pancerz. */
+export function runicArmorManaCost(points: number): number {
+  return Math.max(0, points) * RUNIC_ARMOR_MANA_PER_POINT;
+}
+
 /** Eliksir Odnowienia Many: +3 mana (capped by the pool); quick use = 1d3 as Immediate Action. */
 export const MANA_ELIXIR_NORMAL = 3;
 export const MANA_ELIXIR_QUICK_DIE = 3;

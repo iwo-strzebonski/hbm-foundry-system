@@ -30,6 +30,7 @@ import { castSpell } from './logic/spell-cast';
 import * as bloodMagic from './logic/blood-magic';
 import * as abyssMagic from './logic/abyss-magic';
 import * as brewing from './logic/brewing';
+import * as runicArmor from './logic/runic-armor';
 import { rest } from './logic/rest';
 import * as trade from './logic/trade';
 
@@ -137,6 +138,7 @@ Hooks.once('ready', () => {
     bloodMagic,
     abyssMagic,
     brewing,
+    runicArmor,
     rest,
     trade,
   };
