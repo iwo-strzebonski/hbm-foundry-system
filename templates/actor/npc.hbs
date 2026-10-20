@@ -206,8 +206,7 @@
         <div class="row spell-row">
             <span class="badge mode mode-{{sp.system.castingMode}}"
                 title="{{localize (concat 'HBM.spell.castingMode.' sp.system.castingMode)}}">{{sp.system.castingMode}}</span>
-            <span class="spell-name"><strong>{{sp.name}}</strong>{{#if sp.system.circle}}
-                <small>K{{sp.system.circle}}</small>{{/if}}</span>
+            <span class="spell-name"><strong>{{sp.name}}</strong></span>
             <button type="button" data-action="castSpell" data-item-id="{{sp.id}}"
                 title="{{localize 'HBM.spell.cast'}}">✦ {{localize 'HBM.spell.cast'}}</button>
             <button type="button" data-action="editItem" data-item-id="{{sp.id}}"

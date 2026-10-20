@@ -4,9 +4,6 @@
     <fieldset>
         <legend>{{localize 'HBM.spell.label'}}</legend>
         <div class="row">
-            <label>{{localize 'HBM.spell.circle'}}:
-                <input type="number" name="system.circle" value="{{system.circle}}" min="0" max="9" />
-            </label>
             <label>{{localize 'HBM.spell.school'}}:
                 <select name="system.school">
                     {{#each @root.choices.schools as |label key|}}

@@ -23,7 +23,6 @@ export class SpellData extends foundry.abstract.TypeDataModel {
     const f = fields();
     return {
       // Identification
-      circle: makeIntField(1, { min: 0, max: 9 }),
       school: makeStringField('', { blank: true, choices: SPELL_SCHOOLS as unknown as readonly string[] }),
       discipline: makeStringField(''),
       deity: makeStringField('', { blank: true, choices: SACRED_DEITIES as unknown as readonly string[] }),
@@ -37,7 +36,7 @@ export class SpellData extends foundry.abstract.TypeDataModel {
       // Difficulty
       difficulty: new f.SchemaField({
         threshold: makeIntField(TS_DEFAULT_THRESHOLD, { min: 2, max: 6 }),
-        successes: makeIntField(TS_DEFAULT_REQUIRED, { min: 1, max: 10 }),
+        successes: makeIntField(TS_DEFAULT_REQUIRED, { min: 1, max: 30 }),
       }),
 
       // Components
@@ -100,7 +99,7 @@ export class SpellData extends foundry.abstract.TypeDataModel {
       // Variable success summons (Przywołanie Istoty z Otchłani)
       variableSuccesses: makeArrayField(new f.SchemaField({
         label: makeStringField(''),
-        successes: makeIntField(1, { min: 1, max: 10 }),
+        successes: makeIntField(1, { min: 1, max: 30 }),
       })),
 
       // Description

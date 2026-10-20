@@ -275,14 +275,13 @@
                                 title="Wymagana rasa">🔒</span>{{/if}}
                         </span>
                         <span class="item-meta">
-                            K{{spell.system.circle}}
-                            · {{localize (concat 'HBM.spell.castingMode.' spell.system.castingMode)}}
+                            {{localize (concat 'HBM.spell.castingMode.' spell.system.castingMode)}}
                             · {{localize 'HBM.resources.mana'}}: {{spell.system.manaCost}}
                             {{#if (eq spell.system.castingMode 'sacred')}}{{#if spell.system.deity}} ·
                             {{spell.system.deity}}{{/if}}{{/if}}
                             {{#if (eq spell.system.castingMode 'blood')}} · krew: {{spell.system.bloodCost}}{{/if}}
                             {{#if spell.system.sourceBook}} · <span
-                                class="source-pip">{{spell.system.sourceBook}}</span>{{/if}}
+                                class="source-pip">{{localize (concat 'HBM.sourceBook.' spell.system.sourceBook)}}</span>{{/if}}
                         </span>
                         <div class="item-controls">
                             <button type="button" class="cast-btn" data-action="castSpell" data-item-id="{{spell.id}}"

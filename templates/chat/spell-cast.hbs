@@ -4,7 +4,6 @@
         <div class="hbm-card-meta">
             {{#if mode}}<span class="badge mode mode-{{mode}}">{{localize (concat 'HBM.spell.castingMode.' mode)}}</span>{{/if}}
             {{#if school}}<span class="badge school">{{localize (concat 'HBM.spellSchool.' school)}}</span>{{/if}}
-            {{#if circle}}<span class="badge circle">{{localize 'HBM.spell.circle'}} {{circle}}</span>{{/if}}
             {{#if (or (eq mode "sacred") (eq mode "prayer"))}}
                 <span class="badge warning">{{localize 'HBM.spellCast.cannotBeUnraveled'}}</span>
             {{/if}}
@@ -24,6 +23,12 @@
         </ul>
     {{/if}}
 
+    {{#each rolls as |r|}}
+        <section class="hbm-card-roll">
+            {{{r.html}}}
+        </section>
+    {{/each}}
+
     {{#if outcome.success}}
         {{#if damage}}
             <section class="hbm-card-damage">
@@ -34,10 +39,19 @@
                     {{#if damage.ignoresArmor}}<span class="badge ignores-armor">{{localize 'HBM.spell.ignoresArmor'}}</span>{{/if}}
                 </div>
                 <div class="damage-formula"><code>{{damage.formula}}</code></div>
+                {{#if damage.dice.length}}
+                    <div class="damage-dice">
+                        {{#each damage.dice as |d|}}
+                            <span class="damage-die-group"><small>{{d.expression}}:</small>
+                                {{#each d.results as |face|}}<span class="die">{{face}}</span>{{/each}}
+                            </span>
+                        {{/each}}
+                    </div>
+                {{/if}}
                 {{#if damage.targets}}
                     <div class="hbm-card-targets">
                         {{#each damage.targets as |t|}}
-                            <button type="button" class="hbm-action" data-action="hbm-apply-damage" data-target-uuid="{{t.uuid}}" data-amount="{{../damage.total}}" data-type="{{../damage.type}}" data-ignores-armor="{{../damage.ignoresArmor}}">
+                            <button type="button" class="hbm-action" data-action="hbm-apply-damage" data-target-uuid="{{t.uuid}}" data-amount="{{../damage.total}}" data-type="{{../damage.type}}" data-ignores-armor="{{../damage.ignoresArmor}}" data-min-after-armor="{{../damage.minAfterArmor}}">
                                 ⚔ {{t.name}}
                             </button>
                         {{/each}}

@@ -4,7 +4,7 @@
  * consumed by the roll pipeline and combat hooks.
  */
 
-import { SYSTEM_ID } from '../hbm';
+import { SYSTEM_ID } from '../constants';
 
 export interface ConditionDef {
   id: string;
@@ -17,14 +17,14 @@ export interface ConditionDef {
 const CHANGE_MODE_ADD = 2;
 
 export const CONDITIONS: ConditionDef[] = [
-  { id: 'przewrocony', i18nKey: 'HBM.conditions.przewrocony', icon: 'icons/svg/falling.svg', flags: { hbm: { prone: true } } },
+  { id: 'przewrocony', i18nKey: 'HBM.conditions.przewrocony', icon: 'icons/svg/falling.svg', flags: { hbm: { prone: true, attacksWithinMeters: 3, thresholdStepsAgainst: -2, onlyDefense: 'dodge', standUpCost: 'halfMoveCeil' } } },
   { id: 'unieruchomiony', i18nKey: 'HBM.conditions.unieruchomiony', icon: 'icons/svg/net.svg', flags: { hbm: { thresholdSteps: { attack: 1 }, defenseSteps: -1 } } },
   { id: 'obezwladniony', i18nKey: 'HBM.conditions.obezwladniony', icon: 'icons/svg/blood.svg', flags: { hbm: { blocksTags: ['attack'], defenseT: 2 } } },
   { id: 'nieprzytomny', i18nKey: 'HBM.conditions.nieprzytomny', icon: 'icons/svg/unconscious.svg', flags: { hbm: { skipTurn: true, blocksAllActions: true } } },
   { id: 'umierajacy', i18nKey: 'HBM.conditions.umierajacy', icon: 'icons/svg/skull.svg', flags: { hbm: { dyingState: { failures: 0, hits: 0, mortalDamage: 0 } } } },
   { id: 'ogluszony', i18nKey: 'HBM.conditions.ogluszony', icon: 'icons/svg/deaf.svg', flags: { hbm: { blocksTags: ['hearing'] } } },
   { id: 'oslepiony', i18nKey: 'HBM.conditions.oslepiony', icon: 'icons/svg/blind.svg', flags: { hbm: { blocksTags: ['sight'] } } },
-  { id: 'oszolomiony', i18nKey: 'HBM.conditions.oszolomiony', icon: 'icons/svg/daze.svg', flags: { hbm: { maxActions: 1, blockZeal: true, halveSpeed: true } } },
+  { id: 'oszolomiony', i18nKey: 'HBM.conditions.oszolomiony', icon: 'icons/svg/daze.svg', flags: { hbm: { maxActions: 1, blockZeal: true, halveSpeed: true, expires: 'endOfNextTurn' } } },
   {
     id: 'zatruty',
     i18nKey: 'HBM.conditions.zatruty',
@@ -53,7 +53,7 @@ export const CONDITIONS: ConditionDef[] = [
   { id: 'zauroczony', i18nKey: 'HBM.conditions.zauroczony', icon: 'icons/svg/heal.svg', flags: { hbm: { thresholdSteps: { social: 1 }, charmedBy: '' } } },
   { id: 'koncentracja', i18nKey: 'HBM.conditions.koncentracja', icon: 'icons/svg/aura.svg', flags: { hbm: { concentration: true, persistent: true } } },
   // Provisional: book description incomplete for Przerażony (Aneks A placeholder).
-  { id: 'przerazony', i18nKey: 'HBM.conditions.przerazony', icon: 'icons/svg/terror.svg', flags: { hbm: { thresholdSteps: { all: 1 }, todoBookGap: true } } },
+  { id: 'przerazony', i18nKey: 'HBM.conditions.przerazony', icon: 'icons/svg/terror.svg', flags: { hbm: { fearSource: '', thresholdStepsVsSource: 1, noCloserToSource: true, expires: 'endOfNextTurn', refreshOnReapply: true } } },
 
   // Mental illnesses (Klątwa Otchłani Ch. VIII - book chapter currently a placeholder;
   // these are stub registrations with `todoBookGap: true` until full mechanics drop).

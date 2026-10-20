@@ -54,6 +54,22 @@ allDocs.push(...(await parseGear(ctx)));
 
 console.log(`[build-packs] parsed ${allDocs.length} documents total`);
 
+// 2b. signatureSpells = every spell belonging to the discipline (own school or
+// listed in the spell's requirements.discipline).
+// Spells with school `eldritch` belong to Abyss - Primal Magic.
+const SCHOOL_TO_DISCIPLINE: Record<string, string> = { eldritch: 'abyssPrimal' };
+for (const disc of allDocs) {
+  if (disc.subType !== 'discipline') continue;
+  const sys = disc.system as Record<string, any>;
+  sys.signatureSpells = allDocs
+    .filter((d) => {
+      if (d.subType !== 'spell') return false;
+      const sp = d.system as Record<string, any>;
+      return (SCHOOL_TO_DISCIPLINE[sp.school] ?? sp.school) === disc.id || (sp.requirements?.discipline ?? []).includes(disc.id);
+    })
+    .map((d) => d.name);
+}
+
 // 3. Group by pack and emit one JSON per doc into packs-src/<pack>/.
 if (existsSync(packsSrcDir)) rmSync(packsSrcDir, { recursive: true });
 const byPack = new Map<string, ParsedDoc[]>();
@@ -87,10 +103,10 @@ function getFolderHierarchy(doc: ParsedDoc): { name: string; parentName?: string
         return [{ name: 'Magia Żywiołów' }, { name: 'Magia Ziemi', parentName: 'Magia Żywiołów' }];
       }
       if (school === 'alchemyTransmutation') {
-        return [{ name: 'Alchemia' }, { name: 'Alchemia - Transmutacja', parentName: 'Alchemia' }];
+        return [{ name: 'Alchemia' }, { name: 'Transmutacja', parentName: 'Alchemia' }];
       }
       if (school === 'alchemyBrewing') {
-        return [{ name: 'Alchemia' }, { name: 'Alchemia - Warzenie Eliksirów', parentName: 'Alchemia' }];
+        return [{ name: 'Alchemia' }, { name: 'Warzenie Eliksirów', parentName: 'Alchemia' }];
       }
       if (school === 'artifice') {
         return [{ name: 'Rzemiosło Artefaktów' }];

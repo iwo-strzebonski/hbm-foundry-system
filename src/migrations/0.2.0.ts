@@ -12,7 +12,7 @@
  *    (DataModel default usually handles this; explicit safety net).
  */
 
-import { SYSTEM_ID } from '../hbm';
+import { SYSTEM_ID } from '../constants';
 import type { MigrationStep } from './index';
 
 interface LegacySpellSystem {

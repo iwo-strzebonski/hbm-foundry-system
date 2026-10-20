@@ -600,6 +600,10 @@
 .hbm.spell-cast-card section { margin: .35rem 0; }
 .hbm.spell-cast-card .damage-line { display: flex; gap: .35rem; align-items: baseline; font-size: 1.2em; }
 .hbm.spell-cast-card .damage-formula code { font-size: .8em; color: #555; }
+.hbm.spell-cast-card .hbm-card-roll { margin: .35rem 0; padding: .25rem; border: 1px solid rgba(107,63,160,.25); border-radius: 4px; }
+.hbm.spell-cast-card .damage-dice { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .15rem; }
+.hbm.spell-cast-card .damage-die-group { display: inline-flex; gap: .2rem; align-items: center; }
+.hbm.spell-cast-card .damage-die-group .die { display: inline-flex; align-items: center; justify-content: center; min-width: 1.6rem; height: 1.6rem; border-radius: 4px; font-weight: bold; background: #ddd; color: #333; }
 .hbm.spell-cast-card .hbm-card-targets, .hbm.spell-cast-card .status-buttons { display: flex; flex-wrap: wrap; gap: .25rem; margin-top: .25rem; }
 .hbm.spell-cast-card button.hbm-action { font-size: .85em; padding: 2px 8px; border-radius: 4px; cursor: pointer; }
 .hbm.spell-cast-card .hbm-card-hint { font-size: .8em; color: #777; margin: .15rem 0; font-style: italic; }

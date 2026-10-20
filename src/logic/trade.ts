@@ -63,3 +63,4 @@ export async function smuggling(actor: CastableActor, params: TradeTestParams = 
   }
   return roll;
 }
+export { TRADE, negotiationBand } from './rules';

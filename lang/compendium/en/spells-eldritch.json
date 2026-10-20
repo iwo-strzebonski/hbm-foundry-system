@@ -11,7 +11,7 @@
     },
     "Tajemniczy Strumień": {
       "name": "Mysterious Stream",
-      "description": "Z ręki maga wystrzeliwuje błyskawica utkana z mroczno-fioletowej energii.\r\n\r\nTajemniczy Strumień zadaje celowi zadaje tyle punktów obrażeń, ile mag ma punktów w Umiejętności Zdolności Magiczne. Każde dwa (zamiast pięciu) punkty tych obrażeń wyłączają jeden punkt Runicznego Pancerza celu, a przeciwko Magicznej Osłonie celu (np. Magicznej Tarczy) te same obrażenia liczą się podwójnie.\r\n\r\nJeżeli cel nie posiadał magicznej osłony, musi on wykonać udany Test na Determinacja (Soul) 6:S, gdzie liczba wymaganych Sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. Jeżeli trafienie przełamało magiczną osłonę celu, wymagana liczba Sukcesów wynosi zamiast tego 2×S - poświata pękającej osłony rozdziera umysł celu na Otchłań. W obu wypadkach, w razie niepowodzenia testu, postać otrzymuje 1k3 Punktów Obłędu. Jeżeli cel posiadał magiczną osłonę, która nie została przełamana, ten efekt nie występuje."
+      "description": "Z ręki maga wystrzeliwuje błyskawica utkana z mroczno-fioletowej energii.\r\n\r\nTajemniczy Strumień zadaje celowi tyle punktów obrażeń, ile mag ma punktów w Umiejętności Zdolności Magiczne. Każde dwa (zamiast pięciu) punkty tych obrażeń wyłączają jeden punkt Runicznego Pancerza celu, a przeciwko Magicznej Osłonie celu (np. Magicznej Tarczy) te same obrażenia liczą się podwójnie.\r\n\r\nJeżeli cel nie posiadał magicznej osłony, musi on wykonać udany Test na Determinacja (Soul) 6:S, gdzie liczba wymaganych Sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. Jeżeli trafienie przełamało magiczną osłonę celu, wymagana liczba Sukcesów wynosi zamiast tego 2×S - poświata pękającej osłony rozdziera umysł celu na Otchłań. W obu wypadkach, w razie niepowodzenia testu, postać otrzymuje 1k3 Punktów Obłędu. Jeżeli cel posiadał magiczną osłonę, która nie została przełamana, ten efekt nie występuje."
     },
     "Neutralizacja": {
       "name": "Neutralization",
@@ -19,7 +19,7 @@
     },
     "Pierwotna Kula": {
       "name": "Primal Orb",
-      "description": "Mag wyczarowywuje kulę pierwotnej energii, którą następnie ciska w wybranego przeciwnika.\r\n\r\nZaklęcie zadaje celowi zadaje tyle punktów obrażeń, ile mag wynosi suma wartości Umiejętności Zdolności Magiczne oraz rzutu jedną kością sześciościenną (1k6).\r\n\r\nPierwotna Kula porusza się bardzo chaotycznie. Jeżeli w promieniu 2 m od celu, ale w zasięgu zaklęcia, jest jeszcze co najmniej jedna wroga Istota, należy wykonać rzut kością sześciościenną. Jeżeli wynik będzie niższy niż 3, to kula zamiast w wybrany cel trafia w najbliższą do celu Istotę."
+      "description": "Mag wyczarowywuje kulę pierwotnej energii, którą następnie ciska w wybranego przeciwnika.\r\n\r\nZaklęcie zadaje celowi tyle punktów obrażeń, ile wynosi suma wartości Umiejętności Zdolności Magiczne oraz rzutu jedną kością sześciościenną (1k6).\r\n\r\nPierwotna Kula porusza się bardzo chaotycznie. Jeżeli w promieniu 2 m od celu, ale w zasięgu zaklęcia, jest jeszcze co najmniej jedna wroga Istota, należy wykonać rzut kością sześciościenną. Jeżeli wynik będzie niższy niż 3, to kula zamiast w wybrany cel trafia w najbliższą do celu Istotę."
     },
     "Przywołanie Istoty z Otchłani": {
       "name": "Summon Eldritch Entity",

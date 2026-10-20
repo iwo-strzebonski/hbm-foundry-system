@@ -91,12 +91,16 @@ export interface MagicPowerEntry {
   manaPerDay: number;  // daily mana pool ("Ilość Many")
 }
 
+declare const __SYSTEM_ID__: string;
+/** System id; lives here (not in hbm.ts) so logic modules and tests don't pull in the sheets. */
+export const SYSTEM_ID: string = typeof __SYSTEM_ID__ !== 'undefined' ? __SYSTEM_ID__ : 'hbm-rpg-v3';
+
 export const MAGIC_POWER_TABLE: readonly MagicPowerEntry[] = Object.freeze([
   { level: 0, label: '0', dicePool: 6, maxPerSpell: 10, manaPerDay: 60 },
   { level: 1, label: 'I', dicePool: 4, maxPerSpell: 6, manaPerDay: 36 },
   { level: 2, label: 'II', dicePool: 4, maxPerSpell: 5, manaPerDay: 30 },
-  { level: 3, label: 'III', dicePool: 3, maxPerSpell: 5, manaPerDay: 21 },
-  { level: 4, label: 'IV', dicePool: 3, maxPerSpell: 4, manaPerDay: 24 },
+  { level: 3, label: 'III', dicePool: 3, maxPerSpell: 5, manaPerDay: 24 },
+  { level: 4, label: 'IV', dicePool: 3, maxPerSpell: 4, manaPerDay: 21 },
   { level: 5, label: 'V', dicePool: 3, maxPerSpell: 4, manaPerDay: 18 },
   { level: 6, label: 'VI', dicePool: 2, maxPerSpell: 3, manaPerDay: 18 },
   { level: 7, label: 'VII', dicePool: 2, maxPerSpell: 3, manaPerDay: 12 },
@@ -136,6 +140,8 @@ export const SPELL_SCHOOLS = [
   // Forbidden / extra-academic
   'blood', 'crimson', 'abyssAspects', 'abyssPrimal', 'wildWitch',
   'eldritch',
+  // Malferian thaumaturgy (house-shield, retinue-guard, shield-bubble)
+  'thaumaturgy',
 ] as const;
 export type SpellSchool = (typeof SPELL_SCHOOLS)[number];
 
@@ -160,9 +166,9 @@ export const WITCH_SYMBOLS: readonly string[] = Object.freeze([
 
 /** Source-book provenance for compendium content. */
 export const SOURCE_BOOKS = [
-  'core-rules', 'magic-book', 'arcanum-sanguinis',
-  'crimson-cult', 'abyss-curse', 'humanity-guide',
-  'bestiary', 'gold-steel-magic',
+  'podrecznik-gry', 'ksiega-magii', 'arcanum-sanguinis',
+  'crimson-cult', 'klatwa-otchlani', 'przewodnik',
+  'bestiariusz', 'zlote-stal-magia',
 ] as const;
 export type SourceBook = (typeof SOURCE_BOOKS)[number];
 

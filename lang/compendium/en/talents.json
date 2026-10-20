@@ -23,7 +23,7 @@
     },
     "Arytmetyczna Koncentracja": {
       "name": "Arytmetyczna Koncentracja",
-      "description": "Ilość kości w Testach na utrzymanie Koncentracji jest zwiększona o połowę wartości Atrybutu Mind."
+      "description": "Ilość kości w Testach na utrzymanie Koncentracji jest zwiększona o zaokrągloną w górę połowę wartości Atrybutu Mind."
     },
     "Gadanina": {
       "name": "Babble",
@@ -63,7 +63,7 @@
     },
     "Medyk Polowy": {
       "name": "Field Medic",
-      "description": "Chirurgiem może i nie jesteś, ale równie dobrze potrafisz ludzi bandażować. Twoje testy na pomoc medyczną mają podwojoną ilość kości wynikającą z umiejętności. Dodatkowo, osoby które leczysz odnawiają 1k6 więcej Punktów Życia."
+      "description": "Chirurgiem może i nie jesteś, ale równie dobrze potrafisz ludzi bandażować. Twoje testy na pomoc medyczną mają podwojoną ilość kości wynikającą z umiejętności. Dodatkowo, osoby które leczysz odnawiają 1k6 więcej punktów Żywotności."
     },
     "Zakazana Wiedza (Dziedzina)": {
       "name": "Forbidden Knowledge",
@@ -115,7 +115,7 @@
     },
     "Miłosierdzie": {
       "name": "Milosierdzie",
-      "description": "Efekty leczące i chroniące zaklęć Magii Sakralnej są o połowę mocniejsze."
+      "description": "Efekty leczące i chroniące zaklęć Magii Sakralnej są o połowę mocniejsze (wartość po zwiększeniu zaokrąglamy w górę)."
     },
     "Nadzwyczajna Odporność": {
       "name": "Nadzwyczajna Odpornosc",
@@ -135,11 +135,11 @@
     },
     "Oportunista": {
       "name": "Opportunist",
-      "description": "Twoja zdolność do reagowania na wydarzenia w trakcie walki jest zadziwiająca.\n\nRaz na rundę gdy przeciwnik odchodzi od Ciebie i masz możliwość zaatakowania go, możesz podjąć próbę ataku."
+      "description": "Twoja zdolność do reagowania na wydarzenia w trakcie walki jest zadziwiająca.\n\nGdy przeciwnik odchodzi od Ciebie i masz możliwość zaatakowania go, możesz podjąć próbę ataku jako Akcja Natychmiastowa. Każde użycie zużywa Akcję Natychmiastową (patrz: [Tura](../Rozdział%20V%20-%20Walka%20i%20Magic/Tura.md)), więc liczba ataków w rundzie jest ograniczona wyłącznie liczbą Akcji Natychmiastowych, jakie możesz wykonać."
     },
     "Parowanie": {
       "name": "Parry",
-      "description": "Zamiast unikać bądź kontrować ataków, raz na rundę Postać może sparować jeden atak wręcz. \n\nJeżeli atakujący atakuje oburącz, a Postać również trzyma dwie bronie, może sparować obydwa ataki, jednak musi podzielić pulę kości na obydwa parowania (podobnie jak przy walce oburącz).\n\nPostać wykonuje Test Przeciwstawny (jak w przypadku Odpierania Ataku), jednak Test jest prostszy o jeden stopień, a ponadto ilość wymaganych Sukcesów należy zmniejszyć o zaokrągloną w górę połowę wartości Umiejętności Walka Wręcz atakowanego."
+      "description": "Zamiast unikać bądź kontrować ataków, raz na rundę (jako Akcja Natychmiastowa) Postać może sparować jeden atak wręcz. \n\nJeżeli atakujący atakuje oburącz, a Postać również trzyma dwie bronie, może sparować obydwa ataki, jednak musi podzielić pulę kości na obydwa parowania (podobnie jak przy walce oburącz).\n\nPostać wykonuje Test Przeciwstawny (jak w przypadku Odpierania Ataku), jednak Test jest prostszy o jeden Stopień. Parowanie się udaje, jeżeli Postać uzyska co najmniej tyle Sukcesów, ile atakujący, pomniejszone o zaokrągloną w górę połowę wartości swojej Umiejętności Walka Wręcz (czyli remis i niewielka przegrana również są sukcesem) - atak zostaje wtedy Sparowany i nie zadaje obrażeń. W przeciwnym razie atak trafia i zadaje obrażenia na zwykłych zasadach."
     },
     "Urok Osobisty": {
       "name": "Personal Charm",
@@ -147,7 +147,7 @@
     },
     "Pierwotna Energia": {
       "name": "Pierwotna Energia",
-      "description": "Nie możesz rzucać ani rozplatać zaklęć. Twój Maksymalny Koszt Zaklęcia oraz Ilość Many zostają dwukrotnie zwiększone.\n\nW ramach Akcji możesz pomóc wybranemu magowi w zasięgu 3 m w rzucaniu zaklęć. Do początku Twojej następnej tury, jeżeli wybrany mag się od Ciebie nie odsunie, gdy ten mag rzuca jakiekolwiek zaklęcie, możesz zadeklarować, że zużywasz swoją manę, aby wzmocnić zaklęcie wybranego maga (Księga Magii). Mana wykorzystana w celu wzmocnienia zaklęcia nie liczy się do wykonywanego przez maga testu na to, czy uda mu się kontrolować dużą ilość mocy, ale wzmacniając zaklęcie, nie możesz przekroczyć swojego maksymalnego kosztu zaklęcia.\n\nDodatkowo w ramach Akcji Natychmiastowej możesz przekazać część swojej many. Jeżeli chcesz to zrobić, wykonaj Test na Zdolności Magiczne (Magic). Trudność zależy od odległości od maga (4:S poniżej 1 m, 5:S poniżej 2 m, 6:S poniżej 3 m), a Ilość Wymaganych Sukcesów (S) jest równa ilości przekazywanej many."
+      "description": "Nie możesz rzucać ani rozplatać zaklęć. Twój Maksymalny Koszt Zaklęcia oraz Ilość Many zostają dwukrotnie zwiększone.\n\nW ramach Akcji [Pomoc](../Rozdział%20V%20-%20Walka%20i%20Magic/Pomoc.md) możesz pomóc wybranemu magowi w zasięgu 3 m (zamiast zwykłego 1 m) w rzucaniu zaklęć. Do początku Twojej następnej tury, jeżeli wybrany mag się od Ciebie nie odsunie, gdy ten mag rzuca jakiekolwiek zaklęcie, możesz zadeklarować, że zużywasz swoją manę, aby wzmocnić zaklęcie wybranego maga (Księga Magii). Mana wykorzystana w celu wzmocnienia zaklęcia nie liczy się do wykonywanego przez maga testu na to, czy uda mu się kontrolować dużą ilość mocy, ale wzmacniając zaklęcie, nie możesz przekroczyć swojego maksymalnego kosztu zaklęcia.\n\nDodatkowo w ramach Akcji Natychmiastowej możesz przekazać część swojej many. Jeżeli chcesz to zrobić, wykonaj Test na Zdolności Magiczne (Magic). Trudność zależy od odległości od maga (4:S poniżej 1 m, 5:S poniżej 2 m, 6:S poniżej 3 m), a Ilość Wymaganych Sukcesów (S) jest równa ilości przekazywanej many."
     },
     "Podejrzliwość Wobec Zmian": {
       "name": "Podejrzliwosc Wobec Zmian",
@@ -163,7 +163,11 @@
     },
     "Rozplatanie Zaklęć": {
       "name": "Spell Shattering",
-      "description": "Każdy mag posiadający ten Talent może raz na rundę za darmo dokonać próby rozplatania, jednak dane zaklęcie może być rozplatane wyłącznie raz.\n\nMagowie posiadający Zapał mogą próbować rozpleść więcej zaklęć - każda następna taka próba kosztuje jeden punkt Zapału. Magowie sakralni mogą potraktować rozplatanie zaklęcia jako modlitwę, zmieniając Atrybut swojego Testu na Duszę, ale jednocześnie zwiększając koszt wykorzystania tego Talentu o 1 punkt Zapału.\n\nJeżeli Postać widzi istotę rzucającą zaklęcie i jest od niej w zasięgu 20 m, może zadeklarować, że próbuje rozpleść rzucane zaklęcie. Postać wykonuje Test na Zdolności Magiczne (Magic lub Soul, jeśli jest magiem sakralnym), gdzie Trudność (T) jest równa trudności zaklęcia, a liczba wymaganych Sukcesów (S) jest o 1 większa od liczby sukcesów wyrzuconych przez maga rzucającego zaklęcie. Jeżeli wynik Testu Postaci będzie wyższy niż wynik Testu przeciwnika, zaklęcie zostaje rozplecione."
+      "description": "Każdy mag posiadający ten Talent może raz na rundę dokonać próby rozplatania w ramach darmowej Akcji Natychmiastowej (o ile nie wykorzystał jej już w tej rundzie), jednak dane zaklęcie może być rozplatane wyłącznie raz.\n\nMagowie posiadający Zapał mogą próbować rozpleść więcej zaklęć - każda następna taka próba kosztuje jeden punkt Zapału. Magowie sakralni mogą potraktować rozplatanie zaklęcia jako modlitwę, zmieniając Atrybut swojego Testu na Duszę, ale jednocześnie zwiększając koszt wykorzystania tego Talentu o 1 punkt Zapału.\n\nJeżeli Postać widzi istotę rzucającą zaklęcie i jest od niej w zasięgu 20 m, może zadeklarować, że próbuje rozpleść rzucane zaklęcie. Postać wykonuje Test na Zdolności Magiczne (Magic lub Soul, jeśli jest magiem sakralnym), gdzie Trudność (T) jest równa trudności zaklęcia, a liczba wymaganych Sukcesów (S) wynika z [Zasady Potężniejszych Zaklęć](../../01.%20Księga%20Magii/Rozdział%20II%20-%20Teoria%20Rzucania%20Zaklęć/Zasada%20Potężniejszych%20Zaklęć.md) (2 + nadwyżka Sukcesów rzucającego ponad wymagane przez zaklęcie, plus bonusy z zaklęć Niezniszczalnych). Jeżeli Postać uzyska wymaganą liczbę Sukcesów, zaklęcie zostaje rozplecione."
+    },
+    "Sztuki Walki": {
+      "name": "Sztuki Walki",
+      "description": "Wieloletni trening sprawił, że Twoje ciało samo w sobie jest bronią.\n\nNie stosujesz kar do Ataków bez Broni (patrz: [Atak bez Broni](../Rozdział%20V%20-%20Walka%20i%20Magic/Atak%20bronią.md)). Twoje pięści, kopnięcia, uderzenia głowicą i ogonem liczą się jako broń biała o Obrażeniach równych 1: możesz nimi Odpierać ataki wręcz, a także korzystać z Talentów wymagających broni białej (np. Parowanie, Finta, Riposta).\n\nTen Talent obejmuje również walkę przedmiotami, które nie są bronią (taborety, narzędzia itp.; tarcza nadal nie jest bronią) - nie stosujesz wtedy kar do Ataków Improwizowanych.\n\nWykonując Powalenie lub Rozbrojenie otrzymujesz dwie dodatkowe kości do Testu Przeciwstawnego."
     },
     "Tajemna Technologia": {
       "name": "Tajemna Technologia",

@@ -7,7 +7,7 @@
     },
     "Powietrzna Fala": {
       "name": "Air Wave",
-      "description": "Mag wyrzuca z siebie potężną falę wiatru.\r\n\r\nKażda osoba w obszarze działania zaklęcia musi wykonać udany Test na Body (Siła) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia cel zostaje Powalony. Niezależnie od wyniku testu każda osoba w stożku otrzymuje tyle punktów obrażeń, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga."
+      "description": "Mag wyrzuca z siebie potężną falę wiatru.\r\n\r\nKażda osoba w obszarze działania zaklęcia musi wykonać udany Test na Body (Siła) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia cel zostaje Przewrócony. Niezależnie od wyniku testu każda osoba w obszarze działania zaklęcia otrzymuje tyle punktów obrażeń, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga."
     },
     "Ożywienie Szkieletu": {
       "name": "Animate Skeleton",
@@ -27,11 +27,11 @@
     },
     "Woal Snów": {
       "name": "Dream Veil",
-      "description": "Woal Snów przekształca obszar o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m) w fantasmagoryczny świat snów i koszmarów.\r\n\r\nWszyscy przeciwnicy w obszarze działania zaklęcia muszą wykonać Test na Soul (Determinacja) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów na początku swojej tury lub po wejściu do obszaru.\r\n\r\nNiepowodzenie skutkuje otrzymaniem tylu obrażeń ignorujących Pancerz, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga rzucającego to zaklęcie, a ponadto Postać staje się Przerażona i wszystkie Testy związane z Umiejętnością Spostrzegawczość wymagają dwóch Sukcesów więcej.\r\n\r\nW przypadku zdania Testu Postać tak czy inaczej ma karę do Testów związanych z Umiejętnością Spostrzegawczość."
+      "description": "Woal Snów przekształca obszar o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m) w fantasmagoryczny świat snów i koszmarów.\r\n\r\nWszyscy przeciwnicy w obszarze działania zaklęcia muszą wykonać Test na Soul (Determinacja) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów na początku swojej tury lub po wejściu do obszaru.\r\n\r\nNiepowodzenie skutkuje otrzymaniem tylu obrażeń ignorujących Pancerz, ile wynosi zaokrąglona w górę połowa wartości Umiejętności Zdolności Magiczne maga rzucającego to zaklęcie, a ponadto Postać staje się [Przerażona](../../../rules/00.%20Podręcznik%20Gry/Aneks%20A%20-%20Stany%20Postaci/Przerażony.md) i wszystkie Testy związane z Umiejętnością Spostrzegawczość wymagają dwóch Sukcesów więcej.\r\n\r\nW przypadku zdania Testu Postać tak czy inaczej ma karę do Testów związanych z Umiejętnością Spostrzegawczość."
     },
     "Trzęsienie Ziemi": {
       "name": "Earthquake",
-      "description": "W wybranym przez maga obszarze ziemia zaczyna się silnie trząść.\r\n\r\nWszystkie istoty w obszarze działania muszą wykonać udany Test na Body (Atletyka) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać zostaje Unieruchomiona i Powalona do początku swojej następnej tury. Efekt ten aktywuje się na końcu każdej tury maga i kończy się na początku trzeciej tury maga od rzucenia zaklęcia. Ponadto, jeśli postać nie zda tego testu trzykrotnie w trakcie działania tego zaklęcia, postać staje się Nieprzytomna do końca trwania zaklęcia."
+      "description": "W wybranym przez maga obszarze ziemia zaczyna się silnie trząść.\r\n\r\nWszystkie istoty w obszarze działania muszą wykonać udany Test na Body (Atletyka) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać zostaje Unieruchomiona i Przewrócona do początku swojej następnej tury. Efekt ten aktywuje się na końcu każdej tury maga i kończy się na początku trzeciej tury maga od rzucenia zaklęcia. Ponadto, jeśli postać nie zda tego testu trzykrotnie w trakcie działania tego zaklęcia, postać staje się Nieprzytomna do końca trwania zaklęcia."
     },
     "Eteryczny Przewodnik": {
       "name": "Ether Guide",
@@ -63,11 +63,11 @@
     },
     "Tarcza Domu": {
       "name": "House Shield",
-      "description": "Mag otacza wybrany cel gęstą, wielowarstwową osłoną, znacznie mocniejszą niż standardowa Magiczna Tarcza.\r\n\r\nTarcza ma wytrzymałość równą wartości Umiejętności Zdolności Magiczne maga + 3. Gdy cel ma otrzymać obrażenia, są one zmniejszane maksymalnie o obecną wytrzymałość Tarczy, która spada o tyle, ile obrażeń pochłonęła. Gdy wytrzymałość spadnie do 0, zaklęcie przestaje działać.\r\n\r\nDopóki cel jest chroniony tą Tarczą, następne zaklęcie, które rzuci do końca swojej najbliższej Tury, otrzymuje dodatkową kość do puli Testu.\r\n\r\nZa dodatkowe 2 punkty Many, mag może rzucić to zaklęcie na samego siebie zamiast na inny cel."
+      "description": "Mag otacza wybrany cel gęstą, wielowarstwową osłoną, znacznie mocniejszą niż standardowa Magiczna Tarcza.\n\nTarcza ma wytrzymałość równą wartości Umiejętności Zdolności Magiczne maga + 3. Gdy cel ma otrzymać obrażenia, są one zmniejszane maksymalnie o obecną wytrzymałość Tarczy, która spada o tyle, ile obrażeń pochłonęła. Gdy wytrzymałość spadnie do 0, zaklęcie przestaje działać.\n\nDopóki cel jest chroniony tą Tarczą, następne zaklęcie, które rzuci do końca swojej najbliższej Tury, otrzymuje dodatkową kość do puli Testu.\n\nZa dodatkowe 2 punkty Many, mag może rzucić to zaklęcie na samego siebie zamiast na inny cel."
     },
     "Lodowa Podłoga": {
       "name": "Ice Floor",
-      "description": "Na obszarze o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m) pojawia się lód. Osoby w polu muszą wykonać udany Test na Body (Atletyka) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać zostaje Powalona."
+      "description": "Na obszarze o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m) pojawia się lód. Osoby w polu muszą wykonać udany Test na Body (Atletyka) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia postać zostaje Przewrócona."
     },
     "Podpalenie": {
       "name": "Ignition",
@@ -95,7 +95,7 @@
     },
     "Magnetyzm": {
       "name": "Magnetism",
-      "description": "Wykorzystujesz swoje zdolności i wiedzę dotyczącą przemian metali w celu wytworzenia pola magnetycznego o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m)  centrowanego na Tobie.\r\n\r\nGdy rzucisz to zaklęcie, wszystkie istoty trzymające metalową broń lub noszący metalowy ekwipunek muszą wykonać udany Test na Body (Siła) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia wszelkie metalowe przedmioty są wyrywane z rąk tej istoty i upadają 1 m od Ciebie.\r\n\r\nPonadto, jeśli dana istota nosi metalową zbroję i nie zda tego Testu, zostaje Powalona oraz przesunięta w Twoją stronę o 2 m (do 1 m od Ciebie).\r\n\r\nPonadto wszystkie istoty w Twoim pobliżu otrzymują -1 kość do rzutów na Walkę Wręcz oraz Umiejętności Strzeleckie.\r\n\r\n---"
+      "description": "Wykorzystujesz swoje zdolności i wiedzę dotyczącą przemian metali w celu wytworzenia pola magnetycznego o promieniu 2 m (mechanicznie reprezentowanym przez kwadrat o boku 5 m)  centrowanego na Tobie.\r\n\r\nGdy rzucisz to zaklęcie, wszystkie istoty trzymające metalową broń lub noszący metalowy ekwipunek muszą wykonać udany Test na Body (Siła) 4:S, gdzie liczba wymaganych sukcesów (S) jest równa liczbie wyrzuconych przez maga sukcesów. W wypadku niepowodzenia wszelkie metalowe przedmioty są wyrywane z rąk tej istoty i upadają 1 m od Ciebie.\r\n\r\nPonadto, jeśli dana istota nosi metalową zbroję i nie zda tego Testu, zostaje Przewrócona oraz przesunięta w Twoją stronę o 2 m (do 1 m od Ciebie).\r\n\r\nPonadto do końca trwania zaklęcia wszystkie istoty w Twoim pobliżu otrzymują -1 kość do rzutów na Walkę Wręcz oraz Umiejętności Strzeleckie.\r\n\r\n---"
     },
     "Labirynt Umysłu": {
       "name": "Mind Labyrinth",
@@ -119,7 +119,7 @@
     },
     "Osłona Świty": {
       "name": "Retinue Guard",
-      "description": "Mag rozdziela swoją moc pomiędzy do czterech celów w zasięgu, otaczając każdego z nich osobną, słabszą Tarczą.\r\n\r\nKażda z Tarcz ma niezależną wytrzymałość równą połowie wartości Umiejętności Zdolności Magiczne maga (zaokrąglonej w górę) + 1. Gdy dany cel ma otrzymać obrażenia, są one zmniejszane maksymalnie o wytrzymałość jego własnej Tarczy, która spada o tyle, ile obrażeń pochłonęła. Gdy wytrzymałość danej Tarczy spadnie do 0, znika tylko ta jedna Tarcza - pozostałe działają nadal.\r\n\r\nMag może objąć tym zaklęciem samego siebie jako jeden z celów bez dodatkowego kosztu."
+      "description": "Mag rozdziela swoją moc pomiędzy do czterech celów w zasięgu, otaczając każdego z nich osobną, słabszą Tarczą.\n\nKażda z Tarcz ma niezależną wytrzymałość równą połowie wartości Umiejętności Zdolności Magiczne maga (zaokrąglonej w górę) + 1. Gdy dany cel ma otrzymać obrażenia, są one zmniejszane maksymalnie o wytrzymałość jego własnej Tarczy, która spada o tyle, ile obrażeń pochłonęła. Gdy wytrzymałość danej Tarczy spadnie do 0, znika tylko ta jedna Tarcza - pozostałe działają nadal.\n\nMag może objąć tym zaklęciem samego siebie jako jeden z celów bez dodatkowego kosztu."
     },
     "Rozsypanie": {
       "name": "Shatter",
@@ -127,7 +127,7 @@
     },
     "Bańka Ochronna": {
       "name": "Shield Bubble",
-      "description": "Mag wyczarowuje kopulastą osłonę o promieniu 4 m (mechanicznie kwadrat o boku 10 m), obejmującą wszystkich sojuszników wewnątrz.\r\n\r\nBańka ma jedną, wspólną wytrzymałość równą wartości Umiejętności Zdolności Magiczne maga + 5. Każdy atak wymierzony w istotę osłoniętą Bańką, który przychodzi z zewnątrz, jest zmniejszany o aktualną wytrzymałość Bańki, która spada o tyle, ile obrażeń pochłonęła - dopóki nie spadnie do 0, po czym zaklęcie przestaje działać. Istoty wewnątrz Bańki mogą swobodnie ją opuszczać i wracać.\r\n\r\nDopóki Bańka trwa, każdy sojusznik wewnątrz niej, który rzuci zaklęcie, otrzymuje dodatkową kość do puli tego Testu.\r\n\r\nZa dodatkowe 3 punkty Many, mag może umieścić środek Bańki na sobie zamiast w innym punkcie w zasięgu."
+      "description": "Mag wyczarowuje kopulastą osłonę o promieniu 4 m (mechanicznie kwadrat o boku 10 m), obejmującą wszystkich sojuszników wewnątrz.\n\nBańka ma jedną, wspólną wytrzymałość równą wartości Umiejętności Zdolności Magiczne maga + 3. Każdy atak wymierzony w istotę osłoniętą Bańką, który przychodzi z zewnątrz, jest zmniejszany o aktualną wytrzymałość Bańki, która spada o tyle, ile obrażeń pochłonęła - dopóki nie spadnie do 0, po czym zaklęcie przestaje działać. Istoty wewnątrz Bańki mogą swobodnie ją opuszczać i wracać.\n\nDopóki Bańka trwa, każdy sojusznik wewnątrz niej, który rzuci zaklęcie, otrzymuje dodatkową kość do puli tego Testu.\n\nZa dodatkowe 3 punkty Many, mag może umieścić środek Bańki na sobie zamiast w innym punkcie w zasięgu."
     },
     "Ukojenie": {
       "name": "Solace",
@@ -151,7 +151,7 @@
     },
     "Szybki jak Wiatr": {
       "name": "Wind Swift",
-      "description": "Mag splata wiatr, aby wspomóc się przy poruszaniu się.\r\n\r\nPrędkość maga zwiększa się dwukrotnie, a ponadto mag nie może zostać Powalony.\r\n\r\n---"
+      "description": "Mag splata wiatr, aby wspomóc się przy poruszaniu się.\r\n\r\nPrędkość maga zwiększa się dwukrotnie, a ponadto mag nie może zostać Przewrócony.\r\n\r\n---"
     },
     "Alchemia": {
       "name": "Alchemy"
@@ -162,11 +162,11 @@
     "Magia Ognia": {
       "name": "Fire Magic"
     },
-    "Alchemia - Transmutacja": {
-      "name": "Alchemy - Transmutation"
-    },
     "Magia Żywiołów": {
       "name": "Elemental Magic"
+    },
+    "Transmutacja": {
+      "name": "Transmutation"
     },
     "Magia Powietrza": {
       "name": "Air Magic"

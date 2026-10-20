@@ -72,6 +72,12 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         // Elixir tolerance (Podręcznik Gry - brewing). Each potion consumed adds 1;
         // recovers 1 per long rest. Soft cap = body + 1; over cap → poisoning.
         elixirTolerance: makeIntField(0, { min: 0 }),
+        // Mana borrowed beyond the daily pool since the last Długi Odpoczynek (Wyczerpanie Many).
+        manaBorrowed: makeIntField(0, { min: 0 }),
+        // Odetchnięcia taken since the last Długi Odpoczynek (max 2).
+        breathersTaken: makeIntField(0, { min: 0 }),
+        // Akcje Natychmiastowe used in the current round (1 free, Zapał buys more).
+        immediateActionsUsed: makeIntField(0, { min: 0 }),
         // Insanity points (Klątwa Otchłani VIII). Each Abyss exposure may add 1; rolls
         // mental-condition table when reaching thresholds.
         insanity: makeIntField(0, { min: 0 }),
@@ -143,6 +149,9 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         zeal: { value: number; max: number };
         blood: { value: number; max: number };
         elixirTolerance: number;
+        manaBorrowed: number;
+        breathersTaken: number;
+        immediateActionsUsed: number;
         insanity: number;
         magicalArmor: { value: number; max: number; runicCounter: number };
         magicalShield: { value: number };
@@ -247,7 +256,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
           totalArmorConditionMax += condMax;
           // Condition-scaled DR: broken armor (cond=0) gives 0 DR
           if (condMax > 0) {
-            effectiveDR += Math.floor(baseDR * (cond / condMax));
+            effectiveDR += Math.ceil(baseDR * (cond / condMax));
           }
         }
       }

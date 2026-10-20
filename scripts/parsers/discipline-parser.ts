@@ -148,6 +148,7 @@ export const parseDisciplines: ParserFn = async (ctx: ParserContext): Promise<Pa
         suggestedSkills: SUGGESTED_SKILLS[seed.id] ?? ['magicalAbilities'],
         passiveAbility: '',
         availableSpells: [],
+        signatureSpells: [],
         description,
       },
       description,

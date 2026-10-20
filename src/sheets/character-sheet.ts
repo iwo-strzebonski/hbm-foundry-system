@@ -78,7 +78,7 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       .map(([school, items]) => ({
         school,
         label: game.i18n.localize(`HBM.spellSchool.${school}`),
-        items: items.sort((a: any, b: any) => (a.system?.circle ?? 0) - (b.system?.circle ?? 0)),
+        items: items.sort((a: any, b: any) => a.name.localeCompare(b.name, 'pl')),
       }))
       .sort((a, b) => a.label.localeCompare(b.label, 'pl'));
 

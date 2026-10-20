@@ -105,7 +105,6 @@
     "spell": {
       "label": "Zaklęcie",
       "cast": "Rzuć zaklęcie",
-      "circle": "Krąg",
       "school": "Szkoła",
       "discipline": "Dziedzina",
       "difficulty": "Próg zaklęcia",
@@ -187,7 +186,8 @@
       "abyssAspects": "Magia Otchłani - Aspekty",
       "abyssPrimal": "Magia Otchłani - Pierwotna Magia",
       "wildWitch": "Dzika Wiedźmia Magia",
-      "eldritch": "Magia Otchłani"
+      "eldritch": "Magia Otchłani",
+      "thaumaturgy": "Taumaturgia"
     },
     "deity": {
       "common": "Modlitwy Powszechne",
@@ -200,14 +200,14 @@
       "eros": "Eros"
     },
     "sourceBook": {
-      "core-rules": "PG",
-      "magic-book": "KM",
-      "arcanum-sanguinis": "AS",
-      "crimson-cult": "CS",
-      "abyss-curse": "KO",
-      "humanity-guide": "PLM",
-      "bestiary": "B",
-      "gold-steel-magic": "ZSM"
+      "podrecznik-gry": "Podręcznik Gry",
+      "ksiega-magii": "Księga Magii",
+      "arcanum-sanguinis": "Arcanum Sanguinis",
+      "crimson-cult": "Szkarłatny Kult",
+      "klatwa-otchlani": "Klątwa Otchłani",
+      "przewodnik": "Przewodnik",
+      "bestiariusz": "Bestiariusz",
+      "zlote-stal-magia": "Złoto i Stal: Magia"
     },
     "aoeShape": {
       "point": "Punkt",
@@ -284,7 +284,7 @@
       "type": "Typ",
       "passive": "Pasywna",
       "active": "Aktywna",
-      "reaction": "Reakcja",
+      "reaction": "Akcja Natychmiastowa",
       "freeAction": "Akcja Darmowa",
       "prerequisite": "Wymóg",
       "description": "Opis",
@@ -344,7 +344,7 @@
       "languages": "Języki",
       "attacks": "Ataki",
       "specialAbilities": "Zdolności Specjalne",
-      "reactions": "Reakcje",
+      "reactions": "Akcje Natychmiastowe",
       "legendaryActions": "Akcje Legendarne",
       "savingThrows": "Rzuty Obronne",
       "damageResistances": "Odporności na Obrażenia",
@@ -380,6 +380,9 @@
       "cannotBeUnraveled": "Nie da się rozpleść",
       "cast": "Rzuć",
       "notEnoughMana": "Niewystarczająca mana.",
+      "borrowMana": "Brakuje many - różnica zostanie pożyczona (Wyczerpanie Many).",
+      "manaExhaustion": "Wyczerpanie Many",
+      "incompetencePenalty": "Kara za Nieudolność",
       "notEnoughZeal": "Niewystarczający Zapał.",
       "notEnoughBlood": "Niewystarczająca Krew.",
       "raceLocked": "Zaklęcie wymaga rasy: {races}.",
@@ -454,7 +457,7 @@
       "spend": "Wydaj",
       "attacks": "Ataki",
       "specialAbilities": "Zdolności Specjalne",
-      "reactions": "Reakcje",
+      "reactions": "Akcje Natychmiastowe",
       "legendaryActions": "Akcje Legendarne",
       "actionsTitle": "Szybkie Akcje",
       "customEquipment": "Własny ekwipunek",

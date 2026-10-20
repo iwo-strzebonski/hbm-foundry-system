@@ -105,7 +105,6 @@
     "spell": {
       "label": "Spell",
       "cast": "Cast spell",
-      "circle": "Circle",
       "school": "School",
       "discipline": "Discipline",
       "difficulty": "Spell Threshold",
@@ -187,7 +186,8 @@
       "abyssAspects": "Abyss - Aspects",
       "abyssPrimal": "Abyss - Primal",
       "wildWitch": "Wild Witch",
-      "eldritch": "Eldritch"
+      "eldritch": "Eldritch",
+      "thaumaturgy": "Thaumaturgy"
     },
     "deity": {
       "common": "Common Prayers",
@@ -200,14 +200,14 @@
       "eros": "Eros"
     },
     "sourceBook": {
-      "core-rules": "PG",
-      "magic-book": "KM",
-      "arcanum-sanguinis": "AS",
-      "crimson-cult": "CS",
-      "abyss-curse": "KO",
-      "humanity-guide": "PLM",
-      "bestiary": "B",
-      "gold-steel-magic": "ZSM"
+      "podrecznik-gry": "Podręcznik Gry",
+      "ksiega-magii": "Księga Magii",
+      "arcanum-sanguinis": "Arcanum Sanguinis",
+      "crimson-cult": "Szkarłatny Kult",
+      "klatwa-otchlani": "Klątwa Otchłani",
+      "przewodnik": "Przewodnik",
+      "bestiariusz": "Bestiariusz",
+      "zlote-stal-magia": "Złoto i Stal: Magia"
     },
     "aoeShape": {
       "point": "Point",
@@ -264,7 +264,7 @@
       "type": "Type",
       "passive": "Passive",
       "active": "Active",
-      "reaction": "Reaction",
+      "reaction": "Immediate Action",
       "freeAction": "Free Action",
       "prerequisite": "Prerequisite",
       "description": "Description",
@@ -324,7 +324,7 @@
       "languages": "Languages",
       "attacks": "Attacks",
       "specialAbilities": "Special Abilities",
-      "reactions": "Reactions",
+      "reactions": "Immediate Actions",
       "legendaryActions": "Legendary Actions",
       "savingThrows": "Saving Throws",
       "damageResistances": "Damage Resistances",
@@ -366,6 +366,9 @@
       "bypassNonCombatBlock": "Bypass non-combat block",
       "cast": "Cast",
       "notEnoughMana": "Not enough mana.",
+      "borrowMana": "Not enough mana - the shortfall is borrowed (Mana Exhaustion).",
+      "manaExhaustion": "Mana Exhaustion",
+      "incompetencePenalty": "Penalty for Incompetence",
       "notEnoughZeal": "Not enough zeal.",
       "notEnoughBlood": "Not enough blood.",
       "raceLocked": "Spell requires race: {races}.",
@@ -451,7 +454,7 @@
       "spend": "Spend",
       "attacks": "Attacks",
       "specialAbilities": "Special Abilities",
-      "reactions": "Reactions",
+      "reactions": "Immediate Actions",
       "legendaryActions": "Legendary Actions",
       "actionsTitle": "Quick Actions",
       "customEquipment": "Custom Equipment",
