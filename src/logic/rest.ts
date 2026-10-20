@@ -141,8 +141,13 @@ export async function rest(actor: CastableActor, kind: RestKind): Promise<RestRe
       update['system.attributes.elixirTolerance'] = Math.max(0, toleranceBefore - 1);
       toleranceRecovered = 1;
     }
-    if (a.magicalArmor?.runicCounter && a.magicalArmor.runicCounter > 0) {
-      update['system.attributes.magicalArmor.runicCounter'] = 0;
+    // Disabled Runiczny Pancerz points come back (only Rozerwanie Run is permanent).
+    if (a.magicalArmor && a.magicalArmor.value < a.magicalArmor.max) {
+      update['system.attributes.magicalArmor.value'] = a.magicalArmor.max;
+    }
+    if (a.greatSacrificeUsed) update['system.attributes.greatSacrificeUsed'] = 0;
+    if (a.bloodUsed) {
+      for (const k of ['selfHarm', 'lifeSteal', 'sacrifice', 'absorb']) update[`system.attributes.bloodUsed.${k}`] = 0;
     }
   }
 

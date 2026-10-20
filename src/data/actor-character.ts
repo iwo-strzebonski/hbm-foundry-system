@@ -78,6 +78,15 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         breathersTaken: makeIntField(0, { min: 0 }),
         // Akcje Natychmiastowe used in the current round (1 free, Zapał buys more).
         immediateActionsUsed: makeIntField(0, { min: 0 }),
+        // Blood-magic actions used this round (Samookaleczenie, Kradzież Życia, Złożenie w Ofierze, Wchłanianie Krwi).
+        bloodUsed: new f.SchemaField({
+          selfHarm: makeIntField(0, { min: 0 }),
+          lifeSteal: makeIntField(0, { min: 0 }),
+          sacrifice: makeIntField(0, { min: 0 }),
+          absorb: makeIntField(0, { min: 0 }),
+        }),
+        // Wielka Ofiara used today (once per day; reset by Długi Odpoczynek).
+        greatSacrificeUsed: makeIntField(0, { min: 0, max: 1 }),
         // Insanity points (Klątwa Otchłani VIII). Each Abyss exposure may add 1; rolls
         // mental-condition table when reaching thresholds.
         insanity: makeIntField(0, { min: 0 }),
@@ -152,6 +161,8 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         manaBorrowed: number;
         breathersTaken: number;
         immediateActionsUsed: number;
+        bloodUsed: { selfHarm: number; lifeSteal: number; sacrifice: number; absorb: number };
+        greatSacrificeUsed: number;
         insanity: number;
         magicalArmor: { value: number; max: number; runicCounter: number };
         magicalShield: { value: number };

@@ -9,6 +9,7 @@
  */
 
 import { applyDamage } from './damage';
+import type { SpellDamageProfile } from './rules';
 import { CONDITIONS } from './conditions';
 
 declare const Hooks: any;
@@ -71,12 +72,18 @@ async function onApplyDamage(btn: HTMLElement): Promise<void> {
     return;
   }
   const ignoresArmor = btn.dataset.ignoresArmor === 'true';
+  let profile: SpellDamageProfile | null = null;
+  try { profile = btn.dataset.profile ? JSON.parse(btn.dataset.profile) : null; } catch { /* ignore */ }
   await applyDamage(target, {
     amount,
     type: (btn.dataset.type as any) ?? 'magical',
-    ignoreMagicalArmor: ignoresArmor,
-    ignoreMagicalShield: ignoresArmor,
-    ignorePhysicalArmor: ignoresArmor,
+    // A spell-specific profile replaces the blanket "ignores all armour" flag.
+    ignoreMagicalArmor: profile ? !!profile.ignoreMagicalArmor : ignoresArmor,
+    ignoreMagicalShield: profile ? !!profile.ignoreMagicalShield : ignoresArmor,
+    ignorePhysicalArmor: profile ? !!profile.ignorePhysicalArmor : ignoresArmor,
+    runicArmorStep: profile?.runicArmorStep,
+    shieldMultiplier: profile?.shieldMultiplier,
+    destroyMagicalDefenses: profile?.destroyMagicalDefenses,
     minDamageAfterArmor: btn.dataset.minAfterArmor === 'true',
   } as any);
 }

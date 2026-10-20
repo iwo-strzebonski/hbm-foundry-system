@@ -16,7 +16,7 @@
 
 import { HbmTSRoll } from '../dice/ts-roll';
 import { TS_DEFAULT_REQUIRED, TS_DEFAULT_THRESHOLD, getMagicPowerEntry } from '../constants';
-import { manaToBorrow, exhaustionDice, manaExhaustionTier, overLimitTest } from './rules';
+import { manaToBorrow, exhaustionDice, manaExhaustionTier, overLimitTest, SPELL_DAMAGE_PROFILES } from './rules';
 import { validateCast } from './spell-validation';
 import type { ValidationResult } from './spell-validation';
 import { rollSpellDamage } from './spell-damage';
@@ -200,6 +200,11 @@ async function renderCastCard(
       ignoresArmor: !!spell.system.ignoresArmor,
       // Magiczny Pocisk: at least 1 damage reaches Żywotność after Pancerz.
       minAfterArmor: ((spell as any).flags?.['hbm-rpg-v3']?.slug ?? (spell.system as any).slug) === 'magic-missile',
+      // Shield-breakers / Szkarłatny Pocisk / Prawdziwa Dezintegracja treat the magical defences specially.
+      profile: (() => {
+        const p = SPELL_DAMAGE_PROFILES[((spell as any).flags?.['hbm-rpg-v3']?.slug ?? (spell.system as any).slug) as string];
+        return p ? JSON.stringify(p) : '';
+      })(),
       targets: targets.length > 0 ? targets : null,
     };
   }
