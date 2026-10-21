@@ -196,7 +196,7 @@ export function greatSacrificeResult(successes: number, highestAttribute: number
   if (successes > highestAttribute) return { kills: true, heal: 0, krew: Math.max(0, targetHealth) };
   return { kills: false, heal: Math.max(0, successes), krew: 0 };
 }
-/** Passive Krew: Szacunek do Życia 1 per 4 HP, Krwisty Pojedynkowicz 1 per 2 HP (cutting/piercing only). */
+/** Passive Krew: Szacunek do Życia 1 per 4 HP, Krwisty Pojedynkowicz 1 per 2 HP (slashing/piercing only). */
 export function krewFromWeaponHpLoss(hpLost: number, talent: KrewTalent | null): number {
   if (talent === 'respect-for-life') return Math.floor(Math.max(0, hpLost) / 4);
   if (talent === 'krwisty-pojedynkowicz') return Math.floor(Math.max(0, hpLost) / 2);

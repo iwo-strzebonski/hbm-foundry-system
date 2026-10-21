@@ -38,13 +38,25 @@ export const parseGear: ParserFn = async (ctx: ParserContext): Promise<ParsedDoc
   return docs;
 };
 
-/** Vault `wound` / `rana` frontmatter → woundKind ('' when absent or unknown – never guessed). */
-export function parseWoundKind(raw: string | undefined): '' | 'cutting' | 'piercing' | 'blunt' {
-  const v = (raw ?? '').trim().toLowerCase();
-  if (['cutting', 'tnąca', 'tnaca', 'tnący', 'tnacy'].includes(v)) return 'cutting';
-  if (['piercing', 'kłująca', 'klujaca', 'kłujący', 'klujacy'].includes(v)) return 'piercing';
-  if (['blunt', 'obuchowa', 'obuchowy', 'miażdżąca', 'miazdzaca'].includes(v)) return 'blunt';
-  return '';
+type WoundKind = 'slashing' | 'piercing' | 'blunt';
+
+/**
+ * Vault `wound` frontmatter → woundKinds. Accepts one value, a comma list ("piercing, slashing"),
+ * or a YAML list (flattened to a comma list by extractMarkdown). Unknown values are dropped,
+ * absent stays empty – never guessed.
+ */
+export function parseWoundKinds(raw: string | undefined): WoundKind[] {
+  const map: Record<string, WoundKind> = {
+    slashing: 'slashing', sieczne: 'slashing', sieczna: 'slashing',
+    piercing: 'piercing', kłute: 'piercing', kłuta: 'piercing', kluta: 'piercing', kłujące: 'piercing',
+    blunt: 'blunt', obuchowe: 'blunt', obuchowa: 'blunt',
+  };
+  const out: WoundKind[] = [];
+  for (const part of (raw ?? '').split(',')) {
+    const kind = map[part.trim().toLowerCase()];
+    if (kind && !out.includes(kind)) out.push(kind);
+  }
+  return out;
 }
 
 function extractMarkdown(raw: string): { frontmatter: Record<string, string>; content: string } {
@@ -57,9 +69,17 @@ function extractMarkdown(raw: string): { frontmatter: Record<string, string>; co
       const fmText = raw.slice(3, endIdx).trim();
       content = raw.slice(endIdx + 3).trim();
 
-      const lines = fmText.split('\n');
+      const lines = fmText.split(/\r?\n/);
+      let listKey = '';
       for (const line of lines) {
+        // "key:" followed by "  - item" lines → comma-joined value.
+        const item = line.match(/^\s+-\s+(.*)$/);
+        if (item && listKey) {
+          fm[listKey] = fm[listKey] ? `${fm[listKey]}, ${item[1].trim()}` : item[1].trim();
+          continue;
+        }
         const colonIdx = line.indexOf(':');
+        listKey = colonIdx > -1 && !line.slice(colonIdx + 1).trim() ? line.slice(0, colonIdx).trim() : '';
         if (colonIdx > -1) {
           const key = line.slice(0, colonIdx).trim();
           let val = line.slice(colonIdx + 1).trim();
@@ -100,7 +120,7 @@ function buildGearDoc(name: string, fm: Record<string, string>, content: string,
     weapon: {
       damage: '',
       damageType: 'physical',
-      woundKind: '',
+      woundKinds: [],
       properties: [],
     },
     armor: {
@@ -115,7 +135,7 @@ function buildGearDoc(name: string, fm: Record<string, string>, content: string,
 
   if (category === 'weapon') {
     system.weapon.damage = fm.damage || fm.obrazenia || '';
-    system.weapon.woundKind = parseWoundKind(fm.wound || fm.rana);
+    system.weapon.woundKinds = parseWoundKinds(fm.wound || fm.rana);
     if (fm.traits || fm.cechy) {
       system.weapon.properties = parseList(fm.traits || fm.cechy);
     }

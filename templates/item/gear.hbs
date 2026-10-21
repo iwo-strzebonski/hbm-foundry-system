@@ -31,13 +31,10 @@
                     <option value="environmental" {{#if (eq system.weapon.damageType 'environmental')}}selected{{/if}}>{{localize 'HBM.gear.environmental'}}</option>
                 </select>
             </label>
-            <label>{{localize 'HBM.gear.woundKind'}}:
-                <select name="system.weapon.woundKind">
-                    <option value=""         {{#if (eq system.weapon.woundKind '')}}selected{{/if}}>{{localize 'HBM.gear.wound.none'}}</option>
-                    <option value="cutting"  {{#if (eq system.weapon.woundKind 'cutting')}}selected{{/if}}>{{localize 'HBM.gear.wound.cutting'}}</option>
-                    <option value="piercing" {{#if (eq system.weapon.woundKind 'piercing')}}selected{{/if}}>{{localize 'HBM.gear.wound.piercing'}}</option>
-                    <option value="blunt"    {{#if (eq system.weapon.woundKind 'blunt')}}selected{{/if}}>{{localize 'HBM.gear.wound.blunt'}}</option>
-                </select>
+            <label title="{{localize 'HBM.gear.woundKindsHint'}}">{{localize 'HBM.gear.woundKinds'}}:
+                <multi-select name="system.weapon.woundKinds">
+                    {{selectOptions woundChoices selected=system.weapon.woundKinds localize=true}}
+                </multi-select>
             </label>
         </fieldset>
     {{/if}}

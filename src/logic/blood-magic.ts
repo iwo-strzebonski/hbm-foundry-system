@@ -180,7 +180,7 @@ export async function resolveLifeSteal(actor: CastableActor, hpActuallyLost: num
 
 /**
  * Złożenie w Ofierze: 1 Zapał, free Akcja Natychmiastowa, once per round. Triggers when your attack
- * kills a target with a cutting / piercing wound within 1 m. `successes` are the Sukcesy of the
+ * kills a target with a slashing / piercing wound within 1 m. `successes` are the Sukcesy of the
  * killing attack's Test: heal Sukcesy + Magia, gain Krew = Sukcesy.
  */
 export async function sacrifice(actor: CastableActor, successes: number): Promise<BloodActionResult> {
@@ -256,7 +256,7 @@ export async function absorbBlood(
 
 /**
  * Passive Krew (talents): 1 per 4 HP lost (Szacunek do Życia) / 1 per 2 HP (Krwisty Pojedynkowicz),
- * by either side, only from cutting or piercing weapons. Call for the victim and the attacker.
+ * by either side, only from slashing or piercing weapons. Call for the victim and the attacker.
  */
 export async function gainKrewFromWeaponDamage(actor: CastableActor, hpLost: number): Promise<number> {
   const blood = (actor.system.attributes as any)?.blood;

@@ -8,11 +8,17 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [1.5.1] - 2026-10-22
 
 ### Added
-- Weapons have a wound kind (`system.weapon.woundKind`: tnąca / kłująca / obuchowa, empty = unspecified), editable on the gear sheet.
-- Gear parser reads `wound` / `rana` frontmatter from vault weapon notes. Missing or unknown values stay unspecified; nothing is guessed.
+- Weapons have wound kinds (`system.weapon.woundKinds`: `slashing` sieczne / `piercing` kłute / `blunt` obuchowe, several allowed, empty = unspecified), editable on the gear sheet as a multi-select. Matches Foundry Sync Brief §18.
+- Gear parser reads `wound` (string, comma list or YAML list; Polish or English words) from vault weapon notes. Unknown values are dropped; nothing is guessed.
+- Packs rebuilt from the current vault: Sztylet piercing+slashing, Bicz slashing, Laska blunt, bows and Włócznia piercing; generic one-/two-handed entries list all three (pick the real type per weapon).
+
+### Changed
+- `applyDamage` takes `woundKinds` (array) instead of a single kind; passive Krew applies when any is slashing or piercing. Blunt (and unarmed) never gives Krew.
+- Vault sync of 2026-10-22 needs no further logic changes: runic armour wording, Zakazana Osłona retaliation, Rozerwanie Run artifact destruction and free Immediate Action for Kradzież Życia / Złożenie w Ofierze were already covered in 1.5.0 (spell, talent and discipline text arrives through the rebuilt packs).
 
 ### Notes
-- Only cutting and piercing weapons feed passive Krew; unspecified weapons give none. Callers of `applyDamage` still need to pass the weapon's `woundKind`.
+- Callers of `applyDamage` still need to pass the equipped weapon's `woundKinds`.
+- Kości Losu use is now an Immediate Action that counts toward the limit (vault `Zużywanie Ładunków`); the system has no Fate-dice action code yet.
 
 ## [1.5.0] - 2026-10-20
 

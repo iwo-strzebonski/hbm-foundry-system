@@ -39,8 +39,8 @@ export class GearData extends foundry.abstract.TypeDataModel {
           choices: DAMAGE_TYPES as unknown as readonly string[],
         }),
         properties: makeArrayField(new f.StringField({ blank: false })),
-        // Rodzaj rany: cutting (tnąca) / piercing (kłująca) / blunt (obuchowa); '' = not specified.
-        woundKind: makeStringField('', { blank: true, choices: WOUND_KINDS as unknown as readonly string[] }),
+        // Rodzaj rany: slashing (sieczne) / piercing (kłute) / blunt (obuchowe); several allowed, empty = unspecified.
+        woundKinds: makeArrayField(new f.StringField({ blank: false, choices: WOUND_KINDS as unknown as string[] })),
       }),
 
       armor: new f.SchemaField({
