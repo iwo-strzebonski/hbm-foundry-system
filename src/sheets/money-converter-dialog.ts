@@ -1,3 +1,5 @@
+import { fetchNbpRate, FALLBACK_RATES } from '../logic/nbp';
+
 const { DialogV2 } = foundry.applications.api as unknown as {
   DialogV2: any;
 };
@@ -55,37 +57,10 @@ class MoneyConverterDialog extends DialogV2 {
 export async function showMoneyConverter(actor: any): Promise<void> {
   const pln = actor.system.details?.money ?? 0;
   const currentYear = actor.system.details?.currentYear ?? 2026;
-  const currentRealYear = new Date().getFullYear();
 
-  const fetchNBP = async (currency: string, year: number): Promise<{ rate: number; date: string } | null> => {
-    if (year >= 2002 && year <= currentRealYear) {
-      for (let day = 1; day <= 7; day++) {
-        const d = `${year}-06-${String(day).padStart(2, '0')}`;
-        try {
-          const res = await fetch(`https://api.nbp.pl/api/exchangerates/rates/a/${currency}/${d}/?format=json`);
-          if (res.ok) {
-            const data = await res.json();
-            const r = data?.rates?.[0]?.mid;
-            if (typeof r === 'number') return { rate: r, date: d };
-          }
-        } catch (_) { /* ignore */ }
-      }
-    }
-    try {
-      const res = await fetch(`https://api.nbp.pl/api/exchangerates/rates/a/${currency}/?format=json`);
-      if (res.ok) {
-        const data = await res.json();
-        const r = data?.rates?.[0]?.mid;
-        const dt = data?.rates?.[0]?.effectiveDate || '';
-        if (typeof r === 'number') return { rate: r, date: dt };
-      }
-    } catch (_) { /* ignore */ }
-    return null;
-  };
-
-  const [eurData, usdData] = await Promise.all([fetchNBP('eur', currentYear), fetchNBP('usd', currentYear)]);
-  const eurRate = eurData?.rate ?? 4.35;
-  const usdRate = usdData?.rate ?? 4.00;
+  const [eurData, usdData] = await Promise.all([fetchNbpRate('eur', currentYear), fetchNbpRate('usd', currentYear)]);
+  const eurRate = eurData?.rate ?? FALLBACK_RATES.eur!;
+  const usdRate = usdData?.rate ?? FALLBACK_RATES.usd!;
   const rateDate = eurData?.date ?? usdData?.date ?? 'default';
   const isLive = !!(eurData || usdData);
 

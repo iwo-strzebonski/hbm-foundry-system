@@ -2,9 +2,9 @@
   "id": "hbm-rpg-v3",
   "title": "Homebrew Magic: RPG v3",
   "description": "System Foundry VTT dla Homebrew Magic: Role Playing Game v3 - autorska gra fabularna z mechaniką puli kości d6 (TS - Trudność:Sukcesy).",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "manifest": "https://vtt-content.octoturge.com/packages/system/hbm-rpg-v3.json",
-  "download": "https://vtt-content.octoturge.com/packages/system/hbm-rpg-v3-v1.4.0.zip",
+  "download": "https://vtt-content.octoturge.com/packages/system/hbm-rpg-v3-v1.4.1.zip",
   "compatibility": {
     "minimum": "13",
     "verified": "14"
