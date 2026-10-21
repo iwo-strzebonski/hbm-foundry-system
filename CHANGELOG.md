@@ -5,6 +5,15 @@ All notable changes to the **HbM RPG v3** Foundry VTT system.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.1] - 2026-10-22
+
+### Added
+- Weapons have a wound kind (`system.weapon.woundKind`: tnąca / kłująca / obuchowa, empty = unspecified), editable on the gear sheet.
+- Gear parser reads `wound` / `rana` frontmatter from vault weapon notes. Missing or unknown values stay unspecified; nothing is guessed.
+
+### Notes
+- Only cutting and piercing weapons feed passive Krew; unspecified weapons give none. Callers of `applyDamage` still need to pass the weapon's `woundKind`.
+
 ## [1.5.0] - 2026-10-20
 
 Vault answers (Foundry Sync Brief §17): blood magic and Runiczny Pancerz.

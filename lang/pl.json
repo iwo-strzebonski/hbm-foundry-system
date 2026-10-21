@@ -259,6 +259,13 @@
       "physical": "Fizyczne",
       "magical": "Magiczne",
       "environmental": "Środowiskowe",
+      "woundKind": "Rodzaj rany",
+      "wound": {
+        "none": "Nieokreślony",
+        "cutting": "Tnąca",
+        "piercing": "Kłująca",
+        "blunt": "Obuchowa"
+      },
       "properties": "Właściwości",
       "damageReduction": "Redukcja Obrażeń",
       "damageReductionBonus": "Premia do Redukcji",

@@ -38,6 +38,15 @@ export const parseGear: ParserFn = async (ctx: ParserContext): Promise<ParsedDoc
   return docs;
 };
 
+/** Vault `wound` / `rana` frontmatter → woundKind ('' when absent or unknown – never guessed). */
+export function parseWoundKind(raw: string | undefined): '' | 'cutting' | 'piercing' | 'blunt' {
+  const v = (raw ?? '').trim().toLowerCase();
+  if (['cutting', 'tnąca', 'tnaca', 'tnący', 'tnacy'].includes(v)) return 'cutting';
+  if (['piercing', 'kłująca', 'klujaca', 'kłujący', 'klujacy'].includes(v)) return 'piercing';
+  if (['blunt', 'obuchowa', 'obuchowy', 'miażdżąca', 'miazdzaca'].includes(v)) return 'blunt';
+  return '';
+}
+
 function extractMarkdown(raw: string): { frontmatter: Record<string, string>; content: string } {
   const fm: Record<string, string> = {};
   let content = raw;
@@ -91,6 +100,7 @@ function buildGearDoc(name: string, fm: Record<string, string>, content: string,
     weapon: {
       damage: '',
       damageType: 'physical',
+      woundKind: '',
       properties: [],
     },
     armor: {
@@ -105,6 +115,7 @@ function buildGearDoc(name: string, fm: Record<string, string>, content: string,
 
   if (category === 'weapon') {
     system.weapon.damage = fm.damage || fm.obrazenia || '';
+    system.weapon.woundKind = parseWoundKind(fm.wound || fm.rana);
     if (fm.traits || fm.cechy) {
       system.weapon.properties = parseList(fm.traits || fm.cechy);
     }

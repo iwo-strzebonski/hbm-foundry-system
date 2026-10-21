@@ -239,6 +239,13 @@
       "physical": "Physical",
       "magical": "Magical",
       "environmental": "Environmental",
+      "woundKind": "Wound kind",
+      "wound": {
+        "none": "Unspecified",
+        "cutting": "Cutting",
+        "piercing": "Piercing",
+        "blunt": "Blunt"
+      },
       "properties": "Properties",
       "damageReduction": "Damage Reduction",
       "damageReductionBonus": "DR Bonus",
