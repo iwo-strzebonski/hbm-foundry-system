@@ -192,6 +192,11 @@ export type GearCategory = (typeof GEAR_CATEGORIES)[number];
 export const DAMAGE_TYPES = ['physical', 'magical', 'environmental'] as const;
 export type DamageType = (typeof DAMAGE_TYPES)[number];
 
+/** Weapon wound kinds (sieczne / kłute / obuchowe). A weapon may have several; none = unspecified.
+ *  Only slashing and piercing wounds feed the passive Krew talents. */
+export const WOUND_KINDS = ['slashing', 'piercing', 'blunt'] as const;
+export type WoundKind = (typeof WOUND_KINDS)[number];
+
 /** Armor types */
 export const ARMOR_TYPES = ['light', 'medium', 'heavy', 'shield'] as const;
 export type ArmorType = (typeof ARMOR_TYPES)[number];

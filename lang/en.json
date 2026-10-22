@@ -239,6 +239,13 @@
       "physical": "Physical",
       "magical": "Magical",
       "environmental": "Environmental",
+      "woundKinds": "Wound kind",
+      "woundKindsHint": "Several allowed. Only slashing and piercing wounds grant talent Krew (Respect for Life, Crimson Duelist). Empty = unspecified.",
+      "wound": {
+        "slashing": "Slashing",
+        "piercing": "Piercing",
+        "blunt": "Blunt"
+      },
       "properties": "Properties",
       "damageReduction": "Damage Reduction",
       "damageReductionBonus": "DR Bonus",

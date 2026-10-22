@@ -6,7 +6,7 @@ import {
   makeArrayField,
   fields,
 } from './fields';
-import { GEAR_CATEGORIES, DAMAGE_TYPES, ARMOR_TYPES, RARITIES } from '../constants';
+import { GEAR_CATEGORIES, DAMAGE_TYPES, ARMOR_TYPES, RARITIES, WOUND_KINDS } from '../constants';
 
 /**
  * Unified Gear item - discriminated by `category`.
@@ -39,6 +39,8 @@ export class GearData extends foundry.abstract.TypeDataModel {
           choices: DAMAGE_TYPES as unknown as readonly string[],
         }),
         properties: makeArrayField(new f.StringField({ blank: false })),
+        // Rodzaj rany: slashing (sieczne) / piercing (kłute) / blunt (obuchowe); several allowed, empty = unspecified.
+        woundKinds: makeArrayField(new f.StringField({ blank: false, choices: WOUND_KINDS as unknown as string[] })),
       }),
 
       armor: new f.SchemaField({

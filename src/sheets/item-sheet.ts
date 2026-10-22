@@ -9,6 +9,7 @@ import {
   AOE_SHAPES,
   SPELL_DAMAGE_TYPES,
   TRIGGER_EVENTS,
+  WOUND_KINDS,
 } from '../constants';
 
 const { ItemSheetV2 } = foundry.applications.sheets as unknown as {
@@ -67,6 +68,7 @@ export class HbmItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       itemType: item.type,
       bodyPartial: TYPE_PARTIAL[item.type] ?? 'systems/hbm-rpg-v3/templates/item/_unknown.hbs',
       choices: buildChoiceMaps(),
+      woundChoices: Object.fromEntries(WOUND_KINDS.map((k) => [k, `HBM.gear.wound.${k}`])),
       effects,
       supportsEffects,
     };
