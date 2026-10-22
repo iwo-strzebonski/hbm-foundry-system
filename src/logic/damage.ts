@@ -35,7 +35,8 @@ export interface ApplyDamageOptions {
   /** Rozerwanie Run: permanently destroys N Runiczny Pancerz points (lowers its maximum). */
   destroyRunicPoints?: number;
   /** Wound kind of a weapon hit (gear data has none yet – callers pass it); drives passive Krew. */
-  woundKind?: 'cutting' | 'piercing' | 'blunt';
+  /** Wound kinds of the attacking weapon; only slashing / piercing give passive Krew. */
+  woundKinds?: ('slashing' | 'piercing' | 'blunt')[];
   /** Attacker, for passive Krew gain (Szacunek do Życia / Krwisty Pojedynkowicz). */
   sourceActor?: any;
   postChat?: boolean;
@@ -161,8 +162,8 @@ export async function applyDamage(actor: ActorLike, opts: ApplyDamageOptions): P
 
   if (Object.keys(updates).length > 0) await actor.update(updates);
 
-  // Passive Krew from cutting / piercing weapons (talents): victim and attacker side.
-  if (report.hpDamage > 0 && (opts.woundKind === 'cutting' || opts.woundKind === 'piercing')) {
+  // Passive Krew from slashing / piercing weapons (talents): victim and attacker side.
+  if (report.hpDamage > 0 && (opts.woundKinds ?? []).some((k) => k === 'slashing' || k === 'piercing')) {
     report.krewGained = {
       victim: await gainKrewFromWeaponDamage(actor as any, report.hpDamage),
       source: opts.sourceActor ? await gainKrewFromWeaponDamage(opts.sourceActor, report.hpDamage) : 0,

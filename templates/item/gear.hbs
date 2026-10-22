@@ -31,6 +31,11 @@
                     <option value="environmental" {{#if (eq system.weapon.damageType 'environmental')}}selected{{/if}}>{{localize 'HBM.gear.environmental'}}</option>
                 </select>
             </label>
+            <label title="{{localize 'HBM.gear.woundKindsHint'}}">{{localize 'HBM.gear.woundKinds'}}:
+                <multi-select name="system.weapon.woundKinds">
+                    {{selectOptions woundChoices selected=system.weapon.woundKinds localize=true}}
+                </multi-select>
+            </label>
         </fieldset>
     {{/if}}
 

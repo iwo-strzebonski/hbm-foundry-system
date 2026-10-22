@@ -259,6 +259,13 @@
       "physical": "Fizyczne",
       "magical": "Magiczne",
       "environmental": "Środowiskowe",
+      "woundKinds": "Rodzaj rany",
+      "woundKindsHint": "Można wybrać kilka. Tylko rany sieczne i kłute dają Krew z talentów (Szacunek do Życia, Krwisty Pojedynkowicz). Puste = nieokreślony.",
+      "wound": {
+        "slashing": "Sieczne",
+        "piercing": "Kłute",
+        "blunt": "Obuchowe"
+      },
       "properties": "Właściwości",
       "damageReduction": "Redukcja Obrażeń",
       "damageReductionBonus": "Premia do Redukcji",
