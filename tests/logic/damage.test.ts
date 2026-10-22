@@ -80,6 +80,41 @@ describe('applyDamage', () => {
     expect(r.hpDamage).toBe(6);
   });
 
+  it('one hit above 5 (after Runiczny Pancerz) disables 1 point; hits never accumulate', async () => {
+    const big = makeActor({ magicalArmor: { value: 3, max: 3 } });
+    const r = await applyDamage(big.actor, { amount: 10, postChat: false });
+    expect(r.runicArmorDisabled).toBe(1);
+    expect(big.actor.update).toHaveBeenCalledWith(expect.objectContaining({ 'system.attributes.magicalArmor.value': 2 }));
+    const small = makeActor({ magicalArmor: { value: 3, max: 3 } });
+    await applyDamage(small.actor, { amount: 7, postChat: false });
+    await applyDamage(small.actor, { amount: 7, postChat: false });
+    expect(small.updates.every((u) => u['system.attributes.magicalArmor.value'] === 3)).toBe(true);
+  });
+
+  it('shield-breakers: every 2 damage disable a point and damage counts double against Magiczna Osłona', async () => {
+    const { actor } = makeActor({ magicalArmor: { value: 4, max: 4 }, magicalShield: { value: 6 } });
+    const r = await applyDamage(actor, { amount: 10, runicArmorStep: 2, shieldMultiplier: 2, postChat: false });
+    expect(r.runicArmorDisabled).toBe(4);
+    expect(r.absorbed.magicalShield).toBe(3);
+    expect(r.hpDamage).toBe(3);
+  });
+
+  it('Prawdziwa Dezintegracja destroys shield and disables all Runiczny Pancerz', async () => {
+    const { actor } = makeActor({ magicalArmor: { value: 3, max: 3 }, magicalShield: { value: 50 } });
+    await applyDamage(actor, { amount: 10, destroyMagicalDefenses: true, ignorePhysicalArmor: true, postChat: false });
+    expect(actor.update).toHaveBeenCalledWith(expect.objectContaining({
+      'system.attributes.magicalArmor.value': 0,
+      'system.attributes.magicalShield.value': 0,
+    }));
+  });
+
+  it('Rozerwanie Run permanently lowers the maximum', async () => {
+    const { actor } = makeActor({ magicalArmor: { value: 3, max: 3 } });
+    const r = await applyDamage(actor, { amount: 1, destroyRunicPoints: 1, postChat: false });
+    expect(r.runicArmorDestroyed).toBe(1);
+    expect(actor.update).toHaveBeenCalledWith(expect.objectContaining({ 'system.attributes.magicalArmor.max': 2 }));
+  });
+
   it('marks shield as dropped when reduced to 0', async () => {
     const { actor } = makeActor({ magicalShield: { value: 3 } });
     const r = await applyDamage(actor, { amount: 5, postChat: false });

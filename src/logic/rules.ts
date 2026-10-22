@@ -133,7 +133,81 @@ export function bloodToZeal(blood: number): number {
   return Math.floor(Math.max(0, blood) / 5);
 }
 
-/** Runiczny Pancerz (Amulet Osłony): recharging costs 2 Mana per point, as an Akcja. */
+/**
+ * Runiczny Pancerz – points disabled by ONE hit (hits are never added together).
+ * Default: a hit of more than 5 damage (after the Runiczny Pancerz step) disables 1 point.
+ * Shield-breaking effects (`step` 2): every 2 damage disable 1 point.
+ * Disabled points return at the end of the fight or when restored; only Rozerwanie Run
+ * destroys a point permanently.
+ */
+export function runicArmorPointsDisabled(damage: number, step?: number): number {
+  const d = Math.max(0, Math.floor(damage));
+  if (step && step > 0 && step !== DEFAULT_RUNIC_THRESHOLD) return Math.floor(d / step);
+  return d > DEFAULT_RUNIC_THRESHOLD ? 1 : 0;
+}
+export const DEFAULT_RUNIC_THRESHOLD = 5;
+
+/** Damage profile of spells that treat the magical defences non-standardly (by spell slug). */
+export interface SpellDamageProfile {
+  ignoreMagicalArmor?: boolean;
+  ignoreMagicalShield?: boolean;
+  ignorePhysicalArmor?: boolean;
+  /** 2 → every 2 (instead of 5) damage disable a Runiczny Pancerz point. */
+  runicArmorStep?: number;
+  /** Damage counts this many times against Magiczna Osłona. */
+  shieldMultiplier?: number;
+  /** Fully destroys Magiczne Tarcze and disables all Runiczny Pancerz (Prawdziwa Dezintegracja). */
+  destroyMagicalDefenses?: boolean;
+}
+
+const SHIELD_BREAKER: SpellDamageProfile = { runicArmorStep: 2, shieldMultiplier: 2 };
+
+export const SPELL_DAMAGE_PROFILES: Readonly<Record<string, SpellDamageProfile>> = {
+  'ether-pierce': { ...SHIELD_BREAKER, ignorePhysicalArmor: true },
+  'divine-spear': { ...SHIELD_BREAKER, ignorePhysicalArmor: true },
+  'energy-wave': SHIELD_BREAKER,
+  'mysterious-stream': SHIELD_BREAKER,
+  'arrow-of-desire': SHIELD_BREAKER,
+  'last-judgment': SHIELD_BREAKER,
+  'crimson-bolt': { ignoreMagicalArmor: true, ignoreMagicalShield: true },
+  'true-disintegration': { ignorePhysicalArmor: true, destroyMagicalDefenses: true },
+};
+
+/** Krew – sources (Arcanum Sanguinis). */
+export type KrewTalent = 'respect-for-life' | 'krwisty-pojedynkowicz' | 'rytualista-krwi';
+
+/** Samookaleczenie: lose HP = Sukcesy; 1 Krew per HP (2 with Większe Samookaleczenie). */
+export function krewFromSelfHarm(hpLost: number, greater = false): number {
+  return Math.max(0, hpLost) * (greater ? 2 : 1);
+}
+/** Kradzież Życia: 1 Krew per HP the target actually lost (2 with the greater version). */
+export function krewFromLifeSteal(hpLost: number, greater = false): number {
+  return Math.max(0, hpLost) * (greater ? 2 : 1);
+}
+/** Złożenie w Ofierze: heal Sukcesy + Magia, gain Krew = Sukcesy. */
+export function sacrificeResult(successes: number, magic: number): { heal: number; krew: number } {
+  return { heal: Math.max(0, successes) + Math.max(0, magic), krew: Math.max(0, successes) };
+}
+/**
+ * Wielka Ofiara: Sukcesy above the target's highest Atrybut kill it (all its Żywotność is lost),
+ * otherwise the mage heals Sukcesy. Krew gained = Żywotność the target lost.
+ */
+export function greatSacrificeResult(successes: number, highestAttribute: number, targetHealth: number): { kills: boolean; heal: number; krew: number } {
+  if (successes > highestAttribute) return { kills: true, heal: 0, krew: Math.max(0, targetHealth) };
+  return { kills: false, heal: Math.max(0, successes), krew: 0 };
+}
+/** Passive Krew: Szacunek do Życia 1 per 4 HP, Krwisty Pojedynkowicz 1 per 2 HP (cutting/piercing only). */
+export function krewFromWeaponHpLoss(hpLost: number, talent: KrewTalent | null): number {
+  if (talent === 'respect-for-life') return Math.floor(Math.max(0, hpLost) / 4);
+  if (talent === 'krwisty-pojedynkowicz') return Math.floor(Math.max(0, hpLost) / 2);
+  return 0;
+}
+/** Krew at the start of a fight: Rytualista Krwi 4, everyone else 0. */
+export function startingKrew(talent: KrewTalent | null): number {
+  return talent === 'rytualista-krwi' ? 4 : 0;
+}
+
+/** Runiczny Pancerz (Amulet Osłony): recharging costs 2 Mana per point, as an Akcja Natychmiastowa. */
 export const RUNIC_ARMOR_MANA_PER_POINT = 2;
 
 /** Points of Runiczny Pancerz that can actually be restored (never above max, never negative). */

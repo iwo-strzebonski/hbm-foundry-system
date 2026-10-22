@@ -5,6 +5,19 @@ All notable changes to the **HbM RPG v3** Foundry VTT system.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-10-20
+
+Vault answers (Foundry Sync Brief §17): blood magic and Runiczny Pancerz.
+
+### Changed
+- **Runiczny Pancerz:** one hit of more than 5 damage (after the Runiczny Pancerz step) disables 1 point; hits no longer accumulate (`runicCounter` is unused). Disabled points return at the end of the fight (`deleteCombat`), on Długi Odpoczynek, or when restored (Akcja Natychmiastowa; Amulet Osłony 2 Many per point). `destroyRunicPoints` (Rozerwanie Run) lowers the maximum permanently.
+- **Shield-breaking spells** (Przebicie Eteru, Boska Włócznia, Fala Energii, Tajemniczy Strumień, Strzała Pożądania, Ostatni Sąd): every 2 damage disable a point and damage counts ×2 against Magiczna Osłona. Szkarłatny Pocisk ignores Runiczny Pancerz and Magiczna Osłona but not Pancerz; Prawdziwa Dezintegracja ignores Pancerz and destroys shields / disables all Runiczny Pancerz (`SPELL_DAMAGE_PROFILES`, chat-card `data-profile`).
+- **Blood magic rewritten to the vault:** Samookaleczenie (Test Magia (Walka Wręcz) T=2, lose HP = Sukcesy, 1 Krew per HP, once per round; Większe: 2 Krew per HP), Kradzież Życia / Większa (1 Zapał, arms the next attack, Krew per HP actually lost), Złożenie w Ofierze, Wielka Ofiara (once per day), Wchłanianie Krwi (min. 1 Krew, once per round). Removed the invented ×3 self-harm penalty and `floor(damage/4)` life steal.
+- Passive Krew: Szacunek do Życia 1 per 4 HP, Krwisty Pojedynkowicz 1 per 2 HP (cutting/piercing, either side; callers pass `woundKind`/`sourceActor` to `applyDamage`); Rytualista Krwi starts a fight with 4 Krew; leftover Krew heals 2 HP each at the end of the fight.
+
+### Added
+- Actor attributes `bloodUsed.*` (per round) and `greatSacrificeUsed` (per day).
+
 ## [1.4.1] - 2026-10-20
 
 ### Added

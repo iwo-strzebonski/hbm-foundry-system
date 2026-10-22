@@ -17,7 +17,7 @@ function makeActor(overrides: Partial<any> = {}) {
         zeal: { value: 0, max: 5 },
         blood: { value: 0, max: 6 },
         elixirTolerance: 2,
-        magicalArmor: { value: 4, runicCounter: 3 },
+        magicalArmor: { value: 4, max: 4, runicCounter: 3 },
         ...overrides.attributes,
       },
       skills: overrides.skills ?? {},
@@ -94,7 +94,7 @@ describe('rest', () => {
         mana: { value: 1, max: 20 },
         zeal: { value: 0, max: 5 },
         blood: { value: 0, max: 6 },
-        magicalArmor: { value: 4, runicCounter: 3 },
+        magicalArmor: { value: 1, max: 4, runicCounter: 3 },
       },
     });
     const r = await rest(actor, 'long');
@@ -103,7 +103,7 @@ describe('rest', () => {
     expect(updates['system.attributes.mana.value']).toBe(20);
     expect(updates['system.attributes.zeal.value']).toBe(5);
     expect(updates['system.attributes.blood.value']).toBe(6);
-    expect(updates['system.attributes.magicalArmor.runicCounter']).toBe(0);
+    expect(updates['system.attributes.magicalArmor.value']).toBe(4);
     expect(r.toleranceRecovered).toBe(1);
     expect(updates['system.attributes.breathersTaken']).toBe(0);
     expect(updates['system.attributes.manaBorrowed']).toBe(0);

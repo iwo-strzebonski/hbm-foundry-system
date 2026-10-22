@@ -1,6 +1,6 @@
 /**
  * Damage application engine - flows through 4 layers:
- * 1. Magical Armor (DR + every 5 dmg absorbed degrades value by 1 via runicCounter)
+ * 1. Runiczny Pancerz (DR; one hit > 5 disables 1 point until end of fight / restore)
  * 2. Magical Shield (raw temp HP; cannot be healed; vanishes at 0)
  * 3. Physical Armor (flat DR; optionally degrade `condition` by 1)
  * 4. Health (the leftover hits HP)
@@ -14,7 +14,8 @@
  */
 
 import { DamageType } from '../constants';
-import { triggersStun, concentrationTest } from './rules';
+import { triggersStun, concentrationTest, runicArmorPointsDisabled } from './rules';
+import { gainKrewFromWeaponDamage } from './blood-magic';
 
 export interface ApplyDamageOptions {
   amount: number;
@@ -25,6 +26,18 @@ export interface ApplyDamageOptions {
   damageArmor?: boolean;
   /** Magiczny Pocisk: at least 1 damage gets through Pancerz to Żywotność. */
   minDamageAfterArmor?: boolean;
+  /** Shield-breaker: every N (2 instead of 5) damage disable a Runiczny Pancerz point. */
+  runicArmorStep?: number;
+  /** Shield-breaker: damage counts ×N against Magiczna Osłona. */
+  shieldMultiplier?: number;
+  /** Prawdziwa Dezintegracja: disables all Runiczny Pancerz points and destroys Magiczna Osłona. */
+  destroyMagicalDefenses?: boolean;
+  /** Rozerwanie Run: permanently destroys N Runiczny Pancerz points (lowers its maximum). */
+  destroyRunicPoints?: number;
+  /** Wound kind of a weapon hit (gear data has none yet – callers pass it); drives passive Krew. */
+  woundKind?: 'cutting' | 'piercing' | 'blunt';
+  /** Attacker, for passive Krew gain (Szacunek do Życia / Krwisty Pojedynkowicz). */
+  sourceActor?: any;
   postChat?: boolean;
 }
 
@@ -34,6 +47,12 @@ export interface DamageReport {
   hpDamage: number;
   shieldDropped: boolean;
   oszolomionyApplied: boolean;
+  /** Runiczny Pancerz points disabled by this hit (restored at end of fight). */
+  runicArmorDisabled?: number;
+  /** Runiczny Pancerz points destroyed permanently by this hit. */
+  runicArmorDestroyed?: number;
+  /** Krew gained by the victim / attacker through weapon-damage talents. */
+  krewGained?: { victim: number; source: number };
   /** Dusza (Determinacja) 4:S for a concentrating target; absent when no Żywotność was lost. */
   concentrationTest?: { threshold: number; successes: number };
 }
@@ -61,30 +80,45 @@ export async function applyDamage(actor: ActorLike, opts: ApplyDamageOptions): P
 
   let remaining = total;
 
-  // Layer 1: Magical Armor - DR-based; runicCounter accumulates incoming damage.
+  // Layer 1: Runiczny Pancerz - flat DR. ONE hit disables points (never accumulated across hits):
+  // > 5 damage after the step → 1 point; shield-breakers: every 2 damage → 1 point. Disabled
+  // points come back at the end of the fight / when restored (see logic/runic-armor.ts).
+  if (a.magicalArmor && opts.destroyRunicPoints) {
+    // Rozerwanie Run: permanent – lowers the maximum, cannot be restored.
+    const value = Math.max(0, Number(a.magicalArmor.value) || 0);
+    const max = Math.max(0, Number(a.magicalArmor.max) || 0);
+    const lost = Math.min(max, opts.destroyRunicPoints);
+    updates['system.attributes.magicalArmor.max'] = max - lost;
+    updates['system.attributes.magicalArmor.value'] = Math.min(value, max - lost);
+    report.runicArmorDestroyed = lost;
+  }
   if (!opts.ignoreMagicalArmor && a.magicalArmor) {
     const dr = Math.max(0, Number(a.magicalArmor.value) || 0);
     const absorbed = Math.min(dr, remaining);
     if (absorbed > 0) {
-      const incomingDmg = remaining;
+      const incoming = remaining;
       report.absorbed.magicalArmor = absorbed;
       remaining -= absorbed;
-      const newCounter = (Number(a.magicalArmor.runicCounter) || 0) + incomingDmg;
-      const decrements = Math.floor(newCounter / 5);
-      const newValue = Math.max(0, dr - decrements);
-      updates['system.attributes.magicalArmor.runicCounter'] = newCounter % 5;
+      const disabled = opts.destroyMagicalDefenses
+        ? dr
+        : runicArmorPointsDisabled(opts.runicArmorStep ? incoming : remaining, opts.runicArmorStep);
+      const current = (updates['system.attributes.magicalArmor.value'] as number | undefined) ?? dr;
+      const newValue = Math.max(0, Math.min(current, dr) - disabled);
+      if (disabled > 0) report.runicArmorDisabled = Math.min(dr, disabled);
       updates['system.attributes.magicalArmor.value'] = newValue;
     }
   }
 
-  // Layer 2: Magical Shield - pure temp HP (raw subtraction).
+  // Layer 2: Magiczna Osłona - pure temp HP; shield-breakers count damage ×N against it.
   if (remaining > 0 && !opts.ignoreMagicalShield && a.magicalShield) {
     const shield = Math.max(0, Number(a.magicalShield.value) || 0);
-    const taken = Math.min(shield, remaining);
-    if (taken > 0) {
-      report.absorbed.magicalShield = taken;
-      remaining -= taken;
-      const newShield = shield - taken;
+    const mult = Math.max(1, opts.shieldMultiplier ?? 1);
+    const effective = Math.min(shield, remaining * mult);
+    if (effective > 0) {
+      const consumed = Math.ceil(effective / mult);
+      report.absorbed.magicalShield = consumed;
+      remaining -= consumed;
+      const newShield = opts.destroyMagicalDefenses ? 0 : shield - effective;
       updates['system.attributes.magicalShield.value'] = newShield;
       if (newShield === 0) report.shieldDropped = true;
     }
@@ -126,6 +160,14 @@ export async function applyDamage(actor: ActorLike, opts: ApplyDamageOptions): P
   }
 
   if (Object.keys(updates).length > 0) await actor.update(updates);
+
+  // Passive Krew from cutting / piercing weapons (talents): victim and attacker side.
+  if (report.hpDamage > 0 && (opts.woundKind === 'cutting' || opts.woundKind === 'piercing')) {
+    report.krewGained = {
+      victim: await gainKrewFromWeaponDamage(actor as any, report.hpDamage),
+      source: opts.sourceActor ? await gainKrewFromWeaponDamage(opts.sourceActor, report.hpDamage) : 0,
+    };
+  }
 
   // Oszołomiony: a single hit that costs ≥ half max Żywotność after all reductions.
   if (triggersStun(report.hpDamage, Number(a.health?.max) || 0) && actor.toggleStatusEffect) {

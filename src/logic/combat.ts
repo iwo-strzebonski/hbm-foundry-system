@@ -7,6 +7,8 @@
  */
 
 import { applyDamage } from './damage';
+import { startOfFightKrew, endOfFightKrew } from './blood-magic';
+import { restoreAllRunicArmor } from './runic-armor';
 
 function hasStatus(actor: any, id: string): boolean {
   const effects = actor?.effects ?? [];
@@ -55,11 +57,37 @@ export function registerCombatHooks(): void {
       if (actor?.system?.attributes?.immediateActionsUsed) {
         await actor.update({ 'system.attributes.immediateActionsUsed': 0 });
       }
+      const bu = actor?.system?.attributes?.bloodUsed;
+      if (bu && Object.values(bu).some((n) => Number(n) > 0)) {
+        await actor.update({
+          'system.attributes.bloodUsed.selfHarm': 0,
+          'system.attributes.bloodUsed.lifeSteal': 0,
+          'system.attributes.bloodUsed.sacrifice': 0,
+          'system.attributes.bloodUsed.absorb': 0,
+        });
+      }
     }
     ChatMessage.create({
       content: `<em>${game.i18n.localize('HBM.combat.newRound')}</em>`,
       whisper: ChatMessage.getWhisperRecipients('GM'),
     });
+  });
+
+  // Start of a fight: Krew pool resets (Rytualista Krwi starts with 4).
+  Hooks.on('combatStart', async (combat: Combat) => {
+    for (const c of (combat as any)?.combatants ?? []) {
+      if (c.actor?.type === 'character') await startOfFightKrew(c.actor);
+    }
+  });
+
+  // End of a fight: disabled Runiczny Pancerz returns, per-round counters clear, leftover Krew heals.
+  Hooks.on('deleteCombat', async (combat: Combat) => {
+    for (const c of (combat as any)?.combatants ?? []) {
+      const actor = c.actor;
+      if (!actor || actor.type !== 'character') continue;
+      await restoreAllRunicArmor(actor);
+      await endOfFightKrew(actor);
+    }
   });
 
   Hooks.on('combatTurn', async (combat: Combat) => {
