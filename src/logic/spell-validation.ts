@@ -41,7 +41,7 @@ function actorHasTalent(actor: CastableActor, talentId: string): boolean {
   return false;
 }
 
-function matchDiscipline(disciplineId: string, targetId: string): boolean {
+export function matchDiscipline(disciplineId: string, targetId: string): boolean {
   const d1 = disciplineId.toLowerCase().trim();
   const d2 = targetId.toLowerCase().trim();
   if (d1 === d2) return true;
@@ -52,6 +52,8 @@ function matchDiscipline(disciplineId: string, targetId: string): boolean {
     abyssprimal: ['abyssprimal', 'magia otchłani', 'primal', 'eldritch', 'eldritch magic', 'abyss - primal', 'magia otchłani - pierwotna magia', 'pierwotna magia'],
     witch: ['witch', 'wiedźmia magia', 'witch magic', 'dzika wiedźmia magia', 'wildwitch'],
     blood: ['blood', 'magia krwi', 'blood magic'],
+    sacred: ['sacred', 'magia sakralna', 'sacred magic'],
+    sacredexorcism: ['sacredexorcism', 'magia sakralna - egzorcyzmy', 'egzorcyzmy', 'exorcism', 'exorcisms', 'sacred - exorcisms'],
   };
 
   let key1: string | null = null;
@@ -63,6 +65,8 @@ function matchDiscipline(disciplineId: string, targetId: string): boolean {
   }
 
   if (key1 && key2 && key1 === key2) return true;
+  // Egzorcyzmy are a sub-discipline of Magia Sakralna: an exorcist counts as Sacred, not the other way round.
+  if (key1 === 'sacredexorcism' && key2 === 'sacred') return true;
   return false;
 }
 
