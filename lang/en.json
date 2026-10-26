@@ -364,7 +364,7 @@
     "spellCast": {
       "title": "Casting spell",
       "manaSpent": "Mana spent",
-      "cannotBeUnraveled": "Cannot be unraveled",
+      "cannotBeUnraveled": "Cannot be dispelled",
       "zealSpent": "Zeal spent",
       "bloodSpent": "Blood spent",
       "hekateMode": "Hekate mode (Sacred + Witch hybrid)",
