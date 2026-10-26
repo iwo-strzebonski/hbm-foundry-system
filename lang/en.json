@@ -423,7 +423,7 @@
       }
     },
     "combat": {
-      "newRound": "New round - Mana reset",
+      "newRound": "New round - Immediate Action and Krew counters reset",
       "newTurn": "New turn - Zeal +1",
       "turnSkipped": "Turn skipped (condition)",
       "deathSavePrompt": "Make a Death Saving Throw (Body, T:4, Y:1)"

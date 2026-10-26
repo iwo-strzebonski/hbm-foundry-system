@@ -426,7 +426,7 @@
       }
     },
     "combat": {
-      "newRound": "Nowa runda - Mana zresetowana",
+      "newRound": "Nowa runda - liczniki Akcji Natychmiastowych i Krwi zresetowane",
       "newTurn": "Nowa tura - Zapał +1",
       "turnSkipped": "Tura pominięta (stan)",
       "deathSavePrompt": "Wykonaj Rzut Obronny przeciw Śmierci (Ciało, T:4, Y:1)"

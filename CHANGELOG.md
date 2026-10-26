@@ -9,6 +9,7 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Fixed
 - A character with the discipline Magia Sakralna - Egzorcyzmy (`sacredExorcism`) is now treated as a Sacred Magic caster in the spell discipline gate. Before, it only matched its own id, so exorcists failed the requirement for Sacred spells. The match is one-way: a plain Sacred mage is not an exorcist.
+- The "new round" chat message and README no longer claim that Mana is reset. Mana is a daily pool in the vault and has not been reset per round since 1.3.x; the message now says which counters really reset.
 
 ## [1.5.1] - 2026-10-22
 
