@@ -259,3 +259,8 @@ export function negotiationBand(successes: number): number {
 export function fearThresholdMod(sourceId: string | undefined, targetId: string | undefined): number {
   return sourceId && targetId && sourceId === targetId ? 1 : 0;
 }
+
+/** Casting test pool with the player's +/- dice modifier (whole dice, never below 0). */
+export function applyDiceModifier(pool: number, modifier?: number): number {
+  return Math.max(0, Math.trunc(Number(pool) || 0) + Math.trunc(Number(modifier) || 0));
+}

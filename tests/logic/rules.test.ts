@@ -104,3 +104,14 @@ describe('blood, elixirs, trade', () => {
     expect([0, 1, 2, 3, 4, 5, 6, 7, 12].map(negotiationBand)).toEqual([0, 1, 1, 2, 2, 3, 3, 4, 4]);
   });
 });
+
+describe('applyDiceModifier', () => {
+  it('adds a signed modifier and never goes below 0', async () => {
+    const { applyDiceModifier } = await import('../../src/logic/rules');
+    expect(applyDiceModifier(5, 2)).toBe(7);
+    expect(applyDiceModifier(5, -2)).toBe(3);
+    expect(applyDiceModifier(2, -5)).toBe(0);
+    expect(applyDiceModifier(4)).toBe(4);
+    expect(applyDiceModifier(4, 1.9)).toBe(5);
+  });
+});
