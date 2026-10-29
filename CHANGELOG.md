@@ -14,6 +14,9 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - Spell cast dialog has a **Modyfikator liczby kości** (dice modifier, +/-). It changes the number of dice in the casting test for every casting mode (standard, sacred, witch, blood, prayer); the pool never drops below 0. The over-limit Nadczarowanie test uses the same modified pool. API: `CastOptions.diceModifier`, `applyDiceModifier()` in `rules.ts`.
 
+### Changed
+- English text "Cannot be unraveled" is now "Cannot be dispelled" on the spell cast card.
+
 ## [1.5.1] - 2026-10-22
 
 ### Added
