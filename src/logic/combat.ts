@@ -123,7 +123,12 @@ export function registerCombatHooks(): void {
     }
 
     // Per-turn Zeal regen (characters) - base 1 + talent bonus from flag.
+    // Blocked when since the previous turn the actor paid for an extra Action or an extra Immediate Action
+    // (flag `paidExtra`, set by whoever spends the Zapał; prayers / own-cost Talents never set it).
     if (actor.type === 'character') {
+      const blocked = Boolean(actor.getFlag?.(FLAG_SCOPE, 'paidExtra'));
+      if (actor.getFlag?.(FLAG_SCOPE, 'paidExtra')) await actor.unsetFlag?.(FLAG_SCOPE, 'paidExtra');
+      if (blocked) return;
       const sys = actor.system as { attributes: { zeal: { value: number; max: number } } };
       const regen = getZealRegen(actor);
       const next = Math.min(sys.attributes.zeal.max, sys.attributes.zeal.value + regen);

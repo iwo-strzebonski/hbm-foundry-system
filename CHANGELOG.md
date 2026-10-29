@@ -5,6 +5,21 @@ All notable changes to the **HbM RPG v3** Foundry VTT system.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-10 sync (partial, Foundry Sync Brief 2026-10-26)
+
+### Added
+- Casting penalties from armour: Średni −1 die, Ciężki −3 dice and +2 Mana (also overcast), Tarcza −1 die (stacks); Pancerz Wiary removes armour but not shield penalties. Gear flag `armor.ignoresCastingPenalty` for special-case armour.
+- Every spell, sacred ones included, can be cast as a regular spell or as a prayer (cast dialog "Sposób rzucenia"). Prayer = Dusza + Oddanie, Mana + 1 Zapał; sacred spells default to prayer.
+- `damageCategory` spell flag: +1 damage for category Obrażenia (off by default; vault frontmatter has no category yet).
+- `runic` spell school (alias of the `runes` discipline for the discipline gate).
+- Pure helpers in `rules.ts`: `golemLimit`, `fallDamage`, `survivalTest`, `zealRegenBlocked`, `madnessThreshold` (not all wired yet).
+- Characters have `mentalIllnesses`.
+
+### Changed
+- Wiedźmia Magia: Poziom Skomplikowania = number of Symbols; `complexityLevel` removed from spells.
+- Hartowany w Ogniu: flat −2 per fire hit (min 0) instead of halving.
+- Próg Obłędu = Dusza + 3 (Krasnolud +1); reaching it resets Punkty Obłędu and rolls the illness k100. Replaces the old 3/6/10/15 thresholds.
+
 ## [1.5.2] - 2026-10-26
 
 ### Fixed
