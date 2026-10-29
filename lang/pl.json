@@ -383,6 +383,8 @@
     },
     "spellCast": {
       "title": "Rzucanie zaklęcia",
+      "diceModifier": "Modyfikator liczby kości",
+      "diceModifierHint": "+/- kości w Teście rzucania (liczba kości nie spadnie poniżej 0)",
       "manaSpent": "Wydana mana",
       "cannotBeUnraveled": "Nie da się rozpleść",
       "cast": "Rzuć",

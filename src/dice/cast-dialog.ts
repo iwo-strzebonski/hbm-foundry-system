@@ -76,6 +76,12 @@ export async function askCastOptions(spell: SpellForDialog, actor: ActorForDialo
         <input type="number" name="bloodSpent" value="${baseBlood}" min="${baseBlood}" max="${max}"/>
       </div>`);
   }
+  fields.push(`
+      <div class="form-group">
+        <label>${game.i18n.localize('HBM.spellCast.diceModifier')}</label>
+        <input type="number" name="diceModifier" value="0" step="1"/>
+        <small>${game.i18n.localize('HBM.spellCast.diceModifierHint')}</small>
+      </div>`);
   if (mode !== 'sacred') {
     fields.push(`
       <div class="form-group">
@@ -162,6 +168,8 @@ export async function askCastOptions(spell: SpellForDialog, actor: ActorForDialo
             }
             if (fd.zealSpent != null) opts.zealSpent = Math.max(1, Number(fd.zealSpent) || 1);
             if (fd.bloodSpent != null) opts.bloodSpent = Math.max(baseBlood, Number(fd.bloodSpent) || baseBlood);
+            const diceMod = Math.trunc(Number(fd.diceModifier) || 0);
+            if (diceMod !== 0) opts.diceModifier = diceMod;
             if (fd.hekateMode) opts.hekateMode = 'witch';
             if (fd.castAsPrayer) opts.castAsPrayer = true;
             if (fd.bypassSuperspellWarning) opts.bypassSuperspellWarning = true;

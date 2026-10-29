@@ -16,7 +16,7 @@
 
 import { HbmTSRoll } from '../dice/ts-roll';
 import { TS_DEFAULT_REQUIRED, TS_DEFAULT_THRESHOLD, getMagicPowerEntry } from '../constants';
-import { manaToBorrow, exhaustionDice, manaExhaustionTier, overLimitTest, SPELL_DAMAGE_PROFILES } from './rules';
+import { manaToBorrow, exhaustionDice, manaExhaustionTier, overLimitTest, applyDiceModifier, SPELL_DAMAGE_PROFILES } from './rules';
 import { validateCast } from './spell-validation';
 import type { ValidationResult } from './spell-validation';
 import { rollSpellDamage } from './spell-damage';
@@ -76,6 +76,8 @@ export interface CastOptions {
   bypassSuperspellWarning?: boolean;
   bypassNonCombatBlock?: boolean;
   groupCasters?: string[];
+  /** Modifier to the number of dice in the casting test (+/-, pool never below 0). */
+  diceModifier?: number;
   /** Override required successes (used by variableSuccesses summons). */
   requiredOverride?: number;
   speaker?: ChatMessage.SpeakerData;
@@ -276,9 +278,10 @@ async function castStandard(actor: CastableActor, spell: SpellLike, opts: CastOp
   const magicDice = typeof a.magic.dicePool === 'number'
     ? a.magic.dicePool
     : getMagicPowerEntry(a.magic.actual ?? a.magic.value ?? 0).dicePool;
-  const pool = opts.castAsPrayer
+  const basePool = opts.castAsPrayer
     ? a.soul.value + (actor.system.skills?.devotion?.value ?? 0)
     : magicDice + (actor.system.skills?.magicalAbilities?.value ?? 0);
+  const pool = applyDiceModifier(basePool, opts.diceModifier);
   const flavor = opts.castAsPrayer
     ? `${spell.name} - ${game.i18n.localize('HBM.spell.castingMode.prayer')}`
     : `${spell.name}`;
@@ -349,7 +352,7 @@ async function castSacred(actor: CastableActor, spell: SpellLike, opts: CastOpti
   const zealCost = Math.max(1, opts.zealSpent ?? 1);
   await actor.update({ 'system.attributes.zeal.value': a.zeal.value - zealCost });
 
-  const pool = a.soul.value + (actor.system.skills?.devotion?.value ?? 0);
+  const pool = applyDiceModifier(a.soul.value + (actor.system.skills?.devotion?.value ?? 0), opts.diceModifier);
   const flavor = `${spell.name} - ${game.i18n.localize('HBM.spell.castingMode.sacred')}`;
   const required = opts.requiredOverride ?? spell.system.difficulty.successes ?? TS_DEFAULT_REQUIRED;
   const roll = HbmTSRoll.fromParams({
@@ -379,9 +382,10 @@ async function castWitch(actor: CastableActor, spell: SpellLike, opts: CastOptio
   const magicDice = typeof (a.magic as any).dicePool === 'number'
     ? (a.magic as any).dicePool
     : getMagicPowerEntry((a.magic as any).actual ?? a.magic.value ?? 0).dicePool;
-  const pool = opts.castAsPrayer
+  const basePool = opts.castAsPrayer
     ? a.soul.value + (actor.system.skills?.devotion?.value ?? 0)
     : magicDice + (actor.system.skills?.magicalAbilities?.value ?? 0);
+  const pool = applyDiceModifier(basePool, opts.diceModifier);
   const flavor = opts.castAsPrayer
     ? `${spell.name} - ${game.i18n.localize('HBM.spell.castingMode.prayer')} (${required}/${maxSymbols})`
     : `${spell.name} - ${game.i18n.localize('HBM.spell.castingMode.witch')} (${required}/${maxSymbols})`;
@@ -421,9 +425,10 @@ async function castBlood(actor: CastableActor, spell: SpellLike, opts: CastOptio
   const magicDice = typeof (a.magic as any).dicePool === 'number'
     ? (a.magic as any).dicePool
     : getMagicPowerEntry((a.magic as any).actual ?? a.magic.value ?? 0).dicePool;
-  const pool = opts.castAsPrayer
+  const basePool = opts.castAsPrayer
     ? a.soul.value + (actor.system.skills?.devotion?.value ?? 0)
     : magicDice + (actor.system.skills?.magicalAbilities?.value ?? 0);
+  const pool = applyDiceModifier(basePool, opts.diceModifier);
   const flavor = opts.castAsPrayer
     ? `${spell.name} - ${game.i18n.localize('HBM.spell.castingMode.prayer')}`
     : `${spell.name} - ${game.i18n.localize('HBM.spell.castingMode.blood')}`;

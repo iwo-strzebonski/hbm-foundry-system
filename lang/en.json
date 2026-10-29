@@ -363,6 +363,8 @@
     },
     "spellCast": {
       "title": "Casting spell",
+      "diceModifier": "Dice modifier",
+      "diceModifierHint": "+/- dice in the casting test (the pool never drops below 0)",
       "manaSpent": "Mana spent",
       "cannotBeUnraveled": "Cannot be unraveled",
       "zealSpent": "Zeal spent",

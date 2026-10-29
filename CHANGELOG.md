@@ -11,6 +11,9 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - A character with the discipline Magia Sakralna - Egzorcyzmy (`sacredExorcism`) is now treated as a Sacred Magic caster in the spell discipline gate. Before, it only matched its own id, so exorcists failed the requirement for Sacred spells. The match is one-way: a plain Sacred mage is not an exorcist.
 - The "new round" chat message and README no longer claim that Mana is reset. Mana is a daily pool in the vault and has not been reset per round since 1.3.x; the message now says which counters really reset.
 
+### Added
+- Spell cast dialog has a **Modyfikator liczby kości** (dice modifier, +/-). It changes the number of dice in the casting test for every casting mode (standard, sacred, witch, blood, prayer); the pool never drops below 0. The over-limit Nadczarowanie test uses the same modified pool. API: `CastOptions.diceModifier`, `applyDiceModifier()` in `rules.ts`.
+
 ## [1.5.1] - 2026-10-22
 
 ### Added
