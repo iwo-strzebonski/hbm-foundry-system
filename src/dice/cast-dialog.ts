@@ -4,7 +4,8 @@
  *
  * Inputs adapt to spell mode:
  *   - standard:    mana
- *   - sacred:      zeal (+ optional Hekate hybrid toggle if witch symbols set)
+ *   - sacred:      mana (+ optional Hekate hybrid toggle if witch symbols set)
+ *   - all:         regular spell / prayer route (sacred defaults to prayer)
  *   - witch:       mana
  *   - blood:       mana + blood
  *
@@ -43,7 +44,6 @@ export async function askCastOptions(spell: SpellForDialog, actor: ActorForDialo
   const a = actor.system.attributes;
   const baseMana = Math.max(0, spell.system.manaCost ?? 0);
   const baseBlood = Math.max(0, spell.system.bloodCost ?? 0);
-  const baseZeal = mode === 'sacred' ? 1 : 0;
 
   const showHekate = mode === 'sacred' && (spell.system.components?.symbols?.length ?? 0) > 0;
   const showSuper = !!spell.system.isSuperspell;
@@ -52,20 +52,13 @@ export async function askCastOptions(spell: SpellForDialog, actor: ActorForDialo
 
   const fields: string[] = [];
 
-  if (mode === 'standard' || mode === 'witch' || mode === 'blood') {
+  if (mode === 'standard' || mode === 'witch' || mode === 'blood' || mode === 'sacred') {
     const max = a.mana.value;
     fields.push(`
       <div class="form-group">
         <label>${game.i18n.localize('HBM.spellCast.manaSpent')} (max ${max})</label>
         <input type="number" name="manaSpent" value="${baseMana}" min="${baseMana}" max="${max}" step="${baseMana > 0 ? baseMana : 1}"/>
         <small>${game.i18n.localize('HBM.resources.maxManaPerSpell')}: ${a.mana.maxPerSpell}</small>
-      </div>`);
-  }
-  if (mode === 'sacred') {
-    fields.push(`
-      <div class="form-group">
-        <label>${game.i18n.localize('HBM.spellCast.zealSpent')} (max ${a.zeal.value})</label>
-        <input type="number" name="zealSpent" value="${baseZeal}" min="1" max="${a.zeal.value}"/>
       </div>`);
   }
   if (mode === 'blood' && a.blood) {
@@ -82,12 +75,15 @@ export async function askCastOptions(spell: SpellForDialog, actor: ActorForDialo
         <input type="number" name="diceModifier" value="0" step="1"/>
         <small>${game.i18n.localize('HBM.spellCast.diceModifierHint')}</small>
       </div>`);
-  if (mode !== 'sacred') {
-    fields.push(`
+  // Every known spell can be cast as a regular spell or as a prayer; sacred spells default to a prayer.
+  fields.push(`
       <div class="form-group">
-        <label><input type="checkbox" name="castAsPrayer"/> ${game.i18n.localize('HBM.spell.castingMode.prayer')} (+1 ${game.i18n.localize('HBM.resources.zealAbbr')}, ${game.i18n.localize('HBM.attributes.soul')} + ${game.i18n.localize('HBM.skills.devotion')})</label>
+        <label>${game.i18n.localize('HBM.spellCast.route')}</label>
+        <select name="castRoute">
+          <option value="spell" ${mode === 'sacred' ? '' : 'selected'}>${game.i18n.localize('HBM.spellCast.routeSpell')}</option>
+          <option value="prayer" ${mode === 'sacred' ? 'selected' : ''}>${game.i18n.localize('HBM.spell.castingMode.prayer')} (+1 ${game.i18n.localize('HBM.resources.zealAbbr')}, ${game.i18n.localize('HBM.attributes.soul')} + ${game.i18n.localize('HBM.skills.devotion')})</option>
+        </select>
       </div>`);
-  }
   if (showHekate) {
     fields.push(`
       <div class="form-group">
@@ -166,12 +162,11 @@ export async function askCastOptions(spell: SpellForDialog, actor: ActorForDialo
               }
               opts.manaSpent = Math.max(baseMana, spent);
             }
-            if (fd.zealSpent != null) opts.zealSpent = Math.max(1, Number(fd.zealSpent) || 1);
             if (fd.bloodSpent != null) opts.bloodSpent = Math.max(baseBlood, Number(fd.bloodSpent) || baseBlood);
             const diceMod = Math.trunc(Number(fd.diceModifier) || 0);
             if (diceMod !== 0) opts.diceModifier = diceMod;
             if (fd.hekateMode) opts.hekateMode = 'witch';
-            if (fd.castAsPrayer) opts.castAsPrayer = true;
+            opts.castAsPrayer = fd.castRoute === 'prayer';
             if (fd.bypassSuperspellWarning) opts.bypassSuperspellWarning = true;
             if (fd.bypassNonCombatBlock) opts.bypassNonCombatBlock = true;
             const groupRaw = String(fd.groupCasters ?? '').trim();

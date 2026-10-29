@@ -1,5 +1,8 @@
 {
   "HBM": {
+    "insanity": {
+      "illnessRoll": "Madness threshold reached - Mental Illness (d100, re-roll duplicates)"
+    },
     "system": {
       "name": "Homebrew Magic: RPG v3"
     },
@@ -138,6 +141,7 @@
       "aoeUnit": "Unit",
       "damage": "Damage",
       "damageBase": "Base damage",
+      "damageCategory": "Category Obrażenia (+1 damage)",
       "damageType": "Damage type",
       "ignoresArmor": "Ignores armor",
       "statusEffects": "Status effects",
@@ -175,6 +179,7 @@
       "artifice": "Artifice",
       "golemancy": "Golemancy",
       "runes": "Runic Magic",
+      "runic": "Runic Magic",
       "manaSourceMage": "Mana Source",
       "illusion": "Illusion",
       "sacred": "Sacred Magic",
@@ -260,6 +265,8 @@
       "heavy": "Heavy",
       "shield": "Shield",
       "stealthDisadvantage": "Stealth Disadvantage",
+      "ignoresCastingPenalty": "Does not hamper spellcasting",
+      "ignoresCastingPenaltyHint": "Special case (e.g. Cultist medium armour, Ninurta's Breastplate): skips the casting penalty",
       "strengthRequirement": "Strength Requirement",
       "rarity": "Rarity",
       "value": "Value",
@@ -363,6 +370,8 @@
     },
     "spellCast": {
       "title": "Casting spell",
+      "route": "Casting route",
+      "routeSpell": "Regular spell (Magia + Zdolności Magiczne, Mana only)",
       "diceModifier": "Dice modifier",
       "diceModifierHint": "+/- dice in the casting test (the pool never drops below 0)",
       "manaSpent": "Mana spent",

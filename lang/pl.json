@@ -1,5 +1,8 @@
 {
   "HBM": {
+    "insanity": {
+      "illnessRoll": "Próg Obłędu osiągnięty - Choroba Psychiczna (k100, powtórz duplikaty)"
+    },
     "system": {
       "name": "Homebrew Magic: RPG v3"
     },
@@ -138,6 +141,7 @@
       "aoeUnit": "Jednostka",
       "damage": "Obrażenia",
       "damageBase": "Obrażenia bazowe",
+      "damageCategory": "Kategoria Obrażenia (+1 do Obrażeń)",
       "damageType": "Typ obrażeń",
       "ignoresArmor": "Ignoruje pancerz",
       "statusEffects": "Efekty statusu",
@@ -175,6 +179,7 @@
       "artifice": "Rzemiosło Artefaktów",
       "golemancy": "Golemancja",
       "runes": "Magia Runiczna",
+      "runic": "Magia Runiczna",
       "manaSourceMage": "Źródło Mocy",
       "illusion": "Magia Iluzji",
       "sacred": "Magia Sakralna",
@@ -280,6 +285,8 @@
       "heavy": "Ciężka",
       "shield": "Tarcza",
       "stealthDisadvantage": "Utrudnia Skradanie",
+      "ignoresCastingPenalty": "Nie utrudnia rzucania zaklęć",
+      "ignoresCastingPenaltyHint": "Przypadek szczególny (np. Średnia zbroja kultysty, Napierśnik Ninurty): pomija karę do rzucania zaklęć",
       "strengthRequirement": "Wymóg Siły",
       "rarity": "Rzadkość",
       "value": "Wartość",
@@ -383,6 +390,8 @@
     },
     "spellCast": {
       "title": "Rzucanie zaklęcia",
+      "route": "Sposób rzucenia",
+      "routeSpell": "Zwykłe zaklęcie (Magia + Zdolności Magiczne, tylko Mana)",
       "diceModifier": "Modyfikator liczby kości",
       "diceModifierHint": "+/- kości w Teście rzucania (liczba kości nie spadnie poniżej 0)",
       "manaSpent": "Wydana mana",

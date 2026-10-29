@@ -16,7 +16,8 @@
 
 import { HbmTSRoll } from '../dice/ts-roll';
 import { TS_DEFAULT_REQUIRED, TS_DEFAULT_THRESHOLD, getMagicPowerEntry } from '../constants';
-import { manaToBorrow, exhaustionDice, manaExhaustionTier, overLimitTest, applyDiceModifier, SPELL_DAMAGE_PROFILES } from './rules';
+import { manaToBorrow, exhaustionDice, manaExhaustionTier, overLimitTest, applyDiceModifier, castingArmorPenalty, actorHasTalent, resolveCastAsPrayer, SPELL_DAMAGE_PROFILES } from './rules';
+import type { CastingArmorPenalty } from './rules';
 import { validateCast } from './spell-validation';
 import type { ValidationResult } from './spell-validation';
 import { rollSpellDamage } from './spell-damage';
@@ -49,12 +50,13 @@ export interface SpellLike {
     deity?: string;
     manaCost: number;
     bloodCost?: number;
-    complexityLevel: number;
     isSuperspell?: boolean;
     requiresGroupCast?: boolean;
     minCasters?: number;
     nonCombatOnly?: boolean;
     damageBase?: string;
+    /** Spell category is Obrażenia (+1 damage). Not carried by vault frontmatter yet; set per spell. */
+    damageCategory?: boolean;
     damageType?: string;
     ignoresArmor?: boolean;
     statusEffects?: string[];
@@ -72,6 +74,11 @@ export interface CastOptions {
   zealSpent?: number;
   bloodSpent?: number;
   hekateMode?: 'sacred' | 'witch';
+  /**
+   * Cast as a prayer (Dusza + Oddanie, Mana + 1 Zapał, cannot be dispelled) instead of a regular spell
+   * (Magia + Zdolności Magiczne, Mana only, can be dispelled). Every known spell may be cast either way;
+   * for `castingMode: sacred` spells an unset value means prayer (the usual route for a priest).
+   */
   castAsPrayer?: boolean;
   bypassSuperspellWarning?: boolean;
   bypassNonCombatBlock?: boolean;
@@ -111,7 +118,22 @@ async function recordRoll(rolls: CastRollEntry[], roll: HbmTSRoll, label: string
   }
 }
 
-export async function castSpell(actor: CastableActor, spell: SpellLike, opts: CastOptions = {}): Promise<CastResult> {
+/** Equipped armour / shield worn by the actor, as the casting-penalty helper wants it. */
+export function castingPenaltyFor(actor: CastableActor): CastingArmorPenalty {
+  const items = (actor as any).items as Iterable<any> | undefined;
+  const worn: Array<{ armorType: string; ignoresCastingPenalty?: boolean }> = [];
+  for (const it of items ?? []) {
+    if (it.type !== 'gear' || !it.system?.equipped || it.system?.category !== 'armor') continue;
+    worn.push({
+      armorType: String(it.system.armor?.armorType ?? 'light'),
+      ignoresCastingPenalty: !!it.system.armor?.ignoresCastingPenalty,
+    });
+  }
+  return castingArmorPenalty(worn, actorHasTalent(actor, 'Pancerz Wiary'));
+}
+
+export async function castSpell(actor: CastableActor, spell: SpellLike, rawOpts: CastOptions = {}): Promise<CastResult> {
+  const opts: CastOptions = { ...rawOpts, castAsPrayer: resolveCastAsPrayer(spell, rawOpts) };
   // 1. Validate
   const validation = validateCast(actor, spell, opts);
   if (!validation.ok) {
@@ -129,9 +151,10 @@ export async function castSpell(actor: CastableActor, spell: SpellLike, opts: Ca
   let baseRoll: HbmTSRoll | null = null;
   const rolls: CastRollEntry[] = [];
   if (mode === 'sacred') {
+    // Sacred spells are cast like any other spell: as a prayer (default) or as a regular spell.
     baseRoll = opts.hekateMode === 'witch'
       ? await castWitch(actor, spell, opts, rolls)
-      : await castSacred(actor, spell, opts, rolls);
+      : await castStandard(actor, spell, opts, rolls);
   } else if (mode === 'witch') {
     baseRoll = await castWitch(actor, spell, opts, rolls);
   } else if (mode === 'blood') {
@@ -146,7 +169,11 @@ export async function castSpell(actor: CastableActor, spell: SpellLike, opts: Ca
   if (baseRoll?.ts?.isSuccess) {
     // 4. Damage
     if (spell.system.damageBase) {
-      damageRoll = await rollSpellDamage(spell.system.damageBase, { actor, spellName: spell.name });
+      damageRoll = await rollSpellDamage(spell.system.damageBase, {
+        actor,
+        spellName: spell.name,
+        categoryBonus: !!spell.system.damageCategory,
+      });
     }
 
     // 6. Triggers
@@ -200,6 +227,8 @@ async function renderCastCard(
       })),
       type: spell.system.damageType ?? 'magical',
       ignoresArmor: !!spell.system.ignoresArmor,
+      // Fire damage: Hartowany w Ogniu takes 2 off each hit.
+      fire: spell.system.school === 'elementsFire',
       // Magiczny Pocisk: at least 1 damage reaches Żywotność after Pancerz.
       minAfterArmor: ((spell as any).flags?.['hbm-rpg-v3']?.slug ?? (spell.system as any).slug) === 'magic-missile',
       // Shield-breakers / Szkarłatny Pocisk / Prawdziwa Dezintegracja treat the magical defences specially.
@@ -260,7 +289,9 @@ async function renderCastCard(
 
 async function castStandard(actor: CastableActor, spell: SpellLike, opts: CastOptions, rolls: CastRollEntry[]): Promise<HbmTSRoll | null> {
   const baseCost = Math.max(0, spell.system.manaCost ?? 0);
-  const manaSpent = Math.max(baseCost, Math.floor(opts.manaSpent ?? baseCost));
+  const armorPenalty = castingPenaltyFor(actor);
+  // Ciężki armour: +2 Mana per spell, overcast included.
+  const manaSpent = Math.max(baseCost, Math.floor(opts.manaSpent ?? baseCost)) + armorPenalty.mana;
   const a = actor.system.attributes;
 
   // Casting beyond the remaining daily pool is allowed: the missing mana is
@@ -278,9 +309,10 @@ async function castStandard(actor: CastableActor, spell: SpellLike, opts: CastOp
   const magicDice = typeof a.magic.dicePool === 'number'
     ? a.magic.dicePool
     : getMagicPowerEntry(a.magic.actual ?? a.magic.value ?? 0).dicePool;
+  // Armour and shield penalties hit the Magia test only (a prayer rolls Dusza + Oddanie).
   const basePool = opts.castAsPrayer
     ? a.soul.value + (actor.system.skills?.devotion?.value ?? 0)
-    : magicDice + (actor.system.skills?.magicalAbilities?.value ?? 0);
+    : magicDice + (actor.system.skills?.magicalAbilities?.value ?? 0) - armorPenalty.dice;
   const pool = applyDiceModifier(basePool, opts.diceModifier);
   const flavor = opts.castAsPrayer
     ? `${spell.name} - ${game.i18n.localize('HBM.spell.castingMode.prayer')}`
@@ -347,32 +379,15 @@ async function rollIncompetencePenalty(actor: CastableActor, missing: number, ba
   });
 }
 
-async function castSacred(actor: CastableActor, spell: SpellLike, opts: CastOptions, rolls: CastRollEntry[]): Promise<HbmTSRoll | null> {
-  const a = actor.system.attributes;
-  const zealCost = Math.max(1, opts.zealSpent ?? 1);
-  await actor.update({ 'system.attributes.zeal.value': a.zeal.value - zealCost });
-
-  const pool = applyDiceModifier(a.soul.value + (actor.system.skills?.devotion?.value ?? 0), opts.diceModifier);
-  const flavor = `${spell.name} - ${game.i18n.localize('HBM.spell.castingMode.sacred')}`;
-  const required = opts.requiredOverride ?? spell.system.difficulty.successes ?? TS_DEFAULT_REQUIRED;
-  const roll = HbmTSRoll.fromParams({
-    pool,
-    threshold: spell.system.difficulty.threshold ?? TS_DEFAULT_THRESHOLD,
-    required,
-    flavor,
-  });
-  await roll.evaluate();
-  await recordRoll(rolls, roll, flavor);
-  return roll;
-}
-
 async function castWitch(actor: CastableActor, spell: SpellLike, opts: CastOptions, rolls: CastRollEntry[]): Promise<HbmTSRoll | null> {
   const a = actor.system.attributes;
-  const required = Math.max(0, spell.system.complexityLevel ?? spell.system.components?.symbols?.length ?? 0);
+  // Poziom Skomplikowania = number of Symbols in the spell.
+  const required = Math.max(0, spell.system.components?.symbols?.length ?? 0);
   const maxSymbols = Math.ceil(a.magic.actual / 2);
+  const armorPenalty = castingPenaltyFor(actor);
 
-  // Witch magic still has a mana cost.
-  const baseCost = Math.max(0, spell.system.manaCost ?? 0);
+  // Witch magic still has a mana cost (+2 in Ciężki armour).
+  const baseCost = Math.max(0, spell.system.manaCost ?? 0) + armorPenalty.mana;
   const updates: Record<string, any> = { 'system.attributes.mana.value': a.mana.value - baseCost };
   if (opts.castAsPrayer) {
     updates['system.attributes.zeal.value'] = a.zeal.value - 1;
@@ -384,7 +399,7 @@ async function castWitch(actor: CastableActor, spell: SpellLike, opts: CastOptio
     : getMagicPowerEntry((a.magic as any).actual ?? a.magic.value ?? 0).dicePool;
   const basePool = opts.castAsPrayer
     ? a.soul.value + (actor.system.skills?.devotion?.value ?? 0)
-    : magicDice + (actor.system.skills?.magicalAbilities?.value ?? 0);
+    : magicDice + (actor.system.skills?.magicalAbilities?.value ?? 0) - armorPenalty.dice;
   const pool = applyDiceModifier(basePool, opts.diceModifier);
   const flavor = opts.castAsPrayer
     ? `${spell.name} - ${game.i18n.localize('HBM.spell.castingMode.prayer')} (${required}/${maxSymbols})`
@@ -412,8 +427,9 @@ async function castBlood(actor: CastableActor, spell: SpellLike, opts: CastOptio
     updates['system.attributes.blood.value'] = Math.max(0, blood.value - bloodSpent);
   }
 
-  // Mana cost (some blood spells may also have one)
-  const manaCost = Math.max(0, spell.system.manaCost ?? 0);
+  // Mana cost (some blood spells may also have one; +2 in Ciężki armour)
+  const armorPenalty = castingPenaltyFor(actor);
+  const manaCost = Math.max(0, spell.system.manaCost ?? 0) + (Math.max(0, spell.system.manaCost ?? 0) > 0 ? armorPenalty.mana : 0);
   if (manaCost > 0) {
     updates['system.attributes.mana.value'] = a.mana.value - manaCost;
   }
@@ -427,7 +443,7 @@ async function castBlood(actor: CastableActor, spell: SpellLike, opts: CastOptio
     : getMagicPowerEntry((a.magic as any).actual ?? a.magic.value ?? 0).dicePool;
   const basePool = opts.castAsPrayer
     ? a.soul.value + (actor.system.skills?.devotion?.value ?? 0)
-    : magicDice + (actor.system.skills?.magicalAbilities?.value ?? 0);
+    : magicDice + (actor.system.skills?.magicalAbilities?.value ?? 0) - armorPenalty.dice;
   const pool = applyDiceModifier(basePool, opts.diceModifier);
   const flavor = opts.castAsPrayer
     ? `${spell.name} - ${game.i18n.localize('HBM.spell.castingMode.prayer')}`

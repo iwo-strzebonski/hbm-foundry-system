@@ -87,9 +87,11 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         }),
         // Wielka Ofiara used today (once per day; reset by Długi Odpoczynek).
         greatSacrificeUsed: makeIntField(0, { min: 0, max: 1 }),
-        // Insanity points (Klątwa Otchłani VIII). Each Abyss exposure may add 1; rolls
-        // mental-condition table when reaching thresholds.
+        // Punkty Obłędu (Choroby Psychiczne). Reaching Próg Obłędu (Dusza + 3, Krasnolud +1)
+        // resets them to 0 and gives one illness (k100 table in the vault).
         insanity: makeIntField(0, { min: 0 }),
+        // Mental illnesses gained so far (names). The 6th one means the character is lost.
+        mentalIllnesses: makeArrayField(new f.StringField({ blank: false })),
         magicalArmor: new f.SchemaField({
           value: makeIntField(0, { min: 0 }),
           max: makeIntField(0, { min: 0 }),
@@ -164,6 +166,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         bloodUsed: { selfHarm: number; lifeSteal: number; sacrifice: number; absorb: number };
         greatSacrificeUsed: number;
         insanity: number;
+        mentalIllnesses: string[];
         magicalArmor: { value: number; max: number; runicCounter: number };
         magicalShield: { value: number };
         physicalArmor: { value: number; max: number; condition: number; conditionMax: number };

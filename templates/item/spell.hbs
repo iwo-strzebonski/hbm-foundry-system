@@ -148,6 +148,7 @@
             <label>{{localize 'HBM.spell.damageBase'}}:
                 <input type="text" name="system.damageBase" value="{{system.damageBase}}" placeholder="np. 1d6+magicalAbilities" />
             </label>
+            <label><input type="checkbox" name="system.damageCategory" {{#if system.damageCategory}}checked{{/if}}/> {{localize 'HBM.spell.damageCategory'}}</label>
             <label>{{localize 'HBM.spell.damageType'}}:
                 <select name="system.damageType">
                     {{#each @root.choices.damageTypes as |label key|}}

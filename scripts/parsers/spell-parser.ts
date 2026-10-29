@@ -19,7 +19,6 @@ const SpellNoteSchema = z.object({
   bloodCost: z.number().int().min(0).default(0),
   threshold: z.number().int().min(1).max(6),
   successes: z.number().int().min(1),
-  complexityLevel: z.number().int().min(0).default(0),
   isSuperspell: z.boolean().default(false),
   requiresGroupCast: z.boolean().default(false),
   minCasters: z.number().int().min(1).default(1),
@@ -36,6 +35,7 @@ const SpellNoteSchema = z.object({
   targets: z.coerce.string().default(''),
   duration: z.coerce.string().default(''),
   damageBase: z.coerce.string().default(''),
+  damageCategory: z.boolean().default(false),
   damageType: z.string().default('magical'),
   ignoresArmor: z.boolean().default(false),
   statusEffects: z.array(z.string()).default([]),
@@ -93,6 +93,7 @@ function toSystem(n: SpellNote): Record<string, unknown> {
     duration: n.duration,
     areaOfEffect: deriveAreaOfEffect(n.targets),
     damageBase: n.damageBase,
+    damageCategory: n.damageCategory,
     damageType: n.damageType || 'magical',
     ignoresArmor: n.ignoresArmor,
     statusEffects: n.statusEffects,
@@ -105,7 +106,6 @@ function toSystem(n: SpellNote): Record<string, unknown> {
     nonCombatOnly: n.nonCombatOnly,
     overcastOptions: n.overcast.map((description) => ({ description, manaPerStep: 1 })),
     triggers: n.triggers,
-    complexityLevel: n.complexityLevel,
   };
 }
 

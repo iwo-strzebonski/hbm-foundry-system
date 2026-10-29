@@ -57,6 +57,7 @@
             </label>
             <label>{{localize 'HBM.gear.strengthRequirement'}}: <input type="number" name="system.armor.strengthRequirement" value="{{system.armor.strengthRequirement}}" min="0"/></label>
             <label><input type="checkbox" name="system.armor.stealthDisadvantage" {{#if system.armor.stealthDisadvantage}}checked{{/if}}/> {{localize 'HBM.gear.stealthDisadvantage'}}</label>
+            <label title="{{localize 'HBM.gear.ignoresCastingPenaltyHint'}}"><input type="checkbox" name="system.armor.ignoresCastingPenalty" {{#if system.armor.ignoresCastingPenalty}}checked{{/if}}/> {{localize 'HBM.gear.ignoresCastingPenalty'}}</label>
         </fieldset>
     {{/if}}
 

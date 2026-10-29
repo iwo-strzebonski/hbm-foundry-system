@@ -85,6 +85,7 @@ async function onApplyDamage(btn: HTMLElement): Promise<void> {
     shieldMultiplier: profile?.shieldMultiplier,
     destroyMagicalDefenses: profile?.destroyMagicalDefenses,
     minDamageAfterArmor: btn.dataset.minAfterArmor === 'true',
+    fire: btn.dataset.fire === 'true',
   } as any);
 }
 

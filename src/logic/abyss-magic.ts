@@ -12,12 +12,12 @@
  *                                     when present; otherwise falls back to a chat
  *                                     prompt for the GM).
  *   - rollMistrzLosuPenalty(actor)  - d100 penalty roll (Klątwa Otchłani VII).
- *   - addInsanity(actor, n)         - increments actor.system.attributes.insanity;
- *                                     when crossing a threshold, fires a hook for
- *                                     the GM to apply a mental condition.
+ *   - addInsanity(actor, n)         - adds Punkty Obłędu; at Próg Obłędu resets them,
+ *                                     rolls the illness k100 and fires `hbm.mentalIllness`.
  */
 
 import type { CastableActor } from './spell-cast';
+import { madnessThreshold } from './rules';
 
 export type AbyssDiscipline = 'aspects' | 'primal';
 
@@ -40,19 +40,33 @@ export function dispatchAbyssCast(spell: SpellLikeForAbyss): AbyssDiscipline {
   return 'aspects';
 }
 
-/** Insanity thresholds (Klątwa Otchłani VIII). Crossing any triggers a mental-condition roll. */
-const INSANITY_THRESHOLDS = [3, 6, 10, 15] as const;
-
+/**
+ * Punkty Obłędu (Choroby Psychiczne). On reaching Próg Obłędu (Dusza + 3, Krasnolud +1) the points reset
+ * to 0 (the excess is lost) and the character gains one illness: k100 against the 50-illness table in the
+ * vault (`rules/02. Klątwa Otchłani/Rozdział IV - Choroby Psychiczne.md`), re-rolling duplicates. The table
+ * itself is not copied here, so the roll is posted to chat for the GM and `hbm.mentalIllness` is fired.
+ */
 export async function addInsanity(actor: CastableActor, n: number): Promise<{ before: number; after: number; thresholdsCrossed: number[] }> {
   if (n <= 0) return { before: 0, after: 0, thresholdsCrossed: [] };
-  const before = ((actor.system.attributes as any).insanity ?? 0) as number;
+  const attrs = actor.system.attributes as any;
+  const before = (attrs.insanity ?? 0) as number;
   const after = before + n;
-  await actor.update({ 'system.attributes.insanity': after });
-  const crossed = INSANITY_THRESHOLDS.filter((t) => before < t && after >= t);
-  if (crossed.length > 0) {
-    Hooks.callAll('hbm.insanityThreshold', actor, crossed, { before, after });
+  const raceItem = (actor as any).items?.find?.((i: any) => i.type === 'race');
+  const raceId = String(raceItem?.system?.raceId ?? raceItem?.name ?? (actor as any).system?.details?.raceId ?? '');
+  const threshold = madnessThreshold(Number(attrs.soul?.value ?? 0), raceId);
+  if (after < threshold) {
+    await actor.update({ 'system.attributes.insanity': after });
+    return { before, after, thresholdsCrossed: [] };
   }
-  return { before, after, thresholdsCrossed: [...crossed] };
+  await actor.update({ 'system.attributes.insanity': 0 });
+  const roll = new Roll('1d100');
+  await roll.evaluate();
+  await roll.toMessage({
+    flavor: `${game.i18n.localize('HBM.insanity.illnessRoll')} - ${actor.name}`,
+    speaker: ChatMessage.getSpeaker({ actor: actor as unknown as Actor }),
+  });
+  Hooks.callAll('hbm.mentalIllness', actor, { before, after, threshold, roll: roll.total });
+  return { before, after: 0, thresholdsCrossed: [threshold] };
 }
 
 /** Roll d100 against a named table inside the abyss roll-tables pack. */

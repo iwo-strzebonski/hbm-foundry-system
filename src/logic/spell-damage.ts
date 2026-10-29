@@ -13,10 +13,16 @@
  */
 
 import type { CastableActor } from './spell-cast';
+import { DAMAGE_CATEGORY_BONUS } from './rules';
 
 export interface DamageContext {
   actor: CastableActor;
   spellName?: string;
+  /**
+   * Spell is of category Obrażenia: +1 damage, added once after multipliers/division
+   * (not for periodic damage, overcast bonuses, other categories, curses or artifacts).
+   */
+  categoryBonus?: boolean;
 }
 
 const ATTR_TOKENS = new Set(['body', 'mind', 'soul', 'magic', 'magicalAbilities', 'devotion']);
@@ -61,7 +67,7 @@ export function buildDamageFormula(spellDamageBase: string, ctx: DamageContext):
     return String(v);
   });
 
-  return formula;
+  return ctx.categoryBonus ? `(${formula}) + ${DAMAGE_CATEGORY_BONUS}` : formula;
 }
 
 export async function rollSpellDamage(spellDamageBase: string, ctx: DamageContext): Promise<Roll | null> {

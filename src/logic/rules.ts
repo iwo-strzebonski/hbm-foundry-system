@@ -4,8 +4,8 @@
  *
  * Rounding convention: everything fractional rounds UP, except
  *   - new-spell mana cost (nearest, min 1),
- *   - Nadczarowanie bonus from level 3 (halved, DOWN, min 1),
- *   - fire damage with Hartowany w Ogniu (halved, DOWN).
+ *   - Nadczarowanie bonus from level 3 (halved, DOWN, min 1).
+ * (Hartowany w Ogniu is a flat -2 per fire hit since the 2026-10-26 sync, no rounding.)
  */
 
 /** Odetchnięcie: at most twice between two Długie Odpoczynki. */
@@ -132,6 +132,108 @@ export function bloodAbsorbHp(blood: number, greater = false): number {
 export function bloodToZeal(blood: number): number {
   return Math.floor(Math.max(0, blood) / 5);
 }
+
+// ---------------------------------------------------------------------------
+// 2026-10-26 sync
+// ---------------------------------------------------------------------------
+
+export interface WornArmorPiece {
+  /** `armor.armorType` of an equipped gear item. */
+  armorType: string;
+  /** Special-case item that never hampers casting (Średnia zbroja kultysty, Napierśnik Ninurty). */
+  ignoresCastingPenalty?: boolean;
+}
+
+export interface CastingArmorPenalty {
+  /** Dice removed from the Magia test (positive number). */
+  dice: number;
+  /** Extra Mana per spell, also when overcasting. */
+  mana: number;
+}
+
+/**
+ * Zbroja a rzucanie zaklęć: Średni -1 die; Ciężki -3 dice and +2 Mana; Tarcza -1 die (stacks).
+ * Pancerz Wiary removes the armour penalties (dice AND Mana) but never the shield penalty.
+ * Runiczny Pancerz and Magiczne Osłony are not gear and never carry a penalty.
+ */
+export function castingArmorPenalty(worn: WornArmorPiece[], faithArmor = false): CastingArmorPenalty {
+  let dice = 0;
+  let mana = 0;
+  for (const piece of worn) {
+    if (piece.ignoresCastingPenalty) continue;
+    if (piece.armorType === 'shield') dice += 1;
+    else if (faithArmor) continue;
+    else if (piece.armorType === 'medium') dice += 1;
+    else if (piece.armorType === 'heavy') { dice += 3; mana += 2; }
+  }
+  return { dice, mana };
+}
+
+/** Does the actor own a talent item with this id / name? (case-insensitive) */
+export function actorHasTalent(actor: unknown, talentId: string): boolean {
+  const id = talentId.toLowerCase();
+  const items = (actor as any)?.items as Iterable<any> | undefined;
+  if (!items) return false;
+  for (const it of items) {
+    if (it.type !== 'talent') continue;
+    const t = String(it.system?.talentId ?? it.system?.id ?? it.name ?? '').toLowerCase();
+    if (t === id) return true;
+  }
+  return false;
+}
+
+/** Prayer or regular spell? Sacred spells default to a prayer; everything else defaults to a regular spell. */
+export function resolveCastAsPrayer(
+  spell: { system: { castingMode?: string } },
+  opts: { castAsPrayer?: boolean; hekateMode?: string },
+): boolean {
+  if (opts.castAsPrayer != null) return opts.castAsPrayer;
+  return (spell.system.castingMode ?? 'standard') === 'sacred' && opts.hekateMode !== 'witch';
+}
+
+/** Hartowany w Ogniu: each fire hit deals 2 less (min 0). */
+export function hardenedFireDamage(amount: number): number {
+  return Math.max(0, Math.trunc(amount) - 2);
+}
+
+/** Próg Obłędu: Dusza + 3 for everyone, Krasnolud +1. */
+export function madnessThreshold(soul: number, raceId = ''): number {
+  return Math.max(0, Math.trunc(soul)) + 3 + (raceId.toLowerCase() === 'dwarf' || raceId.toLowerCase() === 'krasnolud' ? 1 : 0);
+}
+
+/** Golem limit: floor(Umysł / 2), min 1 (spell golems count too; two straw golems count as one). */
+export function golemLimit(mind: number): number {
+  return Math.max(1, Math.floor(Math.max(0, mind) / 2));
+}
+
+/** Upadek: 1 per full metre above 2 m, cap 20; Ciało (Atletyka) 4:1 halves it (rounded down). */
+export function fallDamage(metres: number, halved = false): number {
+  const raw = Math.min(20, Math.max(0, Math.floor(metres) - 2));
+  return halved ? Math.floor(raw / 2) : raw;
+}
+/** A fall of 4 m or more knocks the target Przewrócony unless the landing was cushioned. */
+export const fallKnocksProne = (metres: number, cushioned = false) => !cushioned && metres >= 4;
+
+/** Test Przeżycia (Umierający): tier by damage past the death threshold; each hit while dying raises S's T by 1. */
+export function survivalTest(damagePastThreshold: number, hitsWhileDying = 0): { threshold: number; successes: number } {
+  const successes = damagePastThreshold <= 2 ? 1 : damagePastThreshold <= 5 ? 2 : 3;
+  return { threshold: 4 + Math.max(0, hitsWhileDying), successes };
+}
+
+/** Pełny Unik: Unik tests are one Stopień easier until the start of the next turn. */
+export const FULL_DODGE_THRESHOLD_DELTA = -1;
+
+/**
+ * Zapał regen at the start of a turn is blocked when since the start of the previous turn the character
+ * took a PAID extra Action or a PAID extra Immediate Action (beyond the free one). Zapał spent on prayers
+ * or Talents with their own Zapał cost does not count; Eliksir Szybkości's extra Action is free.
+ */
+export function zealRegenBlocked(paidExtraActions: number, paidExtraImmediateActions: number): boolean {
+  return paidExtraActions > 0 || paidExtraImmediateActions > 0;
+}
+
+/** Spells of category Obrażenia: +1 damage once, after multipliers/division; not for periodic/overcast/curses/artifacts. */
+export const DAMAGE_CATEGORY_BONUS = 1;
 
 /**
  * Runiczny Pancerz – points disabled by ONE hit (hits are never added together).

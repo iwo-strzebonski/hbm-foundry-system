@@ -53,6 +53,8 @@ export class GearData extends foundry.abstract.TypeDataModel {
         }),
         stealthDisadvantage: makeBoolField(false),
         strengthRequirement: makeIntField(0, { min: 0 }),
+        // Special-case armour that never hampers casting (Średnia zbroja kultysty, Napierśnik Ninurty).
+        ignoresCastingPenalty: makeBoolField(false),
       }),
     };
   }

@@ -5,6 +5,7 @@
  */
 
 import type { CastableActor, SpellLike, CastOptions } from './spell-cast';
+import { resolveCastAsPrayer, actorHasTalent } from './rules';
 
 export interface ValidationIssue {
   code: string;
@@ -29,18 +30,6 @@ function getActorRaceId(actor: CastableActor): string {
   return String(d.raceId ?? d.race ?? '').toLowerCase();
 }
 
-function actorHasTalent(actor: CastableActor, talentId: string): boolean {
-  const id = talentId.toLowerCase();
-  const items = (actor as any).items as Iterable<any> | undefined;
-  if (!items) return false;
-  for (const it of items) {
-    if (it.type !== 'talent') continue;
-    const t = String(it.system?.talentId ?? it.system?.id ?? it.name ?? '').toLowerCase();
-    if (t === id) return true;
-  }
-  return false;
-}
-
 export function matchDiscipline(disciplineId: string, targetId: string): boolean {
   const d1 = disciplineId.toLowerCase().trim();
   const d2 = targetId.toLowerCase().trim();
@@ -52,6 +41,8 @@ export function matchDiscipline(disciplineId: string, targetId: string): boolean
     abyssprimal: ['abyssprimal', 'magia otchłani', 'primal', 'eldritch', 'eldritch magic', 'abyss - primal', 'magia otchłani - pierwotna magia', 'pierwotna magia'],
     witch: ['witch', 'wiedźmia magia', 'witch magic', 'dzika wiedźmia magia', 'wildwitch'],
     blood: ['blood', 'magia krwi', 'blood magic'],
+    // Vault spells say `runic`; the discipline item id is `runes`.
+    runes: ['runes', 'runic', 'magia runiczna', 'runic magic'],
     sacred: ['sacred', 'magia sakralna', 'sacred magic'],
     sacredexorcism: ['sacredexorcism', 'magia sakralna - egzorcyzmy', 'egzorcyzmy', 'exorcism', 'exorcisms', 'sacred - exorcisms'],
   };
@@ -102,21 +93,16 @@ export function validateCast(actor: CastableActor, spell: SpellLike, opts: CastO
   const manaSpent = Math.max(baseMana, Math.floor(opts.manaSpent ?? baseMana));
   const bloodSpent = Math.max(0, Math.floor(opts.bloodSpent ?? Number(sys.bloodCost ?? 0)));
 
-  if (mode === 'standard' || mode === 'witch' || (mode === 'sacred' && opts.hekateMode === 'witch')) {
+  if (mode === 'standard' || mode === 'witch' || mode === 'sacred') {
     if (manaSpent > Number(a.mana?.value ?? 0)) {
       // Allowed since the 2026-10-20 sync: the shortfall is borrowed (Wyczerpanie Many).
       warnings.push({ code: 'borrow-mana', message: 'Not enough mana - the shortfall will be borrowed (Wyczerpanie Many)', i18nKey: 'HBM.spellCast.borrowMana' });
     }
   }
-  if (opts.castAsPrayer) {
-    if (1 > Number(a.zeal?.value ?? 0)) {
-      errors.push({ code: 'no-zeal', message: 'Not enough zeal', i18nKey: 'HBM.spellCast.notEnoughZeal' });
-    }
-  } else if (mode === 'sacred' && opts.hekateMode !== 'witch') {
-    const zealNeeded = Math.max(1, opts.zealSpent ?? 1);
-    if (zealNeeded > Number(a.zeal?.value ?? 0)) {
-      errors.push({ code: 'no-zeal', message: 'Not enough zeal', i18nKey: 'HBM.spellCast.notEnoughZeal' });
-    }
+  // Prayer (any spell, sacred by default): Mana + 1 Zapał. A regular spell costs no Zapał.
+  const asPrayer = resolveCastAsPrayer(spell, opts);
+  if (asPrayer && 1 > Number(a.zeal?.value ?? 0)) {
+    errors.push({ code: 'no-zeal', message: 'Not enough zeal', i18nKey: 'HBM.spellCast.notEnoughZeal' });
   }
   if (mode === 'blood') {
     if (bloodSpent > Number(a.blood?.value ?? 0)) {
@@ -210,7 +196,8 @@ export function validateCast(actor: CastableActor, spell: SpellLike, opts: CastO
 
   // Witch symbol cap
   if (mode === 'witch' || opts.hekateMode === 'witch') {
-    const required = Math.max(0, Number(sys.complexityLevel ?? sys.components?.symbols?.length ?? 0));
+    // Poziom Skomplikowania = number of Symbols in the spell.
+    const required = Math.max(0, Number(sys.components?.symbols?.length ?? 0));
     const maxSymbols = Math.ceil(Number(a.magic?.value ?? 0) / 2);
     if (required > maxSymbols) {
       errors.push({

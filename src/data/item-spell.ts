@@ -63,6 +63,8 @@ export class SpellData extends foundry.abstract.TypeDataModel {
 
       // Damage
       damageBase: makeStringField(''),
+      // Category Obrażenia: +1 damage (Rodzaje Obrażeń). Vault frontmatter has no category yet.
+      damageCategory: makeBoolField(false),
       damageType: makeStringField('magical', { blank: false, choices: SPELL_DAMAGE_TYPES as unknown as readonly string[] }),
       ignoresArmor: makeBoolField(false),
 
@@ -108,7 +110,7 @@ export class SpellData extends foundry.abstract.TypeDataModel {
 
       // Legacy fields (kept for migration; will be removed in a later release)
       overcasting: makeStringField(''),
-      complexityLevel: makeIntField(0, { min: 0, max: 10 }),
+      // `complexityLevel` was removed 2026-10-26: Poziom Skomplikowania = number of Symbols.
     };
   }
 }

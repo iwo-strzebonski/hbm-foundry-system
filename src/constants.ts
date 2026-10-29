@@ -135,7 +135,7 @@ export const SPELL_SCHOOLS = [
   // Academic disciplines
   'alchemyTransmutation', 'alchemyBrewing', 'botany',
   'elementsAir', 'elementsWater', 'elementsFire', 'elementsEarth',
-  'artifice', 'golemancy', 'runes', 'manaSourceMage',
+  'artifice', 'golemancy', 'runes', 'runic', 'manaSourceMage',
   'illusion', 'sacred', 'sacredExorcism', 'witch', 'necromancy',
   // Forbidden / extra-academic
   'blood', 'crimson', 'abyssAspects', 'abyssPrimal', 'wildWitch',

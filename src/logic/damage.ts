@@ -14,7 +14,7 @@
  */
 
 import { DamageType } from '../constants';
-import { triggersStun, concentrationTest, runicArmorPointsDisabled } from './rules';
+import { triggersStun, concentrationTest, runicArmorPointsDisabled, hardenedFireDamage, actorHasTalent } from './rules';
 import { gainKrewFromWeaponDamage } from './blood-magic';
 
 export interface ApplyDamageOptions {
@@ -39,6 +39,8 @@ export interface ApplyDamageOptions {
   woundKinds?: ('slashing' | 'piercing' | 'blunt')[];
   /** Attacker, for passive Krew gain (Szacunek do Życia / Krwisty Pojedynkowicz). */
   sourceActor?: any;
+  /** Fire damage: a Hartowany w Ogniu target takes 2 less per hit (min 0). */
+  fire?: boolean;
   postChat?: boolean;
 }
 
@@ -68,7 +70,8 @@ interface ActorLike {
 }
 
 export async function applyDamage(actor: ActorLike, opts: ApplyDamageOptions): Promise<DamageReport> {
-  const total = Math.max(0, Math.floor(opts.amount));
+  let total = Math.max(0, Math.floor(opts.amount));
+  if (opts.fire && actorHasTalent(actor as any, 'Hartowany w Ogniu')) total = hardenedFireDamage(total);
   const a = actor.system.attributes;
   const updates: Record<string, unknown> = {};
   const report: DamageReport = {
