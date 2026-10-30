@@ -21,6 +21,8 @@ describe('spell-parser', () => {
     expect(s.difficulty).toEqual({ threshold: 4, successes: 1 });
     expect(s.overcastOptions).toEqual([{ description: '+1 punkt Obrażeń', manaPerStep: 1 }]);
     expect(s).not.toHaveProperty('circle');
+    expect(s.damageCategory).toBe(true);
+    expect((docs.find((d) => d.id === 'crimson-bolt')!.system as any).damageCategory).toBe(true);
 
     for (const d of docs) {
       const sys = d.system as any;

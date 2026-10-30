@@ -35,6 +35,7 @@ const SpellNoteSchema = z.object({
   targets: z.coerce.string().default(''),
   duration: z.coerce.string().default(''),
   damageBase: z.coerce.string().default(''),
+  category: z.coerce.string().default(''),
   damageCategory: z.boolean().default(false),
   damageType: z.string().default('magical'),
   ignoresArmor: z.boolean().default(false),
@@ -93,7 +94,8 @@ function toSystem(n: SpellNote): Record<string, unknown> {
     duration: n.duration,
     areaOfEffect: deriveAreaOfEffect(n.targets),
     damageBase: n.damageBase,
-    damageCategory: n.damageCategory,
+    // Spells of the "Obrażenia" effect category (vault `category:`) deal +1 damage.
+    damageCategory: n.damageCategory || n.category.trim().toLowerCase() === 'obrażenia',
     damageType: n.damageType || 'magical',
     ignoresArmor: n.ignoresArmor,
     statusEffects: n.statusEffects,
